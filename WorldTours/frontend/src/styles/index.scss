@@ -1,0 +1,710 @@
+// body {
+// 	padding-left: 5%;
+// 	padding-right: 5%;
+// 	font-family: 'Arial', sans-serif;
+// }
+
+// a {
+//     text-decoration: none;
+//     color: #000000;
+// }
+  
+// a:visited {
+//     color: #000000; 
+// }
+
+// ---------------------------------------------------------------------------------------------------
+// header {
+// 	display: flex;
+// 	justify-content: space-between;
+// 	height: 155px;
+// }
+
+// .logo-href {
+// 	height: 75px;
+// 	width: 80px;
+// }
+
+// .logo-href img {
+// 	height: 100%;
+// 	width: 100%;
+// }
+
+// .info-and-main-filters {
+// 	width: 63%;
+// 	text-align: center;
+// }
+
+// .info-href {
+// 	display: flex;
+// 	justify-content: space-between;
+// 	width: 40%;
+// 	margin-left: auto;
+// 	margin-right: auto;
+// 	margin-top: 22px;
+// 	font-size: 16px;
+// }
+
+// .main-filters {
+// 	width: 100%;
+// 	height: 60px;
+// 	border: 1px solid #9D9D9D;
+// 	border-radius: 32px;
+// 	margin-top: 30px;
+// 	box-shadow: 3px 3px 3px #9D9D9D;
+// 	display: flex;
+// 	font-size: 12px;
+// }
+
+// .input-route {
+// 	width: 30%;
+// 	padding-top: 14px;
+// }
+
+// .input-route div {
+// 	width: 87%;		/*Делаем отступ 13% и ширину 87% от контейнера, тем самы освобождаем место перед элемент и элемент не вылазит за другой*/
+// 	text-align: left;
+// 	margin-left: 13%;
+// }
+
+// .input-route div:nth-child(even) {
+// 	margin-top: 5px;
+// 	color: #9D9D9D;
+// }
+
+// .input-date {
+// 	width: 16%;
+// 	padding-top: 13px;
+// }
+
+// .input-date div {
+// 	width: 90%; 		/*Делаем отступ 13% и ширину 87% от контейнера, тем самы освобождаем место перед элемент и элемент не вылазит за другой*/
+// 	text-align: left;
+// 	margin-left: 10%;
+// }
+
+// .input-date input {
+// 	width: 90%; 		/*Делаем отступ 13% и ширину 87% от контейнера, тем самы освобождаем место перед элемент и элемент не вылазит за другой*/
+// 	text-align: left;
+// 	margin-left: 8%;
+// 	border: none;
+// 	margin-top: 3px;
+// 	color: #9D9D9D;
+// 	font-size: 14px;
+// }
+
+// .input-transport {
+// 	width: 29%;
+// 	text-align: left;
+// 	padding-top: 13px;
+// }
+
+// .input-transport div{
+// 	margin-left: 7%;
+// }
+
+// .input-transport select{
+// 	margin-left: 6%;
+// 	margin-top: 5px;
+// 	border: none;
+// 	color: #9D9D9D;
+// 	font-size: 14px;
+
+// }
+
+// .search-by-main-filters {
+// 	width: 45px;
+// 	height: 45px;
+// 	border-radius: 100%;
+// 	background-color: rgb(66, 219, 132);
+// 	border: none;
+// 	margin-top: auto;
+// 	margin-bottom: auto;
+// 	margin-right: 8px;
+// }
+
+// .search-by-main-filters img {
+// 	width: 60%;
+// 	height: 60%;
+// 	margin-top: 3px;
+// }
+
+// .user {
+// 	width: 50px;
+// 	height: 50px;
+// 	background: none;
+// 	border: none;
+// }
+
+// .line-under-header{
+// 	position: absolute;
+// 	width: 100%;
+// 	left: 0px;
+// 	border-bottom: 1px solid #c5c5c5 ;
+// }
+
+//------------------------------------------------------------------------------------------------------------------
+
+// .tour-types-nav {
+// 	height: 100px;
+// 	display: flex;
+// 	justify-content: space-between;
+// 	/* border-bottom: 1px solid #c5c5c5 ; */
+// }
+
+// .tour-type {
+// 	height: 57px;
+// 	width: 57px;
+// 	text-align: center;
+// 	margin-top: 25px;
+// }
+
+// .tour-type img {
+// 	height: 50%;
+// 	width: 50%;
+	
+// }
+
+// .tour-type div {
+// 	margin-top: 5px;
+// 	font-size: 12px;
+// }
+
+// .filter-button {
+// 	margin-top: 20px;
+// 	height: 50%;
+// 	width: 170px;
+// 	display: flex;
+// 	border: 1px solid #9D9D9D;
+// 	border-radius: 12px;
+// 	background-color: white;
+// }
+
+// .filter-button img{
+// 	height: 40%;
+// 	margin-top: auto;
+// 	margin-bottom: auto;
+// 	margin-left: 12%;
+// }
+
+// .filter-button div{
+// 	margin-top: auto;
+// 	margin-bottom: auto;
+// 	margin-left: 30px;
+// 	font-size: 14px;
+// }
+
+// .tour-card {
+// 	height: 395px;
+// 	width: 320px;
+// }
+
+// .tour-card-img {
+// 	height: 75%;
+// 	width: 100%;
+// 	border-radius: 15px;
+// }
+
+// .name-and-mark-of-tour {
+// 	display: flex;
+// 	height: 35px;
+// 	margin-top: 4px;
+// }
+
+// .name-and-mark-of-tour div:nth-child(1) {
+// 	font-size: 16px;
+// 	width: 80%;
+// }
+
+// .name-and-mark-of-tour div:nth-child(2) {
+// 	font-size: 14px;
+// 	margin-left: auto;
+// 	background-color: #d50000;
+// 	padding: 5px 10px 5px 10px;
+// 	height: 40%;
+// 	color: white;
+// 	border-radius: 5px;
+// 	margin-bottom: 5px;
+// }
+
+// .tour-card-country-and-city {
+// 	font-size: 14px;
+// 	margin-top: 5px;
+// 	color: #6e6e6e;
+// }
+
+// .tour-card-hotel-stars-and-price {
+// 	margin-top: 5px;
+// 	display: flex;
+// }
+
+// .hotel-stars {
+// 	display: flex;
+// 	width: 40%;
+// 	/* justify-content: space-between; */
+// 	column-gap: 8px;
+// }
+
+
+// .tour-card-hotel-stars-and-price div:nth-child(1) img{
+// 	height: 18px;
+// }
+
+// .tour-card-price {
+// 	margin-left: auto;
+// }
+
+// .tour-card-price b{
+// 	font-size: 18px;
+// }
+
+// .tour-card-price span{
+// 	font-size: 12px;
+// 	margin-left: 3px;
+// }
+
+// .tours-list {
+// 	display: flex;
+// 	flex-wrap: wrap;
+//     column-gap: 1.7%;
+// 	row-gap: 20px;
+// 	width: 100%;
+// }
+
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// .tour {
+// 	padding-left: 8%;
+// 	padding-right: 8%;
+// }
+
+// .tour-name-and-mark {
+// 	display: flex;
+// 	height: 70px;
+// }
+
+
+// .tour-name-and-mark p{
+// 	font-size: 22px;
+// }
+
+// .tour-name-and-mark div {
+// 	font-size: 16px;
+// 	margin-left: auto;
+// 	margin-top: 1%;
+// 	padding: 10px 16px 8px 16px;
+// 	height: 30%;
+// 	color: white;
+// 	border-radius: 8px;
+// }
+
+// .tour-images {
+// 	height: 375px;
+// 	display: flex;
+// }
+
+// .main-tour-img {
+// 	width: 47%;
+// 	height: 100%;
+// 	border-radius: 15px;
+// }
+
+// .other-tour-images-and-map {
+// 	margin-left: 3%;
+// 	width: 50%;
+// }
+
+// .select-tour-images-or-map {
+// 	width: 100%;
+// 	display: flex;
+// 	column-gap: 1.5%;
+	
+// }
+
+// .select-tour-images-or-map button{
+// 	height: 35px;
+// 	width: 100px;
+// 	border-radius: 10px;
+// }
+
+// .other-tour-images {
+// 	width: 100%;
+// 	height: 80%;
+// 	padding-top: 18px;
+// 	display: flex;
+// 	flex-wrap: wrap;
+// 	column-gap: 1.7%;
+// 	align-items: stretch;
+// }
+
+// .other-tour-images img{
+// 	width: 30%;
+// 	height: 140px;
+// 	border-radius: 10px;
+
+// }
+
+// .more-tour-img-button {
+// 	height: 27px;
+// 	width: 260px;
+// 	border-radius: 10px;
+// 	margin-left: 23%;
+// }
+
+
+// .main-tour-info div:nth-child(1) {
+// 	font-size: 22px;
+// }
+
+// .main-tour-info div:nth-child(2) {
+// 	font-size: 16px;
+// 	margin-top: 6px;
+// }
+
+// .tour-hotel-stars {
+// 	margin-top: 8px;
+// 	padding-bottom: 30px;
+// 	width: 100%;
+// 	display: flex;
+// 	column-gap: 10px;
+// 	border-bottom: 1px solid #c5c5c5;
+// }
+
+// .tour-info-and-reservation {
+// 	display: flex;
+// 	margin-top: 20px;
+// }
+
+// .tour-info {
+// 	width: 57%;
+// }
+
+// .booking-menu {
+// 	width: 27%;
+// 	height: 460px;
+// 	border: 1px solid black;
+// 	position: absolute;
+// 	margin-left: 47%;
+// 	margin-top: 30px;
+// 	border-radius: 10px;
+// }
+
+// .tour-price {
+// 	margin-left: 26px;
+// 	margin-top: 22px;
+// }
+
+// .tour-price b{
+// 	font-size: 22px;
+// }
+
+// .tour-price span{
+// 	font-size: 14px;
+// 	margin-left: 3px;
+// }
+
+// .main-booking-parametrs {
+// 	width: 100%;
+// 	border-collapse: collapse;
+// }
+
+// .main-booking-parametrs td {
+// 	padding: 10px 20px 10px 20px;
+// }
+
+
+// .main-booking-parametrs {
+// 	font-size: 14px;
+// }
+
+// .main-booking-parametrs select, input[type="date"] {
+// 	margin-top: 3px;
+// 	color: #9D9D9D;
+// 	border: none;
+// 	font-size: 14px;
+// }
+
+// .main-booking-parametrs select {
+// 	margin-right: 8px;
+// }
+
+
+// .main-booking-parametrs-container {
+// 	border-radius: 15px; /* Закругляем контейнер */
+//     overflow: hidden; /* Скрываем всё, что выходит за рамки */
+//     border: 1px solid black; /* Внешняя граница */
+//     width: 80%;
+// 	margin-top: 50px;
+// 	margin-left: 40px;
+// 	margin-right: 40px;
+// 	height: 115px;
+// }
+
+// .destination {
+// 	margin-top: 3px;
+// 	color: #9D9D9D;
+// 	border: none;
+// 	font-size: 14px;
+// }
+
+// .people-count {
+// 	display: flex;
+// 	width: 50%;
+// 	margin-top: 18px;
+// 	margin-left: 160px;
+// }
+
+// .people-count input[type="number"] {
+// 	width: 40px;
+// 	margin-left: auto;
+// 	border-radius: 5px;
+// 	border: 1px solid black;
+// }
+
+// .tour-application-button {
+// 	width: 80%;
+// 	height: 45px;
+// 	margin-left: 40px;
+// 	margin-top: 15px;
+// 	border-radius: 10px;
+// 	font-size: 16px;
+// 	color: white;
+// 	border: none;
+// 	background-color: rgb(231, 51, 81);
+// }
+
+// .routes-info{
+// 	margin-top: 30px;
+// }
+
+// .routes-info > div{
+// 	height: 30px;
+// 	padding-left: 16%;
+// 	padding-right: 16%;
+// 	display: flex;
+// }
+
+// .routes-info img{
+// 	height: 100%;
+// 	/* transform: rotate(180deg); */
+// }
+
+// .route-date-and-time {
+// 	margin-left: 7%;
+// }
+
+// .route-date-and-time > div:nth-child(1) {
+// 	font-size: 14px;
+// }
+
+// .route-date-and-time > div:nth-child(2) {
+// 	font-size: 13px;
+// 	color: #9D9D9D;
+// }
+
+
+// .route-city-and-duration {
+// 	margin-left: 13%;
+// }
+
+// .route-city-and-duration > div:nth-child(1) {
+// 	font-size: 14px;
+// }
+
+// .route-city-and-duration > div:nth-child(2) {
+// 	font-size: 13px;
+// 	color: #9D9D9D;
+// }
+
+// .routes-info > div:nth-child(2){
+// 	margin-top: 30px;
+// }
+
+// .routes-info > div:nth-child(2) img{
+// 	transform: rotate(180deg);
+// }
+
+// .main-services{
+// 	margin-top: 30px;
+// }
+
+// .main-service{
+// 	margin-top: 30px;
+// 	display: flex;
+// }
+
+// .main-service > img{
+// 	height: 30px;
+// }
+
+// .main-service > div{
+// 	margin-top: 8px;
+// 	margin-left: 1.5%;
+// 	font-size: 18px;
+// }
+
+// .tour-desription {
+// 	margin-top: 25px;
+// 	text-align: justify;
+// 	padding-bottom: 25px;
+// 	line-height: 25px;
+// }
+
+// .tour-characteristic {
+// 	border-top: 1px solid #c5c5c5;
+// 	padding-top: 25px;
+// 	padding-bottom: 25px;
+// 	display: flex;
+// }
+
+// .tour-characteristic > div:nth-child(1){
+// 	width: 30%;
+// }
+
+// .tour-characteristic > div:nth-child(2) ul{
+// 	margin-top: 0px;
+// 	list-style: none; 
+// }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+
+// .auth-logo {
+//     height: 80px;
+//     display: flex;
+//     margin-left: auto;
+//     justify-content: center;
+//     margin-top: 30px;
+// }
+
+// .auth-logo p { 
+//     margin-left: 10px;
+//     margin-top: 32px;
+//     font-size: 30px;
+// }
+
+// .auth {
+//     background-color: aliceblue;
+//     height: 500px;
+//     width: 25%;
+//     margin-left: 37.5%;
+//     margin-top: 100px;
+//     border-radius: 20px;
+// }
+
+// .reg-log {
+//     text-align: center;
+//     padding-top: 36px;
+// }
+
+// .reg-log button {
+//     width: 27%;
+//     height: 27px;
+//     margin-left: 10px;
+// }
+
+// .auth-form {
+//     text-align: center;
+// }
+
+// .auth-form input {
+//     width: 300px;
+//     height: 24px;
+//     margin-top: 20px;
+//     background-color: aliceblue;
+//     border-color: transparent transparent black transparent;
+// }
+
+// .auth-form input:focus {
+//     outline: none;
+// }
+
+// .auth-form button {
+//     height: 30px;
+//     width: 200px;
+//     background-color: rgb(60, 80, 254);
+//     color: white;
+//     border-radius: 8px;
+//     border: none;
+// }
+
+// #errorMessage {
+//     color: red;
+//     height: 20px;
+//     text-align: center;
+// }
+
+//------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------
+
+// .filters-overlay {
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	width: 100%;
+// 	height: 100%;
+// 	background-color: rgba(0, 0, 0, 0.5); /* Затемнение фона */
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	z-index: 1000; /* Модальное окно впереди всех элементов */
+// }
+  
+// .filters {
+// 	background-color: white;
+// 	padding: 20px;
+// 	border-radius: 8px;
+// 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+// 	z-index: 1001; /* На всякий случай */
+// 	width: 300px;
+// 	text-align: center;
+// }
+
+//------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------
+
+
+// .survey {
+// 	padding-left: 8%;
+// 	padding-right: 8%;
+// }
+
+// .months {
+// 	padding-top: 7%;
+// }
+
+// .month {
+// 	width: 240px;
+// 	height: 200px;
+// 	border-radius: 20px;
+// 	border: none;
+// 	padding: 0px;
+// }
+
+// .month > div:nth-child(1) {
+// 	width: 100%;
+// 	height: 80%;
+// }
+
+// .month img {
+// 	width: 100%;
+// 	height: 100%;
+// }
+
+// .month > div:nth-child(2) {
+// 	width: 100%;
+// 	height: 100%;
+// }
+
+// .month > div:nth-child(2) {
+// 	background-color: green;
+// 	height: 20%;
+// 	border: none;
+// }
+
+// .month > div:nth-child(2){
+// 	font-size: 20px;
+// 	color: white;
+// }
