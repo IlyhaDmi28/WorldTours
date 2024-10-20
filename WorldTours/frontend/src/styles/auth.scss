@@ -1,64 +1,64 @@
-auth-logo {
-    height: 80px;
-    display: flex;
-    margin-left: auto;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.auth-logo p { 
-    margin-left: 10px;
-    margin-top: 32px;
-    font-size: 30px;
-}
-
 .auth {
-    background-color: aliceblue;
-    height: 500px;
-    width: 25%;
-    margin-left: 37.5%;
-    margin-top: 100px;
-    border-radius: 20px;
-}
+	background-color: aliceblue;
+	height: 500px;
+	width: 25%;
+	margin-left: 37.5%;
+	margin-top: 100px;
+	border-radius: 20px;
 
-.reg-log {
-    text-align: center;
-    padding-top: 36px;
-}
+	.auth-logo {
+		height: 80px;
+		display: flex;
+		margin-left: auto;
+		justify-content: center;
+		margin-top: 30px;
 
-.reg-log button {
-    width: 27%;
-    height: 27px;
-    margin-left: 10px;
-}
+		p {
+			margin-left: 10px;
+			margin-top: 32px;
+			font-size: 30px;
+		}
+	}
 
-.auth-form {
-    text-align: center;
-}
+	.reg-log {
+		text-align: center;
+		padding-top: 36px;
 
-.auth-form input {
-    width: 300px;
-    height: 24px;
-    margin-top: 20px;
-    background-color: aliceblue;
-    border-color: transparent transparent black transparent;
-}
+		button {
+			width: 27%;
+			height: 27px;
+			margin-left: 10px;
+		}
+	}
 
-.auth-form input:focus {
-    outline: none;
-}
+	.auth-form {
+		text-align: center;
 
-.auth-form button {
-    height: 30px;
-    width: 200px;
-    background-color: rgb(60, 80, 254);
-    color: white;
-    border-radius: 8px;
-    border: none;
-}
+		input {
+			width: 300px;
+			height: 24px;
+			margin-top: 20px;
+			background-color: aliceblue;
+			border-color: transparent transparent black transparent;
 
-#errorMessage {
-    color: red;
-    height: 20px;
-    text-align: center;
+			&:focus {
+				outline: none;
+			}
+		}
+
+		button {
+			height: 30px;
+			width: 200px;
+			background-color: rgb(60, 80, 254);
+			color: white;
+			border-radius: 8px;
+			border: none;
+		}
+	}
+
+	#errorMessage {
+		color: red;
+		height: 20px;
+		text-align: center;
+	}
 }

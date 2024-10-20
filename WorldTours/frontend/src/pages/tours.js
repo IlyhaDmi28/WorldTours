@@ -9,21 +9,20 @@ function Tours() {
 	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
 	const tour = {
-		name: "Логово Андрея ЧЧЧЧЧЧЧЧЧЧЧЧЧЧ",
+		name: 'Логово Андрея ЧЧЧЧЧЧЧЧЧЧЧЧЧЧ',
 		mark: 4.5,
-		country: "Страна",
-		city: "город",
+		country: 'Страна',
+		city: 'город',
 		hotelStars: 5,
 		price: 800,
 	};
-
 
 	// Функция для открытия модального окна
 	const openFilters = () => {
 		setIsFiltersOpen(true);
 		document.body.style.overflow = 'hidden'; // Отключаем прокрутку страницы
 	};
-  
+
 	// Функция для закрытия модального окна
 	const closeFilters = () => {
 		setIsFiltersOpen(false);
@@ -32,24 +31,24 @@ function Tours() {
 
 	return (
 		<div className="tours">
-			<Header/>
+			<Header />
 			<div className="line-under-header"></div>
 			<TourTypesNav openFilters={openFilters} />
 			<div className="tours-list">
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
-				<TourCard tour={tour}/>
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
+				<TourCard tour={tour} />
 			</div>
 
 			<Filters isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} />

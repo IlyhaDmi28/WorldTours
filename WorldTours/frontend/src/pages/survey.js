@@ -6,9 +6,9 @@ import Months from '../components/survey/months';
 function Survey() {
 	return (
 		<div className="survey">
-			<SmallHeader/>
+			<SmallHeader />
 			<div className="line-under-header"></div>
-            <Months/>
+			<Months />
 		</div>
 	);
 }

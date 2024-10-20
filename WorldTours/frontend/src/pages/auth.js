@@ -4,14 +4,14 @@ import LoginForm from '../components/auth/loginForm';
 import RegisterForm from '../components/auth/registerForm';
 import AuthLogo from '../components/auth/authLogo';
 
-function Authorization() {
-  	// Состояние для отслеживания текущего режима: 'login' или 'register'
-  	const [mode, setMode] = useState('login');
+function Auth() {
+	// Состояние для отслеживания текущего режима: 'login' или 'register'
+	const [mode, setMode] = useState('login');
 
-  	// Функции для изменения режима между 'login' и 'register'
-  	const switchToLogin = () => {
-    	setMode('login');
-  	};
+	// Функции для изменения режима между 'login' и 'register'
+	const switchToLogin = () => {
+		setMode('login');
+	};
 
 	const switchToRegister = () => {
 		setMode('register');
@@ -24,7 +24,7 @@ function Authorization() {
 		borderRadius: '8px',
 		cursor: 'pointer', // курсор при наведении
 	};
-	
+
 	const activeRegisterModeStyle = {
 		backgroundColor: mode === 'register' ? 'rgb(60, 80, 254)' : 'transparent', // изменение цвета фона
 		color: mode === 'register' ? 'white' : 'black', // изменение цвета текста
@@ -36,20 +36,20 @@ function Authorization() {
 	return (
 		<div>
 			<div className="auth">
-				<AuthLogo/>
+				<AuthLogo />
 				<div className="reg-log">
-					<button style={activeLoginModeStyle} onClick={switchToLogin}>Вход</button>
-					<button style={activeRegisterModeStyle}onClick={switchToRegister}>Регистрация</button>
+					<button style={activeLoginModeStyle} onClick={switchToLogin}>
+						Вход
+					</button>
+					<button style={activeRegisterModeStyle} onClick={switchToRegister}>
+						Регистрация
+					</button>
 				</div>
-				{mode === 'login' && (
-  					<LoginForm/>
-				)}
-				{mode === 'register' && (
-  					<RegisterForm/>
-				)}
+				{mode === 'login' && <LoginForm />}
+				{mode === 'register' && <RegisterForm/>}
 			</div>
 		</div>
-  	);
+	);
 }
 
-export default Authorization;
+export default Auth;
