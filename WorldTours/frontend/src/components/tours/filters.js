@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Filters({ isFiltersOpen, closeFilters }) {
     if (!isFiltersOpen) {
         return null; // Если модальное окно закрыто, возвращаем null, чтобы не рендерить его

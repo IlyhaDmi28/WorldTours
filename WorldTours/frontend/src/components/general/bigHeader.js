@@ -1,10 +1,11 @@
-import logo from '../../img/logo.png';
-import account from '../../img/account.svg';
+import React, { useState } from 'react';
 import MainFilters from './mainFilters';
+import UserConroller from './userController';   
+import logo from '../../img/logo.png';
 
-function SmallHeader() {
+function BigHeader() {
 	return (
-	    <header style={{height: '100px'}}>
+	    <header>
             <a className='logo-href' href='/tours'>
                 <img src={logo} alt="logo" />
             </a>
@@ -14,12 +15,11 @@ function SmallHeader() {
                     <a>Оплата</a>
                     <a href="/survey">Куда поехать?</a>
                 </div>
+                <MainFilters/>
             </div>
-            <button className="user">
-                <img src={account}/>
-            </button>
+            <UserConroller right={'0px'}/>
         </header>
   	);
 }
 
-export default SmallHeader;
+export default BigHeader;

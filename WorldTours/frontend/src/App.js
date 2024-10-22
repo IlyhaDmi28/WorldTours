@@ -5,6 +5,7 @@ import Countries from './pages/countries';
 import Tour from './pages/tour';
 import Auth from './pages/auth';
 import Survey from './pages/survey';
+import User from './pages/user';
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 				<Route path="/tour" element={<Tour />} />
 				<Route path="/auth" element={<Auth />} />
 				<Route path="/survey" element={<Survey />} />
+				<Route path="/user" element={<User/>} />
 			</Routes>
 		</Router>
 	);

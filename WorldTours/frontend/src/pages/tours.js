@@ -1,6 +1,6 @@
 import '../styles/tours.scss';
 import React, { useState } from 'react';
-import Header from '../components/general/header';
+import BigHeader from '../components/general/bigHeader';
 import TourTypesNav from '../components/tours/tourTypesNav';
 import TourCard from '../components/tours/tourCard';
 import Filters from '../components/tours/filters';
@@ -31,7 +31,7 @@ function Tours() {
 
 	return (
 		<div className="tours">
-			<Header />
+			<BigHeader/>
 			<div className="line-under-header"></div>
 			<TourTypesNav openFilters={openFilters} />
 			<div className="tours-list">

@@ -1,10 +1,16 @@
+import React, { useState } from 'react';
+import UserConroller from './userController';
 import logo from '../../img/logo.png';
-import account from '../../img/account.svg';
-import MainFilters from './mainFilters';
 
 function Header() {
+    const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
+
+    const openOrCloseUserMenu = () => {
+        setIsOpenUserMenu(!isOpenUserMenu);
+    };
+
 	return (
-	    <header>
+	    <header style={{height: '100px'}}>
             <a className='logo-href' href='/tours'>
                 <img src={logo} alt="logo" />
             </a>
@@ -14,11 +20,8 @@ function Header() {
                     <a>Оплата</a>
                     <a href="/survey">Куда поехать?</a>
                 </div>
-                <MainFilters/>
-            </div>
-            <button className="user">
-                <img src={account}/>
-            </button>
+            </div>  
+            <UserConroller right={'7.5%'}/>
         </header>
   	);
 }

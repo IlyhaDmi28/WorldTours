@@ -1,14 +1,15 @@
 import '../styles/survey.scss';
 import React, { useState } from 'react';
-import SmallHeader from '../components/general/smallHeader';
+import Header from '../components/general/header';
 import Months from '../components/survey/months';
 
 function Survey() {
 	return (
 		<div className="survey">
-			<SmallHeader />
+			<Header/>
 			<div className="line-under-header"></div>
-			<Months />
+			<div id="question">ВЫБЕРИТЕ МЕСЯЦ</div>
+			<Months/>
 		</div>
 	);
 }

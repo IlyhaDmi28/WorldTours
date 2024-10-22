@@ -1,14 +1,20 @@
 import '../styles/auth.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginForm from '../components/auth/loginForm';
 import RegisterForm from '../components/auth/registerForm';
 import AuthLogo from '../components/auth/authLogo';
 
 function Auth() {
-	// Состояние для отслеживания текущего режима: 'login' или 'register'
+	useEffect(() => {
+		document.body.style.backgroundColor = 'lightblue';
+	
+		return () => {
+		  	document.body.style.backgroundColor = '';
+		};
+	}, []);
+
 	const [mode, setMode] = useState('login');
 
-	// Функции для изменения режима между 'login' и 'register'
 	const switchToLogin = () => {
 		setMode('login');
 	};

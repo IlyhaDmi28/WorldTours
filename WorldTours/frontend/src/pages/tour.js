@@ -1,5 +1,5 @@
 import '../styles/tour.scss';
-import SmallHeader from '../components/general/smallHeader';
+import Header from '../components/general/header';
 import BookingMenu from '../components/tour/bookingMenu';
 import tourp from '../img/test.jpg';
 import star from '../img/star.svg';
@@ -22,7 +22,7 @@ function Tour() {
 
 	return (
 		<div className="tour">
-			<SmallHeader />
+			<Header />
 			<div className="line-under-header"></div>
 
 			<div className="tour-name-and-mark">
