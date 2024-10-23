@@ -1,0 +1,73 @@
+@import '../variabels/colors.scss'; 
+$margin-from-left-booking: 200px;
+
+.bookings-list {
+	padding-left: 8%;
+	padding-right: 8%;
+
+	.booking-card {
+		display: block;
+		position: relative;
+		height: 180px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+		border-bottom: 1px solid $light-grey-color;
+
+		.booking-card-img {
+			position: absolute;
+			height: 180px;
+			width: 180px;
+			border-radius: 10px;
+		}
+
+		.booking-card-name {
+			position: absolute;
+			font-size: 20px;
+			left: $margin-from-left-booking;
+			top: 27px;
+		}
+
+		.booking-card-route {
+			position: absolute;
+			font-size: 14px;
+			left: $margin-from-left-booking;
+			top: 55px;
+			color: $dark-grey-color;
+		}
+
+		.booking-card-date {
+			position: absolute;
+			font-size: 14px;
+			left: $margin-from-left-booking;
+			top: 100px;
+			color: $dark-grey-color;
+		}
+
+		.booking-card-hotel-stars {
+			position: absolute;
+			display: flex;
+			left: $margin-from-left-booking;
+			top: 127px;
+
+			display: flex;
+			column-gap: 8px;
+
+			img {
+				height: 18px;
+			}
+		}
+
+		.tour-card-price {
+			b {
+				font-size: 24px;
+			}
+			span {
+				font-size: 14px;
+			}
+			position: absolute;
+			right: 0px;
+			top: 40%;
+		}
+	}
+}

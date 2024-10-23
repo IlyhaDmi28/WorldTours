@@ -7,6 +7,7 @@ import Auth from './pages/auth';
 import Survey from './pages/survey';
 import User from './pages/user';
 import Bookings from './pages/bookings';
+import History from './pages/history';
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 				<Route path="/user" element={<User/>} />
 				<Route path="/user" element={<User/>} />
 				<Route path="/bookings" element={<Bookings/>} />
+				<Route path="/history" element={<History/>} />
 			</Routes>
 		</Router>
 	);

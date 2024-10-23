@@ -25,10 +25,10 @@ function UserController({ right }) {
             {isOpenUserMenu && (
                 <div className='user-menu' style={{ right }}>
                     <ul>
-                        <li onClick={openOrCloseUserMenu}><a href='/user'>Редактировать профиль</a></li>
-                        <li onClick={openOrCloseUserMenu}><a href='/bookings'>Мои брони</a></li>
-                        <li onClick={openOrCloseUserMenu}>История броней</li>
-                        <li onClick={openOrCloseUserMenu}><a href='/auth' style={{color: 'red'}}>Выйти</a></li>
+                        <li><a href='/user'>Редактировать профиль</a></li>
+                        <li><a href='/bookings'>Мои брони</a></li>
+                        <li><a href='/history'>История броней</a></li>
+                        <li><a href='/auth' style={{color: 'red'}}>Выйти</a></li>
                     </ul>
                 </div>
             )}
