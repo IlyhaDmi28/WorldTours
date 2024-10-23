@@ -26,7 +26,7 @@ function UserController({ right }) {
                 <div className='user-menu' style={{ right }}>
                     <ul>
                         <li onClick={openOrCloseUserMenu}><a href='/user'>Редактировать профиль</a></li>
-                        <li onClick={openOrCloseUserMenu}>Мои брони</li>
+                        <li onClick={openOrCloseUserMenu}><a href='/bookings'>Мои брони</a></li>
                         <li onClick={openOrCloseUserMenu}>История броней</li>
                         <li onClick={openOrCloseUserMenu}><a href='/auth' style={{color: 'red'}}>Выйти</a></li>
                     </ul>

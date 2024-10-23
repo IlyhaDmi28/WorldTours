@@ -6,6 +6,7 @@ import Tour from './pages/tour';
 import Auth from './pages/auth';
 import Survey from './pages/survey';
 import User from './pages/user';
+import Bookings from './pages/bookings';
 
 function App() {
 	return (
@@ -17,6 +18,8 @@ function App() {
 				<Route path="/auth" element={<Auth />} />
 				<Route path="/survey" element={<Survey />} />
 				<Route path="/user" element={<User/>} />
+				<Route path="/user" element={<User/>} />
+				<Route path="/bookings" element={<Bookings/>} />
 			</Routes>
 		</Router>
 	);

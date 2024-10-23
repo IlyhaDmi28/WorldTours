@@ -1,7 +1,7 @@
 import tourp from '../../img/test.jpg'
 import star from '../../img/star.svg'
 
-function Tour({ tour }) {
+function TourCard({ tour }) {
     const getBackgroundColorMark = (mark) => {
         if (mark >= 4) {
             return '#0FE500'; 
@@ -47,4 +47,4 @@ function Tour({ tour }) {
   	);
 }
 
-export default Tour;
+export default TourCard;
