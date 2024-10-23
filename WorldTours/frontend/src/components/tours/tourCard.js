@@ -20,26 +20,22 @@ function TourCard({ tour }) {
 	    <a className="tour-card" href='/tour'>
             <img className="tour-card-img" src={tourp}/>
             <div className="tour-card-info">
-                <div className='name-and-mark-of-tour'>
-                    <div><b>{tour.name}</b></div>
-                    <div style={{ backgroundColor: getBackgroundColorMark(tour.mark) }}><b>{tour.mark}</b></div>
+                <div>
+                    <div className='tour-card-name'><b>{tour.name}</b></div>
+                    <div className='tour-card-mark' style={{ backgroundColor: getBackgroundColorMark(tour.mark) }}><b>{tour.mark}</b></div>
                 </div>
                    
                 <div className="tour-card-country-and-city">
                     {tour.country}, {tour.city}
                 </div>
 
-                <div className="tour-card-hotel-stars-and-price">
-                    <div className="hotel-stars">
+                <div>
+                    <div className="tour-card-hotel-stars">
                         {Array(tour.hotelStars).fill().map((_, i) => <img src={star} key={i}/>)}
                     </div>
                     <div className="tour-card-price">
-                        <b>
-                            {tour.price}
-                        </b>
-                        <span>
-                            BYN
-                        </span>
+                        <b>{tour.price}</b>
+                        <span>BYN</span>
                     </div>
                 </div>
             </div>

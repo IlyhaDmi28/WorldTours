@@ -1,125 +1,119 @@
 $margin-from-img: 200px;
 
-.bookings {
+.change-show-bookings-list {
+	display: flex;
+	justify-content: center;
+	column-gap: 2%;
+	height: 80px;
+	justify-self: center;
+
+	button {
+		width: 160px;
+		height: 30px;
+		border-radius: 20px;
+		border: none;
+		background-color: rgb(224, 190, 39);
+		color: white;
+		font-size: 14px;
+		margin-top: 2.5%;
+	}
+}
+
+.bookings-list {
 	padding-left: 8%;
 	padding-right: 8%;
 
-	.change-show-bookings-list {
-		display: flex;
-		justify-content: center;
-		column-gap: 2%;
-		height: 80px;
-		justify-self: center;
+	.booking-card {
+		display: block;
+		position: relative;
+		height: 180px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+		border-bottom: 1px solid #c5c5c5;
 
-		button {
-			width: 160px;
-			height: 30px;
-			border-radius: 20px;
-			border: none;
-			background-color: rgb(224, 190, 39);
-			color: white;
-			font-size: 14px;
-			margin-top: 2.5%;
-		}
-	}
-
-    .bookings-list {
-		padding-left: 8%;
-		padding-right: 8%;
-
-		.booking-card {
-			display: block;
-			position: relative;
+		.booking-card-img {
+			position: absolute;
 			height: 180px;
-			padding-top: 20px;
-			padding-bottom: 20px;
-       	 	width: 100%;
-			border-bottom: 1px solid #c5c5c5;
-    
-			.booking-card-img {
-				position: absolute;
-				height: 180px;
-				width: 180px;
-				border-radius: 10px;
-			}
+			width: 180px;
+			border-radius: 10px;
+		}
 
-			.booking-card-name {
-				position: absolute;
-				font-size: 20px;
-				left: $margin-from-img;
-				top: 27px;
-			}
+		.booking-card-name {
+			position: absolute;
+			font-size: 20px;
+			left: $margin-from-img;
+			top: 27px;
+		}
 
-			.booking-card-route {
-				position: absolute;
+		.booking-card-route {
+			position: absolute;
+			font-size: 14px;
+			left: $margin-from-img;
+			top: 55px;
+			color: #6e6e6e;
+		}
+
+		.booking-card-date {
+			position: absolute;
+			font-size: 14px;
+			left: $margin-from-img;
+			top: 100px;
+			color: #6e6e6e;
+		}
+
+		.booking-card-hotel-stars {
+			position: absolute;
+			display: flex;
+			left: $margin-from-img;
+			top: 127px;
+
+			display: flex;
+			column-gap: 8px;
+
+			img {
+				height: 18px;
+			}
+		}
+
+		.booking-card-status {
+			position: absolute;
+			font-size: 13px;
+			background-color: rgb(69, 189, 69);
+			left: $margin-from-img;
+			bottom: 30px;
+			height: 22px;
+			padding-top: 6px;
+			width: 160px;
+			text-align: center;
+			border-radius: 14px;
+			color: white;
+		}
+
+		.tour-card-price {
+			b {
+				font-size: 24px;
+			}
+			span {
 				font-size: 14px;
-				left: $margin-from-img;
-				top: 55px;
-				color: #6e6e6e;
 			}
+			position: absolute;
+			right: 0px;
+			top: 40%;
+		}
 
-			.booking-card-date {
-				position: absolute;
-				font-size: 14px;
-				left: $margin-from-img;
-				top: 100px;
-				color: #6e6e6e;
-			}
+		.tour-card-delete-button {
+			position: absolute;
+			top: 20px;
+			right: 0px;
+			width: 35px;
+			height: 35px;
+			background-color: white;
+			border: none;
+			z-index: 1001;
 
-			.booking-card-hotel-stars {
-				position: absolute;
-				display: flex;
-				left: $margin-from-img;
-				top: 127px;
-
-				display: flex;
-                column-gap: 8px;
-    
-                img {
-                    height: 18px;
-                }
-			}
-
-			.booking-card-status {
-				position: absolute;
-				font-size: 13px;
-				background-color: rgb(69, 189, 69);
-				left: $margin-from-img;
-				bottom: 30px;
-				height: 22px;
-				padding-top: 6px;
-				width: 160px;
-				text-align: center;
-				border-radius: 14px;
-				color: white;
-			}
-
-			.tour-card-price {
-				b {
-					font-size: 24px;
-				}
-				span {
-					font-size: 14px;
-				}
-				position: absolute;
-				right: 0px;
-				top: 40%;
-			}
-
-			.tour-card-delete-button {
-				position: absolute;
-				top: 20px;
-				right: 0px;
-				width: 35px;
-				height: 35px;
-				background-color: white;
-				border: none;
-				z-index: 1001;
-				
-				img {
-					width: 100%;
-				}
-				
+			img {
+				width: 100%;
 			}
 		}
 	}

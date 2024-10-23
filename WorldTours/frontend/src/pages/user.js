@@ -103,11 +103,11 @@ function User() {
     // };
 
 	return (
-        <div className="user">
+        <div className="user narrow-conteiner">
             <Header />
             <div className="line-under-header"></div>
 
-            <div>
+            <div className='user-editor'>
                 <div className='user-parametrs'>
                     <div className='ava-controller'>
                         {/* Там с фотками какая-то хуета, чекни усебя на гитхабе в RentalPremise */}

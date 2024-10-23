@@ -2,46 +2,44 @@
 	height: 100px;
 	display: flex;
 	justify-content: space-between;
-	// border-bottom: 1px solid #c5c5c5;
 
-    .tour-type {
-        height: 57px;
-        width: 57px;
-        text-align: center;
-        margin-top: 25px;
-    
-        img {
-            height: 50%;
-            width: 50%;
-        }
-    
-        div {
-            margin-top: 5px;
-            font-size: 12px;
-        }
-    }
-    
-    .filter-button {
-        margin-top: 20px;
-        height: 50%;
-        width: 170px;
-        display: flex;
-        border: 1px solid #9d9d9d;
-        border-radius: 12px;
-        background-color: white;
-    
-        img {
-            height: 40%;
-            margin: auto 0 auto 12%;
-        }
-    
-        div {
-            margin: auto 0 auto 30px;
-            font-size: 14px;
-        }
-    }
+	.tour-type {
+		height: 57px;
+		width: 57px;
+		text-align: center;
+		margin-top: 25px;
+
+		img {
+			height: 50%;
+			width: 50%;
+		}
+
+		div {
+			margin-top: 5px;
+			font-size: 12px;
+		}
+	}
+
+	.filter-button {
+		margin-top: 20px;
+		height: 50%;
+		width: 170px;
+		display: flex;
+		border: 1px solid #9d9d9d;
+		border-radius: 12px;
+		background-color: white;
+
+		img {
+			height: 40%;
+			margin: auto 0 auto 12%;
+		}
+
+		div {
+			margin: auto 0 auto 30px;
+			font-size: 14px;
+		}
+	}
 }
-
 
 .tours-list {
 	display: flex;
@@ -50,72 +48,74 @@
 	row-gap: 20px;
 	width: 100%;
 
-    .tour-card {
-        height: 395px;
-        width: 320px;
-    
-        .tour-card-img {
-            height: 75%;
-            width: 100%;
-            border-radius: 15px;
-        }
-    
-        .name-and-mark-of-tour {
-            display: flex;
-            height: 35px;
-            margin-top: 4px;
-    
-            div:nth-child(1) {
-                font-size: 16px;
-                width: 80%;
-            }
-    
-            div:nth-child(2) {
-                font-size: 14px;
-                margin-left: auto;
-                background-color: #d50000;
-                padding: 5px 10px;
-                height: 40%;
-                color: white;
-                border-radius: 5px;
-                margin-bottom: 5px;
-            }
-        }
-    
-        .tour-card-country-and-city {
-            font-size: 14px;
-            margin-top: 5px;
-            color: #6e6e6e;
-        }
-    
-        .tour-card-hotel-stars-and-price {
-            margin-top: 5px;
-            display: flex;
-    
-            .hotel-stars {
+	.tour-card {
+		height: 395px;
+		width: 320px;
+
+		.tour-card-img {
+			height: 75%;
+			width: 100%;
+			border-radius: 15px;
+		}
+
+        .tour-card-info {
+            >div:nth-child(1) {
                 display: flex;
-                width: 40%;
-                column-gap: 8px;
+                height: 35px;
+                margin-top: 4px;
     
-                img {
-                    height: 18px;
+                .tour-card-name {
+                    font-size: 16px;
+                    width: 80%;
+                }
+    
+                .tour-card-mark {
+                    font-size: 14px;
+                    margin-left: auto;
+                    background-color: #d50000;
+                    padding: 5px 10px;
+                    height: 40%;
+                    color: white;
+                    border-radius: 5px;
+                    margin-bottom: 5px;
                 }
             }
     
-            .tour-card-price {
-                margin-left: auto;
+            .tour-card-country-and-city {
+                font-size: 14px;
+                margin-top: 5px;
+                color: #6e6e6e;
+            }
     
-                b {
-                    font-size: 18px;
+            >div:nth-child(3) {
+                margin-top: 5px;
+                display: flex;
+    
+                .tour-card-hotel-stars {
+                    display: flex;
+                    width: 40%;
+                    column-gap: 8px;
+    
+                    img {
+                        height: 18px;
+                    }
                 }
     
-                span {
-                    font-size: 12px;
-                    margin-left: 3px;
+                .tour-card-price {
+                    margin-left: auto;
+    
+                    b {
+                        font-size: 18px;
+                    }
+    
+                    span {
+                        font-size: 12px;
+                        margin-left: 3px;
+                    }
                 }
             }
         }
-    }
+	}
 }
 
 .filters-overlay {

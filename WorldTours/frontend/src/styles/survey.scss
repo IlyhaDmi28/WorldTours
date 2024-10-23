@@ -1,69 +1,59 @@
-
 $month-border-radius: 12px;
 
-.survey {
-	padding-left: 8%;
-	padding-right: 8%;
-
-    #question {
-        text-align: center;
-        margin-top: 3%;
-        font-size: 24px;
-    }
-
-    .months {
-        padding-top: 2%;
-        display: flex;
-        flex-wrap: wrap;
-        column-gap: 4%;
-        row-gap: 30px;
-        width: 100%;
-        justify-content: center;
-
-        .month {
-            width: 200px;
-            height: 160px;
-            border: none;
-            padding: 0;
-            border-radius: $month-border-radius;
-        
-            > div:nth-child(1) {
-                width: 100%;
-                height: 80%;
-                border-radius: $month-border-radius $month-border-radius 0px 0px;
-        
-                img {
-                    border-radius: $month-border-radius $month-border-radius 0px 0px;
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-        
-            .month-name {
-                width: 100%;
-                height: 30px;
-                border: none;
-                font-size: 18px;
-                color: white;
-                padding-top: 8px;
-                border-radius: 0px 0px $month-border-radius $month-border-radius;
-            }
-        }
-
-        .month:nth-child(-n+4) .month-name {
-            background-color: green;
-        }
-
-        .month:nth-child(n+5):nth-child(-n+8) .month-name {
-            background-color: red;
-        }
-
-        .month:nth-child(n+9):nth-child(-n+12) .month-name {
-            background-color: orange;
-        }
-
-    }
+#question {
+	text-align: center;
+	margin-top: 3%;
+	font-size: 24px;
 }
 
+.months {
+	padding-top: 2%;
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 4%;
+	row-gap: 30px;
+	width: 100%;
+	justify-content: center;
 
+	.month {
+		width: 200px;
+		height: 160px;
+		border: none;
+		padding: 0;
+		border-radius: $month-border-radius;
 
+		> div:nth-child(1) {
+			width: 100%;
+			height: 80%;
+			border-radius: $month-border-radius $month-border-radius 0px 0px;
+
+			img {
+				border-radius: $month-border-radius $month-border-radius 0px 0px;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.month-name {
+			width: 100%;
+			height: 30px;
+			border: none;
+			font-size: 18px;
+			color: white;
+			padding-top: 8px;
+			border-radius: 0px 0px $month-border-radius $month-border-radius;
+		}
+	}
+
+	.month:nth-child(-n + 4) .month-name {
+		background-color: green;
+	}
+
+	.month:nth-child(n + 5):nth-child(-n + 8) .month-name {
+		background-color: red;
+	}
+
+	.month:nth-child(n + 9):nth-child(-n + 12) .month-name {
+		background-color: orange;
+	}
+}

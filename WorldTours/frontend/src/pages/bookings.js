@@ -13,7 +13,7 @@ function Bookings() {
 
 
 	return (
-		<div className="bookings">
+		<div className="bookings narrow-conteiner">
 			<Header/>
 			<div className="line-under-header"></div>
 			<div className='change-show-bookings-list'>

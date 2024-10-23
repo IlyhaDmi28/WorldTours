@@ -5,7 +5,7 @@ import Months from '../components/survey/months';
 
 function Survey() {
 	return (
-		<div className="survey">
+		<div className="survey narrow-conteiner">
 			<Header/>
 			<div className="line-under-header"></div>
 			<div id="question">ВЫБЕРИТЕ МЕСЯЦ</div>

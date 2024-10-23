@@ -21,7 +21,7 @@ function Tour() {
 	};
 
 	return (
-		<div className="tour">
+		<div className="tour narrow-conteiner">
 			<Header />
 			<div className="line-under-header"></div>
 
