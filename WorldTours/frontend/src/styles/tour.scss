@@ -1,3 +1,5 @@
+@import './variabels/colors.scss';
+
 .tour-name-and-mark {
 	display: flex;
 	height: 70px;
@@ -85,7 +87,7 @@
 	width: 100%;
 	display: flex;
 	column-gap: 10px;
-	border-bottom: 1px solid #c5c5c5;
+	border-bottom: 1px solid $light-grey-color;
 }
 
 .tour-info-and-reservation {
@@ -131,7 +133,7 @@
 			select,
 			input[type='date'] {
 				margin-top: 3px;
-				color: #9d9d9d;
+				color: $grey-color;
 				border: none;
 				font-size: 14px;
 			}
@@ -154,7 +156,7 @@
 
 		.destination {
 			margin-top: 3px;
-			color: #9d9d9d;
+			color: $grey-color;
 			border: none;
 			font-size: 14px;
 		}
@@ -209,7 +211,7 @@
 
 			> div:nth-child(2) {
 				font-size: 13px;
-				color: #9d9d9d;
+				color: $grey-color;
 			}
 		}
 
@@ -222,7 +224,7 @@
 
 			> div:nth-child(2) {
 				font-size: 13px;
-				color: #9d9d9d;
+				color: $grey-color;
 			}
 		}
 
@@ -263,7 +265,7 @@
 }
 
 .tour-characteristic {
-	border-top: 1px solid #c5c5c5;
+	border-top: 1px solid $light-grey-color;
 	padding-top: 25px;
 	padding-bottom: 25px;
 	display: flex;

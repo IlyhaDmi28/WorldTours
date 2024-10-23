@@ -1,3 +1,5 @@
+@import './variabels/colors.scss';
+
 .tour-types-nav {
 	height: 100px;
 	display: flex;
@@ -25,7 +27,7 @@
 		height: 50%;
 		width: 170px;
 		display: flex;
-		border: 1px solid #9d9d9d;
+		border: 1px solid $grey-color;
 		border-radius: 12px;
 		background-color: white;
 
@@ -84,7 +86,7 @@
             .tour-card-country-and-city {
                 font-size: 14px;
                 margin-top: 5px;
-                color: #6e6e6e;
+                color: $dark-grey-color;
             }
     
             >div:nth-child(3) {

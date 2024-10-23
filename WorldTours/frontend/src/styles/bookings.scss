@@ -1,4 +1,5 @@
-$margin-from-img: 200px;
+@import './variabels/colors.scss'; 
+$margin-from-left-booking: 200px;
 
 .change-show-bookings-list {
 	display: flex;
@@ -30,7 +31,7 @@ $margin-from-img: 200px;
 		padding-top: 20px;
 		padding-bottom: 20px;
 		width: 100%;
-		border-bottom: 1px solid #c5c5c5;
+		border-bottom: 1px solid $light-grey-color;
 
 		.booking-card-img {
 			position: absolute;
@@ -42,30 +43,30 @@ $margin-from-img: 200px;
 		.booking-card-name {
 			position: absolute;
 			font-size: 20px;
-			left: $margin-from-img;
+			left: $margin-from-left-booking;
 			top: 27px;
 		}
 
 		.booking-card-route {
 			position: absolute;
 			font-size: 14px;
-			left: $margin-from-img;
+			left: $margin-from-left-booking;
 			top: 55px;
-			color: #6e6e6e;
+			color: $dark-grey-color;
 		}
 
 		.booking-card-date {
 			position: absolute;
 			font-size: 14px;
-			left: $margin-from-img;
+			left: $margin-from-left-booking;
 			top: 100px;
-			color: #6e6e6e;
+			color: $dark-grey-color;
 		}
 
 		.booking-card-hotel-stars {
 			position: absolute;
 			display: flex;
-			left: $margin-from-img;
+			left: $margin-from-left-booking;
 			top: 127px;
 
 			display: flex;
@@ -80,7 +81,7 @@ $margin-from-img: 200px;
 			position: absolute;
 			font-size: 13px;
 			background-color: rgb(69, 189, 69);
-			left: $margin-from-img;
+			left: $margin-from-left-booking;
 			bottom: 30px;
 			height: 22px;
 			padding-top: 6px;

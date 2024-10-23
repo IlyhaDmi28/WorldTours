@@ -1,4 +1,4 @@
-$auxiliary-text-color: #9d9d9d;
+@import './variabels/colors.scss'; 
 $indent-from-top-main-filter: 13px;
 
 @mixin main-filter($width) {
@@ -56,10 +56,10 @@ header {
 		.main-filters {
 			width: 100%;
 			height: 60px;
-			border: 1px solid $auxiliary-text-color;
+			border: 1px solid $grey-color;
 			border-radius: 32px;
 			margin-top: 30px;
-			box-shadow: 3px 3px 3px $auxiliary-text-color;
+			box-shadow: 3px 3px 3px $grey-color;
 			display: flex;
 			font-size: 12px;
 	
@@ -72,7 +72,7 @@ header {
 		
 					&:nth-child(2) {
 						margin-top: 5px;
-						color: $auxiliary-text-color;
+						color: $grey-color;
 						
 					}
 				}
@@ -91,7 +91,7 @@ header {
 					margin-left: 8%;
 					border: none;
 					margin-top: 3px;
-					color: $auxiliary-text-color;
+					color: $grey-color;
 					font-size: 14px;
 				}
 			}
@@ -107,7 +107,7 @@ header {
 					margin-left: 6%;
 					margin-top: 5px;
 					border: none;
-					color: $auxiliary-text-color;
+					color: $grey-color;
 					font-size: 14px;
 				}
 			}
@@ -174,7 +174,7 @@ header {
 	position: absolute;
 	width: 100%;
 	left: 0px;
-	border-bottom: 1px solid #c5c5c5;
+	border-bottom: 1px solid $light-grey-color;
 }
 
 .narrow-conteiner {
