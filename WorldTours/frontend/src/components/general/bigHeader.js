@@ -11,8 +11,8 @@ function BigHeader() {
             </a>
             <div className="info-and-main-filters">
                 <div className="info-href">
-                    <a>О компнаии</a>
-                    <a>Оплата</a>
+                    <a href="/campany">О компнаии</a>
+                    <a href="/payment">Оплата</a>
                     <a href="/survey">Куда поехать?</a>
                 </div>
                 <MainFilters/>

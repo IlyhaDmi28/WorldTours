@@ -16,6 +16,10 @@ function History() {
 		<div className="bookings narrow-conteiner">
 			<Header/>
 			<div className="line-under-header"></div>
+			<div className='user-statistic-of-tours '>
+				<div>Количество туров: <b>12</b></div>
+				<div>Общая стоимость: <b>10000</b> <span>BYN</span></div>
+			</div>
 			<div className="bookings-list">
 				<HistoryCard booking={booking}/>
 				<HistoryCard booking={booking}/>

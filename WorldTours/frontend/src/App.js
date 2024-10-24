@@ -8,6 +8,8 @@ import Survey from './pages/survey';
 import User from './pages/user';
 import Bookings from './pages/bookings';
 import History from './pages/history';
+import Payment from './pages/payment';
+import Campany from './pages/campany';
 
 function App() {
 	return (
@@ -22,6 +24,8 @@ function App() {
 				<Route path="/user" element={<User/>} />
 				<Route path="/bookings" element={<Bookings/>} />
 				<Route path="/history" element={<History/>} />
+				<Route path="/payment" element={<Payment/>} />
+				<Route path="/campany" element={<Campany/>} />
 			</Routes>
 		</Router>
 	);

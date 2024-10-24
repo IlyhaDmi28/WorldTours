@@ -12,11 +12,30 @@ $margin-from-left-booking: 200px;
 		width: 160px;
 		height: 30px;
 		border-radius: 20px;
+		background-color: white;
 		border: none;
-		background-color: rgb(224, 190, 39);
-		color: white;
 		font-size: 14px;
 		margin-top: 2.5%;
+	}
+
+	button:hover:nth-child(1)  {
+		background-color: rgb(209, 216, 0); 
+		color: white;
+	}
+
+	button:hover:nth-child(2)  {
+		background-color: rgb(69, 189, 69); 
+		color: white;
+	}
+
+	button:hover:nth-child(3)  {
+		background-color: rgb(60, 80, 254); 
+		color: white;
+	}
+
+	button:hover:nth-child(4)  {
+		background-color: rgb(224, 190, 39); 
+		color: white;
 	}
 }
 
@@ -38,7 +57,7 @@ $margin-from-left-booking: 200px;
 
 		.tour-card-delete-button {
 			position: absolute;
-			top: 20px;
+			top: 10px;
 			right: 0px;
 			width: 35px;
 			height: 35px;

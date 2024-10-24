@@ -4,18 +4,16 @@ $margin-from-left-booking: 200px;
 .user-statistic-of-tours {
 	display: flex;
 	justify-content: center;
-	column-gap: 2%;
+	column-gap: 10%;
 	height: 80px;
-	justify-self: center;
+	width: 100%;
+	
+	>div {
+		margin-top: 35px;
+		font-size: 16px;
 
-	button {
-		width: 160px;
-		height: 30px;
-		border-radius: 20px;
-		border: none;
-		background-color: rgb(224, 190, 39);
-		color: white;
-		font-size: 14px;
-		margin-top: 2.5%;
+		span {
+			font-size: 10px;
+		}
 	}
 }

@@ -1,10 +1,22 @@
+import React, { useState } from 'react';
 import tourp from '../../img/test.jpg'
 import star from '../../img/star.svg'
 import deleteButon from '../../img/delete.svg'
 
 function BookingCard({ booking }) {
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
+
 	return (
-	    <a className="booking-card" href='/tour'>
+	    <a className="booking-card" href='/tour' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <img className="booking-card-img" src={tourp}/>
             <div className='booking-card-name'>
                 <b>{booking.name}</b>
@@ -38,9 +50,12 @@ function BookingCard({ booking }) {
                 </span>
             </div>
 
+
+            {isHovered && 
             <button className='tour-card-delete-button'>
                 <img src={deleteButon}/>
             </button>
+            }
         </a>
   	);
 }

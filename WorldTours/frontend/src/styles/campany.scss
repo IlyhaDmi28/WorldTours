@@ -1,0 +1,36 @@
+@import './components/info.scss'; 
+
+.campany-info {
+    margin-top: 2%;
+
+    >div {
+        div {
+            text-align: justify;
+        }
+    }
+
+    .logo-info {
+        text-align: center;
+        margin-top: 26px;
+
+        .logo-text {
+            font-size: 26px;
+            text-align: center;
+        }
+    
+        img {
+            width: 20%;
+        }
+    }
+
+    .command-photo {
+        margin-top: 26px;
+        text-align: center;
+
+        img {
+            width: 20%;
+        }
+    }
+
+    
+}
