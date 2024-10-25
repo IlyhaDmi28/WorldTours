@@ -1,12 +1,12 @@
 import search from '../../img/search.svg'
 
-function TypeTour() {
+function TourType({name, img, setTourType }) {
 	return (
-	    <div className="tour-type">
-            <img src={search}/>
-            <div>assds</div>
-        </div>
+	    <button className="tour-type" onClick={() => setTourType(name)}>
+            <img src={img}/>
+            <div>{name}</div>
+        </button>
   	);
 }
 
-export default TypeTour;
+export default TourType;

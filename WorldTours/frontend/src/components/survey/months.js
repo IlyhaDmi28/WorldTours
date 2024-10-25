@@ -1,5 +1,6 @@
 import Month from './month';
 import january from '../../img/Months/january.jpg';
+import february from '../../img/Months/february.jpg';
 
 function Months() {
 	const month = {
@@ -10,7 +11,7 @@ function Months() {
 	return (
 		<div className="months">
 			<Month month={{ img: january, name: 'Январь'}}/>
-			<Month month={{ img: january, name: 'Февраль'}}/>
+			<Month month={{ img: february, name: 'Февраль'}}/>
 			<Month month={{ img: january, name: 'Март'}}/>
 			<Month month={{ img: january, name: 'Апрель'}}/>
 			<Month month={{ img: january, name: 'Май'}}/>

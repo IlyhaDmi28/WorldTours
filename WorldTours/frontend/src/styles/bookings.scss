@@ -1,5 +1,5 @@
 @import './components/current-and-past-bookings.scss'; 
-$margin-from-left-booking: 200px;
+$indent-from-left-booking: 200px;
 
 .change-show-bookings-list {
 	display: flex;
@@ -45,7 +45,7 @@ $margin-from-left-booking: 200px;
 			position: absolute;
 			font-size: 13px;
 			background-color: rgb(69, 189, 69);
-			left: $margin-from-left-booking;
+			left: $indent-from-left-booking;
 			bottom: 30px;
 			height: 22px;
 			padding-top: 6px;

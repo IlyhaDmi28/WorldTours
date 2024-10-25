@@ -1,0 +1,17 @@
+@mixin tour-type($size, $name-size, $indent-name-from-img) {
+	background-color: white;
+	border: none;
+	height: $size;
+	width: $size;
+	text-align: center;
+
+	img {
+		height: 50%;
+		width: 50%;
+	}
+
+	div {
+		margin-top: $indent-name-from-img;
+		font-size: $name-size;
+	}
+}
