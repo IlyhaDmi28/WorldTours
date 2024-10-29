@@ -1,11 +1,11 @@
-function Month({ month }) {
+function Month({ name, img, setMonth }) {
 	return (
-		<button className="month">
+		<button className="month" onClick={setMonth}>
 			<div>
-				<img src={month.img}/>
+				<img src={img}/>
 			</div>
 			<div className="month-name">
-				<b>{month.name}</b>
+				<b>{name}</b>
 			</div>
 		</button>
 	);
