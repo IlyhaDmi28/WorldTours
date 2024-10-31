@@ -7,17 +7,40 @@ function MainFilters() {
                 <div>Выберите направление</div>
                 <div>Регион, страна, город</div>
             </div>
+
             <hr></hr>
+
+            <div className='input-departure'>
+                <div>Выбирете город отправления</div>
+                <select>
+                    <option selected="selected">Минск</option>
+                    <option>Брест</option>
+                    <option>Гродно</option>
+                    <option>Витебск</option>
+                    <option>Могилёв</option>
+                    <option>Гомель</option>
+                    <option>Москва</option>
+                    <option>Киев</option>
+                    <option>Варшава</option>
+                </select>
+            </div>
+
+            <hr></hr>
+
             <div className="input-date">
                 <div>Прибытие</div>
                 <input type="date"/>
             </div>
+
             <hr></hr>
+
             <div className="input-date">
                 <div>Убытие</div>
                 <input type="date"/>
             </div>
+
             <hr></hr>
+
             <div className="input-transport">
                 <div>Выбирете транспорт</div>
                 <select>

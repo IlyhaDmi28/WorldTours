@@ -15,7 +15,7 @@ function Header() {
                 <img src={logo} alt="logo" />
             </a>
             <div className="info-and-main-filters">
-                <div className="info-href">
+                <div className="info-href" style={{width: "40%"}}>
                     <a href="/campany">О компнаии</a>
                     <a href="/payment">Оплата</a>
                     <a href="/survey">Куда поехать?</a>
