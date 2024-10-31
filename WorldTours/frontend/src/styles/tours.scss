@@ -200,8 +200,6 @@
 	
 				.hotel-stars-buttons {
 					display: flex;
-					column-gap: 3%;
-	
 				
 					button {
 						background-color: white;
@@ -211,15 +209,10 @@
 						padding: 0;
 	
 						img {
-							width: 100%;
-							height: 100%;
+							width: 90%;
+							height: 90%;
 						}
 					}
-	
-					button:nth-child(1) {
-						width: 10px;
-					}
-	
 				}
 			}
 	
