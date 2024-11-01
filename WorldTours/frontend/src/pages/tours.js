@@ -1,13 +1,9 @@
 import '../styles/tours.scss';
-import React, { useState } from 'react';
 import BigHeader from '../components/general/bigHeader';
 import TourTypesNav from '../components/tours/tourTypesNav';
 import TourCard from '../components/tours/tourCard';
-import Filters from '../components/tours/filters';
 
 function Tours() {
-	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-
 	const tour = {
 		name: 'Логово Андрея ЧЧЧЧЧЧЧЧЧЧЧЧЧЧ',
 		mark: 4.5,
@@ -17,23 +13,12 @@ function Tours() {
 		price: 800,
 	};
 
-	// Функция для открытия модального окна
-	const openFilters = () => {
-		setIsFiltersOpen(true);
-		document.body.style.overflow = 'hidden'; // Отключаем прокрутку страницы
-	};
-
-	// Функция для закрытия модального окна
-	const closeFilters = () => {
-		setIsFiltersOpen(false);
-		document.body.style.overflow = 'auto'; // Включаем прокрутку страницы обратно
-	};
-
 	return (
 		<div className="tours">
 			<BigHeader/>
 			<div className="line-under-header"></div>
-			<TourTypesNav openFilters={openFilters} />
+			{/* <TourTypesNav setTourType={setTourType} /> */}
+			<TourTypesNav />
 			<div className="tours-list">
 				<TourCard tour={tour} />
 				<TourCard tour={tour} />
@@ -50,8 +35,6 @@ function Tours() {
 				<TourCard tour={tour} />
 				<TourCard tour={tour} />
 			</div>
-
-			<Filters isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} />
 		</div>
 	);
 }

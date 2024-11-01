@@ -1,9 +1,13 @@
+import React, { useState } from 'react';
 import search from '../../img/search.svg'
+import Directions from './directions';
 
 function MainFilters() {
+    const [isOpenDirections, setIsOpenDirections] = useState(false);
+    
 	return (
 	    <div className="main-filters"> 
-            <div className="input-route">
+            <div className="input-route" onClick={() => setIsOpenDirections(!isOpenDirections)}>
                 <div>Выберите направление</div>
                 <div>Регион, страна, город</div>
             </div>
@@ -54,6 +58,7 @@ function MainFilters() {
             <button className='search-by-main-filters'>
                 <img src={search}/>
             </button>
+            {isOpenDirections && <Directions closeDirections={() => setIsOpenDirections(!isOpenDirections)}/>}
         </div>
   	);
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MainFilters from './mainFilters';
 import UserConroller from './userController';   
+import Directions from './directions';
 import logo from '../../img/logo.png';
 
 function BigHeader() {
@@ -16,6 +17,7 @@ function BigHeader() {
                     <a href="/survey">Куда поехать?</a>
                 </div>
                 <MainFilters/>
+
             </div>
             <UserConroller right={'0px'}/>
         </header>

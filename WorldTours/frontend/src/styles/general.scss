@@ -65,7 +65,7 @@ header {
 	
 			.input-route {
 				@include main-filter(30%);
-				
+				border-radius: 32px 0px 0px 32px;
 		
 				>div {
 					width: 87%; /*Делаем отступ 13% и ширину 87% от контейнера, тем самы освобождаем место перед элемент и элемент не вылазит за другой*/
@@ -77,6 +77,10 @@ header {
 						
 					}
 				}
+			}
+
+			.input-route:hover {
+				background-color: rgb(217, 217, 217);
 			}
 
 			.input-departure {
@@ -197,4 +201,89 @@ header {
 .narrow-conteiner {
 	padding-left: 8%;
 	padding-right: 8%;
+}
+
+.directions-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; // Модальное окно впереди всех элементов
+}
+
+.directions {
+	position: absolute;
+	width: 24.8%; //24%  без скрола
+	height: 500px;
+	border-radius: 20px;
+	border: 1px solid $grey-color;
+	background-color: white;
+	z-index: 1002;
+	left: 18.7%;
+	top: 20.5%;
+	padding: 1.5%;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: $light-grey-color transparent;
+
+    // /* Стилизация скроллбара */
+    // ::-webkit-scrollbar {
+    //     width: 4px; // Ширина скроллбара
+    // }
+
+    // ::-webkit-scrollbar-track {
+    //     background: transparent; // Прозрачный фон для трека скроллбара
+    // }
+
+    // ::-webkit-scrollbar-thumb {
+    //     background-color: black; // Чёрная полоска
+    //     border-radius: 10px; // Закругленные края
+    // }
+
+	>div {
+		width: 100%;
+		height: 100%;
+		
+		.geographic-area {
+			text-align: left;
+			font-size: 14px;
+		}
+
+		.regions {
+			display: flex;
+			flex-wrap: wrap;
+			margin-top: 10px;
+
+
+			.region {	
+				// padding: 0% 1% 0% 1%;
+				padding: 8px 8px 8px 7px;
+				width: 29%;
+				height: 29%;
+				border-radius: 16px;
+				text-align: center;
+
+				img {
+					width: 100%;
+					height: 70%;
+					border: 1px solid $grey-color;
+					border-radius: 14px;
+				}
+
+				div {
+					margin-top: 3px;
+					font-size: 13px;
+
+				}
+			}
+
+			.region:hover {
+				background-color: rgb(217, 217, 217);
+			}
+		}
+	}
 }

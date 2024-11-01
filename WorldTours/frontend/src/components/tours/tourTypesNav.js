@@ -1,6 +1,7 @@
+import React, { useState } from 'react';
 import TourType from './tourType'
 import FilterButton from './filterButton'
-import search from '../../img/search.svg'
+import Filters from './filters'
 import sea from '../../img/TourTypes/sea.svg'
 import nature from '../../img/TourTypes/nature.svg'
 import ski from '../../img/TourTypes/ski.svg'
@@ -8,7 +9,21 @@ import culture from '../../img/TourTypes/culture.svg'
 import bus from '../../img/TourTypes/bus.svg'
 
 
-function TypesTourNav({openFilters, setTourType}) {
+function TypesTourNav({setTourType}) {
+	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+
+	// Функция для открытия модального окна
+	const openFilters = () => {
+		setIsFiltersOpen(true);
+		document.body.style.overflow = 'hidden'; // Отключаем прокрутку страницы
+	};
+
+	// Функция для закрытия модального окна
+	const closeFilters = () => {
+		setIsFiltersOpen(false);
+		document.body.style.overflow = 'auto'; // Включаем прокрутку страницы обратно
+	};
+
 	return (
 	    <div className="tour-types-nav">
             <TourType name={"Горнолыжный курорт"} img={ski} setTourType={setTourType}/>
@@ -17,6 +32,7 @@ function TypesTourNav({openFilters, setTourType}) {
 			<TourType name={"Культурный туризм"} img={culture} setTourType={setTourType}/>
 			<TourType name={"Обчная поездка"} img={bus} setTourType={setTourType}/>
             <FilterButton openFilters={openFilters}/>
+			<Filters isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} />
         </div>
   	);
 }

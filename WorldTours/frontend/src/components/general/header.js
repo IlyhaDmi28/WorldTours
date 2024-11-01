@@ -3,12 +3,6 @@ import UserConroller from './userController';
 import logo from '../../img/logo.png';
 
 function Header() {
-    const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
-
-    const openOrCloseUserMenu = () => {
-        setIsOpenUserMenu(!isOpenUserMenu);
-    };
-
 	return (
 	    <header style={{height: '100px'}}>
             <a className='logo-href' href='/tours'>
