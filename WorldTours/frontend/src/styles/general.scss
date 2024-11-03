@@ -7,6 +7,30 @@ $indent-from-top-main-filter: 13px;
 	padding-top: $indent-from-top-main-filter;
 }
 
+@mixin direction() {
+	position: absolute;
+	border-radius: 20px;
+	border: 1px solid $grey-color;
+	background-color: white;
+	z-index: 1002;
+	left: 18.7%;
+	top: 20.5%;
+	padding: 1.5%;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: $light-grey-color transparent;
+
+	>div {
+		width: 100%;
+		height: 100%;
+		
+		.geographic-area {
+			text-align: left;
+			font-size: 14px;
+		}
+	}
+}
+
 body {
 	padding-left: 5%;
 	padding-right: 5%;
@@ -216,34 +240,15 @@ header {
 }
 
 .regions {
-	position: absolute;
 	width: 24.8%; //24%  без скрола
 	height: 500px;
-	border-radius: 20px;
-	border: 1px solid $grey-color;
-	background-color: white;
-	z-index: 1002;
-	left: 18.7%;
-	top: 20.5%;
-	padding: 1.5%;
-	overflow-y: auto;
-	scrollbar-width: thin;
-	scrollbar-color: $light-grey-color transparent;
+	@include direction();
 
 	>div {
-		width: 100%;
-		height: 100%;
-		
-		.geographic-area {
-			text-align: left;
-			font-size: 14px;
-		}
-
 		.regions-list {
 			display: flex;
 			flex-wrap: wrap;
 			margin-top: 10px;
-			
 
 			.region {	
 				border: none;
@@ -265,7 +270,6 @@ header {
 				div {
 					margin-top: 3px;
 					font-size: 13px;
-
 				}
 			}
 
@@ -277,29 +281,11 @@ header {
 }
 
 .countries {
-	position: absolute;
 	width: 61.2%; //24%  без скрола
 	height: 333px;
-	border-radius: 20px;
-	border: 1px solid $grey-color;
-	background-color: white;
-	z-index: 1002;
-	left: 18.7%;
-	top: 20.5%;
-	padding: 1.5%;
-	overflow-y: auto;
-	scrollbar-width: thin;
-	scrollbar-color: $light-grey-color transparent;
+	@include direction();
 
 	>div {
-		width: 100%;
-		height: 100%;
-		
-		.geographic-area {
-			text-align: left;
-			font-size: 14px;
-		}
-
 		.countries-list {
 			display: flex;
 			flex-wrap: wrap;
@@ -341,29 +327,11 @@ header {
 }
 
 .cities {
-	position: absolute;
 	width: 18%; //24%  без скрола
 	height: 333px;
-	border-radius: 20px;
-	border: 1px solid $grey-color;
-	background-color: white;
-	z-index: 1002;
-	left: 18.7%;
-	top: 20.5%;
-	padding: 1.5%;
-	overflow-y: auto;
-	scrollbar-width: thin;
-	scrollbar-color: $light-grey-color transparent;
+	@include direction();
 
 	>div {
-		width: 100%;
-		height: 100%;
-		
-		.geographic-area {
-			text-align: left;
-			font-size: 14px;
-		}
-
 		.cities-list {
 			display: flex;
 			flex-wrap: wrap;
@@ -376,9 +344,6 @@ header {
 				width: 100%;
 				font-size: 16px;
 				border-radius: 12px;
-
-				span {
-				}
 			}
 
 			.city:hover {
