@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import MainFilters from './mainFilters';
 import UserConroller from './userController';   
-import Directions from './directions';
 import logo from '../../img/logo.png';
 
 function BigHeader() {

@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import search from '../../img/search.svg'
-import Directions from './directions';
+import Regions from './regions';
+import Countries from './countries';
+import Cities from './cities';
 
 function MainFilters() {
-    const [isOpenDirections, setIsOpenDirections] = useState(false);
-    
+    const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
+
+    const directions = [
+        null,
+        <Regions goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Countries goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Cities goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+    ]
+
 	return (
 	    <div className="main-filters"> 
-            <div className="input-route" onClick={() => setIsOpenDirections(!isOpenDirections)}>
+            <div className="input-route" onClick={() => setDirectionsPageInndex(directionsPageInndex == 0 ? 1 : 0 )}>
                 <div>Выберите направление</div>
                 <div>Регион, страна, город</div>
             </div>
@@ -58,7 +67,7 @@ function MainFilters() {
             <button className='search-by-main-filters'>
                 <img src={search}/>
             </button>
-            {isOpenDirections && <Directions closeDirections={() => setIsOpenDirections(!isOpenDirections)}/>}
+            {directions[directionsPageInndex]}
         </div>
   	);
 }
