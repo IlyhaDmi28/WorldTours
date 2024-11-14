@@ -6,17 +6,8 @@ import deleteButon from '../../img/delete.svg'
 function BookingCard({ booking }) {
     const [isHovered, setIsHovered] = useState(false);
 
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-    };
-
-
 	return (
-	    <a className="booking-card" href='/tour' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+	    <a className="booking-card" href='/tour' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <img className="booking-card-img" src={tourp}/>
             <div className='booking-card-name'>
                 <b>{booking.name}</b>

@@ -131,9 +131,14 @@
 	z-index: 1002; // На всякий случай
 	width: 600px;
 	text-align: center;
+	font-size: 18px;
 
 	h2 {
 		margin: 0px;
+	}
+
+	hr {
+		width: 100%;
 	}
 
 	.close-filters-button {
@@ -149,12 +154,6 @@
 			height: 100%;
 		}
 	}
-
-	hr {
-		width: 100%;
-	}
-
-	font-size: 18px;
 
 	.tour-filters {
 		margin-top: 30px;

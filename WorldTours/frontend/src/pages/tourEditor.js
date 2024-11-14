@@ -1,24 +1,23 @@
 import '../styles/tourEditor.scss';
+import React, { useState } from 'react';
 import Header from '../components/general/header';
+import Regions from '../components/general/regions';
+import Countries from '../components/general/countries';
+import Cities from '../components/general/cities';
 import BookingMenuEditor from '../components/tourEditor/bookingMenuEditor';
 import tourp from '../img/test.jpg';
 import star from '../img/star.svg';
 import food from '../img/food.svg';
 
 function TourEditor() {
-	const getBackgroundColorMark = (mark) => {
-		if (mark >= 4) {
-			return '#0FE500';
-		} else if (mark >= 3) {
-			return '#efd700';
-		} else if (mark >= 2) {
-			return '#e5a800';
-		} else if (mark >= 1) {
-			return '#ff0000';
-		} else if (mark >= 0) {
-			return '#df0000';
-		}
-	};
+	const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
+
+    const directions = [
+        null,
+        <Regions goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Countries goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Cities goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+    ]
 
 	return (
 		<div className="tour narrow-conteiner">
@@ -63,32 +62,12 @@ function TourEditor() {
 						<div>Страна, город</div>
 					</div> */}
 
-					<button className='select-tour-direction'>
+					<div >
+						{directions[directionsPageInndex]}
+					</div>
+					<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex == 0 ? 1 : 0 )}>
 						Нажмите, что бы добавьте пункт направления
 					</button>
-
-					{/* <div className="tour-hotel-stars">
-						<img src={star} />
-						<img src={star} />
-						<img src={star} />
-						<img src={star} />
-						<img src={star} />
-					</div> */}
-
-					{/* <div className="main-services">
-                        <div className="main-service">
-                            <img src={food}/>
-                            <div>Хуй на палочке</div>
-                        </div>
-                        <div className="main-service">
-                            <img src={star}/>
-                            <div>Можно выебать Андрея</div>
-                        </div>
-                        <div className="main-service">
-                            <img src={star}/>
-                            <div>Рядом море спермы</div>
-                        </div>
-                    </div> */}
 
 					<div className="tour-desription">
 						<div><b>Описание</b></div>
@@ -101,7 +80,6 @@ function TourEditor() {
 								<b>Характеристика 1</b>
 							</div>
 							<div>
-								{/* <input type="checkbox" name="d1" checked={filters.billiards} onChange={changeFilters}/> */}
 								<div>
 									<input type="checkbox" name="d1"/>
 									<label>d1</label>
@@ -125,7 +103,6 @@ function TourEditor() {
 								<b>Характеристика 2</b>
 							</div>
 							<div>
-								{/* <input type="checkbox" name="d1" checked={filters.billiards} onChange={changeFilters}/> */}
 								<div>
 									<input type="checkbox" name="d1"/>
 									<label>d1</label>
@@ -149,7 +126,6 @@ function TourEditor() {
 								<b>Характеристика 3</b>
 							</div>
 							<div>
-								{/* <input type="checkbox" name="d1" checked={filters.billiards} onChange={changeFilters}/> */}
 								<div>
 									<input type="checkbox" name="d1"/>
 									<label>d1</label>
@@ -173,7 +149,6 @@ function TourEditor() {
 								<b>Характеристика 4</b>
 							</div>
 							<div>
-								{/* <input type="checkbox" name="d1" checked={filters.billiards} onChange={changeFilters}/> */}
 								<div>
 									<input type="checkbox" name="d1"/>
 									<label>d1</label>
@@ -197,7 +172,6 @@ function TourEditor() {
 								<b>Характеристика 5</b>
 							</div>
 							<div>
-								{/* <input type="checkbox" name="d1" checked={filters.billiards} onChange={changeFilters}/> */}
 								<div>
 									<input type="checkbox" name="d1"/>
 									<label>d1</label>
@@ -221,7 +195,6 @@ function TourEditor() {
 								<b>Характеристика 6</b>
 							</div>
 							<div>
-								{/* <input type="checkbox" name="d1" checked={filters.billiards} onChange={changeFilters}/> */}
 								<div>
 									<input type="checkbox" name="d1"/>
 									<label>d1</label>
@@ -245,7 +218,6 @@ function TourEditor() {
 								<b>Характеристика 7</b>
 							</div>
 							<div>
-								{/* <input type="checkbox" name="d1" checked={filters.billiards} onChange={changeFilters}/> */}
 								<div>
 									<input type="checkbox" name="d1"/>
 									<label>d1</label>
@@ -269,7 +241,6 @@ function TourEditor() {
 								<b>Характеристика 8</b>
 							</div>
 							<div>
-								{/* <input type="checkbox" name="d1" checked={filters.billiards} onChange={changeFilters}/> */}
 								<div>
 									<input type="checkbox" name="d1"/>
 									<label>d1</label>

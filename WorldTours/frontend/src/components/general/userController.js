@@ -8,6 +8,10 @@ function UserController({ right }) {
         setIsOpenUserMenu(!isOpenUserMenu);
     };
 
+    const logout = () => {
+        localStorage.removeItem('token');
+    };
+
 	return (
 	    <div className='user-controller'>
             {/* <button className="user" style={{marginTop: '3px'}}>
@@ -28,7 +32,7 @@ function UserController({ right }) {
                         <li><a href='/user'>Редактировать профиль</a></li>
                         <li><a href='/bookings'>Мои брони</a></li>
                         <li><a href='/history'>История броней</a></li>
-                        <li><a href='/auth' style={{color: 'red'}}>Выйти</a></li>
+                        <li><a href='/auth' style={{color: 'red'}} onClick={logout}>Выйти</a></li>
                     </ul>
                 </div>
             )}

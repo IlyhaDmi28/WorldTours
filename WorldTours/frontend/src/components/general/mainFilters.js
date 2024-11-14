@@ -67,7 +67,9 @@ function MainFilters() {
             <button className='search-by-main-filters'>
                 <img src={search}/>
             </button>
-            {directions[directionsPageInndex]}
+            <div className='directions-area'>
+                {directions[directionsPageInndex]}
+            </div>
         </div>
   	);
 }

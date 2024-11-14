@@ -1,15 +1,21 @@
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using System.Diagnostics;
 
 namespace backend.Controllers
 {
+    public class MessageRequest
+    {
+        public string Message { get; set; }
+    }
+
     public class HomeController : Controller
     {
         [HttpPost]
-        public string Index(string message)
+        public IActionResult Index([FromBody] MessageRequest request)
         {
-            return "Всё работает! Полученное сообшение: " + message;
+            return Ok("Всё работает! Полученное сообщение: " + request.Message);
         }
     }
 }

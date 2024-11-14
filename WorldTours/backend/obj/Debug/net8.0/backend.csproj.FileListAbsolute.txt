@@ -81,3 +81,4 @@ D:\Univer\Курсач\WorldTours\backend\obj\Debug\net8.0\refint\backend.dll
 D:\Univer\Курсач\WorldTours\backend\obj\Debug\net8.0\backend.pdb
 D:\Univer\Курсач\WorldTours\backend\obj\Debug\net8.0\backend.genruntimeconfig.cache
 D:\Univer\Курсач\WorldTours\backend\obj\Debug\net8.0\ref\backend.dll
+D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
