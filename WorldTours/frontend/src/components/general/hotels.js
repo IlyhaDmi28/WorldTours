@@ -1,6 +1,6 @@
 import flag from '../../img/flags/bulgaria.svg';
 
-function Cities({goNextDirectionsPage, closeDirections, position}) {
+function Hotels({goNextDirectionsPage, closeDirections, position}) {
 	const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             closeDirections();
@@ -11,16 +11,16 @@ function Cities({goNextDirectionsPage, closeDirections, position}) {
 		<div className='directions-overlay' onClick={handleOverlayClick}>
 			<div className="cities-or-hotels" style={position ? {left: position.left, top: position.top} :{}}>
 				<div>
-					<div className="geographic-area"><b>Выберите город</b></div>
+					<div className="geographic-area"><b>Выберите отель</b></div>
 					<div className="cities-or-hotels-list">
                         <div onClick={goNextDirectionsPage} className="city-or-hotel">
-							<span>София</span>
+							<span>БДСМ отель, где Андрея ебут</span>
 						</div>
 						<div className="city-or-hotel">
-							<span>Варна</span>
+							<span>Шарага БГТУ</span>
 						</div>
 						<div className="city-or-hotel">
-							<span>Андрегеевск</span>
+							<span>Общага 1</span>
 						</div>
 					</div>
 				</div>
@@ -29,4 +29,4 @@ function Cities({goNextDirectionsPage, closeDirections, position}) {
   	);
 }
 
-export default Cities;
+export default Hotels;

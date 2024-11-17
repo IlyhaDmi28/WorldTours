@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
@@ -106,16 +106,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
               "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\AuthController.cs",
               "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwB0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAuwB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T11:31:00.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-09T11:31:00.76Z"
             },
             {
               "$type": "Document",
@@ -131,15 +130,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-06T08:27:36.96Z"
+              "WhenOpened": "2024-11-06T08:27:36.96Z",
+              "EditorCaption": ""
             }
           ]
         }

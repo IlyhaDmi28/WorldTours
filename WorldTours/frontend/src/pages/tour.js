@@ -1,4 +1,4 @@
-//import '../styles/tour.scss';
+import '../styles/tour.scss';
 import Header from '../components/general/header';
 import BookingMenu from '../components/tour/bookingMenu';
 import tourp from '../img/test.jpg';

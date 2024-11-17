@@ -11,7 +11,7 @@ import southAsia from '../../img/regions/south-asia.jpg';
 import eastAsia from '../../img/regions/east-asia.jpg';
 import oceania from '../../img/regions/oceania.jpg';
 
-function Regions({goNextDirectionsPage, closeDirections}) {
+function Regions({goNextDirectionsPage, closeDirections, addDirection, position}) {
 	const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             closeDirections();
@@ -20,11 +20,11 @@ function Regions({goNextDirectionsPage, closeDirections}) {
 
 	return (
 		<div className='directions-overlay' onClick={handleOverlayClick}>
-			<div className="regions">
+			<div className="regions" style={position ? {left: position.left, top: position.top} :{}}>
 				<div>
 					<div className="geographic-area"><b>Выберите регион</b></div>
 					<div className="regions-list">
-						<div onClick={goNextDirectionsPage} className="region">
+						<div  onClick={goNextDirectionsPage} className="region">
 							<img src={world}/>
 							<div>Весь мир</div>
 						</div>

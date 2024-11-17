@@ -326,19 +326,19 @@ header {
 	}
 }
 
-.cities {
+.cities-or-hotels {
 	width: 18%; //24%  без скрола
 	height: 333px;
 	@include direction();
 
 	>div {
-		.cities-list {
+		.cities-or-hotels-list {
 			display: flex;
 			flex-wrap: wrap;
 			margin-top: 10px;
 			
 
-			.city {	
+			.city-or-hotel {	
 				text-align: left;
 				padding: 16px 16px 16px 8px;
 				width: 100%;
@@ -346,7 +346,7 @@ header {
 				border-radius: 12px;
 			}
 
-			.city:hover {
+			.city-or-hotel:hover {
 				background-color: rgb(217, 217, 217);
 			}
 		}

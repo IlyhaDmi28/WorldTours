@@ -3,7 +3,7 @@ import RouteCard from "./routeCard";
 import EditRouteMenu from "./editRouteMenu";
 import add from "../../img/add.svg"
 
-function BookingMenuEditor({openAddRouteMenu}) {
+function RoutesMenu({openAddRouteMenu}) {
     const [isEditRouteMenuOpen, setIsEditRouteMenuOpen] = useState(false);
 
     // Функция для открытия модального окна
@@ -19,10 +19,10 @@ function BookingMenuEditor({openAddRouteMenu}) {
 	};
 
 	return (
-        <div className="booking-menu">
-            <div className="booking-menu-name">
+        <div className="routes-menu">
+            <div className="routes-menu-name-and-add-route-button">
                 <b>Маршруты:</b>
-                <button className="add-route-button" onClick={openEditRouteMenu}>
+                <button  onClick={openEditRouteMenu}>
                     <img src={add}/>
                 </button>
             </div>
@@ -30,8 +30,8 @@ function BookingMenuEditor({openAddRouteMenu}) {
             <div className="routes">
             </div>
 
-            <div className="save-tour-button-under-routes">
-                <button className="tour-application-button">
+            <div className="buttons-under-routes">
+                <button className="save-routes-button">
                     <b>Сохранить тур</b>
                 </button>
             </div>
@@ -42,4 +42,4 @@ function BookingMenuEditor({openAddRouteMenu}) {
 	);
 }
 
-export default BookingMenuEditor;
+export default RoutesMenu;

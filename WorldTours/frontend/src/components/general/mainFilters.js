@@ -9,9 +9,9 @@ function MainFilters() {
 
     const directions = [
         null,
-        <Regions goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Countries goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Cities goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Regions goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Countries goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Cities goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
     ]
 
 	return (

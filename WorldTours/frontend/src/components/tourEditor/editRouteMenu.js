@@ -4,21 +4,19 @@ import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
 
 function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
-    const [filters, setFilters] = useState({
-        minPrice: 0,
-        maxPrice: 99999,
-        minHotelStars: 1,
-        maxHotelStars: 5,
-        nutritionType: 'Не важно',
-        wifi: 'no_preference',
-        beach: 'no_preference',
-        separateBeds: 'no_preference',
-        separateBathroom: 'no_preference',
-        pool: 'no_preference',
-        jacuzzi: 'no_preference',
-        disco: 'no_preference',
-        billiards: 'no_preference',
-        tableTennis: 'no_preference',
+    const [routeParameters, setRouteParameters] = useState({
+        landingDateOfDeparture: null,
+        landingTimeOfDeparture: null,
+        arrivalDateOfDeparture: null,
+        arrivalTimeOfDeparture: null,
+        landingDateOfReturn: null,
+        landingTimeOfReturn: null,
+        arrivalDateOfReturn: null,
+        arrivalTimeOfReturn: null,
+        departmentDeparture: null,
+        transportType: null,
+        price: null,
+        places: null,
     });
    
 
@@ -32,32 +30,32 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
         }
     };
 
-    const changeFilters = (e) => {
-        const { name, value } = e.target;
-        setFilters((prevfilters) => ({
-            ...prevfilters,
-            [name]: value,
-        }));
-    };
+    // const changeFilters = (e) => {
+    //     const { name, value } = e.target;
+    //     setFilters((prevfilters) => ({
+    //         ...prevfilters,
+    //         [name]: value,
+    //     }));
+    // };
 
-    const clearAllFilters = () => {
-        setFilters({
-            minPrice: '',
-            maxPrice: '',
-            minHotelStars: 1,
-            maxHotelStars: 5,
-            nutritionType: 'Не важно',
-            wifi: 'no_preference',
-            beach: 'no_preference',
-            separateBeds: 'no_preference',
-            separateBathroom: 'no_preference',
-            pool: 'no_preference',
-            jacuzzi: 'no_preference',
-            disco: 'no_preference',
-            billiards: 'no_preference',
-            tableTennis: 'no_preference',
-        });
-    };
+    // const clearAllFilters = () => {
+    //     setFilters({
+    //         minPrice: '',
+    //         maxPrice: '',
+    //         minHotelStars: 1,
+    //         maxHotelStars: 5,
+    //         nutritionType: 'Не важно',
+    //         wifi: 'no_preference',
+    //         beach: 'no_preference',
+    //         separateBeds: 'no_preference',
+    //         separateBathroom: 'no_preference',
+    //         pool: 'no_preference',
+    //         jacuzzi: 'no_preference',
+    //         disco: 'no_preference',
+    //         billiards: 'no_preference',
+    //         tableTennis: 'no_preference',
+    //     });
+    // };
 
     return (
         <div className="edit-route-menu-overlay" onClick={handleOverlayClick}>
@@ -73,12 +71,12 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
                     <div className='route-direction-dates-and-times'>
                         <div className='route-direction-date-and-time'>
                             <div>
-                                <div className='parameter-name'>Дата отправления</div>
+                                <div className='parameter-name'>Дата посадки</div>
                                 <input type='date'/>
                             </div>
 
                             <div>
-                                <div className='parameter-name'>Время отправления</div>
+                                <div className='parameter-name'>Время посадки</div>
                                 <input type='time'/>
                             </div>
                         </div>
@@ -103,12 +101,12 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
                     <div className='route-direction-dates-and-times'>
                         <div className='route-direction-date-and-time'>
                             <div>
-                                <div className='parameter-name'> Дата отправления</div>
+                                <div className='parameter-name'> Дата посадки</div>
                                 <input type='date'/>
                             </div>
 
                             <div>
-                                <div className='parameter-name'>Время отправления</div>
+                                <div className='parameter-name'>Время посадки</div>
                                 <input type='time'/>
                             </div>
                         </div>
@@ -158,7 +156,7 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
 
                     <div className='edit-route-price-and-place'>
                         <div className='edit-route-price-or-place'>
-                            <div className='parameter-name'><b>Цена: </b></div>
+                            <div className='parameter-name'><b>Цена:</b></div>
                             <input type='number'/>
                         </div>
 
@@ -171,7 +169,7 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
                 
                 <hr></hr>
                 <div className="edit-route-controller">
-                    <button onClick={clearAllFilters}>Очистить всё</button>
+                    {/* <button onClick={clearAllFilters}>Очистить всё</button> */}
                     <button>Сохранить</button>
                 </div>
             </div>
