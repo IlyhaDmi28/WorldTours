@@ -42,7 +42,7 @@ function LoginForm() {
             <input type="text" name="email" style={{marginTop: '40px'}} placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <input type="password" name="password" style={{marginTop: '40px'}} placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <p id="errorMessage" style={{marginTop: '15px'}}>{errorText} </p>
-            <button type="submit" style={{marginTop: '110px'}}>Войти</button>
+            <button type="submit" >Войти</button>
         </form>
   	);
 }

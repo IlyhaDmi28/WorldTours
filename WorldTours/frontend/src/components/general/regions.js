@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import world from '../../img/regions/world.jpg';
 import europe from '../../img/regions/europe.jpg';
 import middleEast from '../../img/regions/middle-east.jpg';
@@ -11,7 +12,70 @@ import southAsia from '../../img/regions/south-asia.jpg';
 import eastAsia from '../../img/regions/east-asia.jpg';
 import oceania from '../../img/regions/oceania.jpg';
 
-function Regions({goNextDirectionsPage, closeDirections, addDirection, position}) {
+function Regions({selectDirection, goNextDirectionsPage, closeDirections, addDirection, position}) {
+	const [regions, setRegions] = useState([
+		{
+			id: 0,
+			name: "Весь мир",
+			img: world
+		},
+		{
+			id: 1,
+			name: "Европа и Россия",
+			img: europe
+		},
+		{
+			id: 1,
+			name: "Ближний Восток",
+			img: middleEast
+		},
+		{
+			id: 1,
+			name: "Северная Африка",
+			img: northAfrica
+		},
+		{
+			id: 1,
+			name: "Африка",
+			img: africa
+		},
+		{
+			id: 1,
+			name: "Латинская Америка",
+			img: latinAmerica
+		},
+		{
+			id: 1,
+			name: "Северная Америка",
+			img: northAmerica
+		},
+		{
+			id: 1,
+			name: "Юго-Восточная Азия",
+			img: southEastAsia
+		},
+		{
+			id: 1,
+			name: "Центральная Азия",
+			img: centralAsia
+		},
+		{
+			id: 1,
+			name: "Южная Азия",
+			img: southAsia
+		},
+		{
+			id: 1,
+			name: "Восточная Азия",
+			img: eastAsia
+		},
+		{
+			id: 1,
+			name: "Океания",
+			img: oceania
+		},
+	]);
+
 	const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             closeDirections();
@@ -24,54 +88,12 @@ function Regions({goNextDirectionsPage, closeDirections, addDirection, position}
 				<div>
 					<div className="geographic-area"><b>Выберите регион</b></div>
 					<div className="regions-list">
-						<div  onClick={goNextDirectionsPage} className="region">
-							<img src={world}/>
-							<div>Весь мир</div>
-						</div>
-						<div className="region">
-							<img src={europe}/>
-							<div>Европа и Россия</div>
-						</div>
-						<div className="region">
-							<img src={middleEast}/>
-							<div>Ближний Восток</div>
-						</div>
-						<div className="region">
-							<img src={northAfrica}/>
-							<div>Северная Африка</div>
-						</div>
-						<div className="region">
-							<img src={africa}/>
-							<div>Африка</div>
-						</div>
-						<div className="region">
-							<img src={latinAmerica}/>
-							<div>Латинская Америка</div>
-						</div>
-						<div className="region">
-							<img src={northAmerica}/>
-							<div>Северная Америка</div>
-						</div>
-						<div className="region">
-							<img src={southEastAsia}/>
-							<div>Юго-Восточная Азия</div>
-						</div>
-						<div className="region">
-							<img src={centralAsia}/>
-							<div>Центральная Азия</div>
-						</div>
-						<div className="region">
-							<img src={southAsia}/>
-							<div>Южная Азия</div>
-						</div>
-						<div className="region">
-							<img src={eastAsia}/>
-							<div>Восточная Азия</div>
-						</div>
-						<div className="region">
-							<img src={oceania}/>
-							<div>Океания</div>
-						</div>
+						{regions.map((region) => (
+							<div onClick={() => {selectDirection(region.id); goNextDirectionsPage()}} className="region">
+								<img src={region.img}/>
+								<div>{region.name}</div>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>

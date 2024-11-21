@@ -1,6 +1,21 @@
-import flag from '../../img/flags/bulgaria.svg';
+import React, { useState } from 'react';
 
-function Hotels({goNextDirectionsPage, closeDirections, position}) {
+function Hotels({selectDirection, goNextDirectionsPage, closeDirections, position}) {
+	const [hotels, setHotels] = useState([
+		{
+			id: 0,
+			name: "Ебля Андрея",
+		},
+		{
+			id: 1,
+			name: "Ебля Сани",
+		},
+		{
+			id: 1,
+			name: "Ебля Кирилла",
+		},
+	]);
+	
 	const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             closeDirections();
@@ -13,15 +28,11 @@ function Hotels({goNextDirectionsPage, closeDirections, position}) {
 				<div>
 					<div className="geographic-area"><b>Выберите отель</b></div>
 					<div className="cities-or-hotels-list">
-                        <div onClick={goNextDirectionsPage} className="city-or-hotel">
-							<span>БДСМ отель, где Андрея ебут</span>
-						</div>
-						<div className="city-or-hotel">
-							<span>Шарага БГТУ</span>
-						</div>
-						<div className="city-or-hotel">
-							<span>Общага 1</span>
-						</div>
+						{hotels.map((hotel) => (
+							<div onClick={() => {selectDirection(hotel.id); goNextDirectionsPage()}} className="city-or-hotel">
+								<span>{hotel.name}</span>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>

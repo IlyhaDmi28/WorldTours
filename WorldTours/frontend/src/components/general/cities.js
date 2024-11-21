@@ -1,6 +1,22 @@
+import React, { useState } from 'react';
 import flag from '../../img/flags/bulgaria.svg';
 
-function Cities({goNextDirectionsPage, closeDirections, position}) {
+function Cities({selectDirection, goNextDirectionsPage, closeDirections, position}) {
+	const [cities, setCities] = useState([
+		{
+			id: 0,
+			name: "Стамбул",
+		},
+		{
+			id: 1,
+			name: "Анкара",
+		},
+		{
+			id: 1,
+			name: "Анталья",
+		},
+	]);
+
 	const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             closeDirections();
@@ -13,15 +29,11 @@ function Cities({goNextDirectionsPage, closeDirections, position}) {
 				<div>
 					<div className="geographic-area"><b>Выберите город</b></div>
 					<div className="cities-or-hotels-list">
-                        <div onClick={goNextDirectionsPage} className="city-or-hotel">
-							<span>София</span>
-						</div>
-						<div className="city-or-hotel">
-							<span>Варна</span>
-						</div>
-						<div className="city-or-hotel">
-							<span>Андрегеевск</span>
-						</div>
+						{cities.map((city) => (
+							<div onClick={() => {selectDirection(city.id); goNextDirectionsPage()}} className="city-or-hotel">
+								<span>{city.name}</span>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>

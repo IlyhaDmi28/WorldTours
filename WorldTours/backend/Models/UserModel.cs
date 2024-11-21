@@ -2,6 +2,7 @@
 {
     public enum UserRole
     {
+        GUEST,
         USER,
         MANEGER,
         ADMIN
@@ -26,8 +27,14 @@
             Surname = surname;
             PhoneNumber = phoneNumber;
         }
-
-
-
+        public UserModel(RegisterModel register, UserRole role=UserRole.USER)
+        {
+            Email = register.Email;
+            Password = register.Password;
+            Name = register.Name;
+            Surname = register.Surname;
+            PhoneNumber = register.PhoneNumber;
+            Role = role;
+        }
     }
 }

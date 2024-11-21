@@ -1,11 +1,22 @@
 using backend;
 using backend.Configurations;
+using backend.DB;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// добавляем контекст AppDbContex в качестве сервиса в приложение
+builder.Services.AddDbContext<AppDbContext>(options => 
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(11, 5, 2)) //Используемая версия MariaDB
+    )
+);
 
 // Add services to the container.
 builder.Services.AddCors(options =>

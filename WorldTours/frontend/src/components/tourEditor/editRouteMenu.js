@@ -3,20 +3,20 @@ import star from '../../img/star.svg'
 import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
 
-function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
-    const [routeParameters, setRouteParameters] = useState({
-        landingDateOfDeparture: null,
-        landingTimeOfDeparture: null,
-        arrivalDateOfDeparture: null,
-        arrivalTimeOfDeparture: null,
-        landingDateOfReturn: null,
-        landingTimeOfReturn: null,
-        arrivalDateOfReturn: null,
-        arrivalTimeOfReturn: null,
-        departmentDeparture: null,
-        transportType: null,
-        price: null,
-        places: null,
+function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMenu}) {
+    const [route, setRoute] = useState({
+        landingDateOfDeparture: "",
+        landingTimeOfDeparture: "",
+        arrivalDateOfDeparture: "",
+        arrivalTimeOfDeparture: "",
+        landingDateOfReturn: "",
+        landingTimeOfReturn: "",
+        arrivalDateOfReturn: "",
+        arrivalTimeOfReturn: "",
+        departmentDeparture: "Минск",
+        transportType: "Самолёт",
+        price: 0,
+        places: 0,
     });
    
 
@@ -30,32 +30,30 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
         }
     };
 
-    // const changeFilters = (e) => {
-    //     const { name, value } = e.target;
-    //     setFilters((prevfilters) => ({
-    //         ...prevfilters,
-    //         [name]: value,
-    //     }));
-    // };
+    const changeRoute= (e) => {
+        const { name, value } = e.target;
+        setRoute((prevRoute) => ({
+            ...prevRoute,
+            [name]: value,
+        }));
+    };
 
-    // const clearAllFilters = () => {
-    //     setFilters({
-    //         minPrice: '',
-    //         maxPrice: '',
-    //         minHotelStars: 1,
-    //         maxHotelStars: 5,
-    //         nutritionType: 'Не важно',
-    //         wifi: 'no_preference',
-    //         beach: 'no_preference',
-    //         separateBeds: 'no_preference',
-    //         separateBathroom: 'no_preference',
-    //         pool: 'no_preference',
-    //         jacuzzi: 'no_preference',
-    //         disco: 'no_preference',
-    //         billiards: 'no_preference',
-    //         tableTennis: 'no_preference',
-    //     });
-    // };
+    const clearRoute = () => {
+        setRoute({
+            landingDateOfDeparture: "",
+            landingTimeOfDeparture: "",
+            arrivalDateOfDeparture: "",
+            arrivalTimeOfDeparture: "",
+            landingDateOfReturn: "",
+            landingTimeOfReturn: "",
+            arrivalDateOfReturn: "",
+            arrivalTimeOfReturn: "",
+            departmentDeparture: "Минск",
+            transportType: "Самолёт",
+            price: 0,
+            places: 0,
+        });
+    };
 
     return (
         <div className="edit-route-menu-overlay" onClick={handleOverlayClick}>
@@ -72,24 +70,24 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
                         <div className='route-direction-date-and-time'>
                             <div>
                                 <div className='parameter-name'>Дата посадки</div>
-                                <input type='date'/>
+                                <input type='date' name="landingDateOfDeparture" value={route.landingDateOfDeparture} onChange={changeRoute}/>
                             </div>
 
                             <div>
                                 <div className='parameter-name'>Время посадки</div>
-                                <input type='time'/>
+                                <input type='time' name="landingTimeOfDeparture" value={route.landingTimeOfDeparture} onChange={changeRoute}/>
                             </div>
                         </div>
 
                         <div className='route-direction-date-and-time'>
                             <div>
                                 <div className='parameter-name'>Дата прибытия</div>
-                                <input type='date'/>
+                                <input type='date' name="arrivalDateOfDeparture" value={route.arrivalDateOfDeparture} onChange={changeRoute}/>
                             </div>
 
                             <div>
                                 <div className='parameter-name'>Время прибытия</div>
-                                <input type='time'/>
+                                <input type='time' name="arrivalTimeOfDeparture" value={route.arrivalTimeOfDeparture} onChange={changeRoute}/>
                             </div>
                         </div>
                     </div>
@@ -102,24 +100,24 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
                         <div className='route-direction-date-and-time'>
                             <div>
                                 <div className='parameter-name'> Дата посадки</div>
-                                <input type='date'/>
+                                <input type='date' name="landingDateOfReturn" value={route.landingDateOfReturn} onChange={changeRoute}/>
                             </div>
 
                             <div>
                                 <div className='parameter-name'>Время посадки</div>
-                                <input type='time'/>
+                                <input type='time' name="landingTimeOfReturn" value={route.landingTimeOfReturn} onChange={changeRoute}/>
                             </div>
                         </div>
 
                         <div className='route-direction-date-and-time'>
                             <div>
                                 <div className='parameter-name'>Дата прибытия</div>
-                                <input type='date'/>
+                                <input type='date' name="arrivalDateOfReturn" value={route.arrivalDateOfReturn} onChange={changeRoute}/>
                             </div>
 
                             <div>
                                 <div className='parameter-name'>Время прибытия</div>
-                                <input type='time'/>
+                                <input type='time' name="arrivalTimeOfReturn" value={route.arrivalTimeOfReturn} onChange={changeRoute}/>
                             </div>
                         </div>
                     </div>
@@ -131,7 +129,7 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
 
                     <div className='edit-route-other-parameter'>
                         <div className='parameter-name'>Пункт отправления</div>
-                        <select>
+                        <select name="departmentDeparture" value={route.departmentDeparture} onChange={changeRoute}>
                             <option selected="selected">Минск</option>
                             <option>Брест</option>
                             <option>Гродно</option>
@@ -146,7 +144,7 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
 
                     <div className='edit-route-other-parameter'>
                         <div className='parameter-name'>Тип транспорта</div>
-                        <select>
+                        <select name="transportType" value={route.transportType} onChange={changeRoute}>
                             <option selected="selected">Самолёт</option>
                             <option>Автобус</option>
                             <option>Поезд</option>
@@ -157,20 +155,20 @@ function EditRouteMenu({ isEditRouteMenuOpen, closeEditRouteMenu}) {
                     <div className='edit-route-price-and-place'>
                         <div className='edit-route-price-or-place'>
                             <div className='parameter-name'><b>Цена:</b></div>
-                            <input type='number'/>
+                            <input type='number' name="price" value={route.price} onChange={changeRoute}/>
                         </div>
 
                         <div className='edit-route-price-or-place'>
                             <div className='parameter-name'><b>Кол. мест: </b></div>
-                            <input type='number'/>
+                            <input type='number' name="places" value={route.places} onChange={changeRoute}/>
                         </div>
                     </div>
                 </div>
                 
                 <hr></hr>
                 <div className="edit-route-controller">
-                    {/* <button onClick={clearAllFilters}>Очистить всё</button> */}
-                    <button>Сохранить</button>
+                    <button onClick={clearRoute}>Очистить всё</button>
+                    <button onClick={(e) => setRoutes([...routes, route])}>Сохранить</button>
                 </div>
             </div>
         </div>

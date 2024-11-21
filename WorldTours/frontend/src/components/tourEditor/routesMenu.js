@@ -3,7 +3,7 @@ import RouteCard from "./routeCard";
 import EditRouteMenu from "./editRouteMenu";
 import add from "../../img/add.svg"
 
-function RoutesMenu({openAddRouteMenu}) {
+function RoutesMenu({direction, routes, setRoutes}) {
     const [isEditRouteMenuOpen, setIsEditRouteMenuOpen] = useState(false);
 
     // Функция для открытия модального окна
@@ -28,6 +28,7 @@ function RoutesMenu({openAddRouteMenu}) {
             </div>
 
             <div className="routes">
+                {routes.map((route, index) => (<RouteCard direction={direction} route={route} deleteRoute={() => setRoutes(routes.filter((_, i) => i !== index))}/>))}
             </div>
 
             <div className="buttons-under-routes">
@@ -36,7 +37,7 @@ function RoutesMenu({openAddRouteMenu}) {
                 </button>
             </div>
             
-			<EditRouteMenu isEditRouteMenuOpen={isEditRouteMenuOpen} closeEditRouteMenu={closeEditRouteMenu} />
+			<EditRouteMenu routes={routes} setRoutes={setRoutes} isEditRouteMenuOpen={isEditRouteMenuOpen} closeEditRouteMenu={closeEditRouteMenu} />
 
         </div>
 	);
