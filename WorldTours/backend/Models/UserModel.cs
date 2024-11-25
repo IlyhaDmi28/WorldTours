@@ -4,7 +4,7 @@
     {
         GUEST,
         USER,
-        MANEGER,
+        MANAGER,
         ADMIN
     }
     public class UserModel

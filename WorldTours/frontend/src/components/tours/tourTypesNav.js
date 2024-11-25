@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TourType from './tourType'
 import FilterButton from './filterButton'
 import Filters from './filters'
+import all from '../../img/TourTypes/all.svg'
 import sea from '../../img/TourTypes/sea.svg'
 import nature from '../../img/TourTypes/nature.svg'
 import ski from '../../img/TourTypes/ski.svg'
@@ -26,6 +27,7 @@ function TypesTourNav({setTourType}) {
 
 	return (
 	    <div className="tour-types-nav">
+            <TourType name={"Все виды туров"} img={all} setTourType={setTourType}/>
             <TourType name={"Горнолыжный курорт"} img={ski} setTourType={setTourType}/>
 			<TourType name={"Путешествия по природе"} img={nature} setTourType={setTourType}/>
 			<TourType name={"Отдых на море"} img={sea} setTourType={setTourType}/>

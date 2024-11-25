@@ -1,5 +1,6 @@
 import '../styles/tourEditor.scss';
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import Header from '../components/general/header';
 import Regions from '../components/general/regions';
 import Countries from '../components/general/countries';
@@ -15,6 +16,7 @@ import ski from '../img/TourTypes/ski.svg'
 import culture from '../img/TourTypes/culture.svg'
 import bus from '../img/TourTypes/bus.svg'
 import delete3 from '../img/delete3.svg'
+const token = localStorage.getItem("token");
 
 function TourEditor() {
 	const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
@@ -26,12 +28,33 @@ function TourEditor() {
 		HotelId: null,
 	});
 	const [tourPhoto, setTourPhoto] = useState(tourp); 
+	const [tourTypes, setTourTypes] = useState([]); 
 	const [mainDescription, setMainDescription] = useState(""); 
 	const [selectedTourType, setSelectedTourType] = useState("Моча");
 	const [descriptions, setDescriptions] = useState({});
 	const [routes, setRoutes] = useState([]);
 	const inputPhotoFile = useRef(null); // Используем useRef для открытия input
 	
+	useEffect(() => {
+		const getData = async () => {
+            try {
+                const response = await axios.get('https://localhost:7276/tour/types', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+
+				console.log(response.data);
+
+				setTourTypes(response.data);
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
+
 	const selectDirection = (DirectionId) => {
 		switch(directionsPageInndex) {
 			case 1: { 
@@ -182,11 +205,12 @@ function TourEditor() {
 					</div>
 
 					<div className="tour-types-nav">
-						<TourType name={"Отдых на море"} img={sea} setTourType={() => setSelectedTourType("Отдых на море")}/>
+						{tourTypes.map((tourType) => (<TourType name={tourType.name} img={sea} setTourType={() => setSelectedTourType(tourType.name)}/>))}
+						{/* <TourType name={"Отдых на море"} img={sea} setTourType={() => setSelectedTourType("Отдых на море")}/>
 						<TourType name={"Горнолыжный курорт"} img={ski} setTourType={() => setSelectedTourType("Горнолыжный курор")}/>
 						<TourType name={"Путешествия по природе"} img={nature} setTourType={() => setSelectedTourType("Путешествия по природе")}/>
 						<TourType name={"Культурный туризм"} img={culture} setTourType={() => setSelectedTourType("Культурный туризм")}/>
-						<TourType name={"Обчная поездка"} img={bus} setTourType={() => setSelectedTourType("Обчная поездка")}/>
+						<TourType name={"Обчная поездка"} img={bus} setTourType={() => setSelectedTourType("Обчная поездка")}/> */}
         			</div>
 					<div>{selectedTourType}</div>
 

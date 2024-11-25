@@ -30,14 +30,14 @@ builder.Services.AddCors(options =>
                        .AllowCredentials(); // Включите, если используете аутентификацию с cookie
             }
     );
-});
+});// указывает, будет ли валидироваться издатель при валидации токена
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            // указывает, будет ли валидироваться издатель при валидации токена
+
             ValidateIssuer = true,
             // строка, представляющая издателя
             ValidIssuer = AuthOptions.ISSUER,

@@ -5,7 +5,7 @@
 	height: 100px;
 	display: flex;
 	justify-content: center	;
-	column-gap: 10%;
+	column-gap: 8%;
 
 	.tour-type {
 		@include tour-type(80px, 11px, 5px);
