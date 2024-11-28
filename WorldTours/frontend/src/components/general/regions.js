@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import world from '../../img/regions/world.jpg';
 import europe from '../../img/regions/europe.jpg';
 import middleEast from '../../img/regions/middle-east.jpg';
@@ -11,70 +12,31 @@ import centralAsia from '../../img/regions/central-asia.jpg';
 import southAsia from '../../img/regions/south-asia.jpg';
 import eastAsia from '../../img/regions/east-asia.jpg';
 import oceania from '../../img/regions/oceania.jpg';
+const token = localStorage.getItem("token");
 
 function Regions({selectDirection, goNextDirectionsPage, closeDirections, addDirection, position}) {
-	const [regions, setRegions] = useState([
-		{
-			id: 0,
-			name: "Весь мир",
-			img: world
-		},
-		{
-			id: 1,
-			name: "Европа и Россия",
-			img: europe
-		},
-		{
-			id: 1,
-			name: "Ближний Восток",
-			img: middleEast
-		},
-		{
-			id: 1,
-			name: "Северная Африка",
-			img: northAfrica
-		},
-		{
-			id: 1,
-			name: "Африка",
-			img: africa
-		},
-		{
-			id: 1,
-			name: "Латинская Америка",
-			img: latinAmerica
-		},
-		{
-			id: 1,
-			name: "Северная Америка",
-			img: northAmerica
-		},
-		{
-			id: 1,
-			name: "Юго-Восточная Азия",
-			img: southEastAsia
-		},
-		{
-			id: 1,
-			name: "Центральная Азия",
-			img: centralAsia
-		},
-		{
-			id: 1,
-			name: "Южная Азия",
-			img: southAsia
-		},
-		{
-			id: 1,
-			name: "Восточная Азия",
-			img: eastAsia
-		},
-		{
-			id: 1,
-			name: "Океания",
-			img: oceania
-		},
-	]);
+	const [regions, setRegions] = useState([]);
+
+	useEffect(() => {
+		const getData = async () => {
+            try {
+                const response = await axios.get('https://localhost:7276/direction/regions', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+
+				console.log(response.data);
+
+				setRegions(response.data);
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
+
 
 	const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
@@ -88,9 +50,13 @@ function Regions({selectDirection, goNextDirectionsPage, closeDirections, addDir
 				<div>
 					<div className="geographic-area"><b>Выберите регион</b></div>
 					<div className="regions-list">
+						<div onClick={() => {selectDirection(0); goNextDirectionsPage()}} className="region">
+							<img src={world}/>
+							<div>Весь мир</div>
+						</div>
 						{regions.map((region) => (
 							<div onClick={() => {selectDirection(region.id); goNextDirectionsPage()}} className="region">
-								<img src={region.img}/>
+								<img src={region.imageUrl}/>
 								<div>{region.name}</div>
 							</div>
 						))}

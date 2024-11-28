@@ -133,4 +133,113 @@ INSERT INTO Charcteristics_TourTypes (TourTypeID, CharacteristicID) VALUES (5, 1
 
 SELECT * FROM Charcteristics_TourTypes;
 
+DROP TABLE Regions;
+CREATE TABLE Regions (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) UNIQUE NOT NULL,
+  Image BLOB,
+);
 
+INSERT INTO Regions (Name, Image) VALUES ('Европа и Россия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/europe.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Ближний Восток', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/middle-east.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Северная Африка', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/north-africa.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Африка', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/africa.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Латинская Америка', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/latin-america.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Северная Америка', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/north-america.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Юго-Восточная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/south-east-asia.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Центральная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/central-asia.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Южная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/south-asia.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Восточная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/east-asia.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Океания', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/oceania.jpg'));
+
+
+DROP TABLE Countries;
+CREATE TABLE Countries (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) UNIQUE NOT NULL,
+  Flag BLOB,
+  RegionId INT,
+  FOREIGN KEY (`RegionId`) REFERENCES `Regions`(`ID`)
+);
+
+ALTER TABLE Countries ADD Flag BLOB;
+
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Болгария', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/bulgaria.svg')  1);
+
+SELECT * FROM countries;
+
+DROP TABLE Cities;
+CREATE TABLE Cities (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) UNIQUE NOT NULL,
+  CountryId INT,
+  FOREIGN KEY (`CountryId`) REFERENCES `Countries`(`ID`)
+);
+
+INSERT INTO Cities (NAME) VALUES ('Минск');
+INSERT INTO Cities (NAME, CountryId) VALUES ('София', 1);
+INSERT INTO Cities (NAME, CountryId) VALUES ('Варна', 1);
+INSERT INTO Cities (NAME, CountryId) VALUES ('Бургас', 1);
+INSERT INTO Cities (NAME, CountryId) VALUES ('Пловдив', 1);
+
+SELECT * FROM cities;
+
+
+DROP TABLE DepartmentDepartures;
+CREATE TABLE DepartmentDepartures (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) UNIQUE NOT NULL,
+  CityId INT,
+  FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`)
+);
+
+INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Автовокщал "Центральный"', 1);
+
+SELECT * FROM DepartmentDepartures;
+
+DROP TABLE TransportTypes;
+CREATE TABLE TransportTypes (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) UNIQUE NOT NULL
+);
+
+INSERT INTO TransportTypes (NAME) VALUES ('Самолёт');
+INSERT INTO TransportTypes (NAME) VALUES ('Автобус');
+INSERT INTO TransportTypes (NAME) VALUES ('Корабль');
+
+SELECT * FROM TransportTypes;
+
+
+DROP TABLE routes;
+CREATE TABLE Routes (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  LandingDateOfDeparture DATE,
+  LandingTimeOfDeparture TIME,
+  ArrivalDateOfDeparture DATE,
+  ArrivalTimeOfDeparture TIME,
+  LandingDateOfReturn DATE,
+  LandingTimeOfReturn TIME,
+  ArrivalDateOfReturn DATE,
+  ArrivalTimeOfReturn TIME,
+  DepartmentDepartureId INT,
+  TransportTypeId INT,
+  Price INT,
+  SeatsNumber INT,
+  FOREIGN KEY (`DepartmentDepartureId`) REFERENCES `DepartmentDepartures`(`ID`),
+  FOREIGN KEY (`TransportTypeId`) REFERENCES `TransportTypes`(`ID`)
+);
+
+DROP TABLE Hotels;
+CREATE TABLE Hotels (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) UNIQUE NOT NULL,
+  StarsNumber INT UNIQUE NOT NULL,
+  CityId INT,
+  FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`)
+);
+
+SELECT * FROM Cities;
+INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Чёрный дельфин', 5, 3);
+INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Отель Андрея-гея', 2, 5);
+
+SELECT * FROM Hotels;

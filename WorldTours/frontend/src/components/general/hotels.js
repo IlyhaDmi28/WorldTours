@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+const token = localStorage.getItem("token");
 
-function Hotels({selectDirection, goNextDirectionsPage, closeDirections, position}) {
-	const [hotels, setHotels] = useState([
-		{
-			id: 0,
-			name: "Ебля Андрея",
-		},
-		{
-			id: 1,
-			name: "Ебля Сани",
-		},
-		{
-			id: 1,
-			name: "Ебля Кирилла",
-		},
-	]);
+function Hotels({cityId, selectDirection, goNextDirectionsPage, closeDirections, position}) {
+	const [hotels, setHotels] = useState([]);
 	
+	useEffect(() => {
+		const getData = async () => {
+            try {
+                const response = await axios.get(`https://localhost:7276/direction/hotels?cityId=${cityId}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+
+				console.log(response.data);
+
+				setHotels(response.data);
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
+
 	const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             closeDirections();

@@ -1,65 +1,32 @@
 // import flag from '../../img/flags/bulgaria.svg';
-import React, { useState } from 'react';
-import flag from '../../img/flags/turkey.svg';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+const token = localStorage.getItem("token");
 
-function Countries({selectDirection, goNextDirectionsPage, closeDirections, position}) {
-	const [countries, setCountries] = useState([
-		{
-			id: 0,
-			name: "Пидорасы",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-		{
-			id: 1,
-			name: "Турция",
-			flag: flag
-		},
-	]);
+function Countries({regionId, selectDirection, goNextDirectionsPage, closeDirections, position}) {
+	const [countries, setCountries] = useState([])
+		
+
+	useEffect(() => {
+		const getData = async () => {
+            try {
+                const response = await axios.get(`https://localhost:7276/direction/countries?regionId=${regionId}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+
+				console.log(response.data);
+
+				setCountries(response.data);
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
+		
 	const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             closeDirections();
@@ -74,7 +41,7 @@ function Countries({selectDirection, goNextDirectionsPage, closeDirections, posi
 					<div className="countries-list">
 						{countries.map((country) => (
 							<div className="counrty" onClick={() => {selectDirection(country.id); goNextDirectionsPage()}}>
-								<img src={country.flag}/>
+								<img src={country.flagUrl}/>
 								<div>{country.name}</div>
 							</div>
 						))}

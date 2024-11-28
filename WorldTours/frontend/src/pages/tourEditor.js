@@ -20,6 +20,12 @@ const token = localStorage.getItem("token");
 
 function TourEditor() {
 	const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
+	const [dirctionInfo, setDirctionInfo] = useState({
+		hotel: null,
+		country: null,
+		city: null,
+		starsNumber: null
+	});
 
 	const [direction, setDirection] = useState({
 		RegionId: null,
@@ -27,11 +33,28 @@ function TourEditor() {
 		CityId: null,
 		HotelId: null,
 	});
+
+	const [tour, setTour] = useState({
+		tourPhoto: null,
+		tourTypes: null,
+		direction: {
+			hotel: null,
+			country: null,
+			city: null,
+			starsNumber: null
+		},
+		mainDescription: null,
+		tourType: null,
+		characteristicTypes: [],
+		routes: [],
+	});
+	
 	const [tourPhoto, setTourPhoto] = useState(tourp); 
 	const [tourTypes, setTourTypes] = useState([]); 
+	 
 	const [mainDescription, setMainDescription] = useState(""); 
 	const [selectedTourType, setSelectedTourType] = useState("Моча");
-	const [descriptions, setDescriptions] = useState({});
+	const [characteristicTypes, setCharacteristicTypes] = useState([]);
 	const [routes, setRoutes] = useState([]);
 	const inputPhotoFile = useRef(null); // Используем useRef для открытия input
 	
@@ -47,6 +70,14 @@ function TourEditor() {
 				console.log(response.data);
 
 				setTourTypes(response.data);
+
+				const response2 = await axios.get('https://localhost:7276/tour/characteristics?id=3', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				console.log(response2.data);
+				setCharacteristicTypes(response2.data);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -54,6 +85,37 @@ function TourEditor() {
 
         getData();
 	}, []);
+
+	useEffect(() => {
+		const getDirectionInfo = async () => {
+			if (
+				direction.RegionId != null &&
+				direction.CountryId != null &&
+				direction.CityId != null &&
+				direction.HotelId != null
+			) {
+				try {
+					console.log("sss" + direction.HotelId);
+	
+					const response = await axios.get(
+						`https://localhost:7276/direction/direction?countryId=${direction.CountryId}&cityId=${direction.CityId}&hotelId=${direction.HotelId}`,
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+	
+					console.log(response.data);
+					setDirctionInfo(response.data);
+				} catch (error) {
+					console.error("Ошибка загрузки данных:", error);
+				}
+			}
+		};
+	
+		getDirectionInfo(); // Вызов асинхронной функции
+	}, [direction]);
 
 	const selectDirection = (DirectionId) => {
 		switch(directionsPageInndex) {
@@ -110,17 +172,35 @@ function TourEditor() {
         }
     };
 
+	const changeCharacteristics = async (id) => {
+		try {
+			setSelectedTourType(id)
+
+			const response = await axios.get(`https://localhost:7276/tour/characteristics?id=${id}`, {
+				headers: {
+					'Authorization': 'Bearer ' + token,
+				}
+			});
+
+			console.log(response.data);
+			setCharacteristicTypes(response.data);
+		} catch (error) {
+			console.error('Ошибка загрузки данных:', error);
+		} 
+    };
+
     // Функция для открытия input по нажатию на изображение
     const openFileDialogToSelectAva = () => {
         inputPhotoFile.current.click();
     };
 
+
     const directions = [
         null,
         <Regions position={{left: '12%', top: '4%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections} />,
-        <Countries position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-        <Cities position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-        <Hotels position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Countries regionId={direction.RegionId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Cities countyId={direction.CountryId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Hotels cityId={direction.CityId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
     ]
 
 	return (
@@ -168,7 +248,7 @@ function TourEditor() {
 						<>
 							<div className="main-tour-editor-info">
 								<div>
-									<b>Отель</b>
+									<b>{dirctionInfo.hotel}</b>
 									<button onClick={() => setDirection({
 											RegionId: null,
 											CountryId: null,
@@ -178,15 +258,11 @@ function TourEditor() {
 										<img src={delete3}/>
 									</button>
 								</div>
-								<div>Страна, город</div>
+								<div>{dirctionInfo.country}, {dirctionInfo.city}</div>
 							</div>
 
 							<div className="tour-editor-hotel-stars">
-								<img src={star} />
-								<img src={star} />
-								<img src={star} />
-								<img src={star} />
-								<img src={star} />
+								{Array(dirctionInfo.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
 							</div>
 						</>
 					) : (
@@ -205,200 +281,29 @@ function TourEditor() {
 					</div>
 
 					<div className="tour-types-nav">
-						{tourTypes.map((tourType) => (<TourType name={tourType.name} img={sea} setTourType={() => setSelectedTourType(tourType.name)}/>))}
+						{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl} setTourType={() => changeCharacteristics(tourType.id)}/>))}
 						{/* <TourType name={"Отдых на море"} img={sea} setTourType={() => setSelectedTourType("Отдых на море")}/>
 						<TourType name={"Горнолыжный курорт"} img={ski} setTourType={() => setSelectedTourType("Горнолыжный курор")}/>
 						<TourType name={"Путешествия по природе"} img={nature} setTourType={() => setSelectedTourType("Путешествия по природе")}/>
 						<TourType name={"Культурный туризм"} img={culture} setTourType={() => setSelectedTourType("Культурный туризм")}/>
 						<TourType name={"Обчная поездка"} img={bus} setTourType={() => setSelectedTourType("Обчная поездка")}/> */}
         			</div>
-					<div>{selectedTourType}</div>
-
 					<div className="tour-editor-characteristics">
-						<div className="tour-editor-characteristic">
-							<div>
-								<b>Характеристика 1</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
+							{characteristicTypes.map((characteristicType) => (
+								<div className="tour-editor-characteristic">
+									<div>
+										<b>{characteristicType.name}</b>
+									</div>
+									<div>
+										{characteristicType.characteristics.map((characteristic) =>(
+											<div>
+												<input type="checkbox" name={characteristic.name}/>
+												<label>{characteristic.name}</label>
+											</div>
+										))}
+									</div>
 								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-							</div>
-						</div>
-						<div className="tour-editor-characteristic">
-							<div>
-								<b>Характеристика 2</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-							</div>
-						</div>
-						<div className="tour-editor-characteristic">
-							<div>
-								<b>Характеристика 3</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-							</div>
-						</div>
-						<div className="tour-editor-characteristic">
-							<div>
-								<b>Характеристика 4</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-							</div>
-						</div>
-						<div className="tour-editor-characteristic">
-							<div>
-								<b>Характеристика 5</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-							</div>
-						</div>
-						<div className="tour-editor-characteristic">
-							<div>
-								<b>Характеристика 6</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-							</div>
-						</div>
-						<div className="tour-editor-characteristic">
-							<div>
-								<b>Характеристика 7</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-							</div>
-						</div>
-						<div className="tour-editor-characteristic">
-							<div>
-								<b>Характеристика 8</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-								<div>
-									<input type="checkbox" name="d1"/>
-									<label>d1</label>
-								</div>
-							</div>
-						</div>
+							))}
 					</div>
 				</div>
 

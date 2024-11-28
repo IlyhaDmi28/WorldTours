@@ -1,0 +1,34 @@
+- Controllers
+  - HomeController.cs
+  - ProductsController.cs
+- Models
+  - Product.cs
+  - Customer.cs
+  - ViewModels
+    - ProductViewModel.cs
+- Views
+  - Home
+    - Index.cshtml
+  - Products
+    - List.cshtml
+- Data
+  - AppDbContext.cs
+  - Migrations
+- Services
+  - IProductService.cs
+  - ProductService.cs
+- DTOs
+  - ProductDto.cs
+  - CustomerDto.cs
+- wwwroot
+  - css
+  - js
+  - images
+- Interfaces
+  - IProductRepository.cs
+- Configurations
+  - AuthOptions.cs
+- Helpers
+  - EmailHelper.cs
+- Extensions
+  - ServiceCollectionExtensions.cs

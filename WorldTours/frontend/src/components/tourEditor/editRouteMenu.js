@@ -16,7 +16,7 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
         departmentDeparture: "Минск",
         transportType: "Самолёт",
         price: 0,
-        places: 0,
+        seatsNumber: 0,
     });
    
 
