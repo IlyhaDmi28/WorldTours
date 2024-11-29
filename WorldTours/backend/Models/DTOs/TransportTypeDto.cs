@@ -1,9 +1,8 @@
 ﻿namespace backend.Models.DTOs
 {
-	public class CharacteristicDto
+	public class TransportTypeDto
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public List<DescriptionDto> Descriptions { get; set; }
 	}
 }

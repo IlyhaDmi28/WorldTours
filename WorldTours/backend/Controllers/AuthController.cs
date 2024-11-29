@@ -21,7 +21,7 @@ namespace backend.Controllers
         [Authorize]
         public IActionResult Auth()
         {
-            UserModel user = db.Users.FirstOrDefault(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
+            User user = db.Users.FirstOrDefault(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
             return user != null ? Ok(user) : Unauthorized();
         }
 
@@ -30,7 +30,7 @@ namespace backend.Controllers
         {
             if (db.Users.FirstOrDefault(u => u.Email == register.Email) != null) return Conflict(new { message = "Этот email уже используется." });
 
-            db.Users.Add(new UserModel(register));
+            db.Users.Add(new User(register));
             db.SaveChanges();
 
             return Ok(new { token = TokenSevice.GenerateToken(register.Email) });

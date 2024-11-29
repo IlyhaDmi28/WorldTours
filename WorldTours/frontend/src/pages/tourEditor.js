@@ -10,53 +10,38 @@ import RoutesMenu from '../components/tourEditor/routesMenu';
 import TourType from '../components/tours/tourType'
 import tourp from '../img/test.jpg';
 import star from '../img/star.svg';
-import sea from '../img/TourTypes/sea.svg'
-import nature from '../img/TourTypes/nature.svg'
-import ski from '../img/TourTypes/ski.svg'
-import culture from '../img/TourTypes/culture.svg'
-import bus from '../img/TourTypes/bus.svg'
 import delete3 from '../img/delete3.svg'
 const token = localStorage.getItem("token");
 
 function TourEditor() {
 	const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
-	const [dirctionInfo, setDirctionInfo] = useState({
+	const [directionInfo, setDirectionInfo] = useState({
 		hotel: null,
 		country: null,
 		city: null,
 		starsNumber: null
 	});
-
-	const [direction, setDirection] = useState({
-		RegionId: null,
-		CountryId: null,
-		CityId: null,
-		HotelId: null,
-	});
-
+	const [tourTypes, setTourTypes] = useState([]); 
+	const [tourPhotoUrl, setTourPhotoUrl] = useState(tourp); 
+	const [characteristicTypes, setCharacteristicTypes] = useState([]);
+	const [nutritionTypes, setNutritionTypes] = useState([]);
+	
 	const [tour, setTour] = useState({
-		tourPhoto: null,
+		tourPhotoFile: useRef(null), // Используем useRef для открытия input
 		tourTypes: null,
 		direction: {
-			hotel: null,
-			country: null,
-			city: null,
-			starsNumber: null
+			regionId: null,
+			countryId: null,
+			cityId: null,
+			hotelId: null,
 		},
 		mainDescription: null,
+		nutritionType: null,
 		tourType: null,
-		characteristicTypes: [],
 		routes: [],
+		characteristics: []
 	});
-	
-	const [tourPhoto, setTourPhoto] = useState(tourp); 
-	const [tourTypes, setTourTypes] = useState([]); 
-	 
-	const [mainDescription, setMainDescription] = useState(""); 
-	const [selectedTourType, setSelectedTourType] = useState("Моча");
-	const [characteristicTypes, setCharacteristicTypes] = useState([]);
-	const [routes, setRoutes] = useState([]);
-	const inputPhotoFile = useRef(null); // Используем useRef для открытия input
+
 	
 	useEffect(() => {
 		const getData = async () => {
@@ -76,8 +61,30 @@ function TourEditor() {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
-				console.log(response2.data);
-				setCharacteristicTypes(response2.data);
+
+				let characteristicTypesData = response2.data;
+				console.log(characteristicTypesData);
+				setCharacteristicTypes(characteristicTypesData);
+				
+				let characteristics = [];
+				characteristicTypesData.map((characteristicTypeData) =>{
+					characteristics.push(characteristicTypeData.characteristics)
+				})
+				characteristics = characteristics.flat()
+				console.log(characteristics);
+
+				const response3 = await axios.get('https://localhost:7276/tour/NutritionTypes', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				console.log(response3.data);
+				setNutritionTypes(response3.data);
+
+				setTour((prevTOur) => ({
+                    ...prevTOur,
+                    nutritionTypeId: response3.data[0].id
+                }));
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -87,18 +94,12 @@ function TourEditor() {
 	}, []);
 
 	useEffect(() => {
+		console.log ('хуй');
 		const getDirectionInfo = async () => {
-			if (
-				direction.RegionId != null &&
-				direction.CountryId != null &&
-				direction.CityId != null &&
-				direction.HotelId != null
-			) {
+			if (tour.direction.regionId != null && tour.direction.countryId != null && tour.direction.cityId != null && tour.direction.hotelId != null) {
 				try {
-					console.log("sss" + direction.HotelId);
-	
 					const response = await axios.get(
-						`https://localhost:7276/direction/direction?countryId=${direction.CountryId}&cityId=${direction.CityId}&hotelId=${direction.HotelId}`,
+						`https://localhost:7276/direction/direction?countryId=${tour.direction.countryId}&cityId=${tour.direction.cityId}&hotelId=${tour.direction.hotelId}`,
 						{
 							headers: {
 								Authorization: `Bearer ${token}`,
@@ -107,7 +108,7 @@ function TourEditor() {
 					);
 	
 					console.log(response.data);
-					setDirctionInfo(response.data);
+					setDirectionInfo(response.data);
 				} catch (error) {
 					console.error("Ошибка загрузки данных:", error);
 				}
@@ -115,58 +116,63 @@ function TourEditor() {
 		};
 	
 		getDirectionInfo(); // Вызов асинхронной функции
-	}, [direction]);
+	}, [tour]);
 
-	const selectDirection = (DirectionId) => {
-		switch(directionsPageInndex) {
-			case 1: { 
-				setDirection((prevDirection) => ({
-					...prevDirection,
-					["RegionId"]: DirectionId,
-				})); 
-				break;
+	const selectDirection = (directionId) => {
+		setTour((prevTour) => {
+			let updatedDirection = { ...prevTour.direction };
+	
+			switch (directionsPageInndex) {
+				case 1:
+					updatedDirection.regionId = directionId;
+					break;
+				case 2:
+					updatedDirection.countryId = directionId;
+					break;
+				case 3:
+					updatedDirection.cityId = directionId;
+					break;
+				case 4:
+					updatedDirection.hotelId = directionId;
+					break;
+				default:
+					break;
 			}
-
-			case 2: { 
-				setDirection((prevDirection) => ({
-					...prevDirection,
-					["CountryId"]: DirectionId,
-				})); 
-				break;
-			}
-			case 3: { 
-				setDirection((prevDirection) => ({
-					...prevDirection,
-					["CityId"]: DirectionId,
-				})); 
-				break;
-			}
-
-			case 4: { 
-				setDirection((prevDirection) => ({
-					...prevDirection,
-					["HotelId"]: DirectionId,
-				})); 
-				break;
-			}
-		}
-	}
+	
+			return {
+				...prevTour,
+				direction: updatedDirection,
+			};
+		});
+	};
 	
 	const closeDirections = () => {
 		setDirectionsPageInndex(0);
-		setDirection({
-			RegionId: null,
-			CountryId: null,
-			CityId: null,
-			HotelId: null,
-		});
+		setTour((prevTour) => ({
+			...prevTour,
+			direction: {
+				...prevTour.direction,
+				regionId: null,
+				countryId: null,
+				cityId: null,
+				hotelId: null,
+			},
+		}));
 	}
+
+	const directions = [
+        null,
+        <Regions position={{left: '12%', top: '4%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections} />,
+        <Countries regionId={tour.direction.regionId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Cities countyId={tour.direction.countryId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Hotels cityId={tour.direction.cityId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+    ]
 
 	const changePhoto = (e) => {
         if (e.target.files && e.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            setTourPhoto(e.target.result); // Обновляем изображение на выбранное
+			setTourPhotoUrl(e.target.result);
         };
         reader.readAsDataURL(e.target.files[0]);
         }
@@ -174,7 +180,10 @@ function TourEditor() {
 
 	const changeCharacteristics = async (id) => {
 		try {
-			setSelectedTourType(id)
+			setTour((prevTour) => ({
+				...prevTour,
+				["tourType"]: id,
+			}));
 
 			const response = await axios.get(`https://localhost:7276/tour/characteristics?id=${id}`, {
 				headers: {
@@ -189,19 +198,17 @@ function TourEditor() {
 		} 
     };
 
+	const changeTour = (e) => {
+		const { name, value } = e.target;
+        setTour((prevTour) => ({
+			...prevTour,
+            [name]: value,
+        }));
+	}
     // Функция для открытия input по нажатию на изображение
     const openFileDialogToSelectAva = () => {
-        inputPhotoFile.current.click();
+        tour.tourPhotoFile.current.click();
     };
-
-
-    const directions = [
-        null,
-        <Regions position={{left: '12%', top: '4%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections} />,
-        <Countries regionId={direction.RegionId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-        <Cities countyId={direction.CountryId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-        <Hotels cityId={direction.CityId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-    ]
 
 	return (
 		<div className="tour narrow-conteiner">
@@ -217,8 +224,8 @@ function TourEditor() {
 
 			<div className="tour-editor-images">
 				<div className="main-tour-editor-img">
-					<img src={tourPhoto} alt="click to change" onClick={openFileDialogToSelectAva}/>
-                    <input type="file" ref={inputPhotoFile}  onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
+					<img src={tourPhotoUrl} alt="click to change" onClick={openFileDialogToSelectAva}/>
+                    <input type="file" ref={ tour.tourPhotoFile}  onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
 				</div>
 				
 
@@ -244,25 +251,31 @@ function TourEditor() {
 			<div className="tour-editor-info-and-reservation">
 				<div className="tour-editor-info">
 					{directions[directionsPageInndex]} 
-					{(direction.RegionId != null && direction.CountryId != null && direction.CityId != null && direction.HotelId != null) ? (
+					{(tour.direction.regionId != null && tour.direction.countryId != null && tour.direction.cityId != null && tour.direction.hotelId != null) ? (
 						<>
 							<div className="main-tour-editor-info">
 								<div>
-									<b>{dirctionInfo.hotel}</b>
-									<button onClick={() => setDirection({
-											RegionId: null,
-											CountryId: null,
-											CityId: null,
-											HotelId: null,
-										})}>
+									<b>{directionInfo.hotel}</b>
+										<button onClick={() => 
+											setTour((prevTour) => ({
+												...prevTour,
+												direction: {
+													...prevTour.direction,
+													regionId: null,
+													countryId: null,
+													cityId: null,
+													hotelId: null,
+												},
+											}))
+										}>
 										<img src={delete3}/>
 									</button>
 								</div>
-								<div>{dirctionInfo.country}, {dirctionInfo.city}</div>
+								<div>{directionInfo.country}, {directionInfo.city}</div>
 							</div>
 
 							<div className="tour-editor-hotel-stars">
-								{Array(dirctionInfo.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
+								{Array(directionInfo.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
 							</div>
 						</>
 					) : (
@@ -280,13 +293,22 @@ function TourEditor() {
 						<textarea/>
 					</div>
 
+					<div className='nutrition-type'>
+						<div><b>Тип питание</b></div>
+						<select name='nutritionType' onChange={changeTour}>
+                            {nutritionTypes.map((nutritionType) => (
+                                <option 
+                                    key={nutritionType.id}
+                                    value={nutritionType.id}
+                                >
+                                    {nutritionType.name}
+                                </option>
+                            ))}
+                        </select>
+					</div>
+
 					<div className="tour-types-nav">
 						{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl} setTourType={() => changeCharacteristics(tourType.id)}/>))}
-						{/* <TourType name={"Отдых на море"} img={sea} setTourType={() => setSelectedTourType("Отдых на море")}/>
-						<TourType name={"Горнолыжный курорт"} img={ski} setTourType={() => setSelectedTourType("Горнолыжный курор")}/>
-						<TourType name={"Путешествия по природе"} img={nature} setTourType={() => setSelectedTourType("Путешествия по природе")}/>
-						<TourType name={"Культурный туризм"} img={culture} setTourType={() => setSelectedTourType("Культурный туризм")}/>
-						<TourType name={"Обчная поездка"} img={bus} setTourType={() => setSelectedTourType("Обчная поездка")}/> */}
         			</div>
 					<div className="tour-editor-characteristics">
 							{characteristicTypes.map((characteristicType) => (
@@ -307,7 +329,11 @@ function TourEditor() {
 					</div>
 				</div>
 
-				<RoutesMenu direction={direction} routes={routes} setRoutes={setRoutes}/>
+				<RoutesMenu directionInfo={directionInfo} routes={tour.routes} setRoutes={
+					(routes) => setTour((prevTour) => ({
+					...prevTour,
+					["routes"]: routes,
+				}))}/>
 			</div>
 		</div>
 	);

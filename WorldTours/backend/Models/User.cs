@@ -7,7 +7,7 @@
         MANAGER,
         ADMIN
     }
-    public class UserModel
+    public class User
     {
         public int Id { get; set; }
         public string Email { get; set; }
@@ -17,7 +17,7 @@
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
 
-        public UserModel(int id, string email, string password, UserRole role, string name, string surname, string phoneNumber)
+        public User(int id, string email, string password, UserRole role, string name, string surname, string phoneNumber)
         {
             Id = id;
             Email = email;
@@ -27,7 +27,7 @@
             Surname = surname;
             PhoneNumber = phoneNumber;
         }
-        public UserModel(RegisterModel register, UserRole role=UserRole.USER)
+        public User(RegisterModel register, UserRole role=UserRole.USER)
         {
             Email = register.Email;
             Password = register.Password;

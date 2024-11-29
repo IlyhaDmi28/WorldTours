@@ -8,12 +8,16 @@ namespace backend.DB
     {
 		public DbSet<CharacteristicType> CharacteristicTypes { get; set; }
 		public DbSet<Characteristic> Characteristics { get; set; }
-		public DbSet<UserModel> Users { get; set; }
+		public DbSet<User> Users { get; set; }
         public DbSet<TourType> TourTypes { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<DepartmentDeparture> DepartmentDepartures { get; set; }
+        public DbSet<TransportType> TransportTypes { get; set; }
+        public DbSet<NutritionType> NutritionTypes { get; set; }
+        public DbSet<Description> Descriptions { get; set; }
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             Database.EnsureCreated();   // создаем базу данных при первом обращении
@@ -64,6 +68,18 @@ namespace backend.DB
 				.HasMany(city => city.Hotels)
 				.WithOne(hotel => hotel.City)
 				.HasForeignKey(hotel => hotel.CityId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<City>()
+				.HasMany(city => city.DepartmentDepartures)
+				.WithOne(departmentDeparture => departmentDeparture.City)
+				.HasForeignKey(departmentDeparture => departmentDeparture.CityId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<Characteristic>()
+				.HasMany(characteristic => characteristic.Descriptions)
+				.WithOne(description => description.Characteristic)
+				.HasForeignKey(description => description.CharacteristicId)
 				.OnDelete(DeleteBehavior.Cascade);
 		}
 	}

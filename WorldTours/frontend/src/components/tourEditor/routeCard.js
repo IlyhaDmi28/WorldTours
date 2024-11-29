@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import delete2 from '../../img/delete2.svg';
 
-function RouteCard({direction, route, deleteRoute}) {
+function RouteCard({directionInfo, route, deleteRoute}) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -12,13 +12,13 @@ function RouteCard({direction, route, deleteRoute}) {
                     <div>
                         <div className="route-card-direction-info">
                             <div>
-                                <div>{route.departmentDeparture}</div>
+                                <div>{route.departmentDeparture.country}, {route.departmentDeparture.city}</div>
                                 <div>{route.landingDateOfDeparture}, {route.landingTimeOfDeparture}</div>
                             </div>
                             &#8594;
                             <div>
                                 
-                                <div>{direction.CountryId !== null ? "Страна" : "Страна не выбрана"} {direction.CityId !== null ? "Город" : "Город не выбран"}</div>
+                                <div>{directionInfo.country !== null ? directionInfo.country : "Страна не выбрана"}, {directionInfo.city !== null ? directionInfo.city : "Город не выбран"}</div>
                                 <div>{route.arrivalDateOfDeparture}, {route.arrivalTimeOfDeparture}</div>
                             </div>
                         </div>
@@ -30,12 +30,12 @@ function RouteCard({direction, route, deleteRoute}) {
                     <div>
                         <div className="route-card-direction-info">
                             <div>
-                                <div>{route.departmentDeparture}</div>
+                                <div>{route.departmentDeparture.country}, {route.departmentDeparture.city}</div>
                                 <div>{route.arrivalDateOfReturn}, {route.arrivalTimeOfReturn}</div>
                             </div>
                             &#8592;
                             <div>
-                                <div>{direction.CountryId !== null ? "Страна" : "Страна не выбрана"} {direction.CityId !== null ? "Город" : "Город не выбран"}</div>
+                                <div>{directionInfo.country !== null ? directionInfo.country : "Страна не выбрана"}, {directionInfo.city !== null ? directionInfo.city : "Город не выбран"}</div>
                                 <div>{route.landingDateOfReturn}, {route.landingTimeOfReturn}</div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@ function RouteCard({direction, route, deleteRoute}) {
             <div className="route-card-info">
                 <div className="route-card-transport">
                     <div>Тип транспорта:</div>
-                    <div>{route.transportType}</div>
+                    <div>{route.transportType.name}</div>
                 </div>
 
                 <div className="route-card-price-or-places">

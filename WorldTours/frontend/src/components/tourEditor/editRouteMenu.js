@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import star from '../../img/star.svg'
 import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
+const token = localStorage.getItem("token");
 
 function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMenu}) {
+    const [departmentDepartures, setDepartmentDepartures] = useState([]);
+    const [transportTypes, setTransportTypes] = useState([]);
+
     const [route, setRoute] = useState({
         landingDateOfDeparture: "",
         landingTimeOfDeparture: "",
@@ -13,12 +18,68 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
         landingTimeOfReturn: "",
         arrivalDateOfReturn: "",
         arrivalTimeOfReturn: "",
-        departmentDeparture: "Минск",
-        transportType: "Самолёт",
+        departmentDeparture: {
+            id: null,
+            name: null,
+            city: null,
+            countrty: null
+        },
+        transportType: {
+            id: null,
+            name: null,
+        },
         price: 0,
         seatsNumber: 0,
     });
    
+    useEffect(() => {
+		const getData = async () => {
+            try {
+                const response = await axios.get('https://localhost:7276/route/DepartmentDepartures', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+                
+                const departmentDeparture = response.data;
+				console.log(departmentDeparture);
+                setDepartmentDepartures(departmentDeparture);
+
+                setRoute((prevRoute) => ({
+                    ...prevRoute,
+                    departmentDeparture: {
+                        id: departmentDeparture[0].id,
+                        name: departmentDeparture[0].name,
+                        city: departmentDeparture[0].city,
+                        country: departmentDeparture[0].country,
+                    },
+                }));
+
+                const response2 = await axios.get('https://localhost:7276/route/TransportTypes', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+                
+                const transportTypes = response2.data;
+				console.log(transportTypes);
+                setTransportTypes(transportTypes);
+
+                setRoute((prevRoute) => ({
+                    ...prevRoute,
+                    transportType: {
+                        id: transportTypes[0].id,
+                        name: transportTypes[0].name,
+                    },
+                }));
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
+
 
     if (!isEditRouteMenuOpen) {
         return null; // Если модальное окно закрыто, возвращаем null, чтобы не рендерить его
@@ -30,11 +91,45 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
         }
     };
 
-    const changeRoute= (e) => {
+    const changeRoute = (e) => {
         const { name, value } = e.target;
         setRoute((prevRoute) => ({
             ...prevRoute,
             [name]: value,
+        }));
+    };
+
+    const changeDepartmentDeparture = (e) => {
+        const selectedDepartmentDeparture = JSON.parse(e.target.value); // Парсинг JSON-строки
+        console.log(selectedDepartmentDeparture.id);
+        console.log(selectedDepartmentDeparture.name);
+        console.log(selectedDepartmentDeparture.city);
+        console.log(selectedDepartmentDeparture.country);
+        setRoute((prevRoute) => ({
+            ...prevRoute,
+            departmentDeparture: {
+                id: selectedDepartmentDeparture.id,
+                name: selectedDepartmentDeparture.name,
+                city: selectedDepartmentDeparture.city,
+                country: selectedDepartmentDeparture.country,
+            },
+        }));
+    };
+
+    const changeTransportType = (e) => {
+        const selectedTranportType = JSON.parse(e.target.value); // Парсинг JSON-строки
+        console.log(selectedTranportType.id);
+        console.log(selectedTranportType.name);
+        console.log(selectedTranportType.city);
+        console.log(selectedTranportType.country);
+        setRoute((prevRoute) => ({
+            ...prevRoute,
+            departmentDeparture: {
+                id: selectedTranportType.id,
+                name: selectedTranportType.name,
+                city: selectedTranportType.city,
+                country: selectedTranportType.country,
+            },
         }));
     };
 
@@ -129,26 +224,28 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
 
                     <div className='edit-route-other-parameter'>
                         <div className='parameter-name'>Пункт отправления</div>
-                        <select name="departmentDeparture" value={route.departmentDeparture} onChange={changeRoute}>
-                            <option selected="selected">Минск</option>
-                            <option>Брест</option>
-                            <option>Гродно</option>
-                            <option>Витебск</option>
-                            <option>Могилёв</option>
-                            <option>Гомель</option>
-                            <option>Москва</option>
-                            <option>Киев</option>
-                            <option>Варшава</option>
+                        <select name="departmentDeparture" onChange={changeDepartmentDeparture}>
+                            {departmentDepartures.map((departmentDeparture) => (
+                                <option 
+                                    key={departmentDeparture.id}
+                                    value={JSON.stringify(departmentDeparture)}
+                                >
+                                    {departmentDeparture.name}, {departmentDeparture.country}, {departmentDeparture.city}
+                                </option>
+                            ))}
                         </select>
                     </div>
-
                     <div className='edit-route-other-parameter'>
                         <div className='parameter-name'>Тип транспорта</div>
-                        <select name="transportType" value={route.transportType} onChange={changeRoute}>
-                            <option selected="selected">Самолёт</option>
-                            <option>Автобус</option>
-                            <option>Поезд</option>
-                            <option>Корабль</option>
+                        <select name="transportType" onChange={changeTransportType}>
+                            {transportTypes.map((transportType) => (
+                                <option 
+                                    key={transportType.id}
+                                    value={JSON.stringify(transportType)}
+                                >
+                                    {transportType.name}
+                                </option>
+                            ))}
                         </select>
                     </div>
 

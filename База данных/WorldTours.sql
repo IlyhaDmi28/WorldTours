@@ -81,7 +81,22 @@ INSERT INTO Characteristics (NAME, CharacteristicTypeID) VALUES ('Бильярд
 INSERT INTO Characteristics (NAME, CharacteristicTypeID) VALUES ('Тенис', 3);
 INSERT INTO Characteristics (NAME, CharacteristicTypeID) VALUES ('Различные развлечения', 3);
 
-      
+SELECT * FROM characteristics;
+
+
+DROP TABLE Descriptions
+CREATE TABLE Descriptions (
+  	ID INT PRIMARY KEY AUTO_INCREMENT,
+  	Value BOOLEAN DEFAULT 0 NOT NULL,
+  	CharacteristicID INT,
+  	TourID INT,
+	FOREIGN KEY (`CharacteristicID`) REFERENCES `Characteristics`(`ID`)
+	-- FOREIGN KEY (`TourID`) REFERENCES `Tours`(`ID`) --
+);
+CharacteristicID
+INSERT INTO Descriptions (Value, CharacteristicID) VALUES (true, 3);
+SELECT * FROM Descriptions;     
+
 
 DROP TABLE Charcteristics_TourTypes;
 CREATE TABLE Charcteristics_TourTypes (
@@ -164,7 +179,8 @@ CREATE TABLE Countries (
 
 ALTER TABLE Countries ADD Flag BLOB;
 
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Болгария', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/bulgaria.svg')  1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Болгария', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/bulgaria.svg'),  1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Беларусь', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/belarus.svg'),  1);
 
 SELECT * FROM countries;
 
@@ -176,7 +192,7 @@ CREATE TABLE Cities (
   FOREIGN KEY (`CountryId`) REFERENCES `Countries`(`ID`)
 );
 
-INSERT INTO Cities (NAME) VALUES ('Минск');
+INSERT INTO Cities (NAME, CountryId) VALUES ('Минск', 2);
 INSERT INTO Cities (NAME, CountryId) VALUES ('София', 1);
 INSERT INTO Cities (NAME, CountryId) VALUES ('Варна', 1);
 INSERT INTO Cities (NAME, CountryId) VALUES ('Бургас', 1);
@@ -193,7 +209,8 @@ CREATE TABLE DepartmentDepartures (
   FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`)
 );
 
-INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Автовокщал "Центральный"', 1);
+INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Автовокщал «Центральный»', 1);
+INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Национальный аэропорт «Минск»', 1);
 
 SELECT * FROM DepartmentDepartures;
 
@@ -242,4 +259,18 @@ SELECT * FROM Cities;
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Чёрный дельфин', 5, 3);
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Отель Андрея-гея', 2, 5);
 
-SELECT * FROM Hotels;
+SELECT * FROM hotels;
+
+
+CREATE TABLE NutritionTypes (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) UNIQUE NOT NULL
+);
+
+INSERT INTO NutritionTypes (NAME) VALUES ('RO (Room only) — без питания');
+INSERT INTO NutritionTypes (NAME) VALUES ('BB (Bed & breakfast) — завтрак');
+INSERT INTO NutritionTypes (NAME) VALUES ('HB (Half board) — полупансион');
+INSERT INTO NutritionTypes (NAME) VALUES ('FB (Full board) — полный пансион (завтрак, обед и ужин)');
+INSERT INTO NutritionTypes (NAME) VALUES ('AI (All inclusive) — всё включено — завтрак, обед и ужин (шведский стол)');
+
+SELECT * FROM NutritionTypes;

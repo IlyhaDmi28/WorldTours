@@ -11,6 +11,8 @@
 		// Навигационное свойство для связи "многие к одному"
 		public CharacteristicType CharacteristicType { get; set; }
 
+		public ICollection<Description> Descriptions { get; set; }
+
 		// Навигационное свойство для связи многие-ко-многим
 		public ICollection<TourType> TourTypes { get; set; }
 	}	

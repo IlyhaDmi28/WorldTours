@@ -41,12 +41,12 @@ namespace backend.Controllers
 						{
 							Id = c.Id,
 							Name = c.Name,
-							TourTypes = c.TourTypes
-								.Where(tt => tt.Id == id)
-								.Select(tt => new TourTypeDto
+							Descriptions = c.Descriptions
+								.Where(d => d.CharacteristicId == c.Id)
+								.Select(d => new DescriptionDto
 								{
-									Id = tt.Id,
-									Name = tt.Name
+									Id = d.Id,
+									Value = d.Value,
 								})
 								.ToList()
 						})
@@ -55,5 +55,16 @@ namespace backend.Controllers
 				.ToListAsync();
 			return Ok(characteristicTypes);
 		}
+
+		public IActionResult NutritionTypes()
+		{
+			return Ok(db.NutritionTypes.Select(nutritionType => new NutritionType
+			{
+				Id = nutritionType.Id,
+				Name = nutritionType.Name,
+			})
+			);
+		}
+
 	}
 }
