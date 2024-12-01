@@ -1,23 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using backend.Models;
 using System.Reflection.PortableExecutable;
+using System.Data;
 
 namespace backend.DB
 {
     public class AppDbContext : DbContext
     {
-		public DbSet<CharacteristicType> CharacteristicTypes { get; set; }
-		public DbSet<Characteristic> Characteristics { get; set; }
 		public DbSet<User> Users { get; set; }
-        public DbSet<TourType> TourTypes { get; set; }
-        public DbSet<Region> Regions { get; set; }
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<DepartmentDeparture> DepartmentDepartures { get; set; }
-        public DbSet<TransportType> TransportTypes { get; set; }
-        public DbSet<NutritionType> NutritionTypes { get; set; }
-        public DbSet<Description> Descriptions { get; set; }
+		public DbSet<TourType> TourTypes { get; set; }
+		public DbSet<Characteristic> Characteristics { get; set; }
+		public DbSet<Description> Descriptions { get; set; }
+		public DbSet<Region> Regions { get; set; }
+		public DbSet<Country> Countries { get; set; }
+		public DbSet<City> Cities { get; set; }
+		public DbSet<DepartmentDeparture> DepartmentDepartures { get; set; }
+		public DbSet<TransportType> TransportTypes { get; set; }
+		public DbSet<Hotel> Hotels { get; set; }
+		public DbSet<NutritionType> NutritionTypes { get; set; }
+		public DbSet<Tour> Tours { get; set; }
+		public DbSet<Models.Route> Routes { get; set; }
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             Database.EnsureCreated();   // создаем базу данных при первом обращении
@@ -45,42 +47,115 @@ namespace backend.DB
 						.HasConstraintName("FK_Charcteristics_TourTypes_TourTypes")
 				);
 
-			// Связь "один ко многим" между CharcteristicType и Charcteristics
-			modelBuilder.Entity<CharacteristicType>()
-				.HasMany(ct => ct.Characteristics)
-				.WithOne(c => c.CharacteristicType)
-				.HasForeignKey(c => c.CharacteristicTypeId)
+
+			// Настройка User
+			modelBuilder.Entity<User>()
+				.HasIndex(u => u.Email)
+				.IsUnique();
+
+			// Настройка TourType
+			modelBuilder.Entity<TourType>()
+				.HasMany(tt => tt.Tours)
+				.WithOne(t => t.TourType)
+				.HasForeignKey(t => t.TourTypeId)
+				.OnDelete(DeleteBehavior.SetNull);
+
+			// Настройка Characteristic
+			modelBuilder.Entity<Characteristic>()
+				.HasMany(c => c.Descriptions)
+				.WithOne(d => d.Characteristic)
+				.HasForeignKey(d => d.CharacteristicId)
 				.OnDelete(DeleteBehavior.Cascade);
 
+			// Настройка Description
+			modelBuilder.Entity<Description>()
+				.HasOne(d => d.Tour)
+				.WithMany(t => t.Descriptions)
+				.HasForeignKey(d => d.TourId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			// Настройка Region
 			modelBuilder.Entity<Region>()
-				.HasMany(region => region.Countries)
-				.WithOne(country => country.Region)
-				.HasForeignKey(country => country.RegionId)
+				.HasMany(r => r.Countries)
+				.WithOne(c => c.Region)
+				.HasForeignKey(c => c.RegionId)
 				.OnDelete(DeleteBehavior.Cascade);
 
+			// Настройка Country
 			modelBuilder.Entity<Country>()
-				.HasMany(country => country.Cities)
+				.HasMany(c => c.Cities)
 				.WithOne(city => city.Country)
 				.HasForeignKey(city => city.CountryId)
 				.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<City>()
-				.HasMany(city => city.Hotels)
-				.WithOne(hotel => hotel.City)
-				.HasForeignKey(hotel => hotel.CityId)
-				.OnDelete(DeleteBehavior.Cascade);
-
+			// Настройка City
 			modelBuilder.Entity<City>()
 				.HasMany(city => city.DepartmentDepartures)
-				.WithOne(departmentDeparture => departmentDeparture.City)
-				.HasForeignKey(departmentDeparture => departmentDeparture.CityId)
+				.WithOne(dd => dd.City)
+				.HasForeignKey(dd => dd.CityId)
 				.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<Characteristic>()
-				.HasMany(characteristic => characteristic.Descriptions)
-				.WithOne(description => description.Characteristic)
-				.HasForeignKey(description => description.CharacteristicId)
+			modelBuilder.Entity<City>()
+				.HasMany(city => city.Hotels)
+				.WithOne(h => h.City)
+				.HasForeignKey(h => h.CityId)
 				.OnDelete(DeleteBehavior.Cascade);
+
+			// Настройка DepartmentDeparture
+			modelBuilder.Entity<DepartmentDeparture>()
+				.HasMany(dd => dd.Routes)
+				.WithOne(r => r.DepartmentDeparture)
+				.HasForeignKey(r => r.DepartmentDepartureId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			// Настройка TransportType
+			modelBuilder.Entity<TransportType>()
+				.HasMany(tt => tt.Routes)
+				.WithOne(r => r.TransportType)
+				.HasForeignKey(r => r.TransportTypeId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			// Настройка Hotel
+			modelBuilder.Entity<Hotel>()
+				.HasMany(h => h.Tours)
+				.WithOne(t => t.Hotel)
+				.HasForeignKey(t => t.HotelId)
+				.OnDelete(DeleteBehavior.SetNull);
+
+			// Настройка NutritionType
+			modelBuilder.Entity<NutritionType>()
+				.HasMany(nt => nt.Tours)
+				.WithOne(t => t.NutritionType)
+				.HasForeignKey(t => t.NutritionTypeId)
+				.OnDelete(DeleteBehavior.SetNull);
+
+			// Настройка Tour
+			modelBuilder.Entity<Tour>()
+				.HasMany(t => t.Routes)
+				.WithOne(r => r.Tour)
+				.HasForeignKey(r => r.TourId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			// Настройка Route
+			modelBuilder.Entity<Models.Route>()
+				.Property(r => r.Price)
+				.HasDefaultValue(0);
+
+			modelBuilder.Entity<Models.Route>()
+				.Property(r => r.SeatsNumber)
+				.HasDefaultValue(0);
+
+			// Индексы и уникальные ограничения
+			modelBuilder.Entity<Region>().HasIndex(r => r.Name).IsUnique();
+			modelBuilder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
+			modelBuilder.Entity<City>().HasIndex(c => c.Name).IsUnique();
+			modelBuilder.Entity<DepartmentDeparture>().HasIndex(dd => dd.Name).IsUnique();
+			modelBuilder.Entity<Hotel>().HasIndex(h => h.Name).IsUnique();
+			modelBuilder.Entity<NutritionType>().HasIndex(nt => nt.Name).IsUnique();
+			modelBuilder.Entity<TourType>().HasIndex(tt => tt.Name).IsUnique();
+			modelBuilder.Entity<Characteristic>().HasIndex(c => c.Name).IsUnique();
+			modelBuilder.Entity<Models.Route>().HasIndex(r => r.Name).IsUnique();
+			modelBuilder.Entity<Tour>().HasIndex(t => t.Name).IsUnique();
 		}
 	}
 }

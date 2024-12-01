@@ -24,7 +24,7 @@ namespace backend.Controllers
 					Name = departmentDeparture.Name,
 					City = departmentDeparture.City.Name,
 					Country = departmentDeparture.City.Country.Name
-				})
+				}).OrderBy(departmentDeparture => departmentDeparture.Id)
 			);
 		}
 
@@ -34,7 +34,7 @@ namespace backend.Controllers
 				{
 					Id = transportType.Id,
 					Name = transportType.Name,
-				})
+				}).OrderBy(transportType => transportType.Id)
 			);
 		}
 	}

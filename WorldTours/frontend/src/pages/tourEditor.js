@@ -21,70 +21,114 @@ function TourEditor() {
 		city: null,
 		starsNumber: null
 	});
+
 	const [tourTypes, setTourTypes] = useState([]); 
 	const [tourPhotoUrl, setTourPhotoUrl] = useState(tourp); 
-	const [characteristicTypes, setCharacteristicTypes] = useState([]);
 	const [nutritionTypes, setNutritionTypes] = useState([]);
-	
-	const [tour, setTour] = useState({
-		tourPhotoFile: useRef(null), // Используем useRef для открытия input
-		tourTypes: null,
-		direction: {
-			regionId: null,
-			countryId: null,
-			cityId: null,
-			hotelId: null,
-		},
-		mainDescription: null,
-		nutritionType: null,
-		tourType: null,
-		routes: [],
-		characteristics: []
+	const [direction, setDirection] = useState({
+		regionId: null,
+		countryId: null,
+		cityId: null,
+		hotelId: null,
 	});
 
-	
+	const [tour, setTour] = useState({
+		tourPhotoFile: useRef(null), // Используем useRef для открытия input
+		id: 0,
+		name: null,
+		hotelId: null,
+		mainDescription: null,
+		nutritionTypeId: null,
+		tourTypeId: null,
+		routes: [],
+		descriptions: [],
+	});
+
+	const changeCharacteristics = async (id) => {
+		try {
+			setTour((prevTour) => ({
+				...prevTour,
+				["tourTypeId"]: id,
+			}));
+
+			const response = await axios.get(`https://localhost:7276/tour/characteristics?id=${id}`, {
+				headers: {
+					'Authorization': 'Bearer ' + token,
+				}
+			});
+			const characteristicsData = response.data
+			console.log(characteristicsData);
+			setTour((prevTour) => {
+				return {
+					...prevTour,
+					descriptions: characteristicsData,
+				};
+
+			});
+		} catch (error) {
+			console.error('Ошибка загрузки данных:', error);
+		} 
+    };
+
+
 	useEffect(() => {
 		const getData = async () => {
             try {
-                const response = await axios.get('https://localhost:7276/tour/types', {
+				let response;
+				response = await axios.get('https://localhost:7276/tour/GetTour', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
+				const tourData = response.data;
+				console.log(tourData);
+				setTour((prevTour) => ({
+					...prevTour, // Сохраняем предыдущие значения
+					id: tourData.id,
+					name: tourData.name,
+					hotelId: tourData.hotelId,
+					mainDescription: tourData.mainDescription,
+					nutritionTypeId: tourData.nutritionTypeId,
+					tourTypeId: tourData.tourTypeId,
+					routes: tourData.routes,
+					descriptions: tourData.descriptions,
+				}));
+				// setTourPhotoUrl(tourData.Photo);
+				setTourPhotoUrl(tourp);
+				changeCharacteristics(tourData.tourTypeId);
 
-				console.log(response.data);
+				if(tourData.hotelId !== null) {
+					response = await axios.get(
+						`https://localhost:7276/direction/direction?hotelId=${tourData.hotelId}`,
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+					const directionInfoData = response.data;
+					console.log(directionInfoData);
+					setDirectionInfo(directionInfoData);
+				}
 
-				setTourTypes(response.data);
-
-				const response2 = await axios.get('https://localhost:7276/tour/characteristics?id=3', {
+                response = await axios.get('https://localhost:7276/tour/types', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
+				const typesData = response.data;
+				console.log(typesData);
+				setTourTypes(typesData);
 
-				let characteristicTypesData = response2.data;
-				console.log(characteristicTypesData);
-				setCharacteristicTypes(characteristicTypesData);
-				
-				let characteristics = [];
-				characteristicTypesData.map((characteristicTypeData) =>{
-					characteristics.push(characteristicTypeData.characteristics)
-				})
-				characteristics = characteristics.flat()
-				console.log(characteristics);
-
-				const response3 = await axios.get('https://localhost:7276/tour/NutritionTypes', {
+				response = await axios.get('https://localhost:7276/tour/NutritionTypes', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
-				console.log(response3.data);
-				setNutritionTypes(response3.data);
+				const nutritionTypesData = response.data;
+				console.log(nutritionTypesData);
+				setNutritionTypes(nutritionTypesData);
 
-				setTour((prevTOur) => ({
-                    ...prevTOur,
-                    nutritionTypeId: response3.data[0].id
-                }));
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -96,10 +140,10 @@ function TourEditor() {
 	useEffect(() => {
 		console.log ('хуй');
 		const getDirectionInfo = async () => {
-			if (tour.direction.regionId != null && tour.direction.countryId != null && tour.direction.cityId != null && tour.direction.hotelId != null) {
+			if (direction.regionId != null && direction.countryId != null && direction.cityId != null && direction.hotelId != null) {
 				try {
 					const response = await axios.get(
-						`https://localhost:7276/direction/direction?countryId=${tour.direction.countryId}&cityId=${tour.direction.cityId}&hotelId=${tour.direction.hotelId}`,
+						`https://localhost:7276/direction/direction?countryId=${direction.countryId}&cityId=${direction.cityId}&hotelId=${direction.hotelId}`,
 						{
 							headers: {
 								Authorization: `Bearer ${token}`,
@@ -116,57 +160,85 @@ function TourEditor() {
 		};
 	
 		getDirectionInfo(); // Вызов асинхронной функции
-	}, [tour]);
+	}, [direction]);
 
 	const selectDirection = (directionId) => {
-		setTour((prevTour) => {
-			let updatedDirection = { ...prevTour.direction };
-	
+		setDirection((prevDirection) => {
 			switch (directionsPageInndex) {
 				case 1:
-					updatedDirection.regionId = directionId;
-					break;
+					return {
+						...prevDirection,
+						regionId: directionId
+					}
 				case 2:
-					updatedDirection.countryId = directionId;
-					break;
+					return {
+						...prevDirection,
+						countryId: directionId
+					}
 				case 3:
-					updatedDirection.cityId = directionId;
-					break;
+					return {
+						...prevDirection,
+						cityId: directionId
+					}
 				case 4:
-					updatedDirection.hotelId = directionId;
-					break;
+					setTour((prevTour) => {
+						return {
+							...prevTour,
+							hotelId: directionId
+						}
+					})
+
+					return {
+						...prevDirection,
+						hotelId: directionId
+					}
 				default:
 					break;
 			}
-	
-			return {
-				...prevTour,
-				direction: updatedDirection,
-			};
 		});
 	};
 	
 	const closeDirections = () => {
 		setDirectionsPageInndex(0);
-		setTour((prevTour) => ({
-			...prevTour,
-			direction: {
-				...prevTour.direction,
-				regionId: null,
-				countryId: null,
-				cityId: null,
-				hotelId: null,
-			},
-		}));
+		setDirection({
+			hotel: null,
+			country: null,
+			city: null,
+			starsNumber: null
+		});
 	}
 
 	const directions = [
         null,
         <Regions position={{left: '12%', top: '4%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections} />,
-        <Countries regionId={tour.direction.regionId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-        <Cities countyId={tour.direction.countryId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-        <Hotels cityId={tour.direction.cityId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Countries regionId={direction.regionId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Cities countyId={direction.countryId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Hotels cityId={direction.cityId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
     ]
+
+    const deleteSelectedDirection = () => {
+		setDirectionInfo({
+			hotel: null,
+			country: null,
+			city: null,
+			starsNumber: null
+		});
+
+		setDirection({
+			regionId: null,
+			countryId: null,
+			cityId: null,
+			hotelId: null,
+		});
+
+		setTour((prevTour) => {
+
+			return {
+				...prevTour,
+				hotelId: null
+			}
+		});
+	}
 
 	const changePhoto = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -176,26 +248,6 @@ function TourEditor() {
         };
         reader.readAsDataURL(e.target.files[0]);
         }
-    };
-
-	const changeCharacteristics = async (id) => {
-		try {
-			setTour((prevTour) => ({
-				...prevTour,
-				["tourType"]: id,
-			}));
-
-			const response = await axios.get(`https://localhost:7276/tour/characteristics?id=${id}`, {
-				headers: {
-					'Authorization': 'Bearer ' + token,
-				}
-			});
-
-			console.log(response.data);
-			setCharacteristicTypes(response.data);
-		} catch (error) {
-			console.error('Ошибка загрузки данных:', error);
-		} 
     };
 
 	const changeTour = (e) => {
@@ -210,6 +262,28 @@ function TourEditor() {
         tour.tourPhotoFile.current.click();
     };
 
+	const changeDescription = (id) => {
+		setTour((prevTour) => ({
+			...prevTour,
+			descriptions: prevTour.descriptions.map((item) => 
+				item.characteristic.id === id 
+					? {
+						...item,
+						description: {
+							...item.description,
+							value: !item.description.value, // Инвертируем значение
+						},
+					}
+					: item
+			),
+		}));
+	};
+
+	const saveTour = () => {
+		console.log("llllll");
+		console.log(tour);
+	}
+
 	return (
 		<div className="tour narrow-conteiner">
 			<Header />
@@ -219,7 +293,7 @@ function TourEditor() {
 					<div>
 						<b>Название тура</b>
 					</div>
-					<input type='text'/>
+					<input name="name"type='text' value={tour.name} onChange={changeTour}/>
 			</div>
 
 			<div className="tour-editor-images">
@@ -229,7 +303,7 @@ function TourEditor() {
 				</div>
 				
 
-				<div className="other-tour-editor-images-and-map">
+				{/* <div className="other-tour-editor-images-and-map">
 					<div className="select-tour-editor-images-or-map">
 						<button>Фото</button>
 						<button>Карта</button>
@@ -245,29 +319,18 @@ function TourEditor() {
 					</div>
 
 					<button className="more-tour-editor-img-button">Больше фото</button>
-				</div>
+				</div> */}
 			</div>
 
 			<div className="tour-editor-info-and-reservation">
 				<div className="tour-editor-info">
 					{directions[directionsPageInndex]} 
-					{(tour.direction.regionId != null && tour.direction.countryId != null && tour.direction.cityId != null && tour.direction.hotelId != null) ? (
+					{directionInfo.hotel !== null ? (
 						<>
 							<div className="main-tour-editor-info">
 								<div>
 									<b>{directionInfo.hotel}</b>
-										<button onClick={() => 
-											setTour((prevTour) => ({
-												...prevTour,
-												direction: {
-													...prevTour.direction,
-													regionId: null,
-													countryId: null,
-													cityId: null,
-													hotelId: null,
-												},
-											}))
-										}>
+										<button onClick={deleteSelectedDirection}>
 										<img src={delete3}/>
 									</button>
 								</div>
@@ -281,21 +344,19 @@ function TourEditor() {
 					) : (
 						<>
 							<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
-								Нажмите, что бы добавьте пункт направления
+								Нажмите, что бы добавить пункт направления
 							</button>
 						</>
 					)}
-					
-
 
 					<div className="tour-editor-desription">
 						<div><b>Описание</b></div>
-						<textarea/>
+						<textarea name='mainDescription' value={tour.mainDescription} onChange={changeTour}/>
 					</div>
 
 					<div className='nutrition-type'>
 						<div><b>Тип питание</b></div>
-						<select name='nutritionType' onChange={changeTour}>
+						<select name='nutritionTypeId' onChange={changeTour}>
                             {nutritionTypes.map((nutritionType) => (
                                 <option 
                                     key={nutritionType.id}
@@ -311,25 +372,26 @@ function TourEditor() {
 						{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl} setTourType={() => changeCharacteristics(tourType.id)}/>))}
         			</div>
 					<div className="tour-editor-characteristics">
-							{characteristicTypes.map((characteristicType) => (
+							{tour.descriptions.map((description) => (
 								<div className="tour-editor-characteristic">
 									<div>
-										<b>{characteristicType.name}</b>
+										<b>{description.characteristic.name}</b>
 									</div>
 									<div>
-										{characteristicType.characteristics.map((characteristic) =>(
-											<div>
-												<input type="checkbox" name={characteristic.name}/>
-												<label>{characteristic.name}</label>
-											</div>
-										))}
+										<div>
+										<input
+											type="checkbox"
+											checked={description.description.value} // Отображаем текущее значение
+											onChange={() => changeDescription(description.characteristic.id)} // Вызываем обработчик
+										/>
+										</div>
 									</div>
 								</div>
 							))}
 					</div>
 				</div>
 
-				<RoutesMenu directionInfo={directionInfo} routes={tour.routes} setRoutes={
+				<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={
 					(routes) => setTour((prevTour) => ({
 					...prevTour,
 					["routes"]: routes,

@@ -90,9 +90,10 @@ CREATE TABLE Descriptions (
   	Value BOOLEAN DEFAULT 0 NOT NULL,
   	CharacteristicID INT,
   	TourID INT,
-	FOREIGN KEY (`CharacteristicID`) REFERENCES `Characteristics`(`ID`)
-	-- FOREIGN KEY (`TourID`) REFERENCES `Tours`(`ID`) --
+	FOREIGN KEY (`CharacteristicID`) REFERENCES `Characteristics`(`ID`),
+	FOREIGN KEY (`TourID`) REFERENCES `Tours`(`ID`)
 );
+
 CharacteristicID
 INSERT INTO Descriptions (Value, CharacteristicID) VALUES (true, 3);
 SELECT * FROM Descriptions;     
@@ -224,27 +225,8 @@ INSERT INTO TransportTypes (NAME) VALUES ('Самолёт');
 INSERT INTO TransportTypes (NAME) VALUES ('Автобус');
 INSERT INTO TransportTypes (NAME) VALUES ('Корабль');
 
-SELECT * FROM TransportTypes;
+SELECT * FROM transporttypes;
 
-
-DROP TABLE routes;
-CREATE TABLE Routes (
-  ID INT PRIMARY KEY AUTO_INCREMENT,
-  LandingDateOfDeparture DATE,
-  LandingTimeOfDeparture TIME,
-  ArrivalDateOfDeparture DATE,
-  ArrivalTimeOfDeparture TIME,
-  LandingDateOfReturn DATE,
-  LandingTimeOfReturn TIME,
-  ArrivalDateOfReturn DATE,
-  ArrivalTimeOfReturn TIME,
-  DepartmentDepartureId INT,
-  TransportTypeId INT,
-  Price INT,
-  SeatsNumber INT,
-  FOREIGN KEY (`DepartmentDepartureId`) REFERENCES `DepartmentDepartures`(`ID`),
-  FOREIGN KEY (`TransportTypeId`) REFERENCES `TransportTypes`(`ID`)
-);
 
 DROP TABLE Hotels;
 CREATE TABLE Hotels (
@@ -255,7 +237,7 @@ CREATE TABLE Hotels (
   FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`)
 );
 
-SELECT * FROM Cities;
+SELECT * FROM cities;
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Чёрный дельфин', 5, 3);
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Отель Андрея-гея', 2, 5);
 
@@ -273,4 +255,41 @@ INSERT INTO NutritionTypes (NAME) VALUES ('HB (Half board) — полупанс�
 INSERT INTO NutritionTypes (NAME) VALUES ('FB (Full board) — полный пансион (завтрак, обед и ужин)');
 INSERT INTO NutritionTypes (NAME) VALUES ('AI (All inclusive) — всё включено — завтрак, обед и ужин (шведский стол)');
 
-SELECT * FROM NutritionTypes;
+SELECT * FROM nutritiontypes;
+
+CREATE TABLE Tours (
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	Name VARCHAR(255) UNIQUE NOT NULL,
+	MainDescription VARCHAR(255),
+	TourTypeId INT,
+	NutritionTypeId INT,
+	HotelId INT,
+	Photo BLOB
+);
+
+SELECT * FROM Tours;
+
+
+DROP TABLE routes;
+CREATE TABLE Routes (
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	Name VARCHAR(255) UNIQUE NOT NULL,
+	LandingDateOfDeparture DATE,
+	LandingTimeOfDeparture TIME,
+	ArrivalDateOfDeparture DATE,
+	ArrivalTimeOfDeparture TIME,
+	LandingDateOfReturn DATE,
+	LandingTimeOfReturn TIME,
+	ArrivalDateOfReturn DATE,
+	ArrivalTimeOfReturn TIME,
+	Price INT,
+	SeatsNumber INT,
+	DepartmentDepartureId INT,
+	TransportTypeId INT,
+	TourId INT,
+	FOREIGN KEY (`DepartmentDepartureId`) REFERENCES `DepartmentDepartures`(`ID`),
+  	FOREIGN KEY (`TransportTypeId`) REFERENCES `TransportTypes`(`ID`),
+  	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
+);
+
+SELECT * FROM Routes;

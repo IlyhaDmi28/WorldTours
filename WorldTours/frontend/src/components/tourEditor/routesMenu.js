@@ -3,7 +3,7 @@ import RouteCard from "./routeCard";
 import EditRouteMenu from "./editRouteMenu";
 import add from "../../img/add.svg"
 
-function RoutesMenu({directionInfo, routes, setRoutes}) {
+function RoutesMenu({directionInfo, routes, setRoutes, saveTour}) {
     const [isEditRouteMenuOpen, setIsEditRouteMenuOpen] = useState(false);
 
     // Функция для открытия модального окна
@@ -32,7 +32,7 @@ function RoutesMenu({directionInfo, routes, setRoutes}) {
             </div>
 
             <div className="buttons-under-routes">
-                <button className="save-routes-button">
+                <button className="save-routes-button" onClick={saveTour}>
                     <b>Сохранить тур</b>
                 </button>
             </div>

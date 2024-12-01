@@ -6,9 +6,9 @@ import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
 function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMenu}) {
-    const [departmentDepartures, setDepartmentDepartures] = useState([]);
     const [transportTypes, setTransportTypes] = useState([]);
-
+    
+    const [departmentDepartures, setDepartmentDepartures] = useState([]);
     const [route, setRoute] = useState({
         landingDateOfDeparture: "",
         landingTimeOfDeparture: "",
@@ -19,13 +19,13 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
         arrivalDateOfReturn: "",
         arrivalTimeOfReturn: "",
         departmentDeparture: {
-            id: null,
+            id: 1,
             name: null,
             city: null,
             countrty: null
         },
         transportType: {
-            id: null,
+            id: 1,
             name: null,
         },
         price: 0,
@@ -100,7 +100,9 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
     };
 
     const changeDepartmentDeparture = (e) => {
-        const selectedDepartmentDeparture = JSON.parse(e.target.value); // Парсинг JSON-строки
+        const selectedId = parseInt(e.target.value, 10); // Получаем id выбранного элемента
+        const selectedDepartmentDeparture = departmentDepartures.find((departmentDeparture) => departmentDeparture.id === selectedId); // Ищем объект по id
+
         console.log(selectedDepartmentDeparture.id);
         console.log(selectedDepartmentDeparture.name);
         console.log(selectedDepartmentDeparture.city);
@@ -117,20 +119,18 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
     };
 
     const changeTransportType = (e) => {
-        const selectedTranportType = JSON.parse(e.target.value); // Парсинг JSON-строки
-        console.log(selectedTranportType.id);
-        console.log(selectedTranportType.name);
-        console.log(selectedTranportType.city);
-        console.log(selectedTranportType.country);
-        setRoute((prevRoute) => ({
-            ...prevRoute,
-            departmentDeparture: {
-                id: selectedTranportType.id,
-                name: selectedTranportType.name,
-                city: selectedTranportType.city,
-                country: selectedTranportType.country,
-            },
-        }));
+        const selectedId = parseInt(e.target.value, 10); // Получаем id выбранного элемента
+        const selectedTransportType = transportTypes.find((transportType) => transportType.id === selectedId); // Ищем объект по id
+
+        if (selectedTransportType) {
+            setRoute((prevRoute) => ({
+                ...prevRoute,
+                transportType: {
+                    id: selectedTransportType.id,
+                    name: selectedTransportType.name,
+                },
+            }));
+        }
     };
 
     const clearRoute = () => {
@@ -143,10 +143,18 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
             landingTimeOfReturn: "",
             arrivalDateOfReturn: "",
             arrivalTimeOfReturn: "",
-            departmentDeparture: "Минск",
-            transportType: "Самолёт",
+            departmentDeparture: {
+                id: 1,
+                name: null,
+                city: null,
+                countrty: null
+            },
+            transportType: {
+                id: 1,
+                name: null,
+            },
             price: 0,
-            places: 0,
+            seatsNumber: 0,
         });
     };
 
@@ -224,11 +232,11 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
 
                     <div className='edit-route-other-parameter'>
                         <div className='parameter-name'>Пункт отправления</div>
-                        <select name="departmentDeparture" onChange={changeDepartmentDeparture}>
+                        <select name="departmentDeparture" value={route.departmentDeparture.id} onChange={changeDepartmentDeparture}>
                             {departmentDepartures.map((departmentDeparture) => (
                                 <option 
                                     key={departmentDeparture.id}
-                                    value={JSON.stringify(departmentDeparture)}
+                                    value={departmentDeparture.id}
                                 >
                                     {departmentDeparture.name}, {departmentDeparture.country}, {departmentDeparture.city}
                                 </option>
@@ -237,11 +245,11 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
                     </div>
                     <div className='edit-route-other-parameter'>
                         <div className='parameter-name'>Тип транспорта</div>
-                        <select name="transportType" onChange={changeTransportType}>
+                        <select name="transportType" value={route.transportType.id} onChange={changeTransportType}>
                             {transportTypes.map((transportType) => (
                                 <option 
                                     key={transportType.id}
-                                    value={JSON.stringify(transportType)}
+                                    value={transportType.id}
                                 >
                                     {transportType.name}
                                 </option>
@@ -257,7 +265,7 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
 
                         <div className='edit-route-price-or-place'>
                             <div className='parameter-name'><b>Кол. мест: </b></div>
-                            <input type='number' name="places" value={route.places} onChange={changeRoute}/>
+                            <input type='number' name="seatsNumber" value={route.seatsNumber} onChange={changeRoute}/>
                         </div>
                     </div>
                 </div>

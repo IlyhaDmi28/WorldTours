@@ -3,84 +3,136 @@
   "WorkspaceRootPath": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\tourcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\tourcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\tourtypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\tourtypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\characteristicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\characteristicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\characteristictypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\characteristictypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\routecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\routecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\nutritiontypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\nutritiontypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\nutritiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\nutritiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\directioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\directioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\departmentdeparturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\departmentdeparturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\transporttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\transporttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\tourcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\tourcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\transporttypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\transporttypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\characteristic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\characteristic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\departmentdeparturedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\departmentdeparturedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\departmentdeparture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\departmentdeparture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\country.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\country.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\directiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\directiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\hotel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\hotel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\characteristicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\characteristicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\descriptionwithcharacteriscdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\descriptionwithcharacteriscdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\tourdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\tourdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\tourtypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\tourtypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\description.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\description.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\descriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\descriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\citydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\citydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\characteristic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\characteristic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\transporttypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\transporttypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\tourtypewithtours.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\tourtypewithtours.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\tourtypewithcharacteristics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\tourtypewithcharacteristics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\regiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\regiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\nutritiontypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\nutritiontypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\hoteldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\hoteldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\departmentdeparturedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\departmentdeparturedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\tourtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\tourtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\transporttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\transporttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\country.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\country.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\departmentdeparture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\departmentdeparture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\nutritiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\nutritiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\region.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -91,36 +143,12 @@
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\registermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\tourtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\tourtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\route.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\route.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\directioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\directioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\charcteristictype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\charcteristictype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\directiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\directiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\hoteldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\hoteldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\regiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\regiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\citydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\citydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\countrydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -154,364 +182,185 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\DB\\AppDbContext.cs",
               "RelativeDocumentMoniker": "DB\\AppDbContext.cs",
               "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\DB\\AppDbContext.cs",
               "RelativeToolTip": "DB\\AppDbContext.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAA2wBIAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAkwA4AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T13:45:18.164Z",
+              "WhenOpened": "2024-11-25T13:45:18.164Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DirectionController.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DirectionController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DirectionController.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DirectionController.cs",
+              "RelativeToolTip": "Controllers\\DirectionController.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAowBwAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T14:40:22.994Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "RouteController.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\RouteController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RouteController.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\RouteController.cs",
-              "RelativeToolTip": "Controllers\\RouteController.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAYwCYAAAADAAAAAAAAAA==",
+              "Title": "Hotel.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Hotel.cs",
+              "RelativeDocumentMoniker": "Models\\Hotel.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Hotel.cs",
+              "RelativeToolTip": "Models\\Hotel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T06:33:15.046Z"
+              "WhenOpened": "2024-11-26T15:44:34.5Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "TourController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\TourController.cs",
               "RelativeDocumentMoniker": "Controllers\\TourController.cs",
               "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\TourController.cs",
               "RelativeToolTip": "Controllers\\TourController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAIwCAAAABRAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAowBMAAACmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-24T12:35:44.21Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TourTypeDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourTypeDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\TourTypeDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourTypeDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\TourTypeDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAZAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "RouteController.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\RouteController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RouteController.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\RouteController.cs",
+              "RelativeToolTip": "Controllers\\RouteController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwCMAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T14:20:54.694Z",
+              "WhenOpened": "2024-11-29T06:33:15.046Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "CharacteristicTypeDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\CharacteristicTypeDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\CharacteristicTypeDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\CharacteristicTypeDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\CharacteristicTypeDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T14:09:25.656Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CharacteristicDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\CharacteristicDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\CharacteristicDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\CharacteristicDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\CharacteristicDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T14:09:06.727Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "DepartmentDepartureController.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DepartmentDepartureController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DepartmentDepartureController.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DepartmentDepartureController.cs",
-              "RelativeToolTip": "Controllers\\DepartmentDepartureController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAUwAkAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T09:33:20.232Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "TransportType.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\TransportType.cs",
-              "RelativeDocumentMoniker": "Models\\TransportType.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\TransportType.cs",
-              "RelativeToolTip": "Models\\TransportType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T06:37:17.247Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "NutritionType.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\NutritionType.cs",
-              "RelativeDocumentMoniker": "Models\\NutritionType.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\NutritionType.cs",
-              "RelativeToolTip": "Models\\NutritionType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T10:33:25.176Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "NutritionTypeDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\NutritionTypeDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\NutritionTypeDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\NutritionTypeDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\NutritionTypeDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T10:33:53.31Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "TransportTypeDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TransportTypeDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\TransportTypeDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TransportTypeDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\TransportTypeDto.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T06:38:19.374Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Characteristic.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Characteristic.cs",
-              "RelativeDocumentMoniker": "Models\\Characteristic.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Characteristic.cs",
-              "RelativeToolTip": "Models\\Characteristic.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T06:41:30.35Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwCwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T11:31:00.76Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "DepartmentDeparture.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DepartmentDeparture.cs",
-              "RelativeDocumentMoniker": "Models\\DepartmentDeparture.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DepartmentDeparture.cs",
-              "RelativeToolTip": "Models\\DepartmentDeparture.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T09:27:30.758Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "City.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\City.cs",
-              "RelativeDocumentMoniker": "Models\\City.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\City.cs",
-              "RelativeToolTip": "Models\\City.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T15:23:14.959Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Country.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Country.cs",
-              "RelativeDocumentMoniker": "Models\\Country.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Country.cs",
-              "RelativeToolTip": "Models\\Country.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T15:05:30.476Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "DepartmentDepartureDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DepartmentDepartureDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\DepartmentDepartureDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DepartmentDepartureDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\DepartmentDepartureDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T09:35:21.294Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Models\\User.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\User.cs",
-              "RelativeToolTip": "Models\\User.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAYwCYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T08:18:29.782Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Hotel.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Hotel.cs",
-              "RelativeDocumentMoniker": "Models\\Hotel.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Hotel.cs",
-              "RelativeToolTip": "Models\\Hotel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T15:44:34.5Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "LoginModel.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\LoginModel.cs",
-              "RelativeDocumentMoniker": "Models\\LoginModel.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\LoginModel.cs",
-              "RelativeToolTip": "Models\\LoginModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T08:27:44.29Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Region.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Region.cs",
-              "RelativeDocumentMoniker": "Models\\Region.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Region.cs",
-              "RelativeToolTip": "Models\\Region.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T14:35:50.169Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "RegisterModel.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\RegisterModel.cs",
-              "RelativeDocumentMoniker": "Models\\RegisterModel.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\RegisterModel.cs",
-              "RelativeToolTip": "Models\\RegisterModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T05:15:39.042Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "TourType.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\TourType.cs",
-              "RelativeDocumentMoniker": "Models\\TourType.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\TourType.cs",
-              "RelativeToolTip": "Models\\TourType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T13:09:04.996Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "DirectionController.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DirectionController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DirectionController.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DirectionController.cs",
-              "RelativeToolTip": "Controllers\\DirectionController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T14:40:22.994Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "CharcteristicType.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\CharcteristicType.cs",
-              "RelativeDocumentMoniker": "Models\\CharcteristicType.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\CharcteristicType.cs",
-              "RelativeToolTip": "Models\\CharcteristicType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T06:46:22.272Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T14:40:36.454Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
               "Title": "DirectionDto.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DirectionDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\DirectionDto.cs",
               "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DirectionDto.cs",
               "RelativeToolTip": "Models\\DTOs\\DirectionDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T16:05:53.092Z"
+              "WhenOpened": "2024-11-26T16:05:53.092Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "HotelDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\HotelDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\HotelDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAACAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "DepartmentDepartureController.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DepartmentDepartureController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DepartmentDepartureController.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DepartmentDepartureController.cs",
+              "RelativeToolTip": "Controllers\\DepartmentDepartureController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAcwBkAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T15:45:14.006Z"
+              "WhenOpened": "2024-11-28T09:33:20.232Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "RegionDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\RegionDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\RegionDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\RegionDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\RegionDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "DescriptionWithCharacteriscDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DescriptionWithCharacteriscDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\DescriptionWithCharacteriscDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DescriptionWithCharacteriscDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\DescriptionWithCharacteriscDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T14:38:58.978Z"
+              "WhenOpened": "2024-12-01T07:06:39.692Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 10,
+              "Title": "TourTypeDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourTypeDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\TourTypeDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourTypeDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\TourTypeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T14:20:54.694Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CharacteristicDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\CharacteristicDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\CharacteristicDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\CharacteristicDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\CharacteristicDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T14:09:06.727Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TourDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\TourDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\TourDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T06:20:41.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Tour.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Tour.cs",
+              "RelativeDocumentMoniker": "Models\\Tour.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Tour.cs",
+              "RelativeToolTip": "Models\\Tour.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBoAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T16:32:31.214Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Description.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Description.cs",
+              "RelativeDocumentMoniker": "Models\\Description.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Description.cs",
+              "RelativeToolTip": "Models\\Description.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T14:19:25.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "DescriptionDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DescriptionDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\DescriptionDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DescriptionDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\DescriptionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T14:26:12.568Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "CityDto.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\CityDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\CityDto.cs",
@@ -523,7 +372,271 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Characteristic.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Characteristic.cs",
+              "RelativeDocumentMoniker": "Models\\Characteristic.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Characteristic.cs",
+              "RelativeToolTip": "Models\\Characteristic.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T06:41:30.35Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwCwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-09T11:31:00.76Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T14:40:36.454Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "TransportTypeDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TransportTypeDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\TransportTypeDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TransportTypeDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\TransportTypeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T06:38:19.374Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "TourTypeWithTours.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourTypeWithTours.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\TourTypeWithTours.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourTypeWithTours.cs",
+              "RelativeToolTip": "Models\\DTOs\\TourTypeWithTours.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T06:38:29.931Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "TourTypeWithCharacteristics.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourTypeWithCharacteristics.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\TourTypeWithCharacteristics.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\TourTypeWithCharacteristics.cs",
+              "RelativeToolTip": "Models\\DTOs\\TourTypeWithCharacteristics.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T06:38:17.764Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "RegionDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\RegionDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\RegionDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\RegionDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\RegionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T14:38:58.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "NutritionTypeDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\NutritionTypeDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\NutritionTypeDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\NutritionTypeDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\NutritionTypeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T10:33:53.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "HotelDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\HotelDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\HotelDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T15:45:14.006Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "DepartmentDepartureDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DepartmentDepartureDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\DepartmentDepartureDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DepartmentDepartureDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\DepartmentDepartureDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T09:35:21.294Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "TourType.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\TourType.cs",
+              "RelativeDocumentMoniker": "Models\\TourType.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\TourType.cs",
+              "RelativeToolTip": "Models\\TourType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:09:04.996Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "TransportType.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\TransportType.cs",
+              "RelativeDocumentMoniker": "Models\\TransportType.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\TransportType.cs",
+              "RelativeToolTip": "Models\\TransportType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T06:37:17.247Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAUwBwAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T08:18:29.782Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Country.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Country.cs",
+              "RelativeDocumentMoniker": "Models\\Country.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Country.cs",
+              "RelativeToolTip": "Models\\Country.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T15:05:30.476Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "DepartmentDeparture.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DepartmentDeparture.cs",
+              "RelativeDocumentMoniker": "Models\\DepartmentDeparture.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DepartmentDeparture.cs",
+              "RelativeToolTip": "Models\\DepartmentDeparture.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T09:27:30.758Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 30,
+              "Title": "City.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\City.cs",
+              "RelativeDocumentMoniker": "Models\\City.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\City.cs",
+              "RelativeToolTip": "Models\\City.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T15:23:14.959Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "LoginModel.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\LoginModel.cs",
+              "RelativeDocumentMoniker": "Models\\LoginModel.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\LoginModel.cs",
+              "RelativeToolTip": "Models\\LoginModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T08:27:44.29Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "NutritionType.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\NutritionType.cs",
+              "RelativeDocumentMoniker": "Models\\NutritionType.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\NutritionType.cs",
+              "RelativeToolTip": "Models\\NutritionType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T10:33:25.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Region.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Region.cs",
+              "RelativeDocumentMoniker": "Models\\Region.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Region.cs",
+              "RelativeToolTip": "Models\\Region.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T14:35:50.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "RegisterModel.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\RegisterModel.cs",
+              "RelativeDocumentMoniker": "Models\\RegisterModel.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\RegisterModel.cs",
+              "RelativeToolTip": "Models\\RegisterModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-21T05:15:39.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Route.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Route.cs",
+              "RelativeDocumentMoniker": "Models\\Route.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Route.cs",
+              "RelativeToolTip": "Models\\Route.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAowCAAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T16:32:55.599Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ErrorViewModel.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T16:44:30.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
               "Title": "CountryDto.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\CountryDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\CountryDto.cs",
@@ -535,7 +648,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 38,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -547,7 +660,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 39,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -559,7 +672,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 41,
               "Title": "TokenSevice.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\TokenSevice.cs",
               "RelativeDocumentMoniker": "Services\\TokenSevice.cs",
@@ -571,7 +684,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 42,
               "Title": "AuthOptions.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Configurations\\AuthOptions.cs",
               "RelativeDocumentMoniker": "Configurations\\AuthOptions.cs",
@@ -583,7 +696,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 40,
               "Title": "backend.csproj",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\backend.csproj",
               "RelativeDocumentMoniker": "backend.csproj",

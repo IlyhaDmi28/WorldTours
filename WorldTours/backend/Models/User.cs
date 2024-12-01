@@ -1,4 +1,6 @@
-﻿namespace backend.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace backend.Models
 {
     public enum UserRole
     {
@@ -13,11 +15,20 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public UserRole Role { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string PhoneNumber { get; set; }
+		public bool BlockedStatus { get; set; } = false;
 
-        public User(int id, string email, string password, UserRole role, string name, string surname, string phoneNumber)
+		[MaxLength(255)]
+		public string Name { get; set; }
+
+		[MaxLength(255)]
+		public string Surname { get; set; }
+
+		[MaxLength(255)]
+		public string PhoneNumber { get; set; }
+        
+		public byte[]? Photo { get; set; }
+
+		public User(int id, string email, string password, UserRole role, string name, string surname, string phoneNumber)
         {
             Id = id;
             Email = email;

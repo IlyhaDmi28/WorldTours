@@ -3,6 +3,7 @@ using backend.Models;
 using backend.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.PortableExecutable;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace backend.Controllers
@@ -27,44 +28,49 @@ namespace backend.Controllers
 
 		public async Task<IActionResult> Characteristics([FromQuery]int id)
 		{
-			var characteristicTypes = await db.CharacteristicTypes
-				.Include(ct => ct.Characteristics)
-				.ThenInclude(c => c.TourTypes)
-				.Where(ct => ct.Characteristics.Any(c => c.TourTypes.Any(tt => tt.Id == id)))
-				.Select(ct => new CharacteristicTypeDto
+			var characteristics = await db.Characteristics
+				.Include(c => c.TourTypes)
+				.Where(c => c.TourTypes.Any(tt => tt.Id == id))
+				.Select(c => new DescriptionWithCharacteriscDto
 				{
-					Id = ct.Id,
-					Name = ct.Name,
-					Characteristics = ct.Characteristics
-						.Where(c => c.TourTypes.Any(tt => tt.Id == id))
-						.Select(c => new CharacteristicDto
-						{
-							Id = c.Id,
-							Name = c.Name,
-							Descriptions = c.Descriptions
-								.Where(d => d.CharacteristicId == c.Id)
-								.Select(d => new DescriptionDto
-								{
-									Id = d.Id,
-									Value = d.Value,
-								})
-								.ToList()
-						})
-						.ToList()
-				})
-				.ToListAsync();
-			return Ok(characteristicTypes);
+					Characteristic = new CharacteristicDto() { Id = c.Id, Name = c.Name},
+					Description = new DescriptionDto() { Id = 0, Value = false},
+				}).ToListAsync();
+			return Ok(characteristics);
 		}
 
 		public IActionResult NutritionTypes()
 		{
-			return Ok(db.NutritionTypes.Select(nutritionType => new NutritionType
-			{
-				Id = nutritionType.Id,
-				Name = nutritionType.Name,
-			})
+			return Ok(db.NutritionTypes.Select(nutritionType => new NutritionTypeDto
+				{
+					Id = nutritionType.Id,
+					Name = nutritionType.Name,
+				}).OrderBy(nutritionType => nutritionType.Id)
 			);
 		}
 
+		[HttpGet()]
+		public IActionResult GetTour(int? id = null)
+		{
+			TourDto tour;
+			if (id == null)
+			{
+				tour = new TourDto() 
+				{
+					Id = 0,
+					Name = "Хуета",
+					MainDescription = string.Empty,
+					HotelId = null,
+					NutritionTypeId = 1,
+					TourTypeId = 1,
+					Photo = null,
+					Routes = new List<Models.Route>(),	
+					Descriptions = new List<DescriptionWithCharacteriscDto>(),
+				};
+				return Ok(tour);
+			}
+
+			return Ok(null);
+		}
 	}
 }
