@@ -168,7 +168,7 @@ INSERT INTO Regions (Name, Image) VALUES ('Южная Азия', LOAD_FILE('D:/U
 INSERT INTO Regions (Name, Image) VALUES ('Восточная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/east-asia.jpg'));
 INSERT INTO Regions (Name, Image) VALUES ('Океания', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/oceania.jpg'));
 
-SELECT * FROM Regions;
+SELECT Id, Name FROM Regions;
 
 DROP TABLE Countries;
 CREATE TABLE Countries (
@@ -183,6 +183,9 @@ ALTER TABLE Countries ADD Flag BLOB;
 
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Болгария', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/bulgaria.svg'),  1);
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Беларусь', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/belarus.svg'),  1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('ОАЭ', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/uae.svg'),  2);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Тайланд', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/thailand.svg'),  10);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Норвегия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/norway.svg'),  1);
 
 SELECT * FROM countries;
 
@@ -199,6 +202,9 @@ INSERT INTO Cities (NAME, CountryId) VALUES ('София', 1);
 INSERT INTO Cities (NAME, CountryId) VALUES ('Варна', 1);
 INSERT INTO Cities (NAME, CountryId) VALUES ('Бургас', 1);
 INSERT INTO Cities (NAME, CountryId) VALUES ('Пловдив', 1);
+INSERT INTO Cities (NAME, CountryId) VALUES ('Дубай', 3);
+INSERT INTO Cities (NAME, CountryId) VALUES ('Пхукет', 4);
+INSERT INTO Cities (NAME, CountryId) VALUES ('Тронхейм', 5);
 
 SELECT * FROM cities;
 
@@ -233,7 +239,7 @@ DROP TABLE Hotels;
 CREATE TABLE Hotels (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255) UNIQUE NOT NULL,
-  StarsNumber INT UNIQUE NOT NULL,
+  StarsNumber INT NOT NULL,
   CityId INT,
   FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`)
 );
@@ -241,6 +247,10 @@ CREATE TABLE Hotels (
 SELECT * FROM cities;
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Чёрный дельфин', 5, 3);
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Отель Андрея-гея', 2, 5);
+INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Золотой парус', 5, 6);
+INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Зелёный бриз', 4, 7);
+INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Старая волна', 3, 7);
+INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Северный мир', 4, 3);
 
 SELECT * FROM hotels;
 
