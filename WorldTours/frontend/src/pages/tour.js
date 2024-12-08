@@ -11,12 +11,8 @@ const token = localStorage.getItem("token");
 
 function Tour() {
 	const location = useLocation();
-	const segments = location.pathname.split('/');
-	const id = segments[segments.length - 1];
-
-	const [PhotoUrl, setPhotoUrl] = useState(noPhoto); 
+	const [photoUrl, setPhotoUrl] = useState(noPhoto); 
 	const [tour, setTour] = useState({
-		tourPhotoFile: useRef(null), // Используем useRef для открытия input
 		id: 0,
 		name: null,
 		direction: {
@@ -33,6 +29,9 @@ function Tour() {
 		
 	useEffect(() => {
 		const getData = async () => {
+			const segments = location.pathname.split('/');
+			const id = segments[segments.length - 1];
+
             try {
 				let response;
 				response = await axios.get(`https://localhost:7276/tour/getTour?id=${id}`, {
@@ -43,7 +42,7 @@ function Tour() {
 				const tourData = response.data;
 				console.log(tourData);
 				setTour((prevTour) => ({
-					...prevTour, // Сохраняем предыдущие значения
+					...prevTour, 
 					id: tourData.id,
 					name: tourData.name,
 					direction: tourData.direction,
@@ -73,7 +72,7 @@ function Tour() {
 			</div>
 
 			<div className="tour-images">
-				<img className="main-tour-img" src={PhotoUrl} />
+				<img className="main-tour-img" src={photoUrl} />
 			</div>
 
 			<div className="tour-info-and-reservation">

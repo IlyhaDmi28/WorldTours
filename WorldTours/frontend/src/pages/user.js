@@ -2,7 +2,7 @@ import '../styles/user.scss';
 import React, { useState, useRef, useContext } from 'react';
 import {UserContext} from '../context/userContext';
 import Header from '../components/general/header';
-import noPhoto from '../img/account.svg';
+import account from '../img/account.svg';
 import axios from 'axios';
 const token = localStorage.getItem("token");
 
@@ -89,7 +89,7 @@ function User() {
                     <div className='ava-controller'>
                         {/* Там с фотками какая-то хуета, чекни усебя на гитхабе в RentalPremise */}
                         <img
-                            src={photoUrl}
+                            src={photoUrl === null ? account : photoUrl}
                             alt="click to change"
                             onClick={openFileDialogToSelectAva} // Обработчик клика по изображению
                         />

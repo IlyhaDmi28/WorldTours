@@ -1,19 +1,19 @@
-import '../styles/tours.scss';
+import '../styles/tours-editor.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import BigHeader from '../components/general/bigHeader';
 import TourTypesNav from '../components/tours/tourTypesNav';
-import TourCard from '../components/tours/tourCard';
+import TourCardForEditor from '../components/toursEditor/tourCardForEditor';
 const token = localStorage.getItem("token");
 
-function Tours() {
+function ToursEditor() {
 	const [tours, setTours] = useState([])
-
+	
 	useEffect(() => {
 		const getData = async () => {
             try {
 				let response;
-				response = await axios.get('https://localhost:7276/tour/GetTours', {
+				response = await axios.get('https://localhost:7276/tour/GetToursToEdit', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -29,6 +29,15 @@ function Tours() {
         getData();
 	}, []);
 
+	const deleteTour = async (deletedTour) => {
+        await axios.delete(`https://localhost:7276/tour/DeleteTour?id=${deletedTour.id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+
+		setTours(tours.filter(tour => tour !== deletedTour))
+	}
 
 	return (
 		<div className="tours">
@@ -37,10 +46,10 @@ function Tours() {
 			{/* <TourTypesNav setTourType={setTourType} /> */}
 			<TourTypesNav />
 			<div className="tours-list">
-				{tours.map((tour) => (<TourCard tour={tour} />))}
+				{tours.map((tour) => (<TourCardForEditor tour={tour} deleteTour={deleteTour} />))}
 			</div>
 		</div>
 	);
 }
 
-export default Tours;
+export default ToursEditor;

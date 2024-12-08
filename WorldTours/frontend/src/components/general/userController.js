@@ -20,7 +20,7 @@ function UserController({ right }) {
 	return (
 	    <div className='user-controller'> 
             {authUser ? (<button className="user-button" onClick={openOrCloseUserMenu}>
-                <img src={authUser.photoUrl}/>
+                <img src={authUser.photoUrl === null ? account : authUser.photoUrl}/>
             </button>) : 
             (<button className="user-button" style={{marginTop: '3px'}}>
                 <a href="/auth">

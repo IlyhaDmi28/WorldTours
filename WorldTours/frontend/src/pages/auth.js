@@ -24,19 +24,19 @@ function Auth() {
 	};
 
 	const activeLoginModeStyle = {
-		backgroundColor: mode === 'login' ? 'rgb(60, 80, 254)' : 'transparent', // изменение цвета фона
-		color: mode === 'login' ? 'white' : 'black', // изменение цвета текста
-		border: 'none', // удаление границы
+		backgroundColor: mode === 'login' ? 'rgb(60, 80, 254)' : 'transparent',
+		color: mode === 'login' ? 'white' : 'black',
+		border: 'none',
 		borderRadius: '8px',
-		cursor: 'pointer', // курсор при наведении
+		cursor: 'pointer',
 	};
 
 	const activeRegisterModeStyle = {
-		backgroundColor: mode === 'register' ? 'rgb(60, 80, 254)' : 'transparent', // изменение цвета фона
-		color: mode === 'register' ? 'white' : 'black', // изменение цвета текста
-		border: 'none', // удаление границы
+		backgroundColor: mode === 'register' ? 'rgb(60, 80, 254)' : 'transparent',
+		color: mode === 'register' ? 'white' : 'black',
+		border: 'none', 
 		borderRadius: '8px',
-		cursor: 'pointer', // курсор при наведении
+		cursor: 'pointer',
 	};
 
 	return (

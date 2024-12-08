@@ -30,7 +30,7 @@ namespace backend.Controllers
                 Name = user.Name,
                 Surname = user.Surname,
                 PhoneNumber = user.PhoneNumber,
-                PhotoUrl = user.Photo == null ? "" : $"{"data:image/png;base64,"}{Convert.ToBase64String(user.Photo)}",
+                PhotoUrl = user.Photo == null ? null : $"{"data:image/png;base64,"}{Convert.ToBase64String(user.Photo)}",
                 BlockedStatus = user.BlockedStatus,
                 Role = user.Role
 			}) : Unauthorized();

@@ -1,4 +1,4 @@
-import '../styles/tourEditor.scss';
+import '../styles/tour-editor.scss';
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -23,9 +23,8 @@ function TourEditor() {
 		city: null,
 		starsNumber: null
 	});
-
 	const [tourTypes, setTourTypes] = useState([]); 
-	const [photoUrl, setphotoUrl] = useState(selectNewPhoto); 
+	const [photoUrl, setPhotoUrl] = useState(selectNewPhoto); 
 	const [nutritionTypes, setNutritionTypes] = useState([]);
 	const [direction, setDirection] = useState({
 		regionId: null,
@@ -35,7 +34,7 @@ function TourEditor() {
 	});
 
 	const [tour, setTour] = useState({
-		PhotoFile: useRef(null), // Используем useRef для открытия input
+		photoFile: useRef(null), // Используем useRef для открытия input
 		id: 0,
 		name: null,
 		hotelId: null,
@@ -87,6 +86,7 @@ function TourEditor() {
                 });
 				const tourData = response.data;
 				console.log(tourData);
+				await changeCharacteristics(tourData.tourTypeId);
 				setTour((prevTour) => ({
 					...prevTour, // Сохраняем предыдущие значения
 					id: tourData.id,
@@ -98,9 +98,8 @@ function TourEditor() {
 					routes: tourData.routes,
 					descriptions: tourData.descriptions,
 				}));
-				// setTourphotoUrl(tourData.Photo);
-				setphotoUrl(tour.photoUrl === null ? selectNewPhoto : tourData.photoUrl);
-				changeCharacteristics(tourData.tourTypeId);
+				if(id === '0') await changeCharacteristics(tourData.tourTypeId);  
+				setPhotoUrl(tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl);
 
 				if(tourData.hotelId !== null) {
 					response = await axios.get(
@@ -143,7 +142,6 @@ function TourEditor() {
 	}, []);
 
 	useEffect(() => {
-		console.log ('хуй');
 		const getDirectionInfo = async () => {
 			if (direction.regionId != null && direction.countryId != null && direction.cityId != null && direction.hotelId != null) {
 				try {
@@ -156,7 +154,6 @@ function TourEditor() {
 						}
 					);
 	
-					console.log(response.data);
 					setDirectionInfo(response.data);
 				} catch (error) {
 					console.error("Ошибка загрузки данных:", error);
@@ -164,7 +161,7 @@ function TourEditor() {
 			}
 		};
 	
-		getDirectionInfo(); // Вызов асинхронной функции
+		getDirectionInfo();
 	}, [direction]);
 
 	const selectDirection = (directionId) => {
@@ -247,18 +244,18 @@ function TourEditor() {
 
 	const changePhoto = (e) => {
         if (e.target.files && e.target.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-			setphotoUrl(e.target.result);
-        };
-        reader.readAsDataURL(e.target.files[0]);
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				setPhotoUrl(e.target.result);
+			};
+			reader.readAsDataURL(e.target.files[0]);
         }
 
 		const file = e.target.files[0]; // Получаем выбранный файл
 		if (file) {
 			setTour((prevState) => ({
 			...prevState,
-			PhotoFile: file, // Сохраняем файл в состоянии
+			photoFile: file, // Сохраняем файл в состоянии
 			}));
 		}
     };
@@ -271,34 +268,45 @@ function TourEditor() {
         }));
 	}
     // Функция для открытия input по нажатию на изображение
-    const openFileDialogToSelectAva = () => {
-        tour.PhotoFile.current.click();
+    const setPhotoUropenFileDialogToSelectPhoto = () => {
+        tour.photoFile.current.click();
     };
 
 	const changeDescription = (id) => {
 		setTour((prevTour) => ({
 			...prevTour,
 			descriptions: prevTour.descriptions.map((item) => 
-				item.characteristic.id === id 
-					? {
-						...item,
-						description: {
-							...item.description,
-							value: !item.description.value, // Инвертируем значение
-						},
-					}
-					: item
+				item.characteristic.id === id ? {
+					...item,
+					description: {
+						...item.description,
+						value: !item.description.value, // Инвертируем значение
+					},
+				} : item
 			),
 		}));
 	};
 
 	const saveTour = async () => {
-		await axios.post('https://localhost:7276/tour/AddTour', tour, {
-			headers: {
-				'Content-Type': 'multipart/form-data',
-				Authorization: `Bearer ${token}`,
-			}
-	  });
+		const segments = location.pathname.split('/');
+    	const id = segments[segments.length - 1];
+
+		if(id === '0') {
+			await axios.post('https://localhost:7276/tour/AddTour', tour, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+					Authorization: `Bearer ${token}`,
+				}
+		  	});
+		}
+		else {
+			await axios.put('https://localhost:7276/tour/EditTour', tour, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+					Authorization: `Bearer ${token}`,
+				}
+		  	});
+		}
 	}
 
 	return (
@@ -307,16 +315,16 @@ function TourEditor() {
 			<div className="line-under-header"></div>
 
 			<div className="tour-editor-name">
-					<div>
-						<b>Название тура</b>
-					</div>
-					<input name="name"type='text' value={tour.name} onChange={changeTour}/>
+				<div>
+					<b>Название тура</b>
+				</div>
+				<input name="name"type='text' value={tour.name} onChange={changeTour}/>
 			</div>
 
 			<div className="tour-editor-images">
 				<div className="main-tour-editor-img">
-					<img src={photoUrl} alt="click to change" onClick={openFileDialogToSelectAva}/>
-                    <input type="file" ref={ tour.PhotoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
+					<img src={photoUrl} alt="click to change" onClick={setPhotoUropenFileDialogToSelectPhoto}/>
+                    <input type="file" ref={ tour.photoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
 				</div>
 				
 
@@ -373,7 +381,7 @@ function TourEditor() {
 
 					<div className='nutrition-type'>
 						<div><b>Тип питание</b></div>
-						<select name='nutritionTypeId' onChange={changeTour}>
+						<select name='nutritionTypeId' value={tour.nutritionTypeId} onChange={changeTour}>
                             {nutritionTypes.map((nutritionType) => (
                                 <option 
                                     key={nutritionType.id}
@@ -398,8 +406,8 @@ function TourEditor() {
 										<div>
 										<input
 											type="checkbox"
-											checked={description.description.value} // Отображаем текущее значение
-											onChange={() => changeDescription(description.characteristic.id)} // Вызываем обработчик
+											checked={description.description.value}
+											onChange={() => changeDescription(description.characteristic.id)}
 										/>
 										</div>
 									</div>

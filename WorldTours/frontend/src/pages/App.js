@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } f
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Tours from './tours';
+import ToursEditor from './toursEditor';
 import Tour from './tour';
 import TourEditor from './tourEditor';
 import Auth from './auth';
@@ -12,7 +13,7 @@ import Bookings from './bookings';
 import History from './history';
 import Payment from './payment';
 import Campany from './campany';
-import {UserContext} from '../context/userContext';
+import { UserContext } from '../context/userContext';
 const token = localStorage.getItem("token");
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
 		<UserContext.Provider value={{authUser, setAuthUser}}>
 			<Router>
 				<Routes>
-					<Route path="/tours" element={<Tours />} />
+					<Route path="/tours" element={authUser.role === 2 || authUser.role === 3 ? <ToursEditor/> : <Tours/>} />
 					<Route path="/auth" element={<Auth />} />
 					<Route path="/tour/:id" element={<Tour />} />
 					<Route path="/survey" element={<Survey />} />
