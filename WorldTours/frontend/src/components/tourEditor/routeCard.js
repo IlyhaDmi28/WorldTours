@@ -50,7 +50,7 @@ function RouteCard({directionInfo, route, deleteRoute}) {
                 </div>
 
                 <div className="route-card-price-or-places">
-                    <div>Кол. мест: {route.places}</div>
+                    <div>Кол. мест: {route.seatsNumber}</div>
                 </div>
 
                 <div className="route-card-price-or-places">

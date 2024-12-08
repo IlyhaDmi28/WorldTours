@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using backend.DB;
 using Microsoft.EntityFrameworkCore;
+using backend.Models.DTOs;
 
 namespace backend.Controllers
 {
@@ -22,7 +23,17 @@ namespace backend.Controllers
         public IActionResult Auth()
         {
             User user = db.Users.FirstOrDefault(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
-            return user != null ? Ok(user) : Unauthorized();
+            return user != null ? Ok(new UserDto()
+            {
+                Id = user.Id, 
+                Email = user.Email,
+                Name = user.Name,
+                Surname = user.Surname,
+                PhoneNumber = user.PhoneNumber,
+                PhotoUrl = user.Photo == null ? "" : $"{"data:image/png;base64,"}{Convert.ToBase64String(user.Photo)}",
+                BlockedStatus = user.BlockedStatus,
+                Role = user.Role
+			}) : Unauthorized();
         }
 
         [HttpPost]

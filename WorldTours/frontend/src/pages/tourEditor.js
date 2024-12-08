@@ -1,5 +1,6 @@
 import '../styles/tourEditor.scss';
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/general/header';
 import Regions from '../components/general/regions';
@@ -8,12 +9,13 @@ import Cities from '../components/general/cities';
 import Hotels from '../components/general/hotels';
 import RoutesMenu from '../components/tourEditor/routesMenu';
 import TourType from '../components/tours/tourType'
-import tourp from '../img/test.jpg';
+import selectNewPhoto from '../img/selectNewPhoto.png';
 import star from '../img/star.svg';
 import delete3 from '../img/delete3.svg'
 const token = localStorage.getItem("token");
 
 function TourEditor() {
+	const location = useLocation();
 	const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
 	const [directionInfo, setDirectionInfo] = useState({
 		hotel: null,
@@ -23,7 +25,7 @@ function TourEditor() {
 	});
 
 	const [tourTypes, setTourTypes] = useState([]); 
-	const [tourPhotoUrl, setTourPhotoUrl] = useState(tourp); 
+	const [photoUrl, setphotoUrl] = useState(selectNewPhoto); 
 	const [nutritionTypes, setNutritionTypes] = useState([]);
 	const [direction, setDirection] = useState({
 		regionId: null,
@@ -33,7 +35,7 @@ function TourEditor() {
 	});
 
 	const [tour, setTour] = useState({
-		tourPhotoFile: useRef(null), // Используем useRef для открытия input
+		PhotoFile: useRef(null), // Используем useRef для открытия input
 		id: 0,
 		name: null,
 		hotelId: null,
@@ -74,8 +76,11 @@ function TourEditor() {
 	useEffect(() => {
 		const getData = async () => {
             try {
+				const segments = location.pathname.split('/');
+    			const id = segments[segments.length - 1];
+
 				let response;
-				response = await axios.get('https://localhost:7276/tour/GetTour', {
+				response = await axios.get(`https://localhost:7276/tour/GetTourToEdit?id=${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -93,8 +98,8 @@ function TourEditor() {
 					routes: tourData.routes,
 					descriptions: tourData.descriptions,
 				}));
-				// setTourPhotoUrl(tourData.Photo);
-				setTourPhotoUrl(tourp);
+				// setTourphotoUrl(tourData.Photo);
+				setphotoUrl(tour.photoUrl === null ? selectNewPhoto : tourData.photoUrl);
 				changeCharacteristics(tourData.tourTypeId);
 
 				if(tourData.hotelId !== null) {
@@ -244,10 +249,18 @@ function TourEditor() {
         if (e.target.files && e.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (e) => {
-			setTourPhotoUrl(e.target.result);
+			setphotoUrl(e.target.result);
         };
         reader.readAsDataURL(e.target.files[0]);
         }
+
+		const file = e.target.files[0]; // Получаем выбранный файл
+		if (file) {
+			setTour((prevState) => ({
+			...prevState,
+			PhotoFile: file, // Сохраняем файл в состоянии
+			}));
+		}
     };
 
 	const changeTour = (e) => {
@@ -259,7 +272,7 @@ function TourEditor() {
 	}
     // Функция для открытия input по нажатию на изображение
     const openFileDialogToSelectAva = () => {
-        tour.tourPhotoFile.current.click();
+        tour.PhotoFile.current.click();
     };
 
 	const changeDescription = (id) => {
@@ -279,9 +292,13 @@ function TourEditor() {
 		}));
 	};
 
-	const saveTour = () => {
-		console.log("llllll");
-		console.log(tour);
+	const saveTour = async () => {
+		await axios.post('https://localhost:7276/tour/AddTour', tour, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				Authorization: `Bearer ${token}`,
+			}
+	  });
 	}
 
 	return (
@@ -298,8 +315,8 @@ function TourEditor() {
 
 			<div className="tour-editor-images">
 				<div className="main-tour-editor-img">
-					<img src={tourPhotoUrl} alt="click to change" onClick={openFileDialogToSelectAva}/>
-                    <input type="file" ref={ tour.tourPhotoFile}  onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
+					<img src={photoUrl} alt="click to change" onClick={openFileDialogToSelectAva}/>
+                    <input type="file" ref={ tour.PhotoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
 				</div>
 				
 

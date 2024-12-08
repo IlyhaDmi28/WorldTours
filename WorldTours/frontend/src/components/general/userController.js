@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import {UserContext} from '../../context/userContext';
 import account from '../../img/account.svg';
 
 function UserController({ right }) {
     const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
+    const {authUser, setAuthUser} = useContext(UserContext);
+    console.log('fdfdfdfdf');
+    console.log(authUser);
 
     const openOrCloseUserMenu = () => {
         setIsOpenUserMenu(!isOpenUserMenu);
     };
 
     const logout = () => {
+        setAuthUser(false);
         localStorage.removeItem('token');
     };
 
 	return (
-	    <div className='user-controller'>
-            {/* <button className="user" style={{marginTop: '3px'}}>
+	    <div className='user-controller'> 
+            {authUser ? (<button className="user-button" onClick={openOrCloseUserMenu}>
+                <img src={authUser.photoUrl}/>
+            </button>) : 
+            (<button className="user-button" style={{marginTop: '3px'}}>
                 <a href="/auth">
                     <img src={account}/>
                     <b>Войти</b>
                 </a>
-            </button> */}
-            <button className="user-button" onClick={openOrCloseUserMenu}>
-
-                <img src={account}/>
-            </button>
+            </button>)
+            }
 
             {/* Выпадающее меню */}
             {isOpenUserMenu && (
@@ -32,7 +37,7 @@ function UserController({ right }) {
                         <li><a href='/user'>Редактировать профиль</a></li>
                         <li><a href='/bookings'>Мои брони</a></li>
                         <li><a href='/history'>История броней</a></li>
-                        <li><a href='/auth' style={{color: 'red'}} onClick={logout}>Выйти</a></li>
+                        <li><a href='/tours' style={{color: 'red'}} onClick={logout}>Выйти</a></li>
                     </ul>
                 </div>
             )}

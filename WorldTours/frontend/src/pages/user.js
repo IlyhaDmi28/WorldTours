@@ -1,106 +1,83 @@
 import '../styles/user.scss';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
+import {UserContext} from '../context/userContext';
 import Header from '../components/general/header';
 import noPhoto from '../img/account.svg';
-// import axios from 'axios';
-// import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+const token = localStorage.getItem("token");
 
 function User() {
     const [errorText, setErrorText] = useState('');
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [ava, setAva] = useState(noPhoto); // Задаём исходное изображение
-    const inputAvaFile = useRef(null); // Используем useRef для открытия input
-
-    // Функция для обработки замены изображения
-    const avaChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            setAva(e.target.result); // Обновляем изображение на выбранное
-        };
-        reader.readAsDataURL(e.target.files[0]);
-        }
-    };
+    const {authUser, setAuthUser} = useContext(UserContext);
+    const [user, setUser] = useState({
+        id: authUser.id,
+        name: authUser.name,
+        surname: authUser.surname,
+        phoneNumber: authUser.phoneNumber,
+        photoFile: useRef(null)
+    })
+    const [photoUrl, setPhotoUrl] = useState(authUser.photoUrl);
 
     // Функция для открытия input по нажатию на изображение
     const openFileDialogToSelectAva = () => {
-        inputAvaFile.current.click();
+        user.photoFile.current.click();
+    };
+    
+    const changePhoto = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setPhotoUrl(e.target.result);
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+		const file = e.target.files[0]; // Получаем выбранный файл
+		if (file) {
+			setUser((prevUser) => ({
+                ...prevUser,
+                photoFile: file, // Сохраняем файл в состоянии
+			}));
+		}
     };
 
-    useEffect(() => {
-        // const setUserValue = async () => {
-        //     const response = await axios.get(`https://localhost:3441/user/my`, {
-        //         headers: {
-        //                     'Authorization': `${accessToken}; ${refreshToken}`
-        //                 }
-        //           });
-        //           const user = response.data;
+    
+    const changeUser = (e) => {
+		const { name, value } = e.target;
+        setUser((prevUser) => ({
+			...prevUser,
+            [name]: value,
+        }));
+	}
 
-        //           setName(user.Name);
-        //           setSurname(user.Surname);
-        //           if(user.PhoneNumber === null) setPhoneNumber(''); 
-        //           else setPhoneNumber(user.PhoneNumber);
-        //           setLogin(user.Login);
-        //           if(user.Photo !== 'data:image/png;base64,null') setAva(user.Photo);
-        //           else setAva(noPhoto);
-        //     };    
-
-            // setUserValue();
-
-            setErrorText('');  
-      }, []);
-
-    const save = async (e) => {
-        if(name === '' || surname === '') {
+    const saveUser = async () => {
+        if(user.name === '' || user.surname === '' || user.phoneNumber === '') {
             setErrorText("Вы не заполнили все поля!"); 
             return;
         }
 
-        let belPattern = new RegExp("^375[0-9]{9}$");
-        if(!belPattern.test(phoneNumber) && phoneNumber !== '') {
-            setErrorText("Номер телефона введён некоретно"); 
-            return;
+        // let belPattern = new RegExp("^375[0-9]{9}$");
+        // if(!belPattern.test(user.phoneNumber)) {
+        //     setErrorText("Номер телефона введён некоретно"); 
+        //     return;
+        // }
+
+        console.log('cu');
+        console.log(user);
+
+        try {     
+            await axios.put('https://localhost:7276/user/editUser', user, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            window.location.href = '/tours';
+        } catch (error) {
+            console.error('Ошибка при изменении данных пользователя:', error);
         }
-
-            // try {
-            //       const formData = new FormData();
-            //       formData.append('name', name);
-            //       formData.append('surname', surname);
-            //       formData.append('phoneNumber', phoneNumber);
-            //       formData.append('photo', ava2);
-            //       formData.append('login', login);
-                  
-            //       const response = await axios.put('https://localhost:3441/user/edit', formData, {
-            //             headers: {
-            //                 'Content-Type': 'multipart/form-data',
-            //                 'Authorization': `${accessToken}; ${refreshToken}`
-            //             }
-            //       });
-
-            //       const user = response.data.user;
-                  
-
-            //       window.location.href = '/';
-            // } catch (error) {
-            //       console.error('Ошибка при изменении данных пользователя:', error);
-            // }
-      };
-
-    // const changeAva = (e) => {
-    //     const file = e.target.files[0];
-    //     const reader = new FileReader();
-            
-    //     setAva2(file);
-    //     reader.onloadend = () => {
-    //         setAva(reader.result);
-    //     };
-        
-    //     if (file) {
-    //         reader.readAsDataURL(file);
-    //     }
-    // };
+    };
 
 	return (
         <div className="user narrow-conteiner">
@@ -112,29 +89,29 @@ function User() {
                     <div className='ava-controller'>
                         {/* Там с фотками какая-то хуета, чекни усебя на гитхабе в RentalPremise */}
                         <img
-                            src={ava}
+                            src={photoUrl}
                             alt="click to change"
                             onClick={openFileDialogToSelectAva} // Обработчик клика по изображению
                         />
                         <input
                             type="file"
-                            ref={inputAvaFile}
-                            onChange={avaChange} // Обработчик изменения файла
+                            ref={user.photoFile}
+                            onChange={changePhoto} // Обработчик изменения файла
                             style={{ display: 'none' }} // Скрываем input
                             accept="image/*"
                         />
                     </div>
 
                     <form className="user-form">
-                        <input placeholder='Имя' value={name} onChange={(e) => setName(e.target.value)}/>
-                        <input placeholder='Фамилия' value={surname} onChange={(e) => setSurname(e.target.value)}/>
-                        <input placeholder='Номер телефона' value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
+                        <input name='name' placeholder='Имя' value={user.name} onChange={changeUser}/>
+                        <input name='surname' placeholder='Фамилия' value={user.surname} onChange={changeUser}/>
+                        <input name='phoneNumber' placeholder='Номер телефона' value={user.phoneNumber} onChange={changeUser}/>
                     </form>
                 </div>
 
                 <div className='under-user-params'>
                     <div id="errorMessage">{errorText} </div>
-                    <button className='save-button' onClick={save}>Сохранить измения</button>
+                    <button className='save-button' onClick={saveUser}>Сохранить измения</button>
                 </div>
             </div>
         </div>

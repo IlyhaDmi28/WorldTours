@@ -15,7 +15,7 @@
 	.filter-button {
 		margin-top: 20px;
 		height: 50%;
-		width: 170px;
+		width: 150px;
 		display: flex;
 		border: 1px solid $grey-color;
 		border-radius: 12px;
@@ -29,6 +29,24 @@
 		div {
 			margin: auto 0 auto 30px;
 			font-size: 14px;
+		}
+	}
+
+	.filter-and-add-tour-button {
+		display: flex;
+
+		.add-tour-button {
+			img {
+				border-radius: 100%;
+				
+				margin-left: 10px;
+				margin-top: 45%;
+				width: 40px;
+				height: 40px;
+				background-color: white;
+				border: none;
+				width: 100%;
+			}
 		}
 	}
 }
@@ -53,7 +71,6 @@
         .tour-card-info {
             >div:nth-child(1) {
                 display: flex;
-                height: 35px;
                 margin-top: 4px;
     
                 .tour-card-name {
@@ -78,8 +95,14 @@
                 margin-top: 5px;
                 color: $dark-grey-color;
             }
+
+			.tour-card-dates {
+				font-size: 13px;
+				margin-top: 2px;
+                color: $dark-grey-color;
+			}
     
-            >div:nth-child(3) {
+            >div:nth-child(4) {
                 margin-top: 5px;
                 display: flex;
     

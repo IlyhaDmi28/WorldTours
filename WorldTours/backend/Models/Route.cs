@@ -7,9 +7,6 @@ namespace backend.Models
 	{
 		[Key]
 		public int Id { get; set; }
-		[Required]
-		[MaxLength(255)]
-		public string Name { get; set; }
 		public DateTime? LandingDateOfDeparture { get; set; }
 		public TimeSpan? LandingTimeOfDeparture { get; set; }
 		public DateTime? ArrivalDateOfDeparture { get; set; }

@@ -12,6 +12,7 @@ import Bookings from './bookings';
 import History from './history';
 import Payment from './payment';
 import Campany from './campany';
+import {UserContext} from '../context/userContext';
 const token = localStorage.getItem("token");
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
                     }
                 });
 
-				console.log(response.data.id);
+				console.log(response.data);
                 setAuthUser(response.data);
 
             } catch (error) {
@@ -52,26 +53,29 @@ function App() {
     }
 
 	return (
-		<Router>
-			<Routes>
-				<Route path="/auth" element={<Auth />} />
-				<Route path="/tours" element={<Tours />} />
-				<Route path="/tour" element={<Tour />} />
-				<Route path="/survey" element={<Survey />} />
-				<Route path="/user" element={<User/>} />
-				<Route path="/payment" element={<Payment/>} />
-				<Route path="/campany" element={<Campany/>} />
+		<UserContext.Provider value={{authUser, setAuthUser}}>
+			<Router>
+				<Routes>
+					<Route path="/tours" element={<Tours />} />
+					<Route path="/auth" element={<Auth />} />
+					<Route path="/tour/:id" element={<Tour />} />
+					<Route path="/survey" element={<Survey />} />
+					<Route path="/user" element={<User/>} />
+					<Route path="/payment" element={<Payment/>} />
+					<Route path="/campany" element={<Campany/>} />
 
-				<Route path="/bookings" element={authUser && authUser.role === 1 ? <Bookings/> : <Navigate to="/auth" replace />} />
-				<Route path="/history" element={authUser && authUser.role === 1 ? <History/> : <Navigate to="/auth" replace />} />
+					<Route path="/bookings" element={authUser && authUser.role === 1 ? <Bookings/> : <Navigate to="/auth" replace />} />
+					<Route path="/history" element={authUser && authUser.role === 1 ? <History/> : <Navigate to="/auth" replace />} />
 
-				{(authUser.role === 2 || authUser.role === 3) && (
-					<>
-					 	<Route path="/tour_editor" element={authUser ? <TourEditor /> : <Navigate to="/auth" replace />} />
-					</>
-				)}
-			</Routes>
-		</Router>
+					{(authUser.role === 2 || authUser.role === 3) && (
+						<>
+							<Route path="/tour_editor/:id" element={authUser ? <TourEditor /> : <Navigate to="/auth" replace />} />
+						</>
+					)}
+				</Routes>
+			</Router>
+		</UserContext.Provider>
+		
 	);
 }
 

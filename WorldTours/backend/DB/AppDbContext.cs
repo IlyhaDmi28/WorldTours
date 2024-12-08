@@ -9,6 +9,7 @@ namespace backend.DB
     {
 		public DbSet<User> Users { get; set; }
 		public DbSet<TourType> TourTypes { get; set; }
+		public DbSet<CharacteristicType> CharacteristicTypes { get; set; }
 		public DbSet<Characteristic> Characteristics { get; set; }
 		public DbSet<Description> Descriptions { get; set; }
 		public DbSet<Region> Regions { get; set; }
@@ -59,6 +60,13 @@ namespace backend.DB
 				.WithOne(t => t.TourType)
 				.HasForeignKey(t => t.TourTypeId)
 				.OnDelete(DeleteBehavior.SetNull);
+
+
+			modelBuilder.Entity<CharacteristicType>()
+			.HasMany(ct => ct.Characteristics)
+			.WithOne(c => c.CharacteristicType)
+			.HasForeignKey(c => c.CharacteristicTypeId)
+			.OnDelete(DeleteBehavior.Cascade);
 
 			// Настройка Characteristic
 			modelBuilder.Entity<Characteristic>()
@@ -154,7 +162,6 @@ namespace backend.DB
 			modelBuilder.Entity<NutritionType>().HasIndex(nt => nt.Name).IsUnique();
 			modelBuilder.Entity<TourType>().HasIndex(tt => tt.Name).IsUnique();
 			modelBuilder.Entity<Characteristic>().HasIndex(c => c.Name).IsUnique();
-			modelBuilder.Entity<Models.Route>().HasIndex(r => r.Name).IsUnique();
 			modelBuilder.Entity<Tour>().HasIndex(t => t.Name).IsUnique();
 		}
 	}

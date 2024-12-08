@@ -92,10 +92,16 @@
 	
 	.tour-hotel-stars {
 		margin-top: 8px;
-		padding-bottom: 30px;
 		width: 100%;
 		display: flex;
 		column-gap: 10px;
+	}
+
+	.tour-nutrition-type {
+		margin-top: 15px;
+		text-align: justify;
+		line-height: 25px;
+		padding-bottom: 30px;
 		border-bottom: 1px solid $light-grey-color;
 	}
 

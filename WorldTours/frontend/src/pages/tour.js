@@ -1,24 +1,65 @@
 import '../styles/tour.scss';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import Header from '../components/general/header';
 import BookingMenu from '../components/tour/bookingMenu';
-import tourp from '../img/test.jpg';
+import noPhoto from '../img/noPhoto.png';
 import star from '../img/star.svg';
 import food from '../img/food.svg';
+const token = localStorage.getItem("token");
 
 function Tour() {
-	const getBackgroundColorMark = (mark) => {
-		if (mark >= 4) {
-			return '#0FE500';
-		} else if (mark >= 3) {
-			return '#efd700';
-		} else if (mark >= 2) {
-			return '#e5a800';
-		} else if (mark >= 1) {
-			return '#ff0000';
-		} else if (mark >= 0) {
-			return '#df0000';
-		}
-	};
+	const location = useLocation();
+	const segments = location.pathname.split('/');
+	const id = segments[segments.length - 1];
+
+	const [PhotoUrl, setPhotoUrl] = useState(noPhoto); 
+	const [tour, setTour] = useState({
+		tourPhotoFile: useRef(null), // Используем useRef для открытия input
+		id: 0,
+		name: null,
+		direction: {
+			hotel: null,
+			county: null,
+			city: null,
+			starsNumber: null
+		},
+		mainDescription: null,
+		nutritionType: null,
+		routes: [],
+		descriptions: [],
+	});
+		
+	useEffect(() => {
+		const getData = async () => {
+            try {
+				let response;
+				response = await axios.get(`https://localhost:7276/tour/getTour?id=${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const tourData = response.data;
+				console.log(tourData);
+				setTour((prevTour) => ({
+					...prevTour, // Сохраняем предыдущие значения
+					id: tourData.id,
+					name: tourData.name,
+					direction: tourData.direction,
+					mainDescription: tourData.mainDescription,
+					nutritionType: tourData.nutritionType,
+					routes: tourData.routes,
+					descriptions: tourData.descriptions,
+				}));
+				setPhotoUrl(tourData.photoUrl === "" ? noPhoto : tourData.photoUrl);
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
 
 	return (
 		<div className="tour narrow-conteiner">
@@ -27,180 +68,45 @@ function Tour() {
 
 			<div className="tour-name-and-mark">
 				<p>
-					<b>Место для ебли Андрея</b>
+					<b>{tour.name}</b>
 				</p>
-				<div style={{ backgroundColor: getBackgroundColorMark(4.2) }}>
-					<b>4.2</b>
-				</div>
 			</div>
 
 			<div className="tour-images">
-				<img className="main-tour-img" src={tourp} />
-
-				<div className="other-tour-images-and-map">
-					<div className="select-tour-images-or-map">
-						<button>Фото</button>
-						<button>Карта</button>
-					</div>
-
-					<div className="other-tour-images">
-						<img src={tourp} />
-						<img src={tourp} />
-						<img src={tourp} />
-						<img src={tourp} />
-						<img src={tourp} />
-						<img src={tourp} />
-					</div>
-
-					<button className="more-tour-img-button">Больше фото</button>
-				</div>
+				<img className="main-tour-img" src={PhotoUrl} />
 			</div>
 
 			<div className="tour-info-and-reservation">
 				<div className="tour-info">
 					<div className="main-tour-info">
 						<div>
-							<b>Отель</b>
+							<b>{tour.direction.hotel}</b>
 						</div>
-						<div>Страна, город</div>
+						<div>{tour.direction.country}, {tour.direction.city}</div>
 					</div>
 
 					<div className="tour-hotel-stars">
-						<img src={star} />
-						<img src={star} />
-						<img src={star} />
-						<img src={star} />
-						<img src={star} />
+						{Array(tour.direction.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
 					</div>
 
-					{/* <div className="main-services">
-                        <div className="main-service">
-                            <img src={food}/>
-                            <div>Хуй на палочке</div>
-                        </div>
-                        <div className="main-service">
-                            <img src={star}/>
-                            <div>Можно выебать Андрея</div>
-                        </div>
-                        <div className="main-service">
-                            <img src={star}/>
-                            <div>Рядом море спермы</div>
-                        </div>
-                    </div> */}
-
-					<div className="tour-desription">
-						Лучший отель, бля, отвечаю нахуй. Рядом пляж, море. Там можно купаться, девачек кадрит. Вообщем,
-						тур охуенейший. Пиздуй сюда нахуй, нераздумывая!!!!!!!!!!!! ЧМПТАВОМИАВРМ ВАПОАВОПАВО
-						ОВАОПАВОПАВОЛ СОПЛВОПЛАВОЛВО ВАЛПОАВЛПОАВЛ ВАПВАП ПИАВПМВАМАВ ВАПАВПАВЬПВАОМОВАМО
-						ВАОПАВПЛАВОЛМОВЛАЮ. ВШПОАВАОЫВОААВМИР ЫВРАВРЫАИРЫВ ЫВАИЫВОАЛЫИР ЫВАИЫВОАВЫ ЫВАВЫИВЫОЛАВЫЛОТМВСМ
-						МТ!
-					</div>
+					<div className="tour-nutrition-type"><b>Тип питания:</b> {tour.nutritionType}</div>
+					<div className="tour-desription">{tour.mainDescription}</div>
 
 					<div className="tour-characteristics">
+						{tour.descriptions.map((characteristicType) => 
 						<div className="tour-characteristic">
 							<div>
-								<b>Мужской орган</b>
+								<b>{characteristicType.name}</b>
 							</div>
 							<div>
 								<ul>
-									<li>Хуй</li>
-									<li>Залупа</li>
-									<li>Пенис</li>
-									<li>Член</li>
+									{characteristicType.descriptions.map((description) =>
+										<li>{description.characteristic.name} {description.description.value}</li>
+									)}
 								</ul>
 							</div>
 						</div>
-						<div className="tour-characteristic">
-							<div>
-								<b>Мужской орган</b>
-							</div>
-							<div>
-								<ul>
-									<li>Хуй</li>
-									<li>Залупа</li>
-									<li>Пенис</li>
-									<li>Член</li>
-								</ul>
-							</div>
-						</div>
-						<div className="tour-characteristic">
-							<div>
-								<b>Мужской орган</b>
-							</div>
-							<div>
-								<ul>
-									<li>Хуй</li>
-									<li>Залупа</li>
-									<li>Пенис</li>
-									<li>Член</li>
-								</ul>
-							</div>
-						</div>
-						<div className="tour-characteristic">
-							<div>
-								<b>Мужской орган</b>
-							</div>
-							<div>
-								<ul>
-									<li>Хуй</li>
-									<li>Залупа</li>
-									<li>Пенис</li>
-									<li>Член</li>
-								</ul>
-							</div>
-						</div>
-						<div className="tour-characteristic">
-							<div>
-								<b>Мужской орган</b>
-							</div>
-							<div>
-								<ul>
-									<li>Хуй</li>
-									<li>Залупа</li>
-									<li>Пенис</li>
-									<li>Член</li>
-								</ul>
-							</div>
-						</div>
-						<div className="tour-characteristic">
-							<div>
-								<b>Мужской орган</b>
-							</div>
-							<div>
-								<ul>
-									<li>Хуй</li>
-									<li>Залупа</li>
-									<li>Пенис</li>
-									<li>Член</li>
-								</ul>
-							</div>
-						</div>
-						<div className="tour-characteristic">
-							<div>
-								<b>Мужской орган</b>
-							</div>
-							<div>
-								<ul>
-									<li>Хуй</li>
-									<li>Залупа</li>
-									<li>Пенис</li>
-									<li>Член</li>
-								</ul>
-							</div>
-						</div>
-						<div className="tour-characteristic">
-							<div>
-								<b>Мужской орган</b>
-							</div>
-							<div>
-								<ul>
-									<li>Хуй</li>
-									<li>Залупа</li>
-									<li>Пенис</li>
-									<li>Член</li>
-								</ul>
-							</div>
-						</div>
+						)}
 					</div>
 				</div>
 

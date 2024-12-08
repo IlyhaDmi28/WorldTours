@@ -2,16 +2,35 @@ import '../styles/tours.scss';
 import BigHeader from '../components/general/bigHeader';
 import TourTypesNav from '../components/tours/tourTypesNav';
 import TourCard from '../components/tours/tourCard';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import {UserContext} from '../context/userContext';
+
+const token = localStorage.getItem("token");
 
 function Tours() {
-	const tour = {
-		name: 'Логово Андрея ЧЧЧЧЧЧЧЧЧЧЧЧЧЧ',
-		mark: 4.5,
-		country: 'Страна',
-		city: 'город',
-		hotelStars: 5,
-		price: 800,
-	};
+	const [tours, setTours] = useState([])
+
+	useEffect(() => {
+		const getData = async () => {
+            try {
+				let response;
+				response = await axios.get('https://localhost:7276/tour/GetTours', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const toursData = response.data;
+				console.log(toursData);
+				setTours(toursData);
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
+
 
 	return (
 		<div className="tours">
@@ -20,20 +39,7 @@ function Tours() {
 			{/* <TourTypesNav setTourType={setTourType} /> */}
 			<TourTypesNav />
 			<div className="tours-list">
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
-				<TourCard tour={tour} />
+				{tours.map((tour) => (<TourCard tour={tour} />))}
 			</div>
 		</div>
 	);

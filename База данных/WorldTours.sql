@@ -168,6 +168,7 @@ INSERT INTO Regions (Name, Image) VALUES ('Южная Азия', LOAD_FILE('D:/U
 INSERT INTO Regions (Name, Image) VALUES ('Восточная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/east-asia.jpg'));
 INSERT INTO Regions (Name, Image) VALUES ('Океания', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/regions/oceania.jpg'));
 
+SELECT * FROM Regions;
 
 DROP TABLE Countries;
 CREATE TABLE Countries (
@@ -273,7 +274,6 @@ SELECT * FROM Tours;
 DROP TABLE routes;
 CREATE TABLE Routes (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
-	Name VARCHAR(255) UNIQUE NOT NULL,
 	LandingDateOfDeparture DATE,
 	LandingTimeOfDeparture TIME,
 	ArrivalDateOfDeparture DATE,
