@@ -121,7 +121,8 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
     const changeTransportType = (e) => {
         const selectedId = parseInt(e.target.value, 10); // Получаем id выбранного элемента
         const selectedTransportType = transportTypes.find((transportType) => transportType.id === selectedId); // Ищем объект по id
-
+        console.log('sdsdsdsdsd');
+        console.log(selectedTransportType);
         if (selectedTransportType) {
             setRoute((prevRoute) => ({
                 ...prevRoute,
@@ -273,7 +274,30 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
                 <hr></hr>
                 <div className="edit-route-controller">
                     <button onClick={clearRoute}>Очистить всё</button>
-                    <button onClick={(e) => setRoutes([...routes, route])}>Сохранить</button>
+                    <button onClick={(e) =>{ 
+                        if(
+                            (route.landingDateOfDeparture === "" || route.landingDateOfDeparture === null) ||
+                            (route.landingTimeOfDeparture === "" || route.landingTimeOfDeparture === null) ||
+                            (route.arrivalDateOfDeparture === "" || route.arrivalDateOfDeparture === null) ||
+                            (route.arrivalTimeOfDeparture === "" || route.arrivalTimeOfDeparture === null) ||
+                            (route.landingDateOfReturn === "" || route.landingDateOfReturn === null) ||
+                            (route.landingTimeOfReturn === "" || route.landingTimeOfReturn === null) ||
+                            (route.arrivalDateOfReturn === "" || route.arrivalDateOfReturn === null) ||
+                            (route.arrivalTimeOfReturn === "" || route.arrivalTimeOfReturn === null) ||
+                            (route.departmentDeparture === "" || route.departmentDeparture === null) ||
+                            (route.transportType === "" || route.transportType === null) ||
+                            (route.departmentDeparture === "" || route.departmentDeparture === null) ||
+                            (route.price === "" ||route.price === null) ||
+                            (route.seatsNumber === "" || route.seatsNumber === null)
+                        ) {
+                            alert("Вы не заполнили все поля!");
+                            return;
+                        }
+                        console.log('route');
+                        console.log(route);
+
+                        setRoutes([...routes, route])}
+                    }>Сохранить</button>
                 </div>
             </div>
         </div>

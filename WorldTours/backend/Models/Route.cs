@@ -15,8 +15,8 @@ namespace backend.Models
 		public TimeSpan? LandingTimeOfReturn { get; set; }
 		public DateTime? ArrivalDateOfReturn { get; set; }
 		public TimeSpan? ArrivalTimeOfReturn { get; set; }
-		public int Price { get; set; }
-		public int SeatsNumber { get; set; }
+		public int? Price { get; set; }
+		public int? SeatsNumber { get; set; }
 		public int? DepartmentDepartureId { get; set; }
 		public int? TransportTypeId { get; set; }
 		public int? TourId { get; set; }

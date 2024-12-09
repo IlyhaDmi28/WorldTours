@@ -2,6 +2,7 @@
 using backend.Models;
 using backend.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 
 namespace backend.Controllers
@@ -19,8 +20,10 @@ namespace backend.Controllers
 			return Ok(db.Regions.Select(region => new RegionDto { Id = region.Id, Name = region.Name, ImageUrl = $"{"data:image/jpeg;base64,"}{Convert.ToBase64String(region.Image)}" }));
 		}
 
-		public IActionResult Countries([FromQuery] int regionId)
+		public IActionResult Countries([FromQuery] int? regionId)
 		{
+			if (regionId == null || regionId == 0) return Ok(db.Countries.Select(country => new CountryDto { Id = country.Id, Name = country.Name, FlagUrl = $"{"data:image/svg+xml;base64,"}{Convert.ToBase64String(country.Flag)}" }));
+			
 			return Ok(db.Countries.Where(county => county.RegionId == regionId).Select(country => new CountryDto { Id = country.Id, Name = country.Name, FlagUrl = $"{"data:image/svg+xml;base64,"}{Convert.ToBase64String(country.Flag)}"}));
 		}
 		public IActionResult Cities([FromQuery] int countryId)

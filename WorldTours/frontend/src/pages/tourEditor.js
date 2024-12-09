@@ -287,7 +287,32 @@ function TourEditor() {
 		}));
 	};
 
+	const addRoute = (routes) => {
+		 setTour((prevTour) => ({
+			...prevTour,
+			["routes"]: routes,
+		}));
+	}
+
 	const saveTour = async () => {
+		console.log('tour');
+		console.log(tour);
+		if(
+			(tour.name === "" || tour.name === null) ||
+			(tour.mainDescription === "" || tour.mainDescription === null) ||
+			(tour.hotelId === "" || tour.hotelId === null) ||
+			(tour.nutritionTypeId === "" || tour.nutritionTypeId === null) ||
+			(tour.tourTypeId === "" || tour.tourTypeId === null)
+		) {
+			alert("Вы не заполнили все поля!")
+			return;
+		}
+
+		if(tour.routes ===  null || tour.routes.length === 0) {
+			alert("Вы не добавили ни одного маршрута!")
+			return;
+		}
+
 		const segments = location.pathname.split('/');
     	const id = segments[segments.length - 1];
 
@@ -298,6 +323,8 @@ function TourEditor() {
 					Authorization: `Bearer ${token}`,
 				}
 		  	});
+
+			window.location.href = '/tours';
 		}
 		else {
 			await axios.put('https://localhost:7276/tour/EditTour', tour, {
@@ -306,6 +333,8 @@ function TourEditor() {
 					Authorization: `Bearer ${token}`,
 				}
 		  	});
+
+			window.location.href = '/tours';
 		}
 	}
 
@@ -416,11 +445,7 @@ function TourEditor() {
 					</div>
 				</div>
 
-				<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={
-					(routes) => setTour((prevTour) => ({
-					...prevTour,
-					["routes"]: routes,
-				}))}/>
+				<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={addRoute}/>
 			</div>
 		</div>
 	);

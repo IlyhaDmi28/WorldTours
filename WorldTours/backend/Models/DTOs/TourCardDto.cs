@@ -11,6 +11,6 @@
 		public string? DateOfDeparture { get; set; }
 		public string? DateOfReturn { get; set; }
 
-		public int Price { get; set; }	
+		public int? Price { get; set; }	
 	}
 }

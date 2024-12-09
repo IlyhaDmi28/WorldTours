@@ -14,8 +14,8 @@ namespace backend.Models.DTOs
 		public string? LandingTimeOfReturn { get; set; }
 		public string? ArrivalDateOfReturn { get; set; }
 		public string? ArrivalTimeOfReturn { get; set; }
-		public int Price { get; set; }
-		public int SeatsNumber { get; set; }
+		public int? Price { get; set; }
+		public int? SeatsNumber { get; set; }
 		public DepartmentDepartureDto DepartmentDeparture { get; set; }
 		public TransportTypeDto TransportType { get; set; }
 	}
