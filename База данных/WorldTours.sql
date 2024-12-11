@@ -186,10 +186,12 @@ INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Беларусь', LOAD_FI
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('ОАЭ', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/uae.svg'),  2);
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Тайланд', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/thailand.svg'),  10);
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Норвегия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/norway.svg'),  1);
-UPDATE Countries SET Flag = LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/norway.svg') WHERE NAME = 'Норвегия';
 
+UPDATE Countries SET Flag = LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/norway.svg') WHERE NAME = 'Норвегия';
+UPDATE Countries SET RegionId = 7 WHERE NAME = 'Тайланд';
 
 SELECT * FROM countries;
+
 
 DROP TABLE Cities;
 CREATE TABLE Cities (

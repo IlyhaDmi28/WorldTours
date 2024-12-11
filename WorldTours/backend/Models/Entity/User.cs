@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using backend.Models.DTOs;
 
-namespace backend.Models
+namespace backend.Models.Entity
 {
     public enum UserRole
     {
@@ -15,20 +16,20 @@ namespace backend.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public UserRole Role { get; set; }
-		public bool BlockedStatus { get; set; } = false;
+        public bool BlockedStatus { get; set; } = false;
 
-		[MaxLength(255)]
-		public string Name { get; set; }
+        [MaxLength(255)]
+        public string Name { get; set; }
 
-		[MaxLength(255)]
-		public string Surname { get; set; }
+        [MaxLength(255)]
+        public string Surname { get; set; }
 
-		[MaxLength(255)]
-		public string PhoneNumber { get; set; }
-        
-		public byte[]? Photo { get; set; }
+        [MaxLength(255)]
+        public string PhoneNumber { get; set; }
 
-		public User(int id, string email, string password, UserRole role, string name, string surname, string phoneNumber)
+        public byte[]? Photo { get; set; }
+
+        public User(int id, string email, string password, UserRole role, string name, string surname, string phoneNumber)
         {
             Id = id;
             Email = email;
@@ -38,7 +39,7 @@ namespace backend.Models
             Surname = surname;
             PhoneNumber = phoneNumber;
         }
-        public User(RegisterModel register, UserRole role=UserRole.USER)
+        public User(RegisterModelDto register, UserRole role = UserRole.USER)
         {
             Email = register.Email;
             Password = register.Password;

@@ -17,8 +17,8 @@ function LoginForm() {
 
         try {
             const response = await axios.post('https://localhost:7276/auth/login', {
-                Email: email,
-                Password: password
+                email: email,
+                password: password
             });
 
             console.log(response.data.token);

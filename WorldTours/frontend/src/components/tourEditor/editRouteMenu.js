@@ -35,7 +35,7 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
     useEffect(() => {
 		const getData = async () => {
             try {
-                const response = await axios.get('https://localhost:7276/route/DepartmentDepartures', {
+                const response = await axios.get('https://localhost:7276/route/department_departures', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -55,7 +55,7 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
                     },
                 }));
 
-                const response2 = await axios.get('https://localhost:7276/route/TransportTypes', {
+                const response2 = await axios.get('https://localhost:7276/route/transport_types', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }

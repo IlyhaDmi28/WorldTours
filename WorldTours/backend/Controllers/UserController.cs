@@ -1,10 +1,11 @@
 ﻿using backend.DB;
-using backend.Models;
 using backend.Models.DTOs;
+using backend.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+	[Route("user")]
 	public class UserController : Controller
 	{
 		private AppDbContext db;
@@ -33,7 +34,6 @@ namespace backend.Controllers
 					}
 				}
 
-				//db.Users.Update(editUser);
 				db.SaveChanges();
 				return Ok();
 			}

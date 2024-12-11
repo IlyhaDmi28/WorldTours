@@ -34,7 +34,7 @@ function Tour() {
 
             try {
 				let response;
-				response = await axios.get(`https://localhost:7276/tour/getTour?id=${id}`, {
+				response = await axios.get(`https://localhost:7276/tour/get?id=${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }

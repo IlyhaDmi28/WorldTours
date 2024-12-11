@@ -9,6 +9,118 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\belarus.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\belarus.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\bulgaria.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\bulgaria.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\norway.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\norway.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\thailand.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\thailand.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\turkey.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\turkey.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\uae.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\uae.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\months\\february.jpg",
+      "PackagePath": "staticwebassets\\img\\months\\february.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\months\\january.jpg",
+      "PackagePath": "staticwebassets\\img\\months\\january.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\months\\january2.jpg",
+      "PackagePath": "staticwebassets\\img\\months\\january2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\months\\january3.jpg",
+      "PackagePath": "staticwebassets\\img\\months\\january3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\africa.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\africa.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\central-asia.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\central-asia.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\east-asia.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\east-asia.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\europe.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\europe.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\latin-america.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\latin-america.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\middle-east.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\middle-east.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\north-africa.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\north-africa.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\north-america.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\north-america.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\oceania.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\oceania.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\south-asia.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\south-asia.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\south-east-asia.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\south-east-asia.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\regions\\world.jpg",
+      "PackagePath": "staticwebassets\\img\\regions\\world.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\tourTypes\\all.svg",
+      "PackagePath": "staticwebassets\\img\\tourTypes\\all.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\tourTypes\\bus.svg",
+      "PackagePath": "staticwebassets\\img\\tourTypes\\bus.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\tourTypes\\culture.svg",
+      "PackagePath": "staticwebassets\\img\\tourTypes\\culture.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\tourTypes\\nature.svg",
+      "PackagePath": "staticwebassets\\img\\tourTypes\\nature.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\tourTypes\\sea.svg",
+      "PackagePath": "staticwebassets\\img\\tourTypes\\sea.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\tourTypes\\ski.svg",
+      "PackagePath": "staticwebassets\\img\\tourTypes\\ski.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

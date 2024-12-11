@@ -6,7 +6,7 @@ import Countries from './countries';
 import Cities from './cities';
 const token = localStorage.getItem("token");
 
-function MainFilters() {
+function MainFilters({filter, setFilter}) {
     const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
     const [direction, setDirection] = useState({
 		regionId: null,
@@ -14,33 +14,43 @@ function MainFilters() {
 		cityId: null,
 	});
 
-    // useEffect(() => {
-	// 	console.log ('хуй');
-	// 	const getDirectionInfo = async () => {
-	// 		if (direction.regionId != null && direction.countryId != null && direction.cityId != null && direction.hotelId != null) {
-	// 			try {
-	// 				const response = await axios.get(
-	// 					`https://localhost:7276/direction/direction?countryId=${direction.countryId}&cityId=${direction.cityId}&hotelId=${direction.hotelId}`,
-	// 					{
-	// 						headers: {
-	// 							Authorization: `Bearer ${token}`,
-	// 						},
-	// 					}
-	// 				);
-	
-	// 				console.log(response.data);
-	// 				setDirectionInfo(response.data);
-	// 			} catch (error) {
-	// 				console.error("Ошибка загрузки данных:", error);
-	// 			}
-	// 		}
-	// 	};
-	
-	// 	getDirectionInfo(); // Вызов асинхронной функции
-	// }, [direction]);
+    const [transportTypes, setTransportTypes] = useState([]);
+    const [departmentDepartures, setDepartmentDepartures] = useState([]);
+
+    useEffect(() => {
+		const getData = async () => {
+            try {
+				let response;
+				response =  await axios.get('https://localhost:7276/route/transport_types', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+                
+                const transportTypes = response.data;
+				console.log(transportTypes);
+                setTransportTypes(transportTypes);
+
+                response = await axios.get('https://localhost:7276/route/department_departures', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+                
+                const departmentDeparture = response.data;
+				console.log(departmentDeparture);
+                setDepartmentDepartures(departmentDeparture);
+
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
 
     const selectDirection = (directionId) => {
-		setDirection((prevDirection) => {
+		setFilter((prevFilter) => {
 			switch (directionsPageInndex) {
 				case 1:
 					return {
@@ -81,16 +91,16 @@ function MainFilters() {
 
             <div className='input-departure'>
                 <div>Выбирете город отправления</div>
+                
                 <select>
-                    <option selected="selected">Минск</option>
-                    <option>Брест</option>
-                    <option>Гродно</option>
-                    <option>Витебск</option>
-                    <option>Могилёв</option>
-                    <option>Гомель</option>
-                    <option>Москва</option>
-                    <option>Киев</option>
-                    <option>Варшава</option>
+                    {departmentDepartures.map((departmentDeparture) => (
+                        <option 
+                            key={departmentDeparture.id}
+                            value={departmentDeparture.id}
+                        >
+                            {departmentDeparture.city}
+                        </option>
+                    ))}
                 </select>
             </div>
 
@@ -113,10 +123,14 @@ function MainFilters() {
             <div className="input-transport">
                 <div>Выбирете транспорт</div>
                 <select>
-                    <option selected="selected">Вид</option>
-                    <option>Самолёт</option>
-                    <option>Автобус</option>
-                    <option>Поезд</option>
+                    {transportTypes.map((transportType) => (
+                        <option 
+                            key={transportType.id}
+                            value={transportType.id}
+                        >
+                            {transportType.name}
+                        </option>
+                    ))}
                 </select>
             </div>
 

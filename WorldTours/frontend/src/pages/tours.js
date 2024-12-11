@@ -8,12 +8,36 @@ const token = localStorage.getItem("token");
 
 function Tours() {
 	const [tours, setTours] = useState([])
+	const [filter, setFilter] = useState({
+		regionId: null,
+		countryId: null,
+		cityId: null,
+		departureCityId: null,
+		dateOfDeparture: null,
+		dateOfReturn: null,
+		transportTypeId: null,
+		tourTypeId: null,
+		minPrice: 0,
+        maxPrice: 99999,
+        minHotelStars: 1,
+        maxHotelStars: 5,
+        nutritionType: 'Не важно',
+        wifi: 'no_preference',
+        beach: 'no_preference',
+        separateBeds: 'no_preference',
+        separateBathroom: 'no_preference',
+        pool: 'no_preference',
+        jacuzzi: 'no_preference',
+        disco: 'no_preference',
+        billiards: 'no_preference',
+        tableTennis: 'no_preference',
+	});
 
 	useEffect(() => {
 		const getData = async () => {
             try {
 				let response;
-				response = await axios.get('https://localhost:7276/tour/GetTours', {
+				response = await axios.get('https://localhost:7276/tour/tours', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }

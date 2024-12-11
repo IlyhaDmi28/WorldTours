@@ -3,7 +3,7 @@ import MainFilters from './mainFilters';
 import UserConroller from './userController';   
 import logo from '../../img/logo.png';
 
-function BigHeader() {
+function BigHeader({filter, setFilter}) {
 	return (
 	    <header>
             <a className='logo-href' href='/tours'>
@@ -15,7 +15,7 @@ function BigHeader() {
                     <a href="/payment">Оплата</a>
                     <a href="/survey">Куда поехать?</a>
                 </div>
-                <MainFilters/>
+                <MainFilters filter={filter} setFilter={setFilter}/>
 
             </div>
             <UserConroller right={'0px'}/>

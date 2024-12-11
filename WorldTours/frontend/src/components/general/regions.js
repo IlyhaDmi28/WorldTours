@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import world from '../../img/regions/world.jpg';
-import europe from '../../img/regions/europe.jpg';
-import middleEast from '../../img/regions/middle-east.jpg';
-import northAfrica from '../../img/regions/north-africa.jpg';
-import africa from '../../img/regions/africa.jpg';
-import latinAmerica from '../../img/regions/latin-america.jpg';
-import northAmerica from '../../img/regions/north-america.jpg';
-import southEastAsia from '../../img/regions/south-east-asia.jpg';
-import centralAsia from '../../img/regions/central-asia.jpg';
-import southAsia from '../../img/regions/south-asia.jpg';
-import eastAsia from '../../img/regions/east-asia.jpg';
-import oceania from '../../img/regions/oceania.jpg';
+import world from '../../img/world.jpg';
 const token = localStorage.getItem("token");
 
 function Regions({selectDirection, goNextDirectionsPage, closeDirections, addDirection, position}) {

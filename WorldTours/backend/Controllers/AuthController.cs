@@ -1,15 +1,14 @@
-﻿using backend.Models;
-using backend.Services;
+﻿using backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using backend.DB;
 using Microsoft.EntityFrameworkCore;
 using backend.Models.DTOs;
+using backend.Models.Entity;
 
 namespace backend.Controllers
 {
-
     public class AuthController : Controller
     {
         private AppDbContext db;
@@ -37,7 +36,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register([FromBody] RegisterModel register)
+        public IActionResult Register([FromBody] RegisterModelDto register)
         {
             if (db.Users.FirstOrDefault(u => u.Email == register.Email) != null) return Conflict(new { message = "Этот email уже используется." });
 
@@ -48,7 +47,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginModel login)
+        public IActionResult Login([FromBody] LoginModelDto login)
         {
             return db.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password) != null ? Ok(new { token = TokenSevice.GenerateToken(login.Email) }) : Unauthorized();
         }

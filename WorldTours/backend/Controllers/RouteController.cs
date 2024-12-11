@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
+	[Route("route")]
 	public class RouteController : Controller
 	{
 		private AppDbContext db;
@@ -13,7 +14,9 @@ namespace backend.Controllers
 		{
 			db = context;
 		}
-		public IActionResult DepartmentDepartures()
+
+		[HttpGet("department_departures")]
+		public IActionResult GetDepartmentDepartures()
 		{
 			return Ok(db.DepartmentDepartures
 				.Include(departmentDeparture => departmentDeparture.City)
@@ -28,7 +31,9 @@ namespace backend.Controllers
 			);
 		}
 
-		public IActionResult TransportTypes()
+		[HttpGet("transport_types")]
+
+		public IActionResult GetTransportTypes()
 		{
 			return Ok(db.TransportTypes.Select(transportType => new DepartmentDepartureDto
 				{

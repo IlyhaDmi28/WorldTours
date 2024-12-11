@@ -79,7 +79,7 @@ function TourEditor() {
     			const id = segments[segments.length - 1];
 
 				let response;
-				response = await axios.get(`https://localhost:7276/tour/GetTourToEdit?id=${id}`, {
+				response = await axios.get(`https://localhost:7276/tour/tour_to_edit?id=${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -103,7 +103,7 @@ function TourEditor() {
 
 				if(tourData.hotelId !== null) {
 					response = await axios.get(
-						`https://localhost:7276/direction/direction?hotelId=${tourData.hotelId}`,
+						`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
 						{
 							headers: {
 								Authorization: `Bearer ${token}`,
@@ -115,7 +115,7 @@ function TourEditor() {
 					setDirectionInfo(directionInfoData);
 				}
 
-                response = await axios.get('https://localhost:7276/tour/types', {
+                response = await axios.get('https://localhost:7276/tour/tour_types', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -124,7 +124,7 @@ function TourEditor() {
 				console.log(typesData);
 				setTourTypes(typesData);
 
-				response = await axios.get('https://localhost:7276/tour/NutritionTypes', {
+				response = await axios.get('https://localhost:7276/tour/nutrition_types', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -146,7 +146,7 @@ function TourEditor() {
 			if (direction.regionId != null && direction.countryId != null && direction.cityId != null && direction.hotelId != null) {
 				try {
 					const response = await axios.get(
-						`https://localhost:7276/direction/direction?countryId=${direction.countryId}&cityId=${direction.cityId}&hotelId=${direction.hotelId}`,
+						`https://localhost:7276/direction/get?countryId=${direction.countryId}&cityId=${direction.cityId}&hotelId=${direction.hotelId}`,
 						{
 							headers: {
 								Authorization: `Bearer ${token}`,
@@ -317,7 +317,7 @@ function TourEditor() {
     	const id = segments[segments.length - 1];
 
 		if(id === '0') {
-			await axios.post('https://localhost:7276/tour/AddTour', tour, {
+			await axios.post('https://localhost:7276/tour/add', tour, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`,
@@ -327,7 +327,7 @@ function TourEditor() {
 			window.location.href = '/tours';
 		}
 		else {
-			await axios.put('https://localhost:7276/tour/EditTour', tour, {
+			await axios.put('https://localhost:7276/tour/edit', tour, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`,

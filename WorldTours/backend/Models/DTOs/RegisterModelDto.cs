@@ -1,6 +1,6 @@
-﻿namespace backend.Models
+﻿namespace backend.Models.DTOs
 {
-    public class RegisterModel
+    public class RegisterModelDto
     {
         public string Email { get; set; }
         public string Password { get; set; }

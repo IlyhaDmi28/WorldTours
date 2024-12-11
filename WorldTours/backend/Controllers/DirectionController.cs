@@ -1,12 +1,13 @@
 ﻿using backend.DB;
-using backend.Models;
 using backend.Models.DTOs;
+using backend.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 
 namespace backend.Controllers
 {
+	[Route("direction")]
 	public class DirectionController : Controller
 	{
 		private AppDbContext db;
@@ -15,28 +16,35 @@ namespace backend.Controllers
 		{
 			db = context;
 		}
-		public IActionResult Regions()
+
+		[HttpGet("regions")]
+		public IActionResult GetRegions()
 		{
 			return Ok(db.Regions.Select(region => new RegionDto { Id = region.Id, Name = region.Name, ImageUrl = $"{"data:image/jpeg;base64,"}{Convert.ToBase64String(region.Image)}" }));
 		}
 
-		public IActionResult Countries([FromQuery] int? regionId)
+		[HttpGet("countries")]
+		public IActionResult GetCountries([FromQuery] int? regionId)
 		{
 			if (regionId == null || regionId == 0) return Ok(db.Countries.Select(country => new CountryDto { Id = country.Id, Name = country.Name, FlagUrl = $"{"data:image/svg+xml;base64,"}{Convert.ToBase64String(country.Flag)}" }));
 			
 			return Ok(db.Countries.Where(county => county.RegionId == regionId).Select(country => new CountryDto { Id = country.Id, Name = country.Name, FlagUrl = $"{"data:image/svg+xml;base64,"}{Convert.ToBase64String(country.Flag)}"}));
 		}
-		public IActionResult Cities([FromQuery] int countryId)
+
+		[HttpGet("cities")]
+		public IActionResult GetCities([FromQuery] int countryId)
 		{
 			return Ok(db.Cities.Where(city => city.CountryId == countryId).Select(city => new CityDto { Id = city.Id, Name = city.Name }));
 		}
 
-		public IActionResult Hotels([FromQuery] int cityId)
+		[HttpGet("hotels")]
+		public IActionResult GetHotels([FromQuery] int cityId)
 		{
 			return Ok(db.Hotels.Where(hotel => hotel.CityId == cityId).Select(hotel => new HotelDto { Id = hotel.Id, Name = hotel.Name }));
 		}
 
-		public IActionResult Direction([FromQuery] int? countryId, [FromQuery] int? cityId, [FromQuery] int hotelId)
+		[HttpGet("get_direction")]
+		public IActionResult GetDirection([FromQuery] int? countryId, [FromQuery] int? cityId, [FromQuery] int hotelId)
 	{
 			if (countryId != null && cityId != null)
 			{

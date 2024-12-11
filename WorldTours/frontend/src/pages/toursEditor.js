@@ -13,7 +13,7 @@ function ToursEditor() {
 		const getData = async () => {
             try {
 				let response;
-				response = await axios.get('https://localhost:7276/tour/GetToursToEdit', {
+				response = await axios.get('https://localhost:7276/tour/tours_to_edit', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -30,7 +30,7 @@ function ToursEditor() {
 	}, []);
 
 	const deleteTour = async (deletedTour) => {
-        await axios.delete(`https://localhost:7276/tour/DeleteTour?id=${deletedTour.id}`, {
+        await axios.delete(`https://localhost:7276/tour/delete?id=${deletedTour.id}`, {
             headers: {
                 'Authorization': 'Bearer ' + token,
             }

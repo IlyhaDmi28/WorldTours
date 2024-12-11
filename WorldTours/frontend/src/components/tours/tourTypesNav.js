@@ -1,19 +1,37 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 import TourType from './tourType'
 import FilterButton from './filterButton'
 import Filters from './filters'
-import all from '../../img/TourTypes/all.svg'
-import sea from '../../img/TourTypes/sea.svg'
-import nature from '../../img/TourTypes/nature.svg'
-import ski from '../../img/TourTypes/ski.svg'
-import culture from '../../img/TourTypes/culture.svg'
-import bus from '../../img/TourTypes/bus.svg'
+import all from '../../img/all.svg'
 import add from '../../img/add.svg'
 import {UserContext} from '../../context/userContext';
+const token = localStorage.getItem("token");
 
 function TypesTourNav({setTourType}) {
 	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 	const {authUser, setAuthUser} = useContext(UserContext);
+	const [tourTypes, setTourTypes] = useState([]); 
+
+	useEffect(() => {
+		const getData = async () => {
+            try {
+				const response = await axios.get('https://localhost:7276/tour/tour_types', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const typesData = response.data;
+				console.log(typesData);
+				setTourTypes(typesData);
+
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
 
 	// Функция для открытия модального окна
 	const openFilters = () => {
@@ -30,11 +48,7 @@ function TypesTourNav({setTourType}) {
 	return (
 	    <div className="tour-types-nav">
             <TourType name={"Все виды туров"} img={all} setTourType={setTourType}/>
-            <TourType name={"Горнолыжный курорт"} img={ski} setTourType={setTourType}/>
-			<TourType name={"Путешествия по природе"} img={nature} setTourType={setTourType}/>
-			<TourType name={"Отдых на море"} img={sea} setTourType={setTourType}/>
-			<TourType name={"Культурный туризм"} img={culture} setTourType={setTourType}/>
-			<TourType name={"Обчная поездка"} img={bus} setTourType={setTourType}/>
+			{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl}/>))}
 			{authUser.role === 2 ? (
 				<div className='filter-and-add-tour-button'>
 					<FilterButton openFilters={openFilters}/>

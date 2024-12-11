@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using backend.Models;
 using System.Reflection.PortableExecutable;
 using System.Data;
+using backend.Models.Entity;
 
 namespace backend.DB
 {
@@ -20,7 +20,7 @@ namespace backend.DB
 		public DbSet<Hotel> Hotels { get; set; }
 		public DbSet<NutritionType> NutritionTypes { get; set; }
 		public DbSet<Tour> Tours { get; set; }
-		public DbSet<Models.Route> Routes { get; set; }
+		public DbSet<Models.Entity.Route> Routes { get; set; }
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             Database.EnsureCreated();   // создаем базу данных при первом обращении
@@ -145,11 +145,11 @@ namespace backend.DB
 				.OnDelete(DeleteBehavior.Cascade);
 
 			// Настройка Route
-			modelBuilder.Entity<Models.Route>()
+			modelBuilder.Entity<Models.Entity.Route>()
 				.Property(r => r.Price)
 				.HasDefaultValue(0);
 
-			modelBuilder.Entity<Models.Route>()
+			modelBuilder.Entity<Models.Entity.Route>()
 				.Property(r => r.SeatsNumber)
 				.HasDefaultValue(0);
 

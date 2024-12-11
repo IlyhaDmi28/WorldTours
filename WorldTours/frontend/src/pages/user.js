@@ -66,7 +66,7 @@ function User() {
         console.log(user);
 
         try {     
-            await axios.put('https://localhost:7276/user/editUser', user, {
+            await axios.put('https://localhost:7276/user/edit', user, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`

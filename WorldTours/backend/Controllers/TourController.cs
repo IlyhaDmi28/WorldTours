@@ -1,15 +1,16 @@
 ﻿using backend.DB;
-using backend.Models;
 using backend.Models.DTOs;
+using backend.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using Route = backend.Models.Route;
+using Route = backend.Models.Entity.Route;
 
 namespace backend.Controllers
 {
+	[Route("tour")]
 	public  class TourController : Controller
 	{
 		private AppDbContext db;
@@ -17,18 +18,16 @@ namespace backend.Controllers
 		{
 			db = context;
 		}
-		public IActionResult Types()
+
+		[HttpGet("tour_types")]
+
+		public IActionResult GetTourTypes()
 		{
 			return Ok(db.TourTypes.Select(tt => new TourTypeDto { Id = tt.Id, Name = tt.Name, ImageUrl = $"{"data:image/svg+xml;base64,"}{Convert.ToBase64String(tt.Image)}" }));
 		}
 
-		//public async Task<IActionResult> Characteristics()
-		//{
-		//	var g = await db.CharacteristicTypes.Include(ct => ct.Characteristics).ToListAsync();
-		//	return Ok(await db.CharacteristicTypes.Include(ct => ct.Characteristics).ToListAsync());
-		//}
-
-		public async Task<IActionResult> Characteristics([FromQuery]int id)
+		[HttpGet("characteristics")]
+		public async Task<IActionResult> GetCharacteristics([FromQuery]int id)
 		{
 			var characteristics = await db.Characteristics
 				.Include(c => c.TourTypes)
@@ -41,7 +40,8 @@ namespace backend.Controllers
 			return Ok(characteristics);
 		}
 
-		public IActionResult NutritionTypes()
+		[HttpGet("nutrition_types")]
+		public IActionResult GetNutritionTypes()
 		{
 			return Ok(db.NutritionTypes.Select(nutritionType => new NutritionTypeDto
 				{
@@ -51,7 +51,7 @@ namespace backend.Controllers
 			);
 		}
 
-		[HttpGet()]
+		[HttpGet("tour_to_edit")]
 		public IActionResult GetTourToEdit([FromQuery]int? id = null)
 		{
 			TourForEditorDto tourEdit;
@@ -146,7 +146,7 @@ namespace backend.Controllers
 			return Ok(tourEdit);
 		}
 
-		[HttpGet()]
+		[HttpGet("get")]
 		public IActionResult GetTour([FromQuery]int? id = null)
 		{
 			// Загрузка основной информации о туре
@@ -245,7 +245,7 @@ namespace backend.Controllers
 		}
 
 
-		[HttpGet()]
+		[HttpGet("tours")]
 		public IActionResult GetTours()
 		{
 			var tours = db.Routes
@@ -292,7 +292,7 @@ namespace backend.Controllers
 		}
 
 
-		[HttpPost()]
+		[HttpPost("add")]
 		public async Task<IActionResult> AddTour([FromForm]TourForEditorDto tour)
 		{
 			if (tour.Id == 0) 
@@ -322,7 +322,7 @@ namespace backend.Controllers
 						db.Tours.Add(newTour);
 						db.SaveChanges();
 
-						db.Routes.AddRange(tour.Routes.Select(route => new Models.Route()
+						db.Routes.AddRange(tour.Routes.Select(route => new Models.Entity.Route()
 						{
 							LandingDateOfDeparture = DateTime.Parse(route.LandingDateOfDeparture),
 							LandingTimeOfDeparture = TimeSpan.Parse(route.LandingTimeOfDeparture),
@@ -363,7 +363,7 @@ namespace backend.Controllers
 			return BadRequest();
 		}
 
-		[HttpPut()]
+		[HttpPut("edit")]
 		public async Task<IActionResult> EditTour([FromForm] TourForEditorDto tour)
 		{
 			if (tour.Id != 0)
@@ -395,7 +395,7 @@ namespace backend.Controllers
 						db.Routes.RemoveRange(removedRoutes);
 						db.SaveChanges();
 
-						db.Routes.AddRange(tour.Routes.Select(route => new Models.Route()
+						db.Routes.AddRange(tour.Routes.Select(route => new Models.Entity.Route()
 						{
 							LandingDateOfDeparture = DateTime.Parse(route.LandingDateOfDeparture),
 							LandingTimeOfDeparture = TimeSpan.Parse(route.LandingTimeOfDeparture),
@@ -440,7 +440,7 @@ namespace backend.Controllers
 			return BadRequest();
 		}
 
-		[HttpDelete()]
+		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteTour([FromQuery] int id )
 		{
 			using (var transaction = db.Database.BeginTransaction())
