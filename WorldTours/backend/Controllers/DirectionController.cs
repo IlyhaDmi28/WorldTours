@@ -43,32 +43,55 @@ namespace backend.Controllers
 			return Ok(db.Hotels.Where(hotel => hotel.CityId == cityId).Select(hotel => new HotelDto { Id = hotel.Id, Name = hotel.Name }));
 		}
 
-		[HttpGet("get_direction")]
-		public IActionResult GetDirection([FromQuery] int? countryId, [FromQuery] int? cityId, [FromQuery] int hotelId)
-	{
-			if (countryId != null && cityId != null)
+		[HttpGet("get")]
+		public IActionResult GetDirection([FromQuery] int? regionId, [FromQuery] int? countryId, [FromQuery] int? cityId, [FromQuery] int? hotelId)
+		{
+			if (hotelId != null && hotelId != 0)
 			{
-				string countryName = db.Countries.FirstOrDefault(country => country.Id == countryId).Name;
-				string cityName = db.Cities.FirstOrDefault(city => city.Id == cityId).Name;
-				string hotelName = db.Hotels.FirstOrDefault(hotel => hotel.Id == hotelId).Name;
-				int starsNumber = db.Hotels.FirstOrDefault(hotel => hotel.Id == hotelId).StarsNumber;
+				Hotel hotel = db.Hotels.Include(h => h.City).ThenInclude(c => c.Country).ThenInclude(c => c.Region).FirstOrDefault(hotel => hotel.Id == hotelId);
 
-				return Ok(new DirectionDto() { Country = countryName, City = cityName, Hotel = hotelName, StarsNumber = starsNumber });
+				return Ok(new DirectionDto()
+				{ 
+					Region = hotel.City.Country.Region.Name, 
+					Country = hotel.City.Country.Name,
+					City = hotel.City.Name, 
+					Hotel = hotel.Name, 
+					StarsNumber = hotel.StarsNumber
+				});
 			}
-			else
+			else if (cityId != null && cityId != 0) 
 			{
-				Hotel hotel = db.Hotels.FirstOrDefault(hotel => hotel.Id == hotelId);
-				string hotelName = hotel.Name;
-				int starsNumber = hotel.StarsNumber;
+				City city = db.Cities.Include(c => c.Country).ThenInclude(c => c.Region).FirstOrDefault(city => city.Id == cityId);
 
-				City city = db.Cities.FirstOrDefault(city => city.Id == hotel.CityId);
-				string cityName = hotel.City.Name;
-
-				Country country = db.Countries.FirstOrDefault(country => country.Id == city.CountryId);
-				string countryName = hotel.City.Country.Name;
-
-				return Ok(new DirectionDto() { Country = countryName, City = cityName, Hotel = hotelName, StarsNumber = starsNumber });
+				return Ok(new DirectionDto()
+				{
+					Region = city.Country.Region.Name,
+					Country = city.Country.Name,
+					City = city.Name,
+				});
 			}
+			else if (countryId != null && countryId != 0)
+			{
+				Country country = db.Countries.Include(c => c.Region).FirstOrDefault(country => country.Id == countryId);
+
+				return Ok(new DirectionDto()
+				{
+					Region = country.Region.Name,
+					Country = country.Name,
+				});
+			}
+			else if (regionId != null && regionId != 0)
+			{
+				Region region = db.Regions.FirstOrDefault(region => region.Id == regionId);
+
+				return Ok(new DirectionDto()
+				{
+					Region = region.Name,
+				});
+			}
+
+			return BadRequest();
+
 		}
 	}
 }

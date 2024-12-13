@@ -8,7 +8,23 @@ const token = localStorage.getItem("token");
 
 function ToursEditor() {
 	const [tours, setTours] = useState([])
-	
+	const [filter, setFilter] = useState({
+		regionId: null,
+		countryId: null,
+		cityId: null,
+		departureCityId: null,
+		dateOfDeparture: null,
+		dateOfReturn: null,
+		transportTypeId: null,
+		tourTypeId: null,
+		minPrice: 0,
+        maxPrice: 99999,
+        minHotelStars: 1,
+        maxHotelStars: 5,
+        nutritionType: 'Не важно',
+        descriptions: [],
+	});
+
 	useEffect(() => {
 		const getData = async () => {
             try {
@@ -41,10 +57,10 @@ function ToursEditor() {
 
 	return (
 		<div className="tours">
-			<BigHeader/>
+			<BigHeader filter={filter} setFilter={setFilter}/>
 			<div className="line-under-header"></div>
 			{/* <TourTypesNav setTourType={setTourType} /> */}
-			<TourTypesNav />
+			<TourTypesNav filter={filter} setFilter={setFilter}/>
 			<div className="tours-list">
 				{tours.map((tour) => (<TourCardForEditor tour={tour} deleteTour={deleteTour} />))}
 			</div>

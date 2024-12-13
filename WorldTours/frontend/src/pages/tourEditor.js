@@ -23,6 +23,7 @@ function TourEditor() {
 		city: null,
 		starsNumber: null
 	});
+	
 	const [tourTypes, setTourTypes] = useState([]); 
 	const [photoUrl, setPhotoUrl] = useState(selectNewPhoto); 
 	const [nutritionTypes, setNutritionTypes] = useState([]);
@@ -324,7 +325,7 @@ function TourEditor() {
 				}
 		  	});
 
-			window.location.href = '/tours';
+			// window.location.href = '/tours';
 		}
 		else {
 			await axios.put('https://localhost:7276/tour/edit', tour, {
@@ -334,7 +335,7 @@ function TourEditor() {
 				}
 		  	});
 
-			window.location.href = '/tours';
+			// window.location.href = '/tours';
 		}
 	}
 
@@ -355,25 +356,6 @@ function TourEditor() {
 					<img src={photoUrl} alt="click to change" onClick={setPhotoUropenFileDialogToSelectPhoto}/>
                     <input type="file" ref={ tour.photoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
 				</div>
-				
-
-				{/* <div className="other-tour-editor-images-and-map">
-					<div className="select-tour-editor-images-or-map">
-						<button>Фото</button>
-						<button>Карта</button>
-					</div>
-
-					<div className="other-tour-editor-images">
-						<img src={tourp} />
-						<img src={tourp} />
-						<img src={tourp} />
-						<img src={tourp} />
-						<img src={tourp} />
-						<img src={tourp} />
-					</div>
-
-					<button className="more-tour-editor-img-button">Больше фото</button>
-				</div> */}
 			</div>
 
 			<div className="tour-editor-info-and-reservation">

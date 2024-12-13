@@ -31,6 +31,24 @@ namespace backend.Controllers
 			);
 		}
 
+		[HttpGet("departure_cities")]
+		public IActionResult GetDepartureCities()
+		{
+			var cities = db.DepartmentDepartures
+				.Include(departmentDeparture => departmentDeparture.City)
+				.Select(departmentDeparture => new CityDto() { Id = departmentDeparture.City.Id, Name = departmentDeparture.City.Name })
+				.GroupBy(city => city.Id)
+				.Select(city => city.First())
+				.ToList();
+			return Ok(db.DepartmentDepartures
+				.Include(departmentDeparture => departmentDeparture.City)
+				.Select(departmentDeparture => new CityDto() { Id = departmentDeparture.City.Id, Name =  departmentDeparture.City.Name})
+				.GroupBy(city => city.Id)
+				.Select(city => city.First())
+				.ToList()
+			);
+		}
+
 		[HttpGet("transport_types")]
 
 		public IActionResult GetTransportTypes()

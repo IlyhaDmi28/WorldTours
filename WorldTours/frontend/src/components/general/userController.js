@@ -5,8 +5,6 @@ import account from '../../img/account.svg';
 function UserController({ right }) {
     const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
     const {authUser, setAuthUser} = useContext(UserContext);
-    console.log('fdfdfdfdf');
-    console.log(authUser);
 
     const openOrCloseUserMenu = () => {
         setIsOpenUserMenu(!isOpenUserMenu);

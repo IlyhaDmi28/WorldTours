@@ -40,6 +40,21 @@ namespace backend.Controllers
 			return Ok(characteristics);
 		}
 
+		[HttpGet("characteristics_to_filter")]
+		public async Task<IActionResult> GetCharacteristicsToFilter([FromQuery] int id)
+		{
+			var characteristics = await db.Characteristics
+				.Include(c => c.TourTypes)
+				.Where(c => c.TourTypes.Any(tt => tt.Id == id))
+				.Select(c => new DescriptionForFilterDto
+				{
+					CharacteristicId = c.Id,
+					CharacteristicName = c.Name,
+					Value = DescriptionFilterValue.noPreference
+				}).ToListAsync();
+			return Ok(characteristics);
+		}
+
 		[HttpGet("nutrition_types")]
 		public IActionResult GetNutritionTypes()
 		{
@@ -270,7 +285,7 @@ namespace backend.Controllers
 			return Ok(tours);
 		}
 
-		[HttpGet()]
+		[HttpGet("tours_to_edit")]
 		public IActionResult GetToursToEdit()
 		{
 			var tours = db.Tours

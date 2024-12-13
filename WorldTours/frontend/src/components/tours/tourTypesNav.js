@@ -8,7 +8,7 @@ import add from '../../img/add.svg'
 import {UserContext} from '../../context/userContext';
 const token = localStorage.getItem("token");
 
-function TypesTourNav({setTourType}) {
+function TypesTourNav({filter, setFilter}) {
 	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 	const {authUser, setAuthUser} = useContext(UserContext);
 	const [tourTypes, setTourTypes] = useState([]); 
@@ -47,8 +47,7 @@ function TypesTourNav({setTourType}) {
 
 	return (
 	    <div className="tour-types-nav">
-            <TourType name={"Все виды туров"} img={all} setTourType={setTourType}/>
-			{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl}/>))}
+			{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl} setTourType={() => setFilter((prevFilter) => { return { ...prevFilter, tourTypeId: tourType.id }})}/>))}
 			{authUser.role === 2 ? (
 				<div className='filter-and-add-tour-button'>
 					<FilterButton openFilters={openFilters}/>
@@ -61,7 +60,7 @@ function TypesTourNav({setTourType}) {
 				<FilterButton openFilters={openFilters}/>
 			)}
 			
-			<Filters isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} />
+			<Filters filter={filter} setFilter={setFilter} isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} />
 			
 			{/* <Filters isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} /> */}
         </div>

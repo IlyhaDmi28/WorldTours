@@ -8,14 +8,39 @@ const token = localStorage.getItem("token");
 
 function MainFilters({filter, setFilter}) {
     const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
-    const [direction, setDirection] = useState({
-		regionId: null,
-		countryId: null,
-		cityId: null,
+    const [directionInfo, setDirectionInfo] = useState({
+		country: null,
+		city: null,
 	});
 
+	useEffect(() => {
+		const getDirectionInfo = async () => {
+			if (filter.regionId != null && filter.countryId != null && filter.cityId != null) {
+				try {
+					const response = await axios.get(
+						`https://localhost:7276/direction/get?countryId=${filter.countryId}&cityId=${filter.cityId}&hotelId=${filter.hotelId}`,
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+                    
+                    console.log('response.data');
+                    console.log(response.data);
+                    console.log(filter);
+					setDirectionInfo(response.data);
+				} catch (error) {
+					console.error("Ошибка загрузки данных:", error);
+				}
+			}
+		};
+	
+		getDirectionInfo();
+	}, [filter]);
+
     const [transportTypes, setTransportTypes] = useState([]);
-    const [departmentDepartures, setDepartmentDepartures] = useState([]);
+    const [departureCities, setDepartureCities] = useState([]);
 
     useEffect(() => {
 		const getData = async () => {
@@ -31,15 +56,15 @@ function MainFilters({filter, setFilter}) {
 				console.log(transportTypes);
                 setTransportTypes(transportTypes);
 
-                response = await axios.get('https://localhost:7276/route/department_departures', {
+                response = await axios.get('https://localhost:7276/route/departure_cities', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
                 
-                const departmentDeparture = response.data;
-				console.log(departmentDeparture);
-                setDepartmentDepartures(departmentDeparture);
+                const departureCitiesData = response.data;
+				console.log(departureCitiesData);
+                setDepartureCities(departureCitiesData);
 
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
@@ -54,17 +79,17 @@ function MainFilters({filter, setFilter}) {
 			switch (directionsPageInndex) {
 				case 1:
 					return {
-						...prevDirection,
+						...prevFilter,
 						regionId: directionId
 					}
 				case 2:
 					return {
-						...prevDirection,
+						...prevFilter,
 						countryId: directionId
 					}
 				case 3:
 					return {
-						...prevDirection,
+						...prevFilter,
 						cityId: directionId
 					}
 				default:
@@ -73,18 +98,34 @@ function MainFilters({filter, setFilter}) {
 		});
 	};
 
+    const deleteSelectedDirection = () => {
+		setDirectionInfo({
+			country: null,
+			city: null,
+		});
+
+		setFilter((prevFilter) => { 
+            return {
+                ...prevFilter,
+                regionId: null,
+                countryId: null,
+                cityId: null,
+            }
+        });
+	}
+
     const directions = [
         null,
         <Regions selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Countries regionId={direction.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Cities countyId={direction.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Countries regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Cities countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
     ]
 
 	return (
 	    <div className="main-filters"> 
-            <div className="input-route" onClick={() => setDirectionsPageInndex(directionsPageInndex == 0 ? 1 : 0 )}>
+            <div className="input-route" onClick={() => {deleteSelectedDirection(); setDirectionsPageInndex(directionsPageInndex == 0 ? 1 : 0 )}}>
                 <div>Выберите направление</div>
-                <div>Регион, страна, город</div>
+                <div>{(directionInfo.city !== null || directionInfo.country !== null) ?  `${directionInfo.country}${directionInfo.city !== null ? ", " + directionInfo.city : ""}` : "Регион, страна, город"}</div>
             </div>
 
             <hr></hr>
@@ -92,13 +133,13 @@ function MainFilters({filter, setFilter}) {
             <div className='input-departure'>
                 <div>Выбирете город отправления</div>
                 
-                <select>
-                    {departmentDepartures.map((departmentDeparture) => (
+                <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, departureCityId: e.target.value}}))}>
+                    {departureCities.map((departureCity) => (
                         <option 
-                            key={departmentDeparture.id}
-                            value={departmentDeparture.id}
+                            key={departureCity.id}
+                            value={departureCity.id}
                         >
-                            {departmentDeparture.city}
+                            {departureCity.name}
                         </option>
                     ))}
                 </select>
@@ -108,21 +149,21 @@ function MainFilters({filter, setFilter}) {
 
             <div className="input-date">
                 <div>Прибытие</div>
-                <input type="date"/>
+                <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, dateOfDeparture: e.target.value}}))}/>
             </div>
 
             <hr></hr>
 
             <div className="input-date">
                 <div>Убытие</div>
-                <input type="date"/>
+                <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, dateOfReturn: e.target.value}}))}/>
             </div>
 
             <hr></hr>
 
             <div className="input-transport">
                 <div>Выбирете транспорт</div>
-                <select>
+                <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, transportTypeId: e.target.value}}))}>
                     {transportTypes.map((transportType) => (
                         <option 
                             key={transportType.id}
@@ -134,7 +175,7 @@ function MainFilters({filter, setFilter}) {
                 </select>
             </div>
 
-            <button className='search-by-main-filters'>
+            <button className='search-by-main-filters' onClick={() => console.log(filter)}>
                 <img src={search}/>
             </button>
             <div className='directions-area'>

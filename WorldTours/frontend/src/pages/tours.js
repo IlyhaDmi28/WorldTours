@@ -22,15 +22,7 @@ function Tours() {
         minHotelStars: 1,
         maxHotelStars: 5,
         nutritionType: 'Не важно',
-        wifi: 'no_preference',
-        beach: 'no_preference',
-        separateBeds: 'no_preference',
-        separateBathroom: 'no_preference',
-        pool: 'no_preference',
-        jacuzzi: 'no_preference',
-        disco: 'no_preference',
-        billiards: 'no_preference',
-        tableTennis: 'no_preference',
+        descriptions: [],
 	});
 
 	useEffect(() => {
@@ -56,10 +48,10 @@ function Tours() {
 
 	return (
 		<div className="tours">
-			<BigHeader/>
+			<BigHeader filter={filter} setFilter={setFilter}/>
 			<div className="line-under-header"></div>
 			{/* <TourTypesNav setTourType={setTourType} /> */}
-			<TourTypesNav />
+			<TourTypesNav filter={filter} setFilter={setFilter}/>
 			<div className="tours-list">
 				{tours.map((tour) => (<TourCard tour={tour} />))}
 			</div>
