@@ -6,7 +6,7 @@ import Countries from './countries';
 import Cities from './cities';
 const token = localStorage.getItem("token");
 
-function MainFilters({filter, setFilter}) {
+function MainFilters({filter, setFilter, setTours}) {
     const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
     const [directionInfo, setDirectionInfo] = useState({
 		country: null,
@@ -114,6 +114,19 @@ function MainFilters({filter, setFilter}) {
         });
 	}
 
+    const getTours = async () => {
+        console.log(filter);
+
+		const response = await axios.post(`https://localhost:7276/tour/filtred_tours`, filter, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+        const toursData = response.data;
+        console.log(toursData);
+        setTours(toursData);
+    }
+
     const directions = [
         null,
         <Regions selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
@@ -134,6 +147,12 @@ function MainFilters({filter, setFilter}) {
                 <div>Выбирете город отправления</div>
                 
                 <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, departureCityId: e.target.value}}))}>
+                    <option 
+                            key={0}
+                            value={0}
+                        >
+                            Не важно
+                    </option>
                     {departureCities.map((departureCity) => (
                         <option 
                             key={departureCity.id}
@@ -164,6 +183,7 @@ function MainFilters({filter, setFilter}) {
             <div className="input-transport">
                 <div>Выбирете транспорт</div>
                 <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, transportTypeId: e.target.value}}))}>
+                    <option key={0} value={0}>Не важно</option>
                     {transportTypes.map((transportType) => (
                         <option 
                             key={transportType.id}
@@ -175,7 +195,7 @@ function MainFilters({filter, setFilter}) {
                 </select>
             </div>
 
-            <button className='search-by-main-filters' onClick={() => console.log(filter)}>
+            <button className='search-by-main-filters' onClick={getTours}>
                 <img src={search}/>
             </button>
             <div className='directions-area'>

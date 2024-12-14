@@ -8,7 +8,7 @@ import add from '../../img/add.svg'
 import {UserContext} from '../../context/userContext';
 const token = localStorage.getItem("token");
 
-function TypesTourNav({filter, setFilter}) {
+function TypesTourNav({filter, setFilter, setTours}) {
 	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 	const {authUser, setAuthUser} = useContext(UserContext);
 	const [tourTypes, setTourTypes] = useState([]); 
@@ -45,9 +45,42 @@ function TypesTourNav({filter, setFilter}) {
 		document.body.style.overflow = 'auto'; // Включаем прокрутку страницы обратно
 	};
 
+	const changeTourType = async (id) => {
+		setFilter((prevFilter) => { return { ...prevFilter, tourTypeId: id }});
+
+		try {
+			let response;
+			response = await axios.post(`https://localhost:7276/tour/filtred_tours`, filter, {
+				headers: {
+					'Authorization': 'Bearer ' + token,
+				}
+			});
+			const toursData = response.data;
+			console.log(toursData);
+			setTours(toursData);
+
+			response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?id=${id}`, {
+				headers: {
+					'Authorization': 'Bearer ' + token,
+				}
+			});
+			const characteristicsData = response.data
+			console.log(characteristicsData);
+			setFilter((prevFilter) => {
+				return {
+					...prevFilter,
+					descriptions: characteristicsData
+				};
+			});
+		} catch (error) {
+			console.error('Ошибка загрузки данных:', error);
+		} 
+	}
+
 	return (
 	    <div className="tour-types-nav">
-			{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl} setTourType={() => setFilter((prevFilter) => { return { ...prevFilter, tourTypeId: tourType.id }})}/>))}
+			<TourType name={"Все виды туров"} img={all} setTourType={() => changeTourType(0)}/>
+			{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl} setTourType={() => changeTourType(tourType.id)}/>))}
 			{authUser.role === 2 ? (
 				<div className='filter-and-add-tour-button'>
 					<FilterButton openFilters={openFilters}/>
@@ -60,7 +93,7 @@ function TypesTourNav({filter, setFilter}) {
 				<FilterButton openFilters={openFilters}/>
 			)}
 			
-			<Filters filter={filter} setFilter={setFilter} isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} />
+			<Filters filter={filter} setFilter={setFilter} isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} setTours={setTours}/>
 			
 			{/* <Filters isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} /> */}
         </div>

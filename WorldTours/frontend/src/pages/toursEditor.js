@@ -9,19 +9,19 @@ const token = localStorage.getItem("token");
 function ToursEditor() {
 	const [tours, setTours] = useState([])
 	const [filter, setFilter] = useState({
-		regionId: null,
-		countryId: null,
-		cityId: null,
-		departureCityId: null,
+		regionId: 0,
+		countryId: 0,
+		cityId: 0,
+		departureCityId: 0,
 		dateOfDeparture: null,
 		dateOfReturn: null,
-		transportTypeId: null,
-		tourTypeId: null,
+		transportTypeId: 0,
+		tourTypeId: 0,
 		minPrice: 0,
-        maxPrice: 99999,
+        maxPrice: 0,
         minHotelStars: 1,
         maxHotelStars: 5,
-        nutritionType: 'Не важно',
+        nutritionTypeId: 0,
         descriptions: [],
 	});
 

@@ -10,6 +10,6 @@
 	{
 		public int CharacteristicId { get; set; }
 		public string CharacteristicName { get; set; }
-		public DescriptionFilterValue Value { get; set; }
+		public int Value { get; set; }
 	}
 }

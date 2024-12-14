@@ -5,13 +5,14 @@ import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
-function Filters({filter, setFilter, isFiltersOpen, closeFilters }) {
- 
+function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
+    const [nutritionTypes, setNutritionTypes] = useState([]);
 
     useEffect(() => {
 		const getData = async () => {
             try {
-				const response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?id=${1}`, {
+                let response;
+				response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?id=${0}`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -24,6 +25,15 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters }) {
                         descriptions: characteristicsData
                     };
                 });
+
+                response = await axios.get('https://localhost:7276/tour/nutrition_types', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const nutritionTypesData = response.data;
+				console.log(nutritionTypesData);
+				setNutritionTypes(nutritionTypesData);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -80,6 +90,16 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters }) {
         }));
     };
 
+    const getFiltredTours = async () => {
+		const response = await axios.post(`https://localhost:7276/tour/filtred_tours`, filter, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+		const toursData = response.data;
+		console.log(toursData);
+        setTours(toursData);
+    }
 
     const clearAllFilters = () => {
         setFilter((prevFilter) => {
@@ -89,16 +109,8 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters }) {
                 maxPrice: '',
                 minHotelStars: 1,
                 maxHotelStars: 5,
-                nutritionType: 'Не важно',
-                wifi: 'no_preference',
-                beach: 'no_preference',
-                separateBeds: 'no_preference',
-                separateBathroom: 'no_preference',
-                pool: 'no_preference',
-                jacuzzi: 'no_preference',
-                disco: 'no_preference',
-                billiards: 'no_preference',
-                tableTennis: 'no_preference',
+                nutritionTypeId: 0,
+                descriptions: filter.descriptions.map(description => ({...description, value: 0})),
             }
             
         });
@@ -211,13 +223,16 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters }) {
 
                     <div className="nutrition-filter">
                         <div>Питание: </div>
-                        <select name="nutritionType" value={filter.nutritionType} onChange={changeFilters}>
-                            <option selected="selected">Не важно</option>
-                            <option>RO (Room only) — без питания</option>
-                            <option>BB (Bed & breakfast) — завтрак</option>
-                            <option>HB (Half board) — полупансион</option>
-                            <option>FB (Full board) — полный пансион (завтрак, обед и ужин)</option>
-                            <option>AI (All inclusive) — всё включено — завтрак, обед и ужин (шведский стол)</option>
+                        <select name='nutritionTypeId' value={filter.nutritionTypeId} onChange={changeFilters}>
+                            <option key={0} value={0}>Не важно</option>
+                            {nutritionTypes.map((nutritionType) => (
+                                <option 
+                                    key={nutritionType.id}
+                                    value={nutritionType.id}
+                                >
+                                    {nutritionType.name}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </div>
@@ -226,25 +241,34 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters }) {
                 <hr></hr>
 
                 <div className="hotel-filters">
-                    <div></div>
-                    <div class="heading-filters">Не важно</div>
-                    <div class="heading-filters">Да</div>
-                    <div class="heading-filters">Нет</div>
-
-                    {filter.descriptions.map((description) => (
+                    {filter.descriptions.length === 0 ? 
                         <>
-                            <div class="characteristic-filter">{description.characteristicName}</div>
-                            <div><input type="radio" name={description.characteristicId} value="0" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 0}  onChange={changeDescription}/></div>
-                            <div><input type="radio" name={description.characteristicId} value="1" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 1}  onChange={changeDescription}/></div>
-                            <div><input type="radio" name={description.characteristicId} value="2" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 2}  onChange={changeDescription}/></div>
+                            <div></div>
+                            <div style={{width: '100%'}}>Для отображения дополнительных фильтров, выберите вид тура</div>
+                        </> :
+                        <>
+                            <div></div>
+                            <div className="heading-filters">Не важно</div>
+                            <div className="heading-filters">Да</div>
+                            <div className="heading-filters">Нет</div>
+
+                            {filter.descriptions.map((description) => (
+                                <>
+                                    <div className="characteristic-filter">{description.characteristicName}</div>
+                                    <div><input type="radio" name={description.characteristicId} value="0" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 0}  onChange={changeDescription}/></div>
+                                    <div><input type="radio" name={description.characteristicId} value="1" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 1}  onChange={changeDescription}/></div>
+                                    <div><input type="radio" name={description.characteristicId} value="2" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 2}  onChange={changeDescription}/></div>
+                                </>
+                            ))}
                         </>
-					))}
+                    }
+                    
                 </div>
 
                 <hr></hr>
                 <div className="filter-controllers">
                     <button onClick={clearAllFilters}>Очистить всё</button>
-                    <button>Показать</button>
+                    <button onClick={getFiltredTours}>Показать</button>
                 </div>
             </div>
         </div>

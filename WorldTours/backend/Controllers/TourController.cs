@@ -1,6 +1,7 @@
 ﻿using backend.DB;
 using backend.Models.DTOs;
 using backend.Models.Entity;
+using backend.Models.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace backend.Controllers
 				{
 					CharacteristicId = c.Id,
 					CharacteristicName = c.Name,
-					Value = DescriptionFilterValue.noPreference
+					Value = 0
 				}).ToListAsync();
 			return Ok(characteristics);
 		}
@@ -261,28 +262,127 @@ namespace backend.Controllers
 
 
 		[HttpGet("tours")]
-		public IActionResult GetTours()
+		public IActionResult GetTours([FromQuery] Filter filter)
 		{
-			var tours = db.Routes
+
+			var routes = db.Routes
 			.Include(r => r.Tour)
 			.ThenInclude(t => t.Hotel) // Загружаем связанные отели
 			.ThenInclude(h => h.City) // Загружаем города отелей
 			.ThenInclude(c => c.Country) // Загружаем страны городов
-			.Select(t => new TourCardDto
+			.ToList();
+
+			return Ok(routes.Select(t => new TourCardDto
 			{
 				Id = t.Tour.Id,
 				Name = t.Tour.Name,
 				Country = t.Tour.Hotel.City.Country.Name,
 				City = t.Tour.Hotel.City.Name,
-				PhotoUrl = t.Tour.Photo == null ? "" : $"{"data:image/jpeg;base64,"}{Convert.ToBase64String(t.Tour.Photo)}", 
+				PhotoUrl = t.Tour.Photo == null ? "" : $"{"data:image/jpeg;base64,"}{Convert.ToBase64String(t.Tour.Photo)}",
 				DateOfDeparture = ((DateTime)t.LandingDateOfDeparture).ToString("dd.MM.yyyy"),
 				DateOfReturn = ((DateTime)t.ArrivalDateOfReturn).ToString("dd.MM.yyyy"),
 				StarsNumber = t.Tour.Hotel.StarsNumber,
 				Price = t.Price,
-			})
+			}));
+		}
+
+		[HttpPost("filtred_tours")]
+		public IActionResult GetFiltredTours([FromBody] Filter filter)
+		{
+			var tours = db.Tours
+			.Include(t => t.Descriptions);
+
+			var routes = db.Routes
+			.Include(r => r.Tour)
+			.ThenInclude(t => t.Hotel) // Загружаем связанные отели
+			.ThenInclude(h => h.City) // Загружаем города отелей
+			.ThenInclude(c => c.Country) // Загружаем страны городов
 			.ToList();
 
-			return Ok(tours);
+			foreach (Tour tour in tours)
+			{
+				foreach (Route route in routes)
+				{
+					if (route.TourId == tour.Id) route.Tour = tour;
+				}
+			}
+
+
+			List<Route> filtredRoutes = new List<Route>();
+			if (filter != null)
+			{
+				if (filter.CityId != 0 && filter.CityId != null) routes = routes.Where(t => t.Tour.Hotel.CityId == filter.CityId).ToList();
+				if (filter.CountryId != 0 && filter.CountryId != null) routes = routes.Where(t => t.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
+				if (filter.DepartureCityId != 0 && filter.DepartureCityId != null) routes = routes.Where(t => t.DepartmentDeparture.CityId == filter.DepartureCityId).ToList();
+				if (filter.DateOfDeparture != null) routes = routes.Where(t => t.LandingDateOfDeparture >= filter.DateOfDeparture).ToList();
+				if (filter.DateOfReturn != null) routes = routes.Where(t => t.ArrivalDateOfReturn <= filter.DateOfReturn).ToList();
+				if (filter.TransportTypeId != 0 && filter.TransportTypeId != null) routes = routes.Where(t => t.TransportTypeId == filter.TransportTypeId).ToList();
+				if (filter.TourTypeId != 0 && filter.TourTypeId != null) routes = routes.Where(t => t.Tour.TourTypeId == filter.TourTypeId).ToList();
+				if (filter.MinPrice != 0 && filter.MinPrice != null) routes = routes.Where(t => t.Price >= filter.MinPrice).ToList();
+				if (filter.MaxPrice != 0 && filter.MaxPrice != null) routes = routes.Where(t => t.Price <= filter.MaxPrice).ToList();
+				if (filter.MinHotelStars != 0 && filter.MinHotelStars != null) routes = routes.Where(t => t.Tour.Hotel.StarsNumber >= filter.MinHotelStars).ToList();
+				if (filter.MaxHotelStars != 0 && filter.MaxHotelStars != null) routes = routes.Where(t => t.Tour.Hotel.StarsNumber <= filter.MaxHotelStars).ToList();
+				if (filter.NutritionTypeId != 0 && filter.NutritionTypeId != null) routes = routes.Where(t => t.Tour.NutritionTypeId == filter.NutritionTypeId).ToList();
+
+				filtredRoutes = routes.ToList();
+				if (filter.Descriptions != null)
+					foreach (Route route in routes)
+					{
+						foreach (Description description in route.Tour.Descriptions)
+						{
+							foreach (DescriptionForFilterDto descriptionForFilter in filter.Descriptions)
+							{
+								switch ((int)descriptionForFilter.Value)
+								{
+									case 0:
+										{
+											continue;
+										}
+									case 1:
+										{
+											if (descriptionForFilter.CharacteristicId == description.CharacteristicId && !description.Value) filtredRoutes.Remove(route);
+											break;
+										}
+									case 2:
+										{
+											if (descriptionForFilter.CharacteristicId == description.CharacteristicId && description.Value) filtredRoutes.Remove(route);
+											break;
+										}
+									default:
+										{
+											continue;
+										}
+								}
+							}
+						}
+
+						//filtredRoutes = filtredRoutes
+						//.Where(route => !route.Tour.Descriptions.Any(description =>
+						//	filter.Descriptions.Any(descriptionForFilter =>
+						//		(int)descriptionForFilter.Value switch
+						//		{
+						//			1 when descriptionForFilter.CharacteristicId == description.CharacteristicId && !description.Value => true,
+						//			2 when descriptionForFilter.CharacteristicId == description.CharacteristicId && description.Value => true,
+						//			_ => false
+						//		}
+						//	)
+						//))
+						//.ToList();
+					}
+			}
+
+			return Ok(filtredRoutes.Select(t => new TourCardDto
+			{
+				Id = t.Tour.Id,
+				Name = t.Tour.Name,
+				Country = t.Tour.Hotel.City.Country.Name,
+				City = t.Tour.Hotel.City.Name,
+				PhotoUrl = t.Tour.Photo == null ? "" : $"{"data:image/jpeg;base64,"}{Convert.ToBase64String(t.Tour.Photo)}",
+				DateOfDeparture = ((DateTime)t.LandingDateOfDeparture).ToString("dd.MM.yyyy"),
+				DateOfReturn = ((DateTime)t.ArrivalDateOfReturn).ToString("dd.MM.yyyy"),
+				StarsNumber = t.Tour.Hotel.StarsNumber,
+				Price = t.Price,
+			}));
 		}
 
 		[HttpGet("tours_to_edit")]
