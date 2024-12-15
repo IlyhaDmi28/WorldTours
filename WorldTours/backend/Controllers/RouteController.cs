@@ -16,9 +16,9 @@ namespace backend.Controllers
 		}
 
 		[HttpGet("department_departures")]
-		public IActionResult GetDepartmentDepartures()
+		public async Task<IActionResult> GetDepartmentDepartures()
 		{
-			return Ok(db.DepartmentDepartures
+			var departmentDepartures = await db.DepartmentDepartures
 				.Include(departmentDeparture => departmentDeparture.City)
 				.ThenInclude(city => city.Country)
 				.Select(departmentDeparture => new DepartmentDepartureDto
@@ -27,38 +27,43 @@ namespace backend.Controllers
 					Name = departmentDeparture.Name,
 					City = departmentDeparture.City.Name,
 					Country = departmentDeparture.City.Country.Name
-				}).OrderBy(departmentDeparture => departmentDeparture.Id)
-			);
+				})
+				.OrderBy(departmentDeparture => departmentDeparture.Id)
+				.ToListAsync();
+
+			return Ok(departmentDepartures);
 		}
 
 		[HttpGet("departure_cities")]
-		public IActionResult GetDepartureCities()
+		public async Task<IActionResult> GetDepartureCities()
 		{
-			var cities = db.DepartmentDepartures
+			var cities = await db.DepartmentDepartures
 				.Include(departmentDeparture => departmentDeparture.City)
-				.Select(departmentDeparture => new CityDto() { Id = departmentDeparture.City.Id, Name = departmentDeparture.City.Name })
+				.Select(departmentDeparture => new CityDto
+				{
+					Id = departmentDeparture.City.Id,
+					Name = departmentDeparture.City.Name
+				})
 				.GroupBy(city => city.Id)
 				.Select(city => city.First())
-				.ToList();
-			return Ok(db.DepartmentDepartures
-				.Include(departmentDeparture => departmentDeparture.City)
-				.Select(departmentDeparture => new CityDto() { Id = departmentDeparture.City.Id, Name =  departmentDeparture.City.Name})
-				.GroupBy(city => city.Id)
-				.Select(city => city.First())
-				.ToList()
-			);
+				.ToListAsync();
+
+			return Ok(cities);
 		}
 
 		[HttpGet("transport_types")]
-
-		public IActionResult GetTransportTypes()
+		public async Task<IActionResult> GetTransportTypes()
 		{
-			return Ok(db.TransportTypes.Select(transportType => new DepartmentDepartureDto
+			var transportTypes = await db.TransportTypes
+				.Select(transportType => new DepartmentDepartureDto
 				{
 					Id = transportType.Id,
 					Name = transportType.Name,
-				}).OrderBy(transportType => transportType.Id)
-			);
+				})
+				.OrderBy(transportType => transportType.Id)
+				.ToListAsync();
+
+			return Ok(transportTypes);
 		}
 	}
 }

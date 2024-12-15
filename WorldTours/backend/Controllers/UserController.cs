@@ -2,6 +2,7 @@
 using backend.Models.DTOs;
 using backend.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
@@ -17,7 +18,7 @@ namespace backend.Controllers
 		[HttpPut]
 		public async Task<IActionResult> EditUser([FromForm] UserForEditorDto user)
 		{
-			User editUser = db.Users.FirstOrDefault(u => u.Id == user.Id);
+			User editUser = await db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
 
 			if (editUser != null)
 			{
@@ -34,7 +35,7 @@ namespace backend.Controllers
 					}
 				}
 
-				db.SaveChanges();
+				await db.SaveChangesAsync();
 				return Ok();
 			}
 

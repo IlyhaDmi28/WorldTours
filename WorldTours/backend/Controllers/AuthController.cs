@@ -19,9 +19,9 @@ namespace backend.Controllers
         }
 
         [Authorize]
-        public IActionResult Auth()
+        public async Task<IActionResult> Auth()
         {
-            User user = db.Users.FirstOrDefault(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
+            User user = await db.Users.FirstOrDefaultAsync(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
             return user != null ? Ok(new UserDto()
             {
                 Id = user.Id, 
@@ -36,20 +36,20 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register([FromBody] RegisterModelDto register)
+        public async Task<IActionResult> Register([FromBody] RegisterModelDto register)
         {
-            if (db.Users.FirstOrDefault(u => u.Email == register.Email) != null) return Conflict(new { message = "Этот email уже используется." });
+            if (await db.Users.FirstOrDefaultAsync(u => u.Email == register.Email) != null) return Conflict(new { message = "Этот email уже используется." });
 
-            db.Users.Add(new User(register));
-            db.SaveChanges();
+            await db.Users.AddAsync(new User(register));
+			await db.SaveChangesAsync();
 
             return Ok(new { token = TokenSevice.GenerateToken(register.Email) });
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginModelDto login)
+        public async Task<IActionResult> Login([FromBody] LoginModelDto login)
         {
-            return db.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password) != null ? Ok(new { token = TokenSevice.GenerateToken(login.Email) }) : Unauthorized();
+            return await db.Users.FirstOrDefaultAsync(u => u.Email == login.Email && u.Password == login.Password) != null ? Ok(new { token = TokenSevice.GenerateToken(login.Email) }) : Unauthorized();
         }
     }
 }
