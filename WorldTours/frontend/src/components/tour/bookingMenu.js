@@ -1,6 +1,27 @@
 import airplane from "../../img/airplane.svg"
+import bus from "../../img/bus.svg"
+import ship from "../../img/ship.svg"
 
-function BookingMenu() {
+function BookingMenu({selectedRoute, direction}) {
+    console.log(selectedRoute);
+    const convertDateToInputFormat = (dateString) => {
+        const [day, month, year] = dateString.split('.');
+        return `${year}-${month}-${day}`;
+    };
+
+    const getTransportImage = (id) => {
+        switch (id) {
+            case 1:
+                return airplane;
+            case 2:
+                return bus;
+            case 3:
+                return ship;
+            default:
+                return airplane;
+        }
+    };
+
 	return (
         <div className="booking-menu">
             <div className='tour-price'>
@@ -12,27 +33,22 @@ function BookingMenu() {
                 <table class="main-booking-parametrs">
                     <tr>
                         <td style={{borderRadius: '10px 0px 0px 0px', borderRight: '1px solid black', borderBottom: '1px solid black'}}>
-                            Прибытие<br/>
-                            <input type="date"/>
+                            Дата отправления<br/>
+                            <input type="date" value={convertDateToInputFormat(selectedRoute.landingDateOfDeparture)}/>
                         </td>
                         <td style={{borderRadius: '0px 10px 0px 0px'}}>
-                            Убытие<br/>
-                            <input type="date"/>
+                            Дата возвращение<br/>
+                            <input type="date" value={convertDateToInputFormat(selectedRoute.arrivalDateOfReturn)}/>
                         </td>
                     </tr>
                     <tr>
                         <td style={{borderRadius: '0px 0px 0px 10px'}}>
                             Отправление<br/>
-                            <select>
-                                <option>Россия</option>
-                                <option>США</option>
-                                <option>Германия</option>
-                                <option>Франция</option>
-                            </select>
+                            <div className="destination">{selectedRoute.departmentDeparture.city}</div>
                         </td>
                         <td style={{borderRadius: '0px 0px 10px 0px', borderLeft: '1px solid black', borderTop: '1px solid black'}}>
                             Прибытие<br/>
-                            <div className="destination">Россия</div>
+                            <div className="destination">{direction.city}</div>
                         </td>
                     </tr>
                 </table>
@@ -49,25 +65,25 @@ function BookingMenu() {
             
             <div className='routes-info'>
                 <div>
-                    <img src={airplane}/>
+                    <img src={getTransportImage(selectedRoute.transportType.id)}/>
                     <div className='route-date-and-time'>
-                        <div>00:35 - 08:00</div>
-                        <div>14 октября</div>
+                        <div>{selectedRoute.arrivalTimeOfDeparture} - {selectedRoute.landingTimeOfDeparture}</div>
+                        <div>{selectedRoute.landingDateOfDeparture}</div>
                     </div>
                     <div className='route-city-and-duration'>
-                        <div>Минск- Ебеня</div>
+                        <div>{selectedRoute.departmentDeparture.city} - {direction.city}</div>
                         <div>6 ч 25 мин</div>
                     </div>
                 </div>
                 {/* <hr></hr> */}
                 <div>
-                    <img src={airplane}/>
+                    <img src={getTransportImage(selectedRoute.transportType.id)}/>
                     <div className='route-date-and-time'>
-                        <div>00:35 - 08:00</div>
-                        <div>14 октября</div>
+                        <div>{selectedRoute.arrivalTimeOfReturn} - {selectedRoute.landingTimeOfReturn}</div>
+                        <div>{selectedRoute.landingDateOfReturn}</div>
                     </div>
                     <div className='route-city-and-duration'>
-                        <div>Минск- Ебеня</div>
+                        <div>{direction.city} - {selectedRoute.departmentDeparture.city}</div>
                         <div>6 ч 25 мин</div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import '../styles/tour.scss';
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import Header from '../components/general/header';
 import BookingMenu from '../components/tour/bookingMenu';
 import noPhoto from '../img/noPhoto.png';
@@ -10,7 +10,9 @@ import food from '../img/food.svg';
 const token = localStorage.getItem("token");
 
 function Tour() {
+    const [searchParams] = useSearchParams(); // Получение query-параметров
 	const location = useLocation();
+
 	const [photoUrl, setPhotoUrl] = useState(noPhoto); 
 	const [tour, setTour] = useState({
 		id: 0,
@@ -26,11 +28,36 @@ function Tour() {
 		routes: [],
 		descriptions: [],
 	});
+
+	const [selectedRoute, setSelectedRoute] = useState({
+		landingDateOfDeparture: "",
+        landingTimeOfDeparture: "",
+        arrivalDateOfDeparture: "",
+        arrivalTimeOfDeparture: "",
+        landingDateOfReturn: "",
+        landingTimeOfReturn: "",
+        arrivalDateOfReturn: "",
+        arrivalTimeOfReturn: "",
+        departmentDeparture: {
+            id: 1,
+            name: null,
+            city: null,
+            countrty: null
+        },
+        transportType: {
+            id: 1,
+            name: null,
+        },
+        price: 0,
+        seatsNumber: 0,
+	});
 		
 	useEffect(() => {
 		const getData = async () => {
 			const segments = location.pathname.split('/');
 			const id = segments[segments.length - 1];
+			const routeId = searchParams.get('routeId'); // Чтение параметра "filter"
+			console.log(routeId);
 
             try {
 				let response;
@@ -40,6 +67,7 @@ function Tour() {
                     }
                 });
 				const tourData = response.data;
+				console.log(tourData);
 				setTour((prevTour) => ({
 					...prevTour, 
 					id: tourData.id,
@@ -51,6 +79,8 @@ function Tour() {
 					descriptions: tourData.descriptions,
 				}));
 				setPhotoUrl(tourData.photoUrl === "" ? noPhoto : tourData.photoUrl);
+				console.log(tourData.routes.find(route => route.id === +routeId));
+				setSelectedRoute(tourData.routes.find(route => route.id === +routeId));
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -70,6 +100,7 @@ function Tour() {
 				</p>
 			</div>
 
+			<BookingMenu selectedRoute={selectedRoute} routes={tour.routes} direction={{country: tour.direction.country, city: tour.direction.city}}/>
 			<div className="tour-images">
 				<img className="main-tour-img" src={photoUrl} />
 			</div>
@@ -108,7 +139,6 @@ function Tour() {
 					</div>
 				</div>
 
-				<BookingMenu />
 			</div>
 		</div>
 	);

@@ -16,7 +16,7 @@ function TourCard({ tour }) {
     //     }
     // };
 	return (
-	    <a className="tour-card" href={`/tour/${tour.id}`}>
+	    <a className="tour-card" href={`/tour/${tour.id}?routeId=${tour.routeId}`}>
             <img className="tour-card-img" src={tour.photoUrl === "" ? noPhoto : tour.photoUrl}/>
             <div className="tour-card-info">
                 <div>

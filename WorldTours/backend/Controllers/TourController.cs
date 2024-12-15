@@ -275,6 +275,7 @@ namespace backend.Controllers
 			return Ok(routes.Select(t => new TourCardDto
 			{
 				Id = t.Tour.Id,
+				RouteId = t.Id,
 				Name = t.Tour.Name,
 				Country = t.Tour.Hotel.City.Country.Name,
 				City = t.Tour.Hotel.City.Name,
@@ -374,6 +375,7 @@ namespace backend.Controllers
 			return Ok(filtredRoutes.Select(t => new TourCardDto
 			{
 				Id = t.Tour.Id,
+				RouteId = t.Id,
 				Name = t.Tour.Name,
 				Country = t.Tour.Hotel.City.Country.Name,
 				City = t.Tour.Hotel.City.Name,

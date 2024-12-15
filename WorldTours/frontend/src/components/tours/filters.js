@@ -102,8 +102,8 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
         setFilter((prevFilter) => {
             return {
                 ...prevFilter,
-                minPrice: '',
-                maxPrice: '',
+                minPrice: 0,
+                maxPrice: 0,
                 minHotelStars: 1,
                 maxHotelStars: 5,
                 nutritionTypeId: 0,
