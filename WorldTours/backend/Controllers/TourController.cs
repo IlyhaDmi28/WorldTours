@@ -30,7 +30,7 @@ namespace backend.Controllers
 					Name = tt.Name,
 					ImageUrl = tt.Image == null ? "" : $"data:image/svg+xml;base64,{Convert.ToBase64String(tt.Image)}"
 				})
-				.ToListAsync(); // Асинхронно извлекаем данные
+				.ToListAsync();
 
 			return Ok(tourTypes);
 		}
@@ -46,7 +46,7 @@ namespace backend.Controllers
 					Characteristic = new CharacteristicDto() { Id = c.Id, Name = c.Name },
 					Description = new DescriptionDto() { Id = 0, Value = false },
 				})
-				.ToListAsync(); // Асинхронно извлекаем данные
+				.ToListAsync(); 
 
 			return Ok(characteristics);
 		}
@@ -63,7 +63,7 @@ namespace backend.Controllers
 					CharacteristicName = c.Name,
 					Value = 0
 				})
-				.ToListAsync(); // Асинхронно извлекаем данные
+				.ToListAsync(); 
 
 			return Ok(characteristics);
 		}
@@ -78,7 +78,7 @@ namespace backend.Controllers
 					Name = nutritionType.Name,
 				})
 				.OrderBy(nutritionType => nutritionType.Id)
-				.ToListAsync(); // Асинхронное выполнение запроса и преобразование результата в список
+				.ToListAsync();
 
 			return Ok(nutritionTypes);
 		}
@@ -283,7 +283,7 @@ namespace backend.Controllers
 
 
 		[HttpGet("tours")]
-		public async Task<IActionResult> GetTours([FromQuery] Filter filter)
+		public async Task<IActionResult> GetTours()
 		{
 
 			var routes = db.Routes
@@ -446,10 +446,10 @@ namespace backend.Controllers
 							}
 						}
 
-						db.Tours.Add(newTour);
+						await db.Tours.AddAsync(newTour);
 						await db.SaveChangesAsync();
 
-						db.Routes.AddRange(tour.Routes.Select(route => new Models.Entity.Route()
+						await db.Routes.AddRangeAsync(tour.Routes.Select(route => new Models.Entity.Route()
 						{
 							LandingDateOfDeparture = DateTime.Parse(route.LandingDateOfDeparture),
 							LandingTimeOfDeparture = TimeSpan.Parse(route.LandingTimeOfDeparture),
@@ -467,7 +467,7 @@ namespace backend.Controllers
 						}));
 						await db.SaveChangesAsync();
 
-						db.Descriptions.AddRange(tour.Descriptions.Select(description => new Description()
+						await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(description => new Description()
 						{
 							CharacteristicId = description.Characteristic.Id,
 							TourId = newTour.Id,
@@ -530,7 +530,7 @@ namespace backend.Controllers
 						db.Routes.RemoveRange(removedRoutes);
 						await db.SaveChangesAsync();
 
-						db.Routes.AddRange(tour.Routes.Select(route => new Models.Entity.Route()
+						await db.Routes.AddRangeAsync(tour.Routes.Select(route => new Models.Entity.Route()
 						{
 							LandingDateOfDeparture = DateTime.Parse(route.LandingDateOfDeparture),
 							LandingTimeOfDeparture = TimeSpan.Parse(route.LandingTimeOfDeparture),
@@ -553,7 +553,7 @@ namespace backend.Controllers
 						db.Descriptions.RemoveRange(removedDescriptions);
 						await db.SaveChangesAsync();
 
-						db.Descriptions.AddRange(tour.Descriptions.Select(description => new Description()
+						await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(description => new Description()
 						{
 							CharacteristicId = description.Characteristic.Id,
 							TourId = editedTour.Id,

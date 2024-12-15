@@ -10,7 +10,7 @@ namespace backend.Models.Entity
         [MaxLength(255)]
         public string Name { get; set; }
         public byte[]? Image { get; set; }
-
         public ICollection<Country> Countries { get; set; }
-    }
+
+	}
 }

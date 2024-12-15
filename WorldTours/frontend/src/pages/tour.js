@@ -1,7 +1,8 @@
 import '../styles/tour.scss';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import {UserContext} from '../context/userContext';
 import Header from '../components/general/header';
 import BookingMenu from '../components/tour/bookingMenu';
 import noPhoto from '../img/noPhoto.png';
@@ -12,6 +13,8 @@ const token = localStorage.getItem("token");
 function Tour() {
     const [searchParams] = useSearchParams(); // Получение query-параметров
 	const location = useLocation();
+
+	const {authUser, setAuthUser} = useContext(UserContext);
 
 	const [photoUrl, setPhotoUrl] = useState(noPhoto); 
 	const [tour, setTour] = useState({
@@ -89,6 +92,33 @@ function Tour() {
         getData();
 	}, []);
 
+	const sendApplicationForBooking = async (seatsNumber) => {
+		if(seatsNumber <= 0) {
+			alert("Вы ввели некоретное количество мест")
+			return;
+		}
+
+		try {
+			const routeId = searchParams.get('routeId');
+			await axios.post('https://localhost:7276/booking/add', {userId: authUser.id, routeId: routeId, orderSeatsNumber: seatsNumber }, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				}
+			});
+
+			window.location.href = '/tours';
+		 } catch (error) {
+			if(error.response != undefined) {
+                if(error.response.status === 409) {
+                    alert("Не удалось забронировать тур: вы уже забронировали этот тур!"); 
+                    return;
+                }
+            }
+
+			console.log('Ошибка бронировании тура: ', error);
+        } 
+	}
+
 	return (
 		<div className="tour narrow-conteiner">
 			<Header />
@@ -100,7 +130,7 @@ function Tour() {
 				</p>
 			</div>
 
-			<BookingMenu selectedRoute={selectedRoute} routes={tour.routes} direction={{country: tour.direction.country, city: tour.direction.city}}/>
+			<BookingMenu selectedRoute={selectedRoute} routes={tour.routes} direction={{country: tour.direction.country, city: tour.direction.city}} sendApplicationForBooking={sendApplicationForBooking}/>
 			<div className="tour-images">
 				<img className="main-tour-img" src={photoUrl} />
 			</div>

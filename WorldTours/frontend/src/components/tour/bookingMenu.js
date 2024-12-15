@@ -2,7 +2,7 @@ import airplane from "../../img/airplane.svg"
 import bus from "../../img/bus.svg"
 import ship from "../../img/ship.svg"
 
-function BookingMenu({selectedRoute, direction}) {
+function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
     console.log(selectedRoute);
     const convertDateToInputFormat = (dateString) => {
         const [day, month, year] = dateString.split('.');
@@ -59,7 +59,7 @@ function BookingMenu({selectedRoute, direction}) {
                 <input type="number"/>
             </div>
 
-            <button className="tour-application-button">
+            <button className="tour-application-button" onClick={() => sendApplicationForBooking(2)}>
                 <b>Заявка на тур</b>
             </button>
             

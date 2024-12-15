@@ -21,6 +21,8 @@ namespace backend.DB
 		public DbSet<NutritionType> NutritionTypes { get; set; }
 		public DbSet<Tour> Tours { get; set; }
 		public DbSet<Models.Entity.Route> Routes { get; set; }
+		public DbSet<Booking> Bookings { get; set; }
+
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             Database.EnsureCreated();   // создаем базу данных при первом обращении
@@ -142,6 +144,18 @@ namespace backend.DB
 				.HasMany(t => t.Routes)
 				.WithOne(r => r.Tour)
 				.HasForeignKey(r => r.TourId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<User>()
+				.HasMany(u => u.Bookings)
+				.WithOne(b => b.User)
+				.HasForeignKey(b => b.UserId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<Models.Entity.Route>()
+				.HasMany(r => r.Bookings)
+				.WithOne(b => b.Route)
+				.HasForeignKey(b => b.RouteId)
 				.OnDelete(DeleteBehavior.Cascade);
 
 			// Настройка Route

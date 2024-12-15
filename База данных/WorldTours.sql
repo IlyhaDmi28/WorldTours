@@ -306,4 +306,16 @@ CREATE TABLE Routes (
   	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 );
 
-SELECT * FROM Routes;
+SELECT * FROM routes;
+
+DROP TABLE Bookings;
+CREATE TABLE Bookings (
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	OrderSeatsNumber INT,
+	UserId INT,
+	RouteId INT,
+	FOREIGN KEY (`UserId`) REFERENCES `Users`(`ID`),
+  	FOREIGN KEY (`RouteId`) REFERENCES `Routes`(`ID`)
+);
+
+SELECT * FROM bookings;

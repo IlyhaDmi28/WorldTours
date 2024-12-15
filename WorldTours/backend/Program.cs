@@ -32,12 +32,6 @@ builder.Services.AddCors(options =>
     );
 });// указывает, будет ли валидироваться издатель при валидации токена
 
-//builder.Services.AddControllers()
-//	.AddJsonOptions(options =>
-//	{
-//		options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-//		options.JsonSerializerOptions.WriteIndented = true; // Optional, for pretty printing.
-//});
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

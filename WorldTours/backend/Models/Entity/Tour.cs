@@ -25,5 +25,5 @@ namespace backend.Models.Entity
         public Hotel Hotel { get; set; }
         public ICollection<Route> Routes { get; set; }
         public ICollection<Description> Descriptions { get; set; }
-    }
+	}
 }
