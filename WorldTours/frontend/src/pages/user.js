@@ -61,10 +61,6 @@ function User() {
         //     setErrorText("Номер телефона введён некоретно"); 
         //     return;
         // }
-
-        console.log('cu');
-        console.log(user);
-
         try {     
             await axios.put('https://localhost:7276/user/edit', user, {
                 headers: {

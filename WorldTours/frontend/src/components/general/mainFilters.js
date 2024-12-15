@@ -26,9 +26,6 @@ function MainFilters({filter, setFilter, setTours}) {
 						}
 					);
                     
-                    console.log('response.data');
-                    console.log(response.data);
-                    console.log(filter);
 					setDirectionInfo(response.data);
 				} catch (error) {
 					console.error("Ошибка загрузки данных:", error);
@@ -53,7 +50,6 @@ function MainFilters({filter, setFilter, setTours}) {
                 });
                 
                 const transportTypes = response.data;
-				console.log(transportTypes);
                 setTransportTypes(transportTypes);
 
                 response = await axios.get('https://localhost:7276/route/departure_cities', {
@@ -63,7 +59,6 @@ function MainFilters({filter, setFilter, setTours}) {
                 });
                 
                 const departureCitiesData = response.data;
-				console.log(departureCitiesData);
                 setDepartureCities(departureCitiesData);
 
             } catch (error) {
@@ -116,14 +111,12 @@ function MainFilters({filter, setFilter, setTours}) {
 
     const getTours = async () => {
         console.log(filter);
-
 		const response = await axios.post(`https://localhost:7276/tour/filtred_tours`, filter, {
             headers: {
                 'Authorization': 'Bearer ' + token,
             }
         });
         const toursData = response.data;
-        console.log(toursData);
         setTours(toursData);
     }
 
@@ -147,17 +140,9 @@ function MainFilters({filter, setFilter, setTours}) {
                 <div>Выбирете город отправления</div>
                 
                 <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, departureCityId: e.target.value}}))}>
-                    <option 
-                            key={0}
-                            value={0}
-                        >
-                            Не важно
-                    </option>
+                    <option key={0} value={0}> Не важно </option>
                     {departureCities.map((departureCity) => (
-                        <option 
-                            key={departureCity.id}
-                            value={departureCity.id}
-                        >
+                        <option key={departureCity.id} value={departureCity.id}>
                             {departureCity.name}
                         </option>
                     ))}
@@ -185,10 +170,7 @@ function MainFilters({filter, setFilter, setTours}) {
                 <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, transportTypeId: e.target.value}}))}>
                     <option key={0} value={0}>Не важно</option>
                     {transportTypes.map((transportType) => (
-                        <option 
-                            key={transportType.id}
-                            value={transportType.id}
-                        >
+                        <option key={transportType.id} value={transportType.id}>
                             {transportType.name}
                         </option>
                     ))}

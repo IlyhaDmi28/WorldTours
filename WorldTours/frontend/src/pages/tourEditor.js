@@ -59,7 +59,6 @@ function TourEditor() {
 				}
 			});
 			const characteristicsData = response.data
-			console.log(characteristicsData);
 			setTour((prevTour) => {
 				return {
 					...prevTour,
@@ -86,7 +85,6 @@ function TourEditor() {
                     }
                 });
 				const tourData = response.data;
-				console.log(tourData);
 				await changeCharacteristics(tourData.tourTypeId);
 				setTour((prevTour) => ({
 					...prevTour, // Сохраняем предыдущие значения
@@ -112,7 +110,6 @@ function TourEditor() {
 						}
 					);
 					const directionInfoData = response.data;
-					console.log(directionInfoData);
 					setDirectionInfo(directionInfoData);
 				}
 
@@ -122,7 +119,6 @@ function TourEditor() {
                     }
                 });
 				const typesData = response.data;
-				console.log(typesData);
 				setTourTypes(typesData);
 
 				response = await axios.get('https://localhost:7276/tour/nutrition_types', {
@@ -131,9 +127,7 @@ function TourEditor() {
                     }
                 });
 				const nutritionTypesData = response.data;
-				console.log(nutritionTypesData);
 				setNutritionTypes(nutritionTypesData);
-
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -296,8 +290,6 @@ function TourEditor() {
 	}
 
 	const saveTour = async () => {
-		console.log('tour');
-		console.log(tour);
 		if(
 			(tour.name === "" || tour.name === null) ||
 			(tour.mainDescription === "" || tour.mainDescription === null) ||

@@ -42,7 +42,6 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
                 });
                 
                 const departmentDeparture = response.data;
-				console.log(departmentDeparture);
                 setDepartmentDepartures(departmentDeparture);
 
                 setRoute((prevRoute) => ({
@@ -62,7 +61,6 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
                 });
                 
                 const transportTypes = response2.data;
-				console.log(transportTypes);
                 setTransportTypes(transportTypes);
 
                 setRoute((prevRoute) => ({
@@ -103,10 +101,6 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
         const selectedId = parseInt(e.target.value, 10); // Получаем id выбранного элемента
         const selectedDepartmentDeparture = departmentDepartures.find((departmentDeparture) => departmentDeparture.id === selectedId); // Ищем объект по id
 
-        console.log(selectedDepartmentDeparture.id);
-        console.log(selectedDepartmentDeparture.name);
-        console.log(selectedDepartmentDeparture.city);
-        console.log(selectedDepartmentDeparture.country);
         setRoute((prevRoute) => ({
             ...prevRoute,
             departmentDeparture: {
@@ -121,8 +115,6 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
     const changeTransportType = (e) => {
         const selectedId = parseInt(e.target.value, 10); // Получаем id выбранного элемента
         const selectedTransportType = transportTypes.find((transportType) => transportType.id === selectedId); // Ищем объект по id
-        console.log('sdsdsdsdsd');
-        console.log(selectedTransportType);
         if (selectedTransportType) {
             setRoute((prevRoute) => ({
                 ...prevRoute,
@@ -293,8 +285,6 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
                             alert("Вы не заполнили все поля!");
                             return;
                         }
-                        console.log('route');
-                        console.log(route);
 
                         setRoutes([...routes, route])}
                     }>Сохранить</button>

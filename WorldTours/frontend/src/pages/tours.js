@@ -13,8 +13,8 @@ function Tours() {
 		countryId: 0,
 		cityId: 0,
 		departureCityId: 0,
-		dateOfDeparture: null,
-		dateOfReturn: null,
+		dateOfDeparture: "",
+		dateOfReturn: "",
 		transportTypeId: 0,
 		tourTypeId: 0,
 		minPrice: 0,
@@ -35,7 +35,6 @@ function Tours() {
                     }
                 });
 				const toursData = response.data;
-				console.log(toursData);
 				setTours(toursData);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);

@@ -14,8 +14,6 @@ function Cities({countyId, selectDirection, goNextDirectionsPage, closeDirection
                     }
                 });
 
-				console.log(response.data);
-
 				setCities(response.data);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);

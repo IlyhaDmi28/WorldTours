@@ -22,7 +22,6 @@ function TypesTourNav({filter, setFilter, setTours}) {
                     }
                 });
 				const typesData = response.data;
-				console.log(typesData);
 				setTourTypes(typesData);
 
             } catch (error) {
@@ -46,16 +45,18 @@ function TypesTourNav({filter, setFilter, setTours}) {
 	};
 
 	const changeTourType = async (id) => {
-		setFilter((prevFilter) => { return { ...prevFilter, tourTypeId: id }});
+		const updatedFilter = { ...filter, tourTypeId: id }; // Локально обновляем фильтр
+    	setFilter(updatedFilter); // Обновляем состояние
 
 		try {
 			let response;
-			response = await axios.post(`https://localhost:7276/tour/filtred_tours`, filter, {
+			response = await axios.post(`https://localhost:7276/tour/filtred_tours`, updatedFilter, {
 				headers: {
 					'Authorization': 'Bearer ' + token,
 				}
 			});
 			const toursData = response.data;
+			console.log('xxx');
 			console.log(toursData);
 			setTours(toursData);
 
@@ -65,7 +66,6 @@ function TypesTourNav({filter, setFilter, setTours}) {
 				}
 			});
 			const characteristicsData = response.data
-			console.log(characteristicsData);
 			setFilter((prevFilter) => {
 				return {
 					...prevFilter,

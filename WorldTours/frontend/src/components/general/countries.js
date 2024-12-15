@@ -16,8 +16,6 @@ function Countries({regionId, selectDirection, goNextDirectionsPage, closeDirect
                     }
                 });
 
-				console.log(response.data);
-
 				setCountries(response.data);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);

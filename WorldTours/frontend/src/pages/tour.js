@@ -40,7 +40,6 @@ function Tour() {
                     }
                 });
 				const tourData = response.data;
-				console.log(tourData);
 				setTour((prevTour) => ({
 					...prevTour, 
 					id: tourData.id,

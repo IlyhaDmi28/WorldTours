@@ -314,8 +314,8 @@ namespace backend.Controllers
 				if (filter.CityId != 0 && filter.CityId != null) routes = routes.Where(t => t.Tour.Hotel.CityId == filter.CityId).ToList();
 				if (filter.CountryId != 0 && filter.CountryId != null) routes = routes.Where(t => t.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
 				if (filter.DepartureCityId != 0 && filter.DepartureCityId != null) routes = routes.Where(t => t.DepartmentDeparture.CityId == filter.DepartureCityId).ToList();
-				if (filter.DateOfDeparture != null) routes = routes.Where(t => t.LandingDateOfDeparture >= filter.DateOfDeparture).ToList();
-				if (filter.DateOfReturn != null) routes = routes.Where(t => t.ArrivalDateOfReturn <= filter.DateOfReturn).ToList();
+				if (filter.DateOfDeparture != null && filter.DateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture >= DateTime.Parse(filter.DateOfDeparture)).ToList();
+				if (filter.DateOfReturn != null && filter.DateOfReturn != "") routes = routes.Where(t => t.ArrivalDateOfReturn <= DateTime.Parse(filter.DateOfReturn)).ToList();
 				if (filter.TransportTypeId != 0 && filter.TransportTypeId != null) routes = routes.Where(t => t.TransportTypeId == filter.TransportTypeId).ToList();
 				if (filter.TourTypeId != 0 && filter.TourTypeId != null) routes = routes.Where(t => t.Tour.TourTypeId == filter.TourTypeId).ToList();
 				if (filter.MinPrice != 0 && filter.MinPrice != null) routes = routes.Where(t => t.Price >= filter.MinPrice).ToList();

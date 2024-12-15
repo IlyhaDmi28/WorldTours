@@ -23,15 +23,11 @@ function App() {
 	useEffect(() => {
 		const isAuthenticated = async () => {
             try {
-				console.log(token);
-
                 const response = await axios.get('https://localhost:7276/auth/auth', {
                     headers: {
                         'Authorization': 'Bearer ' + token
                     }
                 });
-
-				console.log(response.data);
                 setAuthUser(response.data);
 
             } catch (error) {

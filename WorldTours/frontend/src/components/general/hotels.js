@@ -14,8 +14,6 @@ function Hotels({cityId, selectDirection, goNextDirectionsPage, closeDirections,
                     }
                 });
 
-				console.log(response.data);
-
 				setHotels(response.data);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);

@@ -21,7 +21,6 @@ function LoginForm() {
                 password: password
             });
 
-            console.log(response.data.token);
             localStorage.setItem('token', response.data.token);
 
             window.location.href = '/tours'; 

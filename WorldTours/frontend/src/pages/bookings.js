@@ -13,7 +13,6 @@ function Bookings() {
 		}
 
 		setIsAllButtonActive(arr);
-		console.log('handleClick ', buttonId);
     };
 
 	const booking = {

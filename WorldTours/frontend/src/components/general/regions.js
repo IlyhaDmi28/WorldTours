@@ -15,8 +15,6 @@ function Regions({selectDirection, goNextDirectionsPage, closeDirections, addDir
                     }
                 });
 
-				console.log(response.data);
-
 				setRegions(response.data);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);

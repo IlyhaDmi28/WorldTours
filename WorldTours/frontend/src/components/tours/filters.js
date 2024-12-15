@@ -18,7 +18,6 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
                     }
                 });
                 const characteristicsData = response.data
-                console.log(characteristicsData);
                 setFilter((prevFilter) => {
                     return {
                         ...prevFilter,
@@ -32,7 +31,6 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
                     }
                 });
 				const nutritionTypesData = response.data;
-				console.log(nutritionTypesData);
 				setNutritionTypes(nutritionTypesData);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
@@ -97,7 +95,6 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
 			}
 		});
 		const toursData = response.data;
-		console.log(toursData);
         setTours(toursData);
     }
 
