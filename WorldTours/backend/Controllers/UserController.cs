@@ -15,7 +15,7 @@ namespace backend.Controllers
 			db = context;
 		}
 
-		[HttpPut]
+		[HttpPut("edit")]
 		public async Task<IActionResult> EditUser([FromForm] UserForEditorDto user)
 		{
 			User editUser = await db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);

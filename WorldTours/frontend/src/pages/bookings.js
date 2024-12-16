@@ -1,11 +1,37 @@
 import '../styles/bookings.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import {UserContext} from '../context/userContext';
 import Header from '../components/general/header';
 import BookingCard from '../components/bookings/bookingCard';
+const token = localStorage.getItem("token");
 
 function Bookings() {
 	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false, false]);
+	const {authUser, setAuthUser} = useContext(UserContext);
+	const [bookings, setBookings] = useState([]);
 
+	useEffect(() => {
+		const getData = async () => {
+            try {
+				let response;
+				response = await axios.get(`https://localhost:7276/booking/bookings?userId=${authUser.id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+
+				const bookingData = response.data;
+				console.log(bookingData);
+				setBookings(bookingData);
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
+	
     const handlClickChangeBookingListButton = (buttonId) => {
 		let arr = [];
 		for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
@@ -15,14 +41,15 @@ function Bookings() {
 		setIsAllButtonActive(arr);
     };
 
-	const booking = {
-		name: 'Логово Андрея ЧЧЧЧЧЧЧЧЧЧЧЧЧЧ',
-		country: 'Страна',
-		city: 'город',
-		hotelStars: 5,
-		price: 800,
-	};
+	const deleteBooking = async (id) => {
+        await axios.delete(`https://localhost:7276/booking/delete?bookingId=${id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
 
+		setBookings(bookings.filter(booking => booking.id !== id))
+	}
 
 	return (
 		<div className="bookings narrow-conteiner">
@@ -58,15 +85,7 @@ function Bookings() {
 				</button>
 			</div>
 			<div className="bookings-list">
-				<BookingCard booking={booking}/>
-				<BookingCard booking={booking}/>
-				<BookingCard booking={booking}/>
-				<BookingCard booking={booking}/>
-				<BookingCard booking={booking}/>
-				<BookingCard booking={booking}/>
-				<BookingCard booking={booking}/>
-				<BookingCard booking={booking}/>
-				<BookingCard booking={booking}/>
+				{bookings.map((booking) => (<BookingCard booking={booking} deleteBooking={deleteBooking}/>))}
 			</div>
 		</div>
 	);

@@ -98,25 +98,31 @@ function Tour() {
 			return;
 		}
 
-		try {
-			const routeId = searchParams.get('routeId');
-			await axios.post('https://localhost:7276/booking/add', {userId: authUser.id, routeId: routeId, orderSeatsNumber: seatsNumber }, {
-				headers: {
-					Authorization: `Bearer ${token}`,
+		if(authUser) {
+			try {
+				const routeId = searchParams.get('routeId');
+				await axios.post('https://localhost:7276/booking/add', {userId: authUser.id, routeId: routeId, orderSeatsNumber: seatsNumber }, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					}
+				});
+	
+				alert("Тур успешно забронирован!"); 
+			 } catch (error) {
+				if(error.response != undefined) {
+					if(error.response.status === 409) {
+						alert("Вы уже забронировали этот тур!"); 
+						return;
+					}
 				}
-			});
-
-			window.location.href = '/tours';
-		 } catch (error) {
-			if(error.response != undefined) {
-                if(error.response.status === 409) {
-                    alert("Не удалось забронировать тур: вы уже забронировали этот тур!"); 
-                    return;
-                }
-            }
-
-			console.log('Ошибка бронировании тура: ', error);
-        } 
+	
+				console.log('Ошибка бронировании тура: ', error);
+			} 
+		}
+		else{
+			alert("Что бы забронировать тур, вам необходимо войти в аккаунт")
+		}
+		
 	}
 
 	return (

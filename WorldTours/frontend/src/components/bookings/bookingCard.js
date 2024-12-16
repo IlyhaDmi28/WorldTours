@@ -3,29 +3,33 @@ import tourp from '../../img/test.jpg'
 import star from '../../img/star.svg'
 import deleteButon from '../../img/delete.svg'
 
-function BookingCard({ booking }) {
+function BookingCard({ booking, deleteBooking }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
 	    <a className="booking-card" href='/tour' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <img className="booking-card-img" src={tourp}/>
+            <img className="booking-card-img" src={booking.tourPhotoUrl}/>
             <div className='booking-card-name'>
-                <b>{booking.name}</b>
+                <b>{booking.tourName}</b>
             </div>
             <div className="booking-card-route">
                 <div className="booking-card-country-and-city">
-                    Страна, город, 00:35 &#8594; Страна, город, 08:40
+                    {booking.departmentDeparture.country}, {booking.departmentDeparture.city}, {booking.landingDateOfDeparture} 
+                    , {booking.landingTimeOfDeparture} &#8594; {booking.direction.country}, {booking.direction.city}
+                    , {booking.arrivalDateOfDeparture}, {booking.arrivalTimeOfDeparture}
                 </div>
                 <div className="booking-card-country-and-city">
-                    Страна, город, 00:35 &#8592; Страна, город, 08:40
+                    {booking.departmentDeparture.country}, {booking.departmentDeparture.city}, {booking.arrivalDateOfReturn} 
+                    , {booking.arrivalTimeOfReturn} &#8592; {booking.direction.country}, {booking.direction.city}
+                    , {booking.landingDateOfReturn}, {booking.landingTimeOfReturn}
                 </div>
             </div>
             <div className="booking-card-date">
-                12.01.2025 - 21.01.2025
+                {booking.landingDateOfDeparture} - {booking.arrivalDateOfReturn}
             </div>
 
             <div className="booking-card-hotel-stars">
-                {Array(booking.hotelStars).fill().map((_, i) => <img src={star} key={i}/>)}
+                {Array(booking.direction.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
             </div>
 
             <div className="booking-card-status">
@@ -43,9 +47,9 @@ function BookingCard({ booking }) {
 
 
             {isHovered && 
-            <button className='tour-card-delete-button'>
-                <img src={deleteButon}/>
-            </button>
+                <button className='booking-card-delete-button' onClick={(e)=>{e.preventDefault(); deleteBooking(booking.id)}}>
+                    <img src={deleteButon}/>
+                </button>
             }
         </a>
   	);
