@@ -1,8 +1,11 @@
+import { useState } from "react";
 import airplane from "../../img/airplane.svg"
 import bus from "../../img/bus.svg"
 import ship from "../../img/ship.svg"
 
 function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
+    const[seatsNumber, setSeatsNumber] = useState(1);
+
     console.log(selectedRoute);
     const convertDateToInputFormat = (dateString) => {
         const [day, month, year] = dateString.split('.');
@@ -25,7 +28,7 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
 	return (
         <div className="booking-menu">
             <div className='tour-price'>
-                <b>1900</b>
+                <b>{selectedRoute.price * seatsNumber}</b>
                 <span>BYN</span>
             </div>
 
@@ -56,10 +59,10 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
 
             <div className="people-count">
                 <div>Количество людей:</div>
-                <input type="number"/>
+                <input type="number" value={seatsNumber} onChange={(e) => setSeatsNumber(e.target.value)}/>
             </div>
 
-            <button className="tour-application-button" onClick={() => sendApplicationForBooking(2)}>
+            <button className="tour-application-button" onClick={() => sendApplicationForBooking(seatsNumber)}>
                 <b>Заявка на тур</b>
             </button>
             

@@ -14,6 +14,7 @@
 		public string? ArrivalDateOfReturn { get; set; }
 		public string? ArrivalTimeOfReturn { get; set; }
 		public int? Price { get; set; }
+		public int? OrderSeatsNumber { get; set; }
 		public DirectionDto Direction { get; set; }
 		public DepartmentDepartureDto DepartmentDeparture { get; set; }
 	}

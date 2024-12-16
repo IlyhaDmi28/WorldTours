@@ -94,7 +94,12 @@ function Tour() {
 
 	const sendApplicationForBooking = async (seatsNumber) => {
 		if(seatsNumber <= 0) {
-			alert("Вы ввели некоретное количество мест")
+			alert("Вы ввели некоретное количество мест!")
+			return;
+		}
+
+		if(selectedRoute.seatsNumber - seatsNumber < 0) {
+			alert("К сожалению, в туре не хватает мест!")
 			return;
 		}
 

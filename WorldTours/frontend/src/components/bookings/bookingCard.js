@@ -24,8 +24,13 @@ function BookingCard({ booking, deleteBooking }) {
                     , {booking.landingDateOfReturn}, {booking.landingTimeOfReturn}
                 </div>
             </div>
-            <div className="booking-card-date">
-                {booking.landingDateOfDeparture} - {booking.arrivalDateOfReturn}
+            <div className="booking-card-department-departure-and-hotle">
+                <div>
+                    <b>Отправление с: </b> {booking.departmentDeparture.name}, <b>Транспорт: </b> Самолёт
+                </div>
+                <div>
+                    <b>Отель: </b> {booking.direction.hotel}, <b>Мест: </b> {booking.orderSeatsNumber}
+                </div>
             </div>
 
             <div className="booking-card-hotel-stars">
@@ -38,7 +43,7 @@ function BookingCard({ booking, deleteBooking }) {
             
             <div className="tour-card-price">
                 <b>
-                    {booking.price}
+                    {booking.price * booking.orderSeatsNumber}
                 </b>
                 <span>
                     &#8194;BYN

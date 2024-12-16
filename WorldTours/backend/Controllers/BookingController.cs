@@ -98,6 +98,7 @@ namespace backend.Controllers
 				ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
 				ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
 				Price = b.Route.Price,
+				OrderSeatsNumber = b.OrderSeatsNumber,
 				Direction = new DirectionDto()
 				{
 					Hotel = b.Route.Tour.Hotel.Name,
@@ -117,7 +118,6 @@ namespace backend.Controllers
 		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteBooking([FromQuery] int? bookingId)
 		{
-			// Удаление тура
 			Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(t => t.Id == bookingId);
 			if (removedBooking != null)
 			{

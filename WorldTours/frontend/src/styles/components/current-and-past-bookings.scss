@@ -36,11 +36,11 @@ $margin-from-left-booking: 200px;
 			color: $dark-grey-color;
 		}
 
-		.booking-card-date {
+		.booking-card-department-departure-and-hotle {
 			position: absolute;
 			font-size: 14px;
 			left: $margin-from-left-booking;
-			top: 100px;
+			top: 97px;
 			color: $dark-grey-color;
 		}
 
@@ -48,7 +48,7 @@ $margin-from-left-booking: 200px;
 			position: absolute;
 			display: flex;
 			left: $margin-from-left-booking;
-			top: 127px;
+			top: 137px;
 
 			display: flex;
 			column-gap: 8px;
