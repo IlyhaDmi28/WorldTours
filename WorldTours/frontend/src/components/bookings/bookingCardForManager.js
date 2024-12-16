@@ -3,7 +3,7 @@ import tourp from '../../img/test.jpg'
 import star from '../../img/star.svg'
 import deleteButon from '../../img/delete.svg'
 
-function BookingCard({ booking, deleteBooking }) {
+function BookingCardForManager({ booking, deleteBooking, confirmBooking }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -37,12 +37,15 @@ function BookingCard({ booking, deleteBooking }) {
                 {Array(booking.direction.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
             </div>
 
+            <div className="booking-card-user-info">
+                <b>От пользователя:</b> {booking.user.name} {booking.user.surname}, {booking.user.email}, {booking.user.phoneNumber}
+            </div>
             { !booking.status ?  (
-                    <div className="booking-card-status">
-                        Заявка отправлена
+                    <div className="booking-card-confirmation" onClick={(e)=>{e.preventDefault(); confirmBooking(booking.id)}}>
+                        Нажмите подтвердить
                     </div>
                 ) : (
-                    <div className="booking-card-status" style={{backgroundColor: 'rgb(60, 80, 254)'}}>
+                    <div className="booking-card-confirmation" style={{backgroundColor: 'rgb(60, 80, 254)'}}>
                         Подтвержденно
                     </div>
                 )
@@ -67,4 +70,4 @@ function BookingCard({ booking, deleteBooking }) {
   	);
 }
 
-export default BookingCard;
+export default BookingCardForManager;

@@ -33,8 +33,9 @@ function UserController({ right }) {
                 <div className='user-menu' style={{ right }}>
                     <ul>
                         <li><a href='/user'>Редактировать профиль</a></li>
-                        <li><a href='/bookings'>Мои брони</a></li>
-                        <li><a href='/history'>История броней</a></li>
+                        { authUser.role === 1 && <li><a href='/bookings'>Мои брони</a></li> }
+                        { authUser.role === 2 && <li><a href='/bookings'>Заявки на брони</a></li> }
+                        
                         <li><a href='/tours' style={{color: 'red'}} onClick={logout}>Выйти</a></li>
                     </ul>
                 </div>

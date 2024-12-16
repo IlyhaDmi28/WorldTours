@@ -55,6 +55,29 @@ $indent-from-left-booking: 200px;
 			color: white;
 		}
 
+		.booking-card-confirmation {
+			position: absolute;
+			font-size: 14px;
+			background-color: rgb(69, 189, 69);
+			left: 800px;
+			bottom: 20px;
+			height: 24px;
+			padding-top: 8px;
+			width: 180px;
+			text-align: center;
+			border-radius: 14px;
+			color: white;
+		}
+
+		.booking-card-user-info {
+			position: absolute;
+			font-size: 15px;
+			left: $margin-from-left-booking;
+			bottom: 22px;
+			height: 22px;
+			padding-top: 6px;
+		}
+
 		.booking-card-delete-button {
 			position: absolute;
 			top: 10px;

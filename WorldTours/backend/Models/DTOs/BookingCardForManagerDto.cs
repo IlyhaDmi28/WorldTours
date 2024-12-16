@@ -1,6 +1,6 @@
 ﻿namespace backend.Models.DTOs
 {
-	public class BookingCardDto
+	public class BookingCardForManagerDto
 	{
 		public int Id { get; set; }
 		public string TourName { get; set; }
@@ -17,6 +17,7 @@
 		public int? OrderSeatsNumber { get; set; }
 		public bool? Status { get; set; }
 
+		public UserDto User { get; set; }
 		public DirectionDto Direction { get; set; }
 		public DepartmentDepartureDto DepartmentDeparture { get; set; }
 	}

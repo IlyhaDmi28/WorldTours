@@ -9,7 +9,8 @@ import TourEditor from './tourEditor';
 import Auth from './auth';
 import Survey from './survey';
 import User from './user';
-import Bookings from './bookings';
+import UserBookings from './userBookings';
+import ManagerBookings from './managerBookings';
 import History from './history';
 import Payment from './payment';
 import Campany from './campany';
@@ -61,7 +62,18 @@ function App() {
 					<Route path="/payment" element={<Payment/>} />
 					<Route path="/campany" element={<Campany/>} />
 
-					<Route path="/bookings" element={authUser && authUser.role === 1 ? <Bookings/> : <Navigate to="/auth" replace />} />
+					{(authUser.role === 2 || authUser.role === 3) && (
+						<>
+							<Route path="/bookings" element={authUser ? <ManagerBookings /> : <Navigate to="/auth" replace />} />
+						</>
+					)}
+					{(authUser.role === 1) && (
+						<>
+							<Route path="/bookings" element={authUser ? <UserBookings /> : <Navigate to="/auth" replace />} />
+						</>
+					)}
+
+					<Route path="/bookings" element={authUser && authUser.role === 1 ? <UserBookings/> : <Navigate to="/auth" replace />} />
 					<Route path="/history" element={authUser && authUser.role === 1 ? <History/> : <Navigate to="/auth" replace />} />
 
 					{(authUser.role === 2 || authUser.role === 3) && (

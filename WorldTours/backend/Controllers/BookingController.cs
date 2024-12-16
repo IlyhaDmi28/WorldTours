@@ -99,6 +99,71 @@ namespace backend.Controllers
 				ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
 				Price = b.Route.Price,
 				OrderSeatsNumber = b.OrderSeatsNumber,
+				Status = b.Status,
+				Direction = new DirectionDto()
+				{
+					Hotel = b.Route.Tour.Hotel.Name,
+					StarsNumber = b.Route.Tour.Hotel.StarsNumber,
+					City = b.Route.Tour.Hotel.City.Name,
+					Country = b.Route.Tour.Hotel.City.Country.Name,
+				},
+				DepartmentDeparture = new DepartmentDepartureDto()
+				{
+					Name = b.Route.DepartmentDeparture.Name,
+					City = b.Route.DepartmentDeparture.City.Name,
+					Country = b.Route.DepartmentDeparture.City.Country.Name,
+				}
+			}));
+		}
+
+		[HttpGet("bookings_for_manager")]
+		public async Task<IActionResult> GetBookingsForManager()
+		{
+			List<Booking> bookings = await db.Bookings
+				.Include(b => b.Route)
+				.ThenInclude(r => r.Tour)
+				.ThenInclude(t => t.Hotel)
+				.ThenInclude(h => h.City)
+				.ThenInclude(c => c.Country)
+				.ToListAsync();
+
+			foreach (Booking booking in bookings)
+			{
+				booking.Route.DepartmentDeparture = await db.DepartmentDepartures
+					.Include(dd => dd.City)
+					.ThenInclude(c => c.Country)
+					.FirstOrDefaultAsync(dd => dd.Id == booking.Route.DepartmentDepartureId);
+			}
+
+			foreach (Booking booking in bookings)
+			{
+				booking.User = await db.Users.FirstOrDefaultAsync(u => u.Id == booking.UserId);
+			}
+
+			return Ok(bookings.Select(b => new BookingCardForManagerDto()
+			{
+				Id = b.Id,
+				TourName = b.Route.Tour.Name,
+				TourPhotoUrl = b.Route.Tour.Photo == null ? "" : $"data:image/png;base64,{Convert.ToBase64String(b.Route.Tour.Photo)}",
+				LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
+				LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
+				LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
+				LandingTimeOfReturn = b.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
+				ArrivalDateOfDeparture = b.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
+				ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
+				ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
+				ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+				Price = b.Route.Price,
+				OrderSeatsNumber = b.OrderSeatsNumber,
+				Status = b.Status,
+				User = new UserDto()
+				{
+					Name = b.User.Name,
+					Surname = b.User.Surname,
+					Email = b.User.Email,
+					PhoneNumber = b.User.PhoneNumber,
+					PhotoUrl = b.User.Photo == null ? "" : $"data:image/png;base64,{Convert.ToBase64String(b.User.Photo)}",
+				},
 				Direction = new DirectionDto()
 				{
 					Hotel = b.Route.Tour.Hotel.Name,
@@ -123,9 +188,26 @@ namespace backend.Controllers
 			{
 				db.Bookings.Remove(removedBooking);
 				await db.SaveChangesAsync();
+				return Ok();
+
 			}
 
-			return Ok();
+			return BadRequest();
+		}
+
+		[HttpPatch("confirm")]
+		public async Task<IActionResult> ConfirmBooking([FromQuery] int? bookingId)
+		{
+			Booking confirmedBooking = await db.Bookings.FirstOrDefaultAsync(t => t.Id == bookingId);
+			if (confirmedBooking != null)
+			{
+				confirmedBooking.Status = true;
+				await db.SaveChangesAsync();
+				return Ok();
+
+			}
+
+			return BadRequest();
 		}
 	}
 }

@@ -308,7 +308,8 @@ CREATE TABLE Routes (
 
 SELECT * FROM routes;
 
-DROP TABLE Bookings;
+DROP TABLE bookings;
+
 CREATE TABLE Bookings (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	OrderSeatsNumber INT,
@@ -317,5 +318,7 @@ CREATE TABLE Bookings (
 	FOREIGN KEY (`UserId`) REFERENCES `Users`(`ID`),
   	FOREIGN KEY (`RouteId`) REFERENCES `Routes`(`ID`)
 );
+DELETE from bookings WHERE ID = 2;
+ALTER TABLE Bookings ADD `Status` BOOLEAN DEFAULT 0;
 
 SELECT * FROM bookings;

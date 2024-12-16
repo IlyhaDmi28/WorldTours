@@ -6,10 +6,13 @@ import Header from '../components/general/header';
 import BookingCard from '../components/bookings/bookingCard';
 const token = localStorage.getItem("token");
 
-function Bookings() {
+function UserBookings() {
 	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false, false]);
 	const {authUser, setAuthUser} = useContext(UserContext);
 	const [bookings, setBookings] = useState([]);
+	const [allBookings, setAllBookings] = useState([]);
+	const [notConfirmedBookings, setNotConfirmedBookings] = useState([]);
+	const [confirmedBookings, setConfirmedBookings] = useState([]);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -22,8 +25,10 @@ function Bookings() {
                 });
 
 				const bookingData = response.data;
-				console.log(bookingData);
 				setBookings(bookingData);
+				setAllBookings(bookingData);
+				setNotConfirmedBookings(bookingData.filter(booking => booking.status === null));
+				setConfirmedBookings(bookingData.filter(booking => booking.status === true));
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -36,6 +41,13 @@ function Bookings() {
 		let arr = [];
 		for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
 			arr[i] = i === buttonId;
+		}
+
+		switch(buttonId) {
+			case 0: setBookings(allBookings); break;
+			case 1: setBookings(notConfirmedBookings); break;
+			case 2: setBookings(confirmedBookings); break;
+			default: setBookings(allBookings); break;
 		}
 
 		setIsAllButtonActive(arr);
@@ -77,12 +89,6 @@ function Bookings() {
 					Подтверждённые
 				</button>
 
-				<button
-					onClick={() => handlClickChangeBookingListButton(3)}
-					style={isChangeBookingListButtonsActive[3]  ? {backgroundColor: 'rgb(224, 190, 39)', color: 'white'} : {}}
-				>
-					Оплаченные
-				</button>
 			</div>
 			<div className="bookings-list">
 				{bookings.map((booking) => (<BookingCard booking={booking} deleteBooking={deleteBooking}/>))}
@@ -91,4 +97,4 @@ function Bookings() {
 	);
 }
 
-export default Bookings;
+export default UserBookings;

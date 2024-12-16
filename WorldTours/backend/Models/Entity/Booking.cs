@@ -10,6 +10,7 @@ namespace backend.Models.Entity
 		public int? OrderSeatsNumber { get; set; }
 		public int? RouteId { get; set; }
 		public int? UserId { get; set; }
+		public bool? Status { get; set; }
 
 		[ForeignKey(nameof(RouteId))]
 		public Route Route { get; set; }
