@@ -81,9 +81,8 @@ function TypesTourNav({filter, setFilter, setTours}) {
 	    <div className="tour-types-nav">
 			<TourType name={"Все виды туров"} img={all} setTourType={() => changeTourType(0)}/>
 			{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl} setTourType={() => changeTourType(tourType.id)}/>))}
-			{authUser.role === 2 ? (
+			{authUser.role === 2 || authUser.role === 3 ? (
 				<div className='filter-and-add-tour-button'>
-					<FilterButton openFilters={openFilters}/>
 					<a className='add-tour-button' href='/tour_editor/0'>
 						<img src={add}/>
 					</a>

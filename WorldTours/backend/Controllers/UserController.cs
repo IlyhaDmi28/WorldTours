@@ -41,5 +41,23 @@ namespace backend.Controllers
 
 			return BadRequest();
 		}
+
+		[HttpGet("users")]
+		public async Task<IActionResult> GetUsers()
+		{
+			
+
+			return Ok(await db.Users.Select(u => new UserDto()
+			{
+				Id = u.Id,
+				Name = u.Name,
+				Surname = u.Surname,
+				PhotoUrl = u.Photo == null ? null : $"{"data:image/png;base64,"}{Convert.ToBase64String(u.Photo)}",
+				Email = u.Email,
+				PhoneNumber = u.PhoneNumber,
+				Role = u.Role,
+				BlockedStatus = u.BlockedStatus,
+			}).ToListAsync());
+		}
 	}
 }

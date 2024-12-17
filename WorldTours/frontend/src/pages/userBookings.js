@@ -60,7 +60,10 @@ function UserBookings() {
             }
         });
 
-		setBookings(bookings.filter(booking => booking.id !== id))
+		setAllBookings(allBookings.filter(booking => booking.id !== id));
+		setNotConfirmedBookings(notConfirmedBookings.filter(booking => booking.id !== id));
+		setConfirmedBookings(confirmedBookings.filter(booking => booking.id !== id));
+		setBookings(bookings.filter(booking => booking.id !== id));
 	}
 
 	return (

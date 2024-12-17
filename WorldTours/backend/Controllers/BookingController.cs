@@ -88,6 +88,8 @@ namespace backend.Controllers
 			{
 				Id = b.Id,
 				TourName = b.Route.Tour.Name,
+				TourId = b.Route.Tour.Id,
+				RouteId = b.Route.Id,
 				TourPhotoUrl = b.Route.Tour.Photo == null ? "" : $"data:image/png;base64,{Convert.ToBase64String(b.Route.Tour.Photo)}",
 				LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
 				LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
@@ -144,6 +146,8 @@ namespace backend.Controllers
 			{
 				Id = b.Id,
 				TourName = b.Route.Tour.Name,
+				TourId = b.Route.Tour.Id,
+				RouteId = b.Route.Id,
 				TourPhotoUrl = b.Route.Tour.Photo == null ? "" : $"data:image/png;base64,{Convert.ToBase64String(b.Route.Tour.Photo)}",
 				LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
 				LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),

@@ -7,7 +7,7 @@ function BookingCard({ booking, deleteBooking }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
-	    <a className="booking-card" href='/tour' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+	    <a className="booking-card" href={`/tour/${booking.tourId}?routeId=${booking.routeId}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <img className="booking-card-img" src={booking.tourPhotoUrl}/>
             <div className='booking-card-name'>
                 <b>{booking.tourName}</b>

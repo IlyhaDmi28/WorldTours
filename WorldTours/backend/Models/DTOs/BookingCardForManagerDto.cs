@@ -3,6 +3,8 @@
 	public class BookingCardForManagerDto
 	{
 		public int Id { get; set; }
+		public int TourId { get; set; }
+		public int RouteId { get; set; }
 		public string TourName { get; set; }
 		public string TourPhotoUrl { get; set; }
 		public string? LandingDateOfDeparture { get; set; }

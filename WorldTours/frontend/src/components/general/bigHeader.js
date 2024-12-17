@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {UserContext} from '../../context/userContext';
 import MainFilters from './mainFilters';
 import UserConroller from './userController';   
 import logo from '../../img/logo.png';
 
 function BigHeader({filter, setFilter, setTours}) {
+    const {authUser, setAuthUser} = useContext(UserContext);
+
 	return (
-	    <header>
+	    <header style={(authUser && authUser.role !== 1) ? {height: '100px'} : {}}>
             <a className='logo-href' href='/tours'>
                 <img src={logo} alt="logo" />
             </a>
@@ -15,7 +18,9 @@ function BigHeader({filter, setFilter, setTours}) {
                     <a href="/payment">Оплата</a>
                     <a href="/survey">Куда поехать?</a>
                 </div>
-                <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>
+                {
+                    (!authUser|| authUser.role === 1) && <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>
+                }
 
             </div>
             <UserConroller right={'0px'}/>

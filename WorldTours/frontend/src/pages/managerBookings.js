@@ -1,13 +1,13 @@
 import '../styles/bookings.scss';
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import {UserContext} from '../context/userContext';
 import Header from '../components/general/header';
 import BookingCardForManager from '../components/bookings/bookingCardForManager';
 const token = localStorage.getItem("token");
 
 function ManagerBookings() {
-	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false, false]);
+	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false]);
 	const {authUser, setAuthUser} = useContext(UserContext);
 	const [bookings, setBookings] = useState([]);
 	const [allBookings, setAllBookings] = useState([]);
@@ -61,7 +61,18 @@ function ManagerBookings() {
             }
         });
 
-		// setBookings(bookings.filter(booking => booking.id !== id))
+
+		const confirmedBooking = notConfirmedBookings.find(booking => booking.id === id)
+		confirmedBooking.status = true;
+
+		setConfirmedBookings(prevConfirmedBookings => [
+			...prevConfirmedBookings,
+			confirmedBooking
+		]);
+
+		setNotConfirmedBookings(notConfirmedBookings.filter(booking => booking.status !== true));
+		setAllBookings(allBookings.map(booking => booking.id === id ? { ...booking, status: true } : booking));
+		if(isChangeBookingListButtonsActive[1]) setBookings(notConfirmedBookings.filter(booking => booking.status !== true));
 	}
 
 	const deleteBooking = async (id) => {
@@ -71,6 +82,9 @@ function ManagerBookings() {
             }
         });
 
+		setAllBookings(allBookings.filter(booking => booking.id !== id));
+		setNotConfirmedBookings(notConfirmedBookings.filter(booking => booking.id !== id));
+		setConfirmedBookings(confirmedBookings.filter(booking => booking.id !== id));
 		setBookings(bookings.filter(booking => booking.id !== id))
 	}
 

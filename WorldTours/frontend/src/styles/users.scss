@@ -1,0 +1,160 @@
+@import './variabels/colors.scss'; 
+$margin-from-left-user: 200px;
+$indent-from-left-user: 200px;
+
+.change-show-users-list {
+	display: flex;
+	justify-content: center;
+	column-gap: 2%;
+	height: 80px;
+	justify-self: center;
+
+	button {
+		width: 160px;
+		height: 30px;
+		border-radius: 20px;
+		background-color: white;
+		border: none;
+		font-size: 14px;
+		margin-top: 2.5%;
+	}
+
+	button:hover:nth-child(1)  {
+		background-color: rgb(209, 216, 0); 
+		color: white;
+	}
+
+	button:hover:nth-child(2)  {
+		background-color: rgb(69, 189, 69); 
+		color: white;
+	}
+
+	button:hover:nth-child(3)  {
+		background-color: rgb(60, 80, 254); 
+		color: white;
+	}
+
+	button:hover:nth-child(4)  {
+		background-color: rgb(224, 190, 39); 
+		color: white;
+	}
+}
+
+.users-list {
+	padding-left: 8%;
+	padding-right: 8%;
+
+	.user-card {
+		display: block;
+		position: relative;
+		height: 180px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+		border-bottom: 1px solid $light-grey-color;
+
+		.user-card-img {
+			position: absolute;
+			height: 180px;
+			width: 180px;
+			border-radius: 10px;
+		}
+
+		.user-card-name {
+			position: absolute;
+			font-size: 20px;
+			left: $margin-from-left-user;
+			top: 27px;
+		}
+
+		.user-card-contact-info {
+			position: absolute;
+			font-size: 14px;
+			left: $margin-from-left-user;
+			top: 80px;
+			color: $dark-grey-color;
+
+			>div {
+				margin-top: 3px;
+			}
+		}
+
+		.user-card-hotel-stars {
+			position: absolute;
+			display: flex;
+			left: $margin-from-left-user;
+			top: 137px;
+
+			display: flex;
+			column-gap: 8px;
+
+			img {
+				height: 18px;
+			}
+		}
+
+		.tour-card-price {
+			b {
+				font-size: 24px;
+			}
+			span {
+				font-size: 14px;
+			}
+			position: absolute;
+			right: 0px;
+			top: 40%;
+		}
+
+		.user-card-status {
+			position: absolute;
+			font-size: 13px;
+			background-color: rgb(69, 189, 69);
+			left: $indent-from-left-user;
+			bottom: 22px;
+			height: 22px;
+			padding-top: 6px;
+			width: 160px;
+			text-align: center;
+			border-radius: 14px;
+			color: white;
+		}
+
+		.user-card-confirmation {
+			position: absolute;
+			font-size: 14px;
+			background-color: rgb(69, 189, 69);
+			left: 800px;
+			bottom: 20px;
+			height: 24px;
+			padding-top: 8px;
+			width: 180px;
+			text-align: center;
+			border-radius: 14px;
+			color: white;
+		}
+
+		.user-card-user-info {
+			position: absolute;
+			font-size: 15px;
+			left: $margin-from-left-user;
+			bottom: 22px;
+			height: 22px;
+			padding-top: 6px;
+		}
+
+		.user-card-delete-button {
+			position: absolute;
+			top: 10px;
+			right: 0px;
+			width: 35px;
+			height: 35px;
+			background-color: white;
+			border: none;
+			z-index: 1001;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+}

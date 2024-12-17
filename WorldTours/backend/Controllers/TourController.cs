@@ -315,6 +315,7 @@ namespace backend.Controllers
 			.Include(t => t.Descriptions);
 
 			var routes = await db.Routes
+			.Include(r => r.DepartmentDeparture)
 			.Include(r => r.Tour)
 			.ThenInclude(t => t.Hotel) // Загружаем связанные отели
 			.ThenInclude(h => h.City) // Загружаем города отелей
@@ -527,6 +528,15 @@ namespace backend.Controllers
 
 						// Обновление маршрутов
 						List<Route> removedRoutes = await db.Routes.Where(r => r.TourId == editedTour.Id).ToListAsync();
+
+						foreach (Route route in removedRoutes)
+						{
+							Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.RouteId == route.Id);
+							if (removedBooking != null) db.Bookings.Remove(removedBooking);
+						}
+						await db.SaveChangesAsync();
+
+
 						db.Routes.RemoveRange(removedRoutes);
 						await db.SaveChangesAsync();
 
@@ -584,6 +594,14 @@ namespace backend.Controllers
 				{
 					// Удаление маршрутов
 					List<Route> removedRoutes = await db.Routes.Where(r => r.TourId == id).ToListAsync();
+
+					foreach (Route route in removedRoutes)
+					{
+						Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.RouteId == route.Id);
+						if (removedBooking != null) db.Bookings.Remove(removedBooking);
+					}
+					await db.SaveChangesAsync();
+
 					db.Routes.RemoveRange(removedRoutes);
 					await db.SaveChangesAsync();
 

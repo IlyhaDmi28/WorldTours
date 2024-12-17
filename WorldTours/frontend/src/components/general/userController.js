@@ -34,7 +34,8 @@ function UserController({ right }) {
                     <ul>
                         <li><a href='/user'>Редактировать профиль</a></li>
                         { authUser.role === 1 && <li><a href='/bookings'>Мои брони</a></li> }
-                        { authUser.role === 2 && <li><a href='/bookings'>Заявки на брони</a></li> }
+                        { (authUser.role === 2 || authUser.role === 3) && <li><a href='/bookings'>Заявки на брони</a></li> }
+                        { authUser.role === 3 && <li><a href='/users'>Пользователи</a></li> }
                         
                         <li><a href='/tours' style={{color: 'red'}} onClick={logout}>Выйти</a></li>
                     </ul>

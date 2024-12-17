@@ -6,6 +6,7 @@ import Tours from './tours';
 import ToursEditor from './toursEditor';
 import Tour from './tour';
 import TourEditor from './tourEditor';
+import Users from './users';
 import Auth from './auth';
 import Survey from './survey';
 import User from './user';
@@ -70,6 +71,12 @@ function App() {
 					{(authUser.role === 1) && (
 						<>
 							<Route path="/bookings" element={authUser ? <UserBookings /> : <Navigate to="/auth" replace />} />
+						</>
+					)}
+
+					{(authUser.role === 3) && (
+						<>
+							<Route path="/users" element={authUser ? <Users/> : <Navigate to="/auth" replace />} />
 						</>
 					)}
 

@@ -317,7 +317,7 @@ function TourEditor() {
 				}
 		  	});
 
-			// window.location.href = '/tours';
+			window.location.href = '/tours';
 		}
 		else {
 			await axios.put('https://localhost:7276/tour/edit', tour, {
@@ -327,7 +327,7 @@ function TourEditor() {
 				}
 		  	});
 
-			// window.location.href = '/tours';
+			window.location.href = '/tours';
 		}
 	}
 
