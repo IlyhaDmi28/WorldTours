@@ -42,6 +42,36 @@ namespace backend.Controllers
 			return BadRequest();
 		}
 
+		[HttpPatch("block")]
+		public async Task<IActionResult> BlockUser([FromQuery] int userId)
+		{
+			User blockedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+			if (blockedUser != null)
+			{
+				blockedUser.BlockedStatus = !blockedUser.BlockedStatus;
+				await db.SaveChangesAsync();
+				return Ok();
+			}
+
+			return BadRequest();
+		}
+
+		[HttpDelete("delete")]
+		public async Task<IActionResult> DeleteUser([FromQuery] int userId)
+		{
+			User removedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+			if (removedUser != null)
+			{
+				db.Users.Remove(removedUser);
+				await db.SaveChangesAsync();
+				return Ok();
+			}
+
+			return BadRequest();
+		}
+
 		[HttpGet("users")]
 		public async Task<IActionResult> GetUsers()
 		{

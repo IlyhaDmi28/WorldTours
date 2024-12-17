@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import tourp from '../../img/test.jpg'
-import star from '../../img/star.svg'
 import deleteButon from '../../img/delete.svg'
 
-function UserCard({ user, deleteUser }) {
+function UserCard({ user, deleteUser, blockUser }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -26,11 +24,11 @@ function UserCard({ user, deleteUser }) {
 
 
             { !user.blockedStatus ?  (
-                    <div className="user-card-status">
+                    <div className="user-card-status" style={{backgroundColor: 'rgb(254, 60, 60'}} onClick={(e)=>{e.preventDefault(); blockUser(user.id)}}>
                         Заблокировать
                     </div>
                 ) : (
-                    <div className="user-card-status" style={{backgroundColor: 'rgb(60, 80, 254)'}}>
+                    <div className="user-card-status" onClick={(e)=>{e.preventDefault(); blockUser(user.id)}}>
                         Разблокировать
                     </div>
                 )

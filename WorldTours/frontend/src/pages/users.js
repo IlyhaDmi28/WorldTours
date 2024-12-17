@@ -53,6 +53,41 @@ function Users() {
 		setIsAllButtonActive(arr);
     };
 
+	const blockUser = async (id) => {
+        await axios.patch(`https://localhost:7276/user/block?userId=${id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+
+
+		let response;
+		response = await axios.get(`https://localhost:7276/user/users`, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+
+		const usersData = response.data;
+		const notBlockedUsersData = usersData.filter(user => !user.blockedStatus);
+		const blockedUsersData = usersData.filter(user => user.blockedStatus);
+		setAllUsers(usersData);
+		setNotBlockedUsers(notBlockedUsersData);
+		setBlockedUsers(blockedUsersData);
+		setUsers(usersData);
+		
+		for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
+			if(isChangeUserListButtonsActive[i]) {
+				switch(i) {
+					case 0: setUsers(usersData); return;
+					case 1: setUsers(notBlockedUsersData); return;
+					case 2: setUsers(blockedUsersData); return;
+					default: setUsers(usersData); return;
+				}
+			}
+		}
+	}
+
 	const deleteUser = async (id) => {
         await axios.delete(`https://localhost:7276/user/delete?userId=${id}`, {
             headers: {
@@ -60,17 +95,38 @@ function Users() {
             }
         });
 
-		// setAllBookings(allBookings.filter(booking => booking.id !== id));
-		// setNotConfirmedBookings(notConfirmedBookings.filter(booking => booking.id !== id));
-		// setConfirmedBookings(confirmedBookings.filter(booking => booking.id !== id));
-		// setBookings(bookings.filter(booking => booking.id !== id));
+		let response;
+		response = await axios.get(`https://localhost:7276/user/users`, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+
+		const usersData = response.data;
+		const notBlockedUsersData = usersData.filter(user => !user.blockedStatus);
+		const blockedUsersData = usersData.filter(user => user.blockedStatus);
+		setAllUsers(usersData);
+		setNotBlockedUsers(notBlockedUsersData);
+		setBlockedUsers(blockedUsersData);
+		setUsers(usersData);
+		
+		for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
+			if(isChangeUserListButtonsActive[i]) {
+				switch(i) {
+					case 0: setUsers(usersData); return;
+					case 1: setUsers(notBlockedUsersData); return;
+					case 2: setUsers(blockedUsersData); return;
+					default: setUsers(usersData); return;
+				}
+			}
+		}
 	}
 
 	return (
 		<div className="users narrow-conteiner">
 			<Header/>
 			<div className="line-under-header"></div>
-			<div className='change-show-bookings-list'>
+			<div className='change-show-users-list'>
 				<button 
 					onClick={() => handlClickChangeUserListButton(0)}
 					style={isChangeUserListButtonsActive[0] ? {backgroundColor: 'rgb(209, 216, 0', color: 'white'} : {}}
@@ -82,19 +138,19 @@ function Users() {
 					onClick={() => handlClickChangeUserListButton(1)}
 					style={isChangeUserListButtonsActive[1] ? {backgroundColor: 'rgb(69, 189, 69)', color: 'white'}: {}}
 				>
-					Отправленные
+					Незаблокированные 
 				</button>
 				
 				<button
 					onClick={() => handlClickChangeUserListButton(2)}
-					style={isChangeUserListButtonsActive[2]  ? {backgroundColor: 'rgb(60, 80, 254)', color: 'white'} : {}}
+					style={isChangeUserListButtonsActive[2]  ? {backgroundColor: 'rgb(254, 60, 60)', color: 'white'} : {}}
 				>
-					Подтверждённые
+					Заблокированные
 				</button>
 
 			</div>
 			<div className="users-list">
-				{users.map((user) => (<UserCard user={user} deleteUser={deleteUser}/>))}
+				{users.map((user) => (<UserCard user={user} deleteUser={deleteUser} blockUser={blockUser}/>))}
 			</div>
 		</div>
 	);
