@@ -5,6 +5,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import {UserContext} from '../context/userContext';
 import Header from '../components/general/header';
 import BookingMenu from '../components/tour/bookingMenu';
+import ReviewCard from '../components/tour/reviewCard';
 import noPhoto from '../img/noPhoto.png';
 import star from '../img/star.svg';
 import food from '../img/food.svg';
@@ -17,6 +18,7 @@ function Tour() {
 	const {authUser, setAuthUser} = useContext(UserContext);
 
 	const [photoUrl, setPhotoUrl] = useState(noPhoto); 
+	const [review, setReview] = useState(""); 
 	const [tour, setTour] = useState({
 		id: 0,
 		name: null,
@@ -30,6 +32,7 @@ function Tour() {
 		nutritionType: null,
 		routes: [],
 		descriptions: [],
+		reviews: []
 	});
 
 	const [selectedRoute, setSelectedRoute] = useState({
@@ -71,6 +74,18 @@ function Tour() {
                 });
 				const tourData = response.data;
 				console.log(tourData);
+				
+				setPhotoUrl(tourData.photoUrl === "" ? noPhoto : tourData.photoUrl);
+				console.log(tourData.routes.find(route => route.id === +routeId));
+				setSelectedRoute(tourData.routes.find(route => route.id === +routeId));
+
+				response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const reviewsData = response.data;
+				console.log(reviewsData);
 				setTour((prevTour) => ({
 					...prevTour, 
 					id: tourData.id,
@@ -80,10 +95,8 @@ function Tour() {
 					nutritionType: tourData.nutritionType,
 					routes: tourData.routes,
 					descriptions: tourData.descriptions,
+					reviews: reviewsData
 				}));
-				setPhotoUrl(tourData.photoUrl === "" ? noPhoto : tourData.photoUrl);
-				console.log(tourData.routes.find(route => route.id === +routeId));
-				setSelectedRoute(tourData.routes.find(route => route.id === +routeId));
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -127,7 +140,29 @@ function Tour() {
 		else{
 			alert("Что бы забронировать тур, вам необходимо войти в аккаунт")
 		}
-		
+	}
+
+	const sendReview = async (e) => {
+		const segments = location.pathname.split('/');
+		const id = segments[segments.length - 1];
+
+		await axios.post('https://localhost:7276/review/add', {userId: authUser.id, tourId: id, reviewText: review}, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			}
+		});
+
+		const response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+		const reviewsData = response.data;
+		console.log(reviewsData);
+		setTour((prevTour) => ({
+			...prevTour, 
+			reviews: reviewsData
+		}));
 	}
 
 	return (
@@ -179,7 +214,20 @@ function Tour() {
 						)}
 					</div>
 				</div>
+			</div>
 
+			<div className='tour-review'>
+				<h2>Отзывы</h2>
+				<div className='tour-review-input-and-send-button'>
+					<input type='text' placeholder='Оставте отзыв' value={review} onChange={(e) => setReview(e.target.value)}/>
+					<button onClick={sendReview}>Отправить</button>
+				</div>
+
+				<div className='tour-review-list'>
+					{tour.reviews.map((review) => 
+						(<ReviewCard review={review}/>)
+					)}
+				</div>
 			</div>
 		</div>
 	);

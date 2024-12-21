@@ -1,8 +1,8 @@
-function TourType({name, img, setTourType }) {
+function TourType({tourType, setTourType, selectedTourType }) {
 	return (
-	    <button className="tour-type" onClick={setTourType}>
-            <img src={img}/>
-            <div>{name}</div>
+	    <button className="tour-type" style={selectedTourType === tourType.id  ? {borderBottom: '2px solid black'} : {}} onClick={setTourType}>
+            <img src={tourType.imageUrl}/>
+            <div>{tourType.name}</div>
         </button>
   	);
 }

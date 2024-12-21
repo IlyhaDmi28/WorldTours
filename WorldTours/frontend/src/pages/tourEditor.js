@@ -9,6 +9,7 @@ import Cities from '../components/general/cities';
 import Hotels from '../components/general/hotels';
 import RoutesMenu from '../components/tourEditor/routesMenu';
 import TourType from '../components/tours/tourType'
+import ReviewCardForEitor from '../components/tourEditor/reviewCardForEitor';
 import selectNewPhoto from '../img/selectNewPhoto.png';
 import star from '../img/star.svg';
 import delete3 from '../img/delete3.svg'
@@ -44,6 +45,7 @@ function TourEditor() {
 		tourTypeId: null,
 		routes: [],
 		descriptions: [],
+		reviews: []
 	});
 
 	const changeCharacteristics = async (id) => {
@@ -128,6 +130,19 @@ function TourEditor() {
                 });
 				const nutritionTypesData = response.data;
 				setNutritionTypes(nutritionTypesData);
+
+				response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const reviewsData = response.data;
+				console.log(reviewsData);
+				setTour((prevTour) => ({
+					...prevTour, 
+					reviews: reviewsData
+				}));
+
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -331,6 +346,29 @@ function TourEditor() {
 		}
 	}
 
+	const deleteReview = async (id) => {
+		await axios.delete(`https://localhost:7276/review/delete?tourId=${id}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			}
+		});
+
+		const segments = location.pathname.split('/');
+    	const tourId = segments[segments.length - 1];
+
+		const response = await axios.get(`https://localhost:7276/review/reviews?tourId=${tourId}`, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+		const reviewsData = response.data;
+		console.log(reviewsData);
+		setTour((prevTour) => ({
+			...prevTour, 
+			reviews: reviewsData
+		}));
+	}
+
 	return (
 		<div className="tour narrow-conteiner">
 			<Header />
@@ -343,6 +381,7 @@ function TourEditor() {
 				<input name="name"type='text' value={tour.name} onChange={changeTour}/>
 			</div>
 
+			<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={addRoute}/>
 			<div className="tour-editor-images">
 				<div className="main-tour-editor-img">
 					<img src={photoUrl} alt="click to change" onClick={setPhotoUropenFileDialogToSelectPhoto}/>
@@ -397,7 +436,7 @@ function TourEditor() {
 					</div>
 
 					<div className="tour-types-nav">
-						{tourTypes.map((tourType) => (<TourType name={tourType.name} img={tourType.imageUrl} setTourType={() => changeCharacteristics(tourType.id)}/>))}
+						{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
         			</div>
 					<div className="tour-editor-characteristics">
 							{tour.descriptions.map((description) => (
@@ -419,7 +458,16 @@ function TourEditor() {
 					</div>
 				</div>
 
-				<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={addRoute}/>
+			</div>
+
+			<div className='tour-review'>
+				<h2>Отзывы</h2>
+
+				<div className='tour-review-list'>
+					{tour.reviews.map((review) => 
+						(<ReviewCardForEitor review={review} deleteReview={deleteReview}/>)
+					)}
+				</div>
 			</div>
 		</div>
 	);

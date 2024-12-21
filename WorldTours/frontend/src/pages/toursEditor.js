@@ -2,28 +2,13 @@ import '../styles/tours-editor.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import BigHeader from '../components/general/bigHeader';
-import TourTypesNav from '../components/tours/tourTypesNav';
+import TourTypesNavForEditor from '../components/toursEditor/tourTypesNavForEditor';
 import TourCardForEditor from '../components/toursEditor/tourCardForEditor';
 const token = localStorage.getItem("token");
 
 function ToursEditor() {
 	const [tours, setTours] = useState([])
-	const [filter, setFilter] = useState({
-		regionId: 0,
-		countryId: 0,
-		cityId: 0,
-		departureCityId: 0,
-		dateOfDeparture: "",
-		dateOfReturn: "",
-		transportTypeId: 0,
-		tourTypeId: 0,
-		minPrice: 0,
-        maxPrice: 0,
-        minHotelStars: 1,
-        maxHotelStars: 5,
-        nutritionTypeId: 0,
-        descriptions: [],
-	});
+	const [selectedTourType, setSelectedTourType] = useState(0);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -56,10 +41,9 @@ function ToursEditor() {
 
 	return (
 		<div className="tours">
-			<BigHeader filter={filter} setFilter={setFilter}/>
+			<BigHeader/>
 			<div className="line-under-header"></div>
-			{/* <TourTypesNav setTourType={setTourType} /> */}
-			<TourTypesNav filter={filter} setFilter={setFilter}/>
+			<TourTypesNavForEditor setTours={setTours} setSelectedTourType={setSelectedTourType} selectedTourType={selectedTourType}/>
 			<div className="tours-list">
 				{tours.map((tour) => (<TourCardForEditor tour={tour} deleteTour={deleteTour} />))}
 			</div>

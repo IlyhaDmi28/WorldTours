@@ -282,7 +282,19 @@ CREATE TABLE Tours (
 	Photo BLOB
 );
 
-SELECT * FROM Tours;
+SELECT * FROM tours;
+
+DROP TABLE Reviews;
+CREATE TABLE Reviews (
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	UserId INT,
+	TourId INT,
+	ReviewText VARCHAR(255),
+	FOREIGN KEY (`UserId`) REFERENCES `Users`(`ID`),
+  	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
+);
+
+SELECT * FROM Reviews;
 
 
 DROP TABLE routes;

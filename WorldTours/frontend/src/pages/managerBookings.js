@@ -61,18 +61,31 @@ function ManagerBookings() {
             }
         });
 
+		let response;
+		response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+             }
+        });
 
-		const confirmedBooking = notConfirmedBookings.find(booking => booking.id === id)
-		confirmedBooking.status = true;
+		const bookingData = response.data;
+		const notConfirmedBookingsData = bookingData.filter(booking => booking.status === null);
+		const confirmedBookingsData =bookingData.filter(booking => booking.status === true);
+		setAllBookings(bookingData);
+		setNotConfirmedBookings(notConfirmedBookingsData);
+		setConfirmedBookings(confirmedBookingsData);
+		setBookings(bookingData);
 
-		setConfirmedBookings(prevConfirmedBookings => [
-			...prevConfirmedBookings,
-			confirmedBooking
-		]);
-
-		setNotConfirmedBookings(notConfirmedBookings.filter(booking => booking.status !== true));
-		setAllBookings(allBookings.map(booking => booking.id === id ? { ...booking, status: true } : booking));
-		if(isChangeBookingListButtonsActive[1]) setBookings(notConfirmedBookings.filter(booking => booking.status !== true));
+		for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
+			if(isChangeBookingListButtonsActive[i]) {
+				switch(i) {
+					case 0: setBookings(bookingData); return;
+					case 1: setBookings(notConfirmedBookingsData); return;
+					case 2: setBookings(confirmedBookingsData); return;
+					default: setBookings(bookingData); return;
+				}
+			}
+		}
 	}
 
 	const deleteBooking = async (id) => {
@@ -81,11 +94,31 @@ function ManagerBookings() {
                 'Authorization': 'Bearer ' + token,
             }
         });
+		let response;
+		response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+             }
+        });
 
-		setAllBookings(allBookings.filter(booking => booking.id !== id));
-		setNotConfirmedBookings(notConfirmedBookings.filter(booking => booking.id !== id));
-		setConfirmedBookings(confirmedBookings.filter(booking => booking.id !== id));
-		setBookings(bookings.filter(booking => booking.id !== id))
+		const bookingData = response.data;
+		const notConfirmedBookingsData = bookingData.filter(booking => booking.status === null);
+		const confirmedBookingsData =bookingData.filter(booking => booking.status === true);
+		setAllBookings(bookingData);
+		setNotConfirmedBookings(notConfirmedBookingsData);
+		setConfirmedBookings(confirmedBookingsData);
+		setBookings(bookingData);
+
+		for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
+			if(isChangeBookingListButtonsActive[i]) {
+				switch(i) {
+					case 0: setBookings(bookingData); return;
+					case 1: setBookings(notConfirmedBookingsData); return;
+					case 2: setBookings(confirmedBookingsData); return;
+					default: setBookings(bookingData); return;
+				}
+			}
+		}
 	}
 
 	return (

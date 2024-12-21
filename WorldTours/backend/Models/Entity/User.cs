@@ -30,6 +30,7 @@ namespace backend.Models.Entity
         public byte[]? Photo { get; set; }
 
 		public ICollection<Booking> Bookings { get; set; }
+		public ICollection<Review> Reviews { get; set; }
 
 		public User(int id, string email, string password, UserRole role, string name, string surname, string phoneNumber)
         {

@@ -399,9 +399,11 @@ namespace backend.Controllers
 		}
 
 		[HttpGet("tours_to_edit")]
-		public async Task<IActionResult> GetToursToEdit()
+		public async Task<IActionResult> GetToursToEdit([FromQuery] int? tourTypeId)
 		{
-			var tours = await db.Tours
+			if(tourTypeId == null || tourTypeId == 0)
+			{
+				var tours = await db.Tours
 				.Include(t => t.Hotel) // Загружаем связанные отели
 				.ThenInclude(h => h.City) // Загружаем города отелей
 				.ThenInclude(c => c.Country) // Загружаем страны городов
@@ -416,7 +418,28 @@ namespace backend.Controllers
 				})
 				.ToListAsync();
 
-			return Ok(tours);
+				return Ok(tours);
+			}
+			else
+			{
+				var tours = await db.Tours
+				.Include(t => t.Hotel) // Загружаем связанные отели
+				.ThenInclude(h => h.City) // Загружаем города отелей
+				.ThenInclude(c => c.Country) // Загружаем страны городов
+				.Where(t => t.TourTypeId == tourTypeId)
+				.Select(t => new TourCardForEditor
+				{
+					Id = t.Id,
+					Name = t.Name,
+					Country = t.Hotel.City.Country.Name,
+					City = t.Hotel.City.Name,
+					PhotoUrl = t.Photo == null ? "" : $"data:image/jpeg;base64,{Convert.ToBase64String(t.Photo)}",
+					StarsNumber = t.Hotel.StarsNumber,
+				})
+				.ToListAsync();
+
+				return Ok(tours);
+			}
 		}
 
 

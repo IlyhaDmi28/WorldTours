@@ -22,6 +22,7 @@ namespace backend.DB
 		public DbSet<Tour> Tours { get; set; }
 		public DbSet<Models.Entity.Route> Routes { get; set; }
 		public DbSet<Booking> Bookings { get; set; }
+		public DbSet<Review> Reviews { get; set; }
 
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -146,10 +147,30 @@ namespace backend.DB
 				.HasForeignKey(r => r.TourId)
 				.OnDelete(DeleteBehavior.Cascade);
 
+			// Настройка Tour
+			modelBuilder.Entity<Tour>()
+				.HasMany(t => t.Routes)
+				.WithOne(r => r.Tour)
+				.HasForeignKey(r => r.TourId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			// Настройка Tour
+			modelBuilder.Entity<Tour>()
+				.HasMany(t => t.Reviews)
+				.WithOne(r => r.Tour)
+				.HasForeignKey(r => r.TourId)
+				.OnDelete(DeleteBehavior.Cascade);
+
 			modelBuilder.Entity<User>()
 				.HasMany(u => u.Bookings)
 				.WithOne(b => b.User)
 				.HasForeignKey(b => b.UserId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<User>()
+				.HasMany(u => u.Reviews)
+				.WithOne(r => r.User)
+				.HasForeignKey(r => r.UserId)
 				.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<Models.Entity.Route>()
