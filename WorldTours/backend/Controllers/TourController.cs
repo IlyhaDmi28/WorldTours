@@ -2,6 +2,7 @@
 using backend.Models.DTOs;
 using backend.Models.Entity;
 using backend.Models.Forms;
+using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace backend.Controllers
 				{
 					Id = tt.Id,
 					Name = tt.Name,
-					ImageUrl = tt.Image == null ? "" : $"data:image/svg+xml;base64,{Convert.ToBase64String(tt.Image)}"
+					ImageUrl = PhotoService.ConvertToBase64(tt.Image, "svg+xml"),
 				})
 				.ToListAsync();
 
@@ -138,7 +139,7 @@ namespace backend.Controllers
 					HotelId = tour.HotelId,
 					NutritionTypeId = tour.NutritionTypeId,
 					TourTypeId = tour.TourTypeId,
-					PhotoUrl = tour.Photo == null ? "" : $"data:image/jpeg;base64,{Convert.ToBase64String(tour.Photo)}",
+					PhotoUrl = PhotoService.ConvertToBase64(tour.Photo, "jpeg"),
 					Routes = routes.Select(r => new RouteDto()
 					{
 						Id = r.Id,
@@ -220,7 +221,7 @@ namespace backend.Controllers
 			{
 				Id = tourBase.Id,
 				Name = tourBase.Name,
-				PhotoUrl = tourBase.Photo == null ? "" : $"data:image/png;base64,{Convert.ToBase64String(tourBase.Photo)}",
+				PhotoUrl = PhotoService.ConvertToBase64(tourBase.Photo, "png"),
 				MainDescription = tourBase.MainDescription,
 				NutritionType = tourBase.NutritionType?.Name,
 				Direction = new DirectionDto
@@ -300,7 +301,7 @@ namespace backend.Controllers
 				Name = t.Tour.Name,
 				Country = t.Tour.Hotel.City.Country.Name,
 				City = t.Tour.Hotel.City.Name,
-				PhotoUrl = t.Tour.Photo == null ? "" : $"{"data:image/jpeg;base64,"}{Convert.ToBase64String(t.Tour.Photo)}",
+				PhotoUrl = PhotoService.ConvertToBase64(t.Tour.Photo, "jpeg"),
 				DateOfDeparture = ((DateTime)t.LandingDateOfDeparture).ToString("dd.MM.yyyy"),
 				DateOfReturn = ((DateTime)t.ArrivalDateOfReturn).ToString("dd.MM.yyyy"),
 				StarsNumber = t.Tour.Hotel.StarsNumber,
@@ -309,7 +310,7 @@ namespace backend.Controllers
 		}
 
 		[HttpPost("filtred_tours")]
-		public async Task<IActionResult> GetFiltredTours([FromBody] Filter filter)
+		public async Task<IActionResult> GetFiltredTours([FromBody] FilterForm filter)
 		{
 			var tours = db.Tours
 			.Include(t => t.Descriptions);
@@ -390,7 +391,7 @@ namespace backend.Controllers
 				Name = t.Tour.Name,
 				Country = t.Tour.Hotel.City.Country.Name,
 				City = t.Tour.Hotel.City.Name,
-				PhotoUrl = t.Tour.Photo == null ? "" : $"{"data:image/jpeg;base64,"}{Convert.ToBase64String(t.Tour.Photo)}",
+				PhotoUrl = PhotoService.ConvertToBase64(t.Tour.Photo, "jpeg"),
 				DateOfDeparture = ((DateTime)t.LandingDateOfDeparture).ToString("dd.MM.yyyy"),
 				DateOfReturn = ((DateTime)t.ArrivalDateOfReturn).ToString("dd.MM.yyyy"),
 				StarsNumber = t.Tour.Hotel.StarsNumber,
@@ -413,7 +414,7 @@ namespace backend.Controllers
 					Name = t.Name,
 					Country = t.Hotel.City.Country.Name,
 					City = t.Hotel.City.Name,
-					PhotoUrl = t.Photo == null ? "" : $"data:image/jpeg;base64,{Convert.ToBase64String(t.Photo)}",
+					PhotoUrl = PhotoService.ConvertToBase64(t.Photo, "jpeg"),
 					StarsNumber = t.Hotel.StarsNumber,
 				})
 				.ToListAsync();
@@ -433,7 +434,7 @@ namespace backend.Controllers
 					Name = t.Name,
 					Country = t.Hotel.City.Country.Name,
 					City = t.Hotel.City.Name,
-					PhotoUrl = t.Photo == null ? "" : $"data:image/jpeg;base64,{Convert.ToBase64String(t.Photo)}",
+					PhotoUrl = PhotoService.ConvertToBase64(t.Photo, "jpeg"),
 					StarsNumber = t.Hotel.StarsNumber,
 				})
 				.ToListAsync();
@@ -444,7 +445,7 @@ namespace backend.Controllers
 
 
 		[HttpPost("add")]
-		public async Task<IActionResult> AddTour([FromForm] TourForEditorDto tour)
+		public async Task<IActionResult> AddTour([FromForm] TourForm tour)
 		{
 			if (tour.Id == 0)
 			{
@@ -460,15 +461,7 @@ namespace backend.Controllers
 							NutritionTypeId = tour.NutritionTypeId,
 							TourTypeId = tour.TourTypeId,
 						};
-
-						if (tour.PhotoFile != null)
-						{
-							using (var memoryStream = new MemoryStream())
-							{
-								await tour.PhotoFile.CopyToAsync(memoryStream);
-								newTour.Photo = memoryStream.ToArray();
-							}
-						}
+						if (tour.PhotoFile != null) newTour.Photo = await PhotoService.ConvertToBytes(tour.PhotoFile);
 
 						await db.Tours.AddAsync(newTour);
 						await db.SaveChangesAsync();
@@ -515,7 +508,7 @@ namespace backend.Controllers
 
 
 		[HttpPut("edit")]
-		public async Task<IActionResult> EditTour([FromForm] TourForEditorDto tour)
+		public async Task<IActionResult> EditTour([FromForm] TourForm tour)
 		{
 			if (tour.Id != 0)
 			{
@@ -536,16 +529,7 @@ namespace backend.Controllers
 						editedTour.HotelId = tour.HotelId;
 						editedTour.NutritionTypeId = tour.NutritionTypeId;
 						editedTour.TourTypeId = tour.TourTypeId;
-
-						// Обновление фотографии
-						if (tour.PhotoFile != null)
-						{
-							using (var memoryStream = new MemoryStream())
-							{
-								await tour.PhotoFile.CopyToAsync(memoryStream);
-								editedTour.Photo = memoryStream.ToArray();
-							}
-						}
+						if (tour.PhotoFile != null) editedTour.Photo = await PhotoService.ConvertToBytes(tour.PhotoFile);
 
 						await db.SaveChangesAsync();
 

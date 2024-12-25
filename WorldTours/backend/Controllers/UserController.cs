@@ -1,6 +1,7 @@
 ﻿using backend.DB;
 using backend.Models.DTOs;
 using backend.Models.Entity;
+using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,7 @@ namespace backend.Controllers
 		}
 
 		[HttpPut("edit")]
-		public async Task<IActionResult> EditUser([FromForm] UserForEditorDto user)
+		public async Task<IActionResult> EditUser([FromForm] UserForm user)
 		{
 			User editUser = await db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
 
@@ -25,15 +26,8 @@ namespace backend.Controllers
 				editUser.Name = user.Name;
 				editUser.Surname = user.Surname;
 				editUser.PhoneNumber = user.PhoneNumber;
+				if (user.PhotoFile != null) editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);
 
-				if (user.PhotoFile != null)
-				{
-					using (var memoryStream = new MemoryStream())
-					{
-						await user.PhotoFile.CopyToAsync(memoryStream);
-						editUser.Photo = memoryStream.ToArray(); // Преобразуем файл в массив байтов
-					}
-				}
 
 				await db.SaveChangesAsync();
 				return Ok();
@@ -75,14 +69,12 @@ namespace backend.Controllers
 		[HttpGet("users")]
 		public async Task<IActionResult> GetUsers()
 		{
-			
-
 			return Ok(await db.Users.Select(u => new UserDto()
 			{
 				Id = u.Id,
 				Name = u.Name,
 				Surname = u.Surname,
-				PhotoUrl = u.Photo == null ? null : $"{"data:image/png;base64,"}{Convert.ToBase64String(u.Photo)}",
+				PhotoUrl = PhotoService.ConvertToBase64(u.Photo, "png"),
 				Email = u.Email,
 				PhoneNumber = u.PhoneNumber,
 				Role = u.Role,

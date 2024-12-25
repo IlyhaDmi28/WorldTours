@@ -1,6 +1,7 @@
 ﻿using backend.DB;
 using backend.Models.DTOs;
 using backend.Models.Entity;
+using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
@@ -25,7 +26,7 @@ namespace backend.Controllers
 				{
 					Id = region.Id,
 					Name = region.Name,
-					ImageUrl = $"data:image/jpeg;base64,{Convert.ToBase64String(region.Image)}"
+					ImageUrl = PhotoService.ConvertToBase64(region.Image, "jpeg"),
 				})
 				.ToListAsync();
 
@@ -42,7 +43,7 @@ namespace backend.Controllers
 					{
 						Id = country.Id,
 						Name = country.Name,
-						FlagUrl = $"data:image/svg+xml;base64,{Convert.ToBase64String(country.Flag)}"
+						FlagUrl = PhotoService.ConvertToBase64(country.Flag, "svg+xml"),
 					})
 					.ToListAsync();
 
@@ -55,7 +56,7 @@ namespace backend.Controllers
 				{
 					Id = country.Id,
 					Name = country.Name,
-					FlagUrl = $"data:image/svg+xml;base64,{Convert.ToBase64String(country.Flag)}"
+					FlagUrl = PhotoService.ConvertToBase64(country.Flag, "svg+xml"),
 				})
 				.ToListAsync();
 

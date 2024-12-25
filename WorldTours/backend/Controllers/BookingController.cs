@@ -2,8 +2,10 @@
 using backend.Models.DTOs;
 using backend.Models.Entity;
 using backend.Models.Forms;
+using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 using Route = backend.Models.Entity.Route;
 
 namespace backend.Controllers
@@ -20,7 +22,7 @@ namespace backend.Controllers
 		}
 
 		[HttpPost("add")]
-		public async Task<IActionResult> AddBooking([FromBody] ApplicationForBooking applicationForBooking)
+		public async Task<IActionResult> AddBooking([FromBody] ApplicationForBookingForm applicationForBooking)
 		{
 			Booking booking = await db.Bookings.FirstOrDefaultAsync(b => b.UserId == applicationForBooking.UserId && b.RouteId == applicationForBooking.RouteId);
 
@@ -90,7 +92,7 @@ namespace backend.Controllers
 				TourName = b.Route.Tour.Name,
 				TourId = b.Route.Tour.Id,
 				RouteId = b.Route.Id,
-				TourPhotoUrl = b.Route.Tour.Photo == null ? "" : $"data:image/png;base64,{Convert.ToBase64String(b.Route.Tour.Photo)}",
+				TourPhotoUrl = PhotoService.ConvertToBase64(b.Route.Tour.Photo, "png"),
 				LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
 				LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
 				LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
@@ -148,7 +150,7 @@ namespace backend.Controllers
 				TourName = b.Route.Tour.Name,
 				TourId = b.Route.Tour.Id,
 				RouteId = b.Route.Id,
-				TourPhotoUrl = b.Route.Tour.Photo == null ? "" : $"data:image/png;base64,{Convert.ToBase64String(b.Route.Tour.Photo)}",
+				TourPhotoUrl = PhotoService.ConvertToBase64(b.Route.Tour.Photo, "png"),
 				LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
 				LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
 				LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
@@ -166,7 +168,7 @@ namespace backend.Controllers
 					Surname = b.User.Surname,
 					Email = b.User.Email,
 					PhoneNumber = b.User.PhoneNumber,
-					PhotoUrl = b.User.Photo == null ? "" : $"data:image/png;base64,{Convert.ToBase64String(b.User.Photo)}",
+					PhotoUrl = PhotoService.ConvertToBase64(b.User.Photo, "png"),
 				},
 				Direction = new DirectionDto()
 				{

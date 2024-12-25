@@ -1,6 +1,6 @@
 ﻿namespace backend.Models.Forms
 {
-	public class ApplicationForBooking
+	public class ApplicationForBookingForm
 	{
 		public int? OrderSeatsNumber { get; set; }
 		public int? RouteId { get; set; }

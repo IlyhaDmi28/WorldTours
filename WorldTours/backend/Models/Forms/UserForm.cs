@@ -1,6 +1,6 @@
 ﻿namespace backend.Models.DTOs
 {
-	public class UserForEditorDto
+	public class UserForm
 	{
 		public int Id { get; set; }
 		public string Email { get; set; }

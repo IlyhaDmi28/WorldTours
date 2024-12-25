@@ -29,14 +29,14 @@ namespace backend.Controllers
                 Name = user.Name,
                 Surname = user.Surname,
                 PhoneNumber = user.PhoneNumber,
-                PhotoUrl = user.Photo == null ? null : $"{"data:image/png;base64,"}{Convert.ToBase64String(user.Photo)}",
+				PhotoUrl = PhotoService.ConvertToBase64(user.Photo, "png"),
                 BlockedStatus = user.BlockedStatus,
                 Role = user.Role
 			}) : Unauthorized();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] RegisterModelDto register)
+        public async Task<IActionResult> Register([FromBody] RegisterForm register)
         {
             if (await db.Users.FirstOrDefaultAsync(u => u.Email == register.Email) != null) return Conflict(new { message = "Этот email уже используется." });
 
@@ -47,7 +47,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginModelDto login)
+        public async Task<IActionResult> Login([FromBody] LoginForm login)
         {
             return await db.Users.FirstOrDefaultAsync(u => u.Email == login.Email && u.Password == login.Password) != null ? Ok(new { token = TokenSevice.GenerateToken(login.Email) }) : Unauthorized();
         }

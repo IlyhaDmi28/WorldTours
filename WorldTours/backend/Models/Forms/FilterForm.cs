@@ -2,7 +2,7 @@
 
 namespace backend.Models.Forms
 {
-	public class Filter
+	public class FilterForm
 	{
 		public int? RegionId { get; set; }
 		public int? CountryId { get; set; }

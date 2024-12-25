@@ -42,7 +42,7 @@ namespace backend.Models.Entity
             Surname = surname;
             PhoneNumber = phoneNumber;
         }
-        public User(RegisterModelDto register, UserRole role = UserRole.USER)
+        public User(RegisterForm register, UserRole role = UserRole.USER)
         {
             Email = register.Email;
             Password = register.Password;
