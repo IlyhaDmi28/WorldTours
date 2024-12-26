@@ -188,7 +188,7 @@ namespace backend.Controllers
 		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteBooking([FromQuery] int? bookingId)
 		{
-			Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(t => t.Id == bookingId);
+			Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
 			if (removedBooking == null) return NotFound();
 
 			db.Bookings.Remove(removedBooking);
@@ -199,7 +199,7 @@ namespace backend.Controllers
 		[HttpPatch("confirm")]
 		public async Task<IActionResult> ConfirmBooking([FromQuery] int? bookingId)
 		{
-			Booking confirmedBooking = await db.Bookings.FirstOrDefaultAsync(t => t.Id == bookingId);
+			Booking confirmedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
 			if (confirmedBooking == null) return NotFound();
 
 			confirmedBooking.Status = true;

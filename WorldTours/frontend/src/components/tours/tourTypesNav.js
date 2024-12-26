@@ -60,7 +60,7 @@ function TypesTourNav({filter, setFilter, setTours, selectedTourType}) {
 			console.log(toursData);
 			setTours(toursData);
 
-			response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?id=${id}`, {
+			response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?tourTypeId=${id}`, {
 				headers: {
 					'Authorization': 'Bearer ' + token,
 				}

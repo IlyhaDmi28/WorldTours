@@ -1,6 +1,6 @@
 import '../styles/bookings.scss';
 import React, { useState, useEffect, useContext } from 'react';
-import axios, { all } from 'axios';
+import axios from 'axios';
 import {UserContext} from '../context/userContext';
 import Header from '../components/general/header';
 import BookingCardForManager from '../components/bookings/bookingCardForManager';

@@ -23,11 +23,11 @@ namespace backend.Controllers
 		{
 			List<Region> regions = await db.Regions.ToListAsync();
 
-			return Ok(regions.Select(region => new RegionDto
+			return Ok(regions.Select(r => new RegionDto
 			{
-				Id = region.Id,
-				Name = region.Name,
-				ImageUrl = PhotoService.ConvertToBase64(region.Image, "jpeg"),
+				Id = r.Id,
+				Name = r.Name,
+				ImageUrl = PhotoService.ConvertToBase64(r.Image, "jpeg"),
 			}));
 		}
 
@@ -38,23 +38,23 @@ namespace backend.Controllers
 			{
 				List<Country> countries = await db.Countries.ToListAsync();
 
-				return Ok(countries.Select(country => new CountryDto
+				return Ok(countries.Select(c => new CountryDto
 				{
-					Id = country.Id,
-					Name = country.Name,
-					FlagUrl = PhotoService.ConvertToBase64(country.Flag, "svg+xml"),
+					Id = c.Id,
+					Name = c.Name,
+					FlagUrl = PhotoService.ConvertToBase64(c.Flag, "svg+xml"),
 				}));
 			}
 
 			List<Country> filteredCountries = await db.Countries
-				.Where(country => country.RegionId == regionId)
+				.Where(c => c.RegionId == regionId)
 				.ToListAsync();
 
-			return Ok(filteredCountries.Select(country => new CountryDto
+			return Ok(filteredCountries.Select(c => new CountryDto
 			{
-				Id = country.Id,
-				Name = country.Name,
-				FlagUrl = PhotoService.ConvertToBase64(country.Flag, "svg+xml"),
+				Id = c.Id,
+				Name = c.Name,
+				FlagUrl = PhotoService.ConvertToBase64(c.Flag, "svg+xml"),
 			}));
 		}
 
@@ -62,12 +62,12 @@ namespace backend.Controllers
 		public async Task<IActionResult> GetCities([FromQuery] int? countryId)
 		{
 			List<City> cities = await db.Cities
-				.Where(city => city.CountryId == countryId)
+				.Where(c => c.CountryId == countryId)
 				.ToListAsync();
 
-			return Ok(cities.Select(city => new CityDto {
-				Id = city.Id,
-				Name = city.Name 
+			return Ok(cities.Select(c => new CityDto {
+				Id = c.Id,
+				Name = c.Name 
 			}));
 		}
 
@@ -75,13 +75,13 @@ namespace backend.Controllers
 		public async Task<IActionResult> GetHotels([FromQuery] int? cityId)
 		{
 			List<Hotel> hotels = await db.Hotels
-				.Where(hotel => hotel.CityId == cityId)
+				.Where(h => h.CityId == cityId)
 				.ToListAsync();
 
-			return Ok(hotels.Select(hotel => new HotelDto 
+			return Ok(hotels.Select(h => new HotelDto 
 			{
-				Id = hotel.Id,
-				Name = hotel.Name 
+				Id = h.Id,
+				Name = h.Name 
 			}));
 		}
 

@@ -67,7 +67,7 @@ function Tour() {
 
             try {
 				let response;
-				response = await axios.get(`https://localhost:7276/tour/get?id=${id}`, {
+				response = await axios.get(`https://localhost:7276/tour/get?tourId=${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -95,7 +95,7 @@ function Tour() {
 					nutritionType: tourData.nutritionType,
 					routes: tourData.routes,
 					descriptions: tourData.descriptions,
-					reviews: reviewsData
+					reviews:  reviewsData
 				}));
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);

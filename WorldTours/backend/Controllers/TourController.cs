@@ -36,11 +36,11 @@ namespace backend.Controllers
 		}
 
 		[HttpGet("characteristics")]
-		public async Task<IActionResult> GetCharacteristics([FromQuery] int id)
+		public async Task<IActionResult> GetCharacteristics([FromQuery] int? tourTypeId)
 		{
 			List<Characteristic> characteristics = await db.Characteristics
 				.Include(c => c.TourTypes)
-				.Where(c => c.TourTypes.Any(tt => tt.Id == id))
+				.Where(c => c.TourTypes.Any(tt => tt.Id == tourTypeId))
 				.ToListAsync(); 
 
 			return Ok(characteristics.Select(c => new DescriptionWithCharacteriscDto
@@ -51,11 +51,11 @@ namespace backend.Controllers
 		}
 
 		[HttpGet("characteristics_to_filter")]
-		public async Task<IActionResult> GetCharacteristicsToFilter([FromQuery] int id)
+		public async Task<IActionResult> GetCharacteristicsToFilter([FromQuery] int tourTypeId)
 		{
 			List<Characteristic> characteristics = await db.Characteristics
 				.Include(c => c.TourTypes)
-				.Where(c => c.TourTypes.Any(tt => tt.Id == id))
+				.Where(c => c.TourTypes.Any(tt => tt.Id == tourTypeId))
 				.ToListAsync(); 
 
 			return Ok(characteristics.Select(c => new DescriptionForFilterDto
@@ -70,21 +70,21 @@ namespace backend.Controllers
 		public async Task<IActionResult> GetNutritionTypes()
 		{
 			List<NutritionType> nutritionTypes = await db.NutritionTypes
-				.OrderBy(nutritionType => nutritionType.Id)
+				.OrderBy(nt => nt.Id)
 				.ToListAsync();
 
-			return Ok(nutritionTypes.Select(nutritionType => new NutritionTypeDto
+			return Ok(nutritionTypes.Select(nt => new NutritionTypeDto
 			{
-				Id = nutritionType.Id,
-				Name = nutritionType.Name,
+				Id = nt.Id,
+				Name = nt.Name,
 			}));
 		}
 
 		[HttpGet("tour_to_edit")]
-		public async Task<IActionResult> GetTourToEdit([FromQuery] int? id = null)
+		public async Task<IActionResult> GetTourToEdit([FromQuery] int? tourId = null)
 		{
 			TourForEditorDto tourForEditor;
-			if (id == 0)
+			if (tourId == 0)
 			{
 				tourForEditor = new TourForEditorDto()
 				{
@@ -105,7 +105,7 @@ namespace backend.Controllers
 					.Include(t => t.Routes)
 					.Include(t => t.Descriptions)
 					.ThenInclude(d => d.Characteristic)
-					.FirstOrDefaultAsync(t => t.Id == id);
+					.FirstOrDefaultAsync(t => t.Id == tourId);
 
 				if (tour == null) return NotFound(); 
 
@@ -114,13 +114,13 @@ namespace backend.Controllers
 					.Include(r => r.DepartmentDeparture)
 					.ThenInclude(d => d.City)
 					.ThenInclude(c => c.Country)
-					.Where(r => r.TourId == id)
+					.Where(r => r.TourId == tourId)
 					.ToListAsync();
 
 				List<Description> descriptions = await db.Descriptions
 					.Include(d => d.Characteristic)
-						.ThenInclude(c => c.CharacteristicType)
-					.Where(d => d.TourId == id)
+					.ThenInclude(c => c.CharacteristicType)
+					.Where(d => d.TourId == tourId)
 					.ToListAsync();
 
 				tourForEditor = new TourForEditorDto()
@@ -178,7 +178,7 @@ namespace backend.Controllers
 		}
 
 		[HttpGet("get")]
-		public async Task<IActionResult> GetTour([FromQuery] int? id = null)
+		public async Task<IActionResult> GetTour([FromQuery] int? tourId = null)
 		{
 			Tour tour = await db.Tours
 				.Include(t => t.TourType)
@@ -186,7 +186,7 @@ namespace backend.Controllers
 				.Include(t => t.Hotel)
 				.ThenInclude(h => h.City)
 				.ThenInclude(c => c.Country)
-				.FirstOrDefaultAsync(t => t.Id == id);
+				.FirstOrDefaultAsync(t => t.Id == tourId);
 
 			if (tour == null) return NotFound();
 
@@ -195,13 +195,13 @@ namespace backend.Controllers
 				.Include(r => r.DepartmentDeparture)
 				.ThenInclude(d => d.City)
 				.ThenInclude(c => c.Country)
-				.Where(r => r.TourId == id)
+				.Where(r => r.TourId == tourId)
 				.ToListAsync();
 
 			List<Description> descriptions = await db.Descriptions
 				.Include(d => d.Characteristic)
 				.ThenInclude(c => c.CharacteristicType)
-				.Where(d => d.TourId == id && d.Value)
+				.Where(d => d.TourId == tourId && d.Value)
 				.ToListAsync();
 
 
@@ -448,29 +448,29 @@ namespace backend.Controllers
 						await db.Tours.AddAsync(newTour);
 						await db.SaveChangesAsync();
 
-						await db.Routes.AddRangeAsync(tour.Routes.Select(route => new Models.Entity.Route()
+						await db.Routes.AddRangeAsync(tour.Routes.Select(r => new Models.Entity.Route()
 						{
-							LandingDateOfDeparture = DateTime.Parse(route.LandingDateOfDeparture),
-							LandingTimeOfDeparture = TimeSpan.Parse(route.LandingTimeOfDeparture),
-							ArrivalDateOfDeparture = DateTime.Parse(route.ArrivalDateOfDeparture),
-							ArrivalTimeOfDeparture = TimeSpan.Parse(route.ArrivalTimeOfDeparture),
-							LandingDateOfReturn = DateTime.Parse(route.LandingDateOfReturn),
-							LandingTimeOfReturn = TimeSpan.Parse(route.LandingTimeOfReturn),
-							ArrivalDateOfReturn = DateTime.Parse(route.ArrivalDateOfReturn),
-							ArrivalTimeOfReturn = TimeSpan.Parse(route.ArrivalTimeOfReturn),
-							Price = route.Price,
-							SeatsNumber = route.SeatsNumber,
-							DepartmentDepartureId = route.DepartmentDeparture.Id,
-							TransportTypeId = route.TransportType.Id,
+							LandingDateOfDeparture = DateTime.Parse(r.LandingDateOfDeparture),
+							LandingTimeOfDeparture = TimeSpan.Parse(r.LandingTimeOfDeparture),
+							ArrivalDateOfDeparture = DateTime.Parse(r.ArrivalDateOfDeparture),
+							ArrivalTimeOfDeparture = TimeSpan.Parse(r.ArrivalTimeOfDeparture),
+							LandingDateOfReturn = DateTime.Parse(r.LandingDateOfReturn),
+							LandingTimeOfReturn = TimeSpan.Parse(r.LandingTimeOfReturn),
+							ArrivalDateOfReturn = DateTime.Parse(r.ArrivalDateOfReturn),
+							ArrivalTimeOfReturn = TimeSpan.Parse(r.ArrivalTimeOfReturn),
+							Price = r.Price,
+							SeatsNumber = r.SeatsNumber,
+							DepartmentDepartureId = r.DepartmentDeparture.Id,
+							TransportTypeId = r.TransportType.Id,
 							TourId = newTour.Id,
 						}));
 						await db.SaveChangesAsync();
 
-						await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(description => new Description()
+						await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(d => new Description()
 						{
-							CharacteristicId = description.Characteristic.Id,
+							CharacteristicId = d.Characteristic.Id,
 							TourId = newTour.Id,
-							Value = description.Description.Value
+							Value = d.Description.Value
 						}));
 						await db.SaveChangesAsync();
 
@@ -523,20 +523,20 @@ namespace backend.Controllers
 						db.Routes.RemoveRange(removedRoutes);
 						await db.SaveChangesAsync();
 
-						await db.Routes.AddRangeAsync(tour.Routes.Select(route => new Models.Entity.Route()
+						await db.Routes.AddRangeAsync(tour.Routes.Select(r => new Models.Entity.Route()
 						{
-							LandingDateOfDeparture = DateTime.Parse(route.LandingDateOfDeparture),
-							LandingTimeOfDeparture = TimeSpan.Parse(route.LandingTimeOfDeparture),
-							ArrivalDateOfDeparture = DateTime.Parse(route.ArrivalDateOfDeparture),
-							ArrivalTimeOfDeparture = TimeSpan.Parse(route.ArrivalTimeOfDeparture),
-							LandingDateOfReturn = DateTime.Parse(route.LandingDateOfReturn),
-							LandingTimeOfReturn = TimeSpan.Parse(route.LandingTimeOfReturn),
-							ArrivalDateOfReturn = DateTime.Parse(route.ArrivalDateOfReturn),
-							ArrivalTimeOfReturn = TimeSpan.Parse(route.ArrivalTimeOfReturn),
-							Price = route.Price,
-							SeatsNumber = route.SeatsNumber,
-							DepartmentDepartureId = route.DepartmentDeparture.Id,
-							TransportTypeId = route.TransportType.Id,
+							LandingDateOfDeparture = DateTime.Parse(r.LandingDateOfDeparture),
+							LandingTimeOfDeparture = TimeSpan.Parse(r.LandingTimeOfDeparture),
+							ArrivalDateOfDeparture = DateTime.Parse(r.ArrivalDateOfDeparture),
+							ArrivalTimeOfDeparture = TimeSpan.Parse(r.ArrivalTimeOfDeparture),
+							LandingDateOfReturn = DateTime.Parse(r.LandingDateOfReturn),
+							LandingTimeOfReturn = TimeSpan.Parse(r.LandingTimeOfReturn),
+							ArrivalDateOfReturn = DateTime.Parse(r.ArrivalDateOfReturn),
+							ArrivalTimeOfReturn = TimeSpan.Parse(r.ArrivalTimeOfReturn),
+							Price = r.Price,
+							SeatsNumber = r.SeatsNumber,
+							DepartmentDepartureId = r.DepartmentDeparture.Id,
+							TransportTypeId = r.TransportType.Id,
 							TourId = editedTour.Id,
 						}));
 						await db.SaveChangesAsync();
@@ -545,11 +545,11 @@ namespace backend.Controllers
 						db.Descriptions.RemoveRange(removedDescriptions);
 						await db.SaveChangesAsync();
 
-						await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(description => new Description()
+						await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(d => new Description()
 						{
-							CharacteristicId = description.Characteristic.Id,
+							CharacteristicId = d.Characteristic.Id,
 							TourId = editedTour.Id,
-							Value = description.Description.Value
+							Value = d.Description.Value
 						}));
 						await db.SaveChangesAsync();
 
@@ -568,13 +568,13 @@ namespace backend.Controllers
 		}
 
 		[HttpDelete("delete")]
-		public async Task<IActionResult> DeleteTour([FromQuery] int id)
+		public async Task<IActionResult> DeleteTour([FromQuery] int tourId)
 		{
 			using (var transaction = await db.Database.BeginTransactionAsync())
 			{
 				try
 				{
-					List<Route> removedRoutes = await db.Routes.Where(r => r.TourId == id).ToListAsync();
+					List<Route> removedRoutes = await db.Routes.Where(r => r.TourId == tourId).ToListAsync();
 
 					foreach (Route route in removedRoutes)
 					{
@@ -586,11 +586,11 @@ namespace backend.Controllers
 					db.Routes.RemoveRange(removedRoutes);
 					await db.SaveChangesAsync();
 
-					List<Description> removedDescriptions = await db.Descriptions.Where(d => d.TourId == id).ToListAsync();
+					List<Description> removedDescriptions = await db.Descriptions.Where(d => d.TourId == tourId).ToListAsync();
 					db.Descriptions.RemoveRange(removedDescriptions);
 					await db.SaveChangesAsync();
 
-					Tour removedTour = await db.Tours.FirstOrDefaultAsync(t => t.Id == id);
+					Tour removedTour = await db.Tours.FirstOrDefaultAsync(t => t.Id == tourId);
 					if (removedTour == null) return NotFound();
 
 					db.Tours.Remove(removedTour);

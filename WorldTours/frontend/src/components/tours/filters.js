@@ -12,7 +12,7 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
 		const getData = async () => {
             try {
                 let response;
-				response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?id=${0}`, {
+				response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?tourTypeId=${0}`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }

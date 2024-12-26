@@ -55,7 +55,7 @@ function TourEditor() {
 				["tourTypeId"]: id,
 			}));
 
-			const response = await axios.get(`https://localhost:7276/tour/characteristics?id=${id}`, {
+			const response = await axios.get(`https://localhost:7276/tour/characteristics?tourTypeId=${id}`, {
 				headers: {
 					'Authorization': 'Bearer ' + token,
 				}
@@ -81,7 +81,7 @@ function TourEditor() {
     			const id = segments[segments.length - 1];
 
 				let response;
-				response = await axios.get(`https://localhost:7276/tour/tour_to_edit?id=${id}`, {
+				response = await axios.get(`https://localhost:7276/tour/tour_to_edit?tourId=${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }

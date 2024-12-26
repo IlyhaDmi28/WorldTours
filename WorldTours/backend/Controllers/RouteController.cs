@@ -20,17 +20,17 @@ namespace backend.Controllers
 		public async Task<IActionResult> GetDepartmentDepartures()
 		{
 			List<DepartmentDeparture> departmentDepartures = await db.DepartmentDepartures
-				.Include(departmentDeparture => departmentDeparture.City)
-				.ThenInclude(city => city.Country)
-				.OrderBy(departmentDeparture => departmentDeparture.Id)
+				.Include(dd => dd.City)
+				.ThenInclude(c => c.Country)
+				.OrderBy(dd => dd.Id)
 				.ToListAsync();
 
-			return Ok(departmentDepartures.Select(departmentDeparture => new DepartmentDepartureDto
+			return Ok(departmentDepartures.Select(dd => new DepartmentDepartureDto
 			{
-				Id = departmentDeparture.Id,
-				Name = departmentDeparture.Name,
-				City = departmentDeparture.City.Name,
-				Country = departmentDeparture.City.Country.Name
+				Id = dd.Id,
+				Name = dd.Name,
+				City = dd.City.Name,
+				Country = dd.City.Country.Name
 			}));
 		}
 
@@ -38,15 +38,15 @@ namespace backend.Controllers
 		public async Task<IActionResult> GetDepartureCities()
 		{
 			List<DepartmentDeparture> cities = await db.DepartmentDepartures
-				.Include(departmentDeparture => departmentDeparture.City)
-				.GroupBy(city => city.Id)
-				.Select(city => city.First())
+				.Include(dd => dd.City)
+				.GroupBy(c => c.Id)
+				.Select(c => c.First())
 				.ToListAsync();
 
-			return Ok(cities.Select(departmentDeparture => new CityDto
+			return Ok(cities.Select(dd => new CityDto
 			{
-				Id = departmentDeparture.City.Id,
-				Name = departmentDeparture.City.Name
+				Id = dd.City.Id,
+				Name = dd.City.Name
 			}));
 		}
 
@@ -54,13 +54,13 @@ namespace backend.Controllers
 		public async Task<IActionResult> GetTransportTypes()
 		{
 			List<TransportType> transportTypes = await db.TransportTypes
-				.OrderBy(transportType => transportType.Id)
+				.OrderBy(tt => tt.Id)
 				.ToListAsync();
 
-			return Ok(transportTypes.Select(transportType => new DepartmentDepartureDto
+			return Ok(transportTypes.Select(tt => new DepartmentDepartureDto
 			{
-				Id = transportType.Id,
-				Name = transportType.Name,
+				Id = tt.Id,
+				Name = tt.Name,
 			}));
 		}
 	}

@@ -32,7 +32,7 @@ namespace backend.Controllers
 		}
 
 		[HttpPatch("block")]
-		public async Task<IActionResult> BlockUser([FromQuery] int userId)
+		public async Task<IActionResult> BlockUser([FromQuery] int? userId)
 		{
 			User blockedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
 			if (blockedUser == null) return NotFound();
@@ -43,7 +43,7 @@ namespace backend.Controllers
 		}
 
 		[HttpDelete("delete")]
-		public async Task<IActionResult> DeleteUser([FromQuery] int userId)
+		public async Task<IActionResult> DeleteUser([FromQuery] int? userId)
 		{
 			User removedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
 			if (removedUser == null) return NotFound();

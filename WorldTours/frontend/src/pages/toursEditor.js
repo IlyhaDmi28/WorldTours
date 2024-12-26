@@ -30,7 +30,7 @@ function ToursEditor() {
 	}, []);
 
 	const deleteTour = async (deletedTour) => {
-        await axios.delete(`https://localhost:7276/tour/delete?id=${deletedTour.id}`, {
+        await axios.delete(`https://localhost:7276/tour/delete?tourId=${deletedTour.id}`, {
             headers: {
                 'Authorization': 'Bearer ' + token,
             }

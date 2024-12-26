@@ -18,7 +18,7 @@ namespace backend.Controllers
 		}
 
 		[HttpGet("reviews")]
-		public async Task<IActionResult> GetReviews([FromQuery] int tourId)
+		public async Task<IActionResult> GetReviews([FromQuery] int? tourId)
 		{
 			List<Review> rewievs = await db.Reviews
 				.Include(r => r.User)
@@ -45,7 +45,7 @@ namespace backend.Controllers
 		}
 
 		[HttpDelete("delete")]
-		public async Task<IActionResult> DeleteReview([FromQuery] int tourId)
+		public async Task<IActionResult> DeleteReview([FromQuery] int? tourId)
 		{
 			Review deletedReview = await db.Reviews.FirstOrDefaultAsync(r => r.Id == tourId);
 			if (deletedReview != null) return NotFound();
