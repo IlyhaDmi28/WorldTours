@@ -143,6 +143,11 @@ function Tour() {
 	}
 
 	const sendReview = async (e) => {
+		if(!authUser) { 
+			alert("Что бы оставить отзыв, вам необходимо авторизироваться!");
+			return;
+		 }
+
 		const segments = location.pathname.split('/');
 		const id = segments[segments.length - 1];
 

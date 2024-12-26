@@ -3,8 +3,8 @@
 	public class TourForm
 	{
 		public int Id { get; set; }
-		public string Name { get; set; }
-		public string MainDescription { get; set; }
+		public string? Name { get; set; }
+		public string? MainDescription { get; set; }
 		public int? TourTypeId { get; set; }
 		public int? NutritionTypeId { get; set; }
 		public int? HotelId { get; set; }

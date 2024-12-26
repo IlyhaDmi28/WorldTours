@@ -20,50 +20,38 @@ namespace backend.Controllers
 		public async Task<IActionResult> EditUser([FromForm] UserForm user)
 		{
 			User editUser = await db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+			if (editUser == null) return NotFound();
 
-			if (editUser != null)
-			{
-				editUser.Name = user.Name;
-				editUser.Surname = user.Surname;
-				editUser.PhoneNumber = user.PhoneNumber;
-				if (user.PhotoFile != null) editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);
+			editUser.Name = user.Name;
+			editUser.Surname = user.Surname;
+			editUser.PhoneNumber = user.PhoneNumber;
+			if (user.PhotoFile != null) editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);
 
-
-				await db.SaveChangesAsync();
-				return Ok();
-			}
-
-			return BadRequest();
+			await db.SaveChangesAsync();
+			return Ok();
 		}
 
 		[HttpPatch("block")]
 		public async Task<IActionResult> BlockUser([FromQuery] int userId)
 		{
 			User blockedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+			if (blockedUser == null) return NotFound();
 
-			if (blockedUser != null)
-			{
-				blockedUser.BlockedStatus = !blockedUser.BlockedStatus;
-				await db.SaveChangesAsync();
-				return Ok();
-			}
-
-			return BadRequest();
+			blockedUser.BlockedStatus = !blockedUser.BlockedStatus;
+			await db.SaveChangesAsync();
+			return Ok();
 		}
 
 		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteUser([FromQuery] int userId)
 		{
 			User removedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+			if (removedUser == null) return NotFound();
 
-			if (removedUser != null)
-			{
-				db.Users.Remove(removedUser);
-				await db.SaveChangesAsync();
-				return Ok();
-			}
+			db.Users.Remove(removedUser);
+			await db.SaveChangesAsync();
+			return Ok();
 
-			return BadRequest();
 		}
 
 		[HttpGet("users")]

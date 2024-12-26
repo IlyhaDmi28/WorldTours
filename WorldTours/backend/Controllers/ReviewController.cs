@@ -20,19 +20,26 @@ namespace backend.Controllers
 		[HttpGet("reviews")]
 		public async Task<IActionResult> GetReviews([FromQuery] int tourId)
 		{
-			return Ok(await db.Reviews.Include(r => r.User).Where(r => r.TourId == tourId).Select(r => new RewievDto()
+			List<Review> rewievs = await db.Reviews
+				.Include(r => r.User)
+				.Where(r => r.TourId == tourId)
+				.ToListAsync();
+
+			return Ok(rewievs.Select(r => new RewievDto()
 			{
 				Id = r.Id,
 				UserName = r.User.Name,
 				UserSurname = r.User.Surname,
 				ReviewText = r.ReviewText,
-			}).ToListAsync());
+			}));
 		}
 
 		[HttpPost("add")]
 		public async Task<IActionResult> AddReview([FromBody] ReviewForm review)
 		{
-			await db.Reviews.AddAsync(new Review () { TourId = review.TourId, UserId = review.UserId, ReviewText = review.ReviewText });
+			if (review == null) return BadRequest();
+
+			await db.Reviews.AddAsync(new Review() { TourId = review.TourId, UserId = review.UserId, ReviewText = review.ReviewText });
 			await db.SaveChangesAsync();
 			return Ok();
 		}
@@ -41,10 +48,10 @@ namespace backend.Controllers
 		public async Task<IActionResult> DeleteReview([FromQuery] int tourId)
 		{
 			Review deletedReview = await db.Reviews.FirstOrDefaultAsync(r => r.Id == tourId);
+			if (deletedReview != null) return NotFound();
 
 			db.Remove(deletedReview);
 			await db.SaveChangesAsync();
-
 			return Ok();
 		}
 	}

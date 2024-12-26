@@ -25,13 +25,13 @@ namespace backend.Controllers
 		public async Task<IActionResult> AddBooking([FromBody] ApplicationForBookingForm applicationForBooking)
 		{
 			Booking booking = await db.Bookings.FirstOrDefaultAsync(b => b.UserId == applicationForBooking.UserId && b.RouteId == applicationForBooking.RouteId);
-
-			if (booking != null)
-			{
-				return Conflict(new { message = "Вы уже заказали данный тур." });
-			}
+			if (booking != null) return Conflict(new { message = "Вы уже заказали данный тур." });
 
 			Route route = await db.Routes.FirstOrDefaultAsync(r => r.Id == applicationForBooking.RouteId);
+			if (route == null) return BadRequest();
+
+			User user = await db.Users.FirstOrDefaultAsync(r => r.Id == applicationForBooking.UserId);
+			if (user == null) return Unauthorized();
 
 			int remainingSeatsNumber = (int)route.SeatsNumber - (int)applicationForBooking.OrderSeatsNumber;
 
@@ -62,8 +62,7 @@ namespace backend.Controllers
 					}
 				}
 			}
-
-			return Conflict(new { message = "Недостаточно мест." });
+			else return Conflict(new { message = "Недостаточно мест." });
 		}
 
 		[HttpGet("bookings")]
@@ -190,30 +189,22 @@ namespace backend.Controllers
 		public async Task<IActionResult> DeleteBooking([FromQuery] int? bookingId)
 		{
 			Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(t => t.Id == bookingId);
-			if (removedBooking != null)
-			{
-				db.Bookings.Remove(removedBooking);
-				await db.SaveChangesAsync();
-				return Ok();
+			if (removedBooking == null) return NotFound();
 
-			}
-
-			return BadRequest();
+			db.Bookings.Remove(removedBooking);
+			await db.SaveChangesAsync();
+			return Ok();
 		}
 
 		[HttpPatch("confirm")]
 		public async Task<IActionResult> ConfirmBooking([FromQuery] int? bookingId)
 		{
 			Booking confirmedBooking = await db.Bookings.FirstOrDefaultAsync(t => t.Id == bookingId);
-			if (confirmedBooking != null)
-			{
-				confirmedBooking.Status = true;
-				await db.SaveChangesAsync();
-				return Ok();
+			if (confirmedBooking == null) return NotFound();
 
-			}
-
-			return BadRequest();
+			confirmedBooking.Status = true;
+			await db.SaveChangesAsync();
+			return Ok();
 		}
 	}
 }

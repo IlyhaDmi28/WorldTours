@@ -5,6 +5,7 @@ using backend.Models.Forms;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -24,73 +25,68 @@ namespace backend.Controllers
 		[HttpGet("tour_types")]
 		public async Task<IActionResult> GetTourTypes()
 		{
-			var tourTypes = await db.TourTypes
-				.Select(tt => new TourTypeDto
-				{
-					Id = tt.Id,
-					Name = tt.Name,
-					ImageUrl = PhotoService.ConvertToBase64(tt.Image, "svg+xml"),
-				})
-				.ToListAsync();
+			List<TourType> tourTypes = await db.TourTypes.ToListAsync();
 
-			return Ok(tourTypes);
+			return Ok(tourTypes.Select(tt => new TourTypeDto
+			{
+				Id = tt.Id,
+				Name = tt.Name,
+				ImageUrl = PhotoService.ConvertToBase64(tt.Image, "svg+xml"),
+			}));
 		}
 
 		[HttpGet("characteristics")]
 		public async Task<IActionResult> GetCharacteristics([FromQuery] int id)
 		{
-			var characteristics = await db.Characteristics
+			List<Characteristic> characteristics = await db.Characteristics
 				.Include(c => c.TourTypes)
 				.Where(c => c.TourTypes.Any(tt => tt.Id == id))
-				.Select(c => new DescriptionWithCharacteriscDto
-				{
-					Characteristic = new CharacteristicDto() { Id = c.Id, Name = c.Name },
-					Description = new DescriptionDto() { Id = 0, Value = false },
-				})
 				.ToListAsync(); 
 
-			return Ok(characteristics);
+			return Ok(characteristics.Select(c => new DescriptionWithCharacteriscDto
+			{
+				Characteristic = new CharacteristicDto() { Id = c.Id, Name = c.Name },
+				Description = new DescriptionDto() { Id = 0, Value = false },
+			}));
 		}
 
 		[HttpGet("characteristics_to_filter")]
 		public async Task<IActionResult> GetCharacteristicsToFilter([FromQuery] int id)
 		{
-			var characteristics = await db.Characteristics
+			List<Characteristic> characteristics = await db.Characteristics
 				.Include(c => c.TourTypes)
 				.Where(c => c.TourTypes.Any(tt => tt.Id == id))
-				.Select(c => new DescriptionForFilterDto
-				{
-					CharacteristicId = c.Id,
-					CharacteristicName = c.Name,
-					Value = 0
-				})
 				.ToListAsync(); 
 
-			return Ok(characteristics);
+			return Ok(characteristics.Select(c => new DescriptionForFilterDto
+			{
+				CharacteristicId = c.Id,
+				CharacteristicName = c.Name,
+				Value = 0
+			}));
 		}
 
 		[HttpGet("nutrition_types")]
 		public async Task<IActionResult> GetNutritionTypes()
 		{
-			var nutritionTypes = await db.NutritionTypes
-				.Select(nutritionType => new NutritionTypeDto
-				{
-					Id = nutritionType.Id,
-					Name = nutritionType.Name,
-				})
+			List<NutritionType> nutritionTypes = await db.NutritionTypes
 				.OrderBy(nutritionType => nutritionType.Id)
 				.ToListAsync();
 
-			return Ok(nutritionTypes);
+			return Ok(nutritionTypes.Select(nutritionType => new NutritionTypeDto
+			{
+				Id = nutritionType.Id,
+				Name = nutritionType.Name,
+			}));
 		}
 
 		[HttpGet("tour_to_edit")]
 		public async Task<IActionResult> GetTourToEdit([FromQuery] int? id = null)
 		{
-			TourForEditorDto tourEdit;
+			TourForEditorDto tourForEditor;
 			if (id == 0)
 			{
-				tourEdit = new TourForEditorDto()
+				tourForEditor = new TourForEditorDto()
 				{
 					Id = 0,
 					Name = "",
@@ -105,33 +101,29 @@ namespace backend.Controllers
 			}
 			else
 			{
-				// Загрузка данных для тура асинхронно
-				var tour = await db.Tours
+				Tour tour = await db.Tours
 					.Include(t => t.Routes)
 					.Include(t => t.Descriptions)
-						.ThenInclude(d => d.Characteristic)
+					.ThenInclude(d => d.Characteristic)
 					.FirstOrDefaultAsync(t => t.Id == id);
 
-				if (tour == null)
-				{
-					return NotFound(); // Возвращаем 404, если тур не найден
-				}
+				if (tour == null) return NotFound(); 
 
-				var routes = await db.Routes
+				List<Route> routes = await db.Routes
 					.Include(r => r.TransportType)
 					.Include(r => r.DepartmentDeparture)
-						.ThenInclude(d => d.City)
-						.ThenInclude(c => c.Country)
+					.ThenInclude(d => d.City)
+					.ThenInclude(c => c.Country)
 					.Where(r => r.TourId == id)
 					.ToListAsync();
 
-				var descriptions = await db.Descriptions
+				List<Description> descriptions = await db.Descriptions
 					.Include(d => d.Characteristic)
 						.ThenInclude(c => c.CharacteristicType)
 					.Where(d => d.TourId == id)
 					.ToListAsync();
 
-				tourEdit = new TourForEditorDto()
+				tourForEditor = new TourForEditorDto()
 				{
 					Id = tour.Id,
 					Name = tour.Name,
@@ -182,54 +174,50 @@ namespace backend.Controllers
 				};
 			}
 
-			return Ok(tourEdit);
+			return Ok(tourForEditor);
 		}
 
 		[HttpGet("get")]
 		public async Task<IActionResult> GetTour([FromQuery] int? id = null)
 		{
-			// Загрузка основной информации о туре
-			var tourBase = await db.Tours
+			Tour tour = await db.Tours
 				.Include(t => t.TourType)
 				.Include(t => t.NutritionType)
 				.Include(t => t.Hotel)
-					.ThenInclude(h => h.City)
-					.ThenInclude(c => c.Country)
+				.ThenInclude(h => h.City)
+				.ThenInclude(c => c.Country)
 				.FirstOrDefaultAsync(t => t.Id == id);
 
-			if (tourBase == null)
-				return NotFound(); // Возвращаем 404, если тур не найден
+			if (tour == null) return NotFound();
 
-			// Загрузка маршрутов для тура
-			var routes = await db.Routes
+			List<Route> routes = await db.Routes
 				.Include(r => r.TransportType)
 				.Include(r => r.DepartmentDeparture)
-					.ThenInclude(d => d.City)
-					.ThenInclude(c => c.Country)
+				.ThenInclude(d => d.City)
+				.ThenInclude(c => c.Country)
 				.Where(r => r.TourId == id)
 				.ToListAsync();
 
-			// Загрузка описаний для тура
-			var descriptions = await db.Descriptions
+			List<Description> descriptions = await db.Descriptions
 				.Include(d => d.Characteristic)
-					.ThenInclude(c => c.CharacteristicType)
+				.ThenInclude(c => c.CharacteristicType)
 				.Where(d => d.TourId == id && d.Value)
 				.ToListAsync();
 
-			// Преобразование в DTO
-			var tour = new TourDto
+
+			return Ok(new TourDto
 			{
-				Id = tourBase.Id,
-				Name = tourBase.Name,
-				PhotoUrl = PhotoService.ConvertToBase64(tourBase.Photo, "png"),
-				MainDescription = tourBase.MainDescription,
-				NutritionType = tourBase.NutritionType?.Name,
+				Id = tour.Id,
+				Name = tour.Name,
+				PhotoUrl = PhotoService.ConvertToBase64(tour.Photo, "png"),
+				MainDescription = tour.MainDescription,
+				NutritionType = tour.NutritionType?.Name,
 				Direction = new DirectionDto
 				{
-					Country = tourBase.Hotel.City.Country?.Name,
-					City = tourBase.Hotel.City?.Name,
-					Hotel = tourBase.Hotel?.Name,
-					StarsNumber = tourBase.Hotel?.StarsNumber ?? 0
+					Country = tour.Hotel.City.Country?.Name,
+					City = tour.Hotel.City?.Name,
+					Hotel = tour.Hotel?.Name,
+					StarsNumber = tour.Hotel?.StarsNumber ?? 0
 				},
 				Routes = routes.Select(r => new RouteDto
 				{
@@ -277,22 +265,19 @@ namespace backend.Controllers
 							}
 						}).ToList()
 					}).ToList()
-			};
-
-			return Ok(tour);
+			});
 		}
 
 
 		[HttpGet("tours")]
 		public async Task<IActionResult> GetTours()
 		{
-
-			var routes = db.Routes
-			.Include(r => r.Tour)
-			.ThenInclude(t => t.Hotel) // Загружаем связанные отели
-			.ThenInclude(h => h.City) // Загружаем города отелей
-			.ThenInclude(c => c.Country) // Загружаем страны городов
-			.ToList();
+			List<Route> routes = await db.Routes
+				.Include(r => r.Tour)
+				.ThenInclude(t => t.Hotel) 
+				.ThenInclude(h => h.City) 
+				.ThenInclude(c => c.Country) 
+				.ToListAsync();
 
 			return Ok(routes.Select(t => new TourCardDto
 			{
@@ -312,16 +297,15 @@ namespace backend.Controllers
 		[HttpPost("filtred_tours")]
 		public async Task<IActionResult> GetFiltredTours([FromBody] FilterForm filter)
 		{
-			var tours = db.Tours
-			.Include(t => t.Descriptions);
+			List<Tour> tours = await db.Tours.Include(t => t.Descriptions).ToListAsync();
 
-			var routes = await db.Routes
-			.Include(r => r.DepartmentDeparture)
-			.Include(r => r.Tour)
-			.ThenInclude(t => t.Hotel) // Загружаем связанные отели
-			.ThenInclude(h => h.City) // Загружаем города отелей
-			.ThenInclude(c => c.Country) // Загружаем страны городов
-			.ToListAsync();
+			List<Route> routes = await db.Routes
+				.Include(r => r.DepartmentDeparture)
+				.Include(r => r.Tour)
+				.ThenInclude(t => t.Hotel) 
+				.ThenInclude(h => h.City) 
+				.ThenInclude(c => c.Country)
+				.ToListAsync();
 
 			foreach (Tour tour in tours)
 			{
@@ -404,11 +388,13 @@ namespace backend.Controllers
 		{
 			if(tourTypeId == null || tourTypeId == 0)
 			{
-				var tours = await db.Tours
-				.Include(t => t.Hotel) // Загружаем связанные отели
-				.ThenInclude(h => h.City) // Загружаем города отелей
-				.ThenInclude(c => c.Country) // Загружаем страны городов
-				.Select(t => new TourCardForEditor
+				List<Tour> tours = await db.Tours
+					.Include(t => t.Hotel) 
+					.ThenInclude(h => h.City) 
+					.ThenInclude(c => c.Country) 
+					.ToListAsync();
+
+				return Ok(tours.Select(t => new TourCardForEditor
 				{
 					Id = t.Id,
 					Name = t.Name,
@@ -416,19 +402,18 @@ namespace backend.Controllers
 					City = t.Hotel.City.Name,
 					PhotoUrl = PhotoService.ConvertToBase64(t.Photo, "jpeg"),
 					StarsNumber = t.Hotel.StarsNumber,
-				})
-				.ToListAsync();
-
-				return Ok(tours);
+				}));
 			}
 			else
 			{
-				var tours = await db.Tours
-				.Include(t => t.Hotel) // Загружаем связанные отели
-				.ThenInclude(h => h.City) // Загружаем города отелей
-				.ThenInclude(c => c.Country) // Загружаем страны городов
-				.Where(t => t.TourTypeId == tourTypeId)
-				.Select(t => new TourCardForEditor
+				List<Tour> tours = await db.Tours
+					.Include(t => t.Hotel) 
+					.ThenInclude(h => h.City) 
+					.ThenInclude(c => c.Country) 
+					.Where(t => t.TourTypeId == tourTypeId)
+					.ToListAsync();
+
+				return Ok(tours.Select(t => new TourCardForEditor
 				{
 					Id = t.Id,
 					Name = t.Name,
@@ -436,10 +421,7 @@ namespace backend.Controllers
 					City = t.Hotel.City.Name,
 					PhotoUrl = PhotoService.ConvertToBase64(t.Photo, "jpeg"),
 					StarsNumber = t.Hotel.StarsNumber,
-				})
-				.ToListAsync();
-
-				return Ok(tours);
+				}));
 			}
 		}
 
@@ -518,12 +500,8 @@ namespace backend.Controllers
 					{
 						Tour editedTour = await db.Tours.FirstOrDefaultAsync(t => t.Id == tour.Id);
 
-						if (editedTour == null)
-						{
-							return NotFound();
-						}
+						if (editedTour == null) return NotFound();
 
-						// Обновление свойств тура
 						editedTour.Name = tour.Name;
 						editedTour.MainDescription = tour.MainDescription;
 						editedTour.HotelId = tour.HotelId;
@@ -533,7 +511,6 @@ namespace backend.Controllers
 
 						await db.SaveChangesAsync();
 
-						// Обновление маршрутов
 						List<Route> removedRoutes = await db.Routes.Where(r => r.TourId == editedTour.Id).ToListAsync();
 
 						foreach (Route route in removedRoutes)
@@ -542,7 +519,6 @@ namespace backend.Controllers
 							if (removedBooking != null) db.Bookings.Remove(removedBooking);
 						}
 						await db.SaveChangesAsync();
-
 
 						db.Routes.RemoveRange(removedRoutes);
 						await db.SaveChangesAsync();
@@ -565,7 +541,6 @@ namespace backend.Controllers
 						}));
 						await db.SaveChangesAsync();
 
-						// Обновление описаний
 						List<Description> removedDescriptions = await db.Descriptions.Where(d => d.TourId == editedTour.Id).ToListAsync();
 						db.Descriptions.RemoveRange(removedDescriptions);
 						await db.SaveChangesAsync();
@@ -599,7 +574,6 @@ namespace backend.Controllers
 			{
 				try
 				{
-					// Удаление маршрутов
 					List<Route> removedRoutes = await db.Routes.Where(r => r.TourId == id).ToListAsync();
 
 					foreach (Route route in removedRoutes)
@@ -612,18 +586,15 @@ namespace backend.Controllers
 					db.Routes.RemoveRange(removedRoutes);
 					await db.SaveChangesAsync();
 
-					// Удаление описаний
 					List<Description> removedDescriptions = await db.Descriptions.Where(d => d.TourId == id).ToListAsync();
 					db.Descriptions.RemoveRange(removedDescriptions);
 					await db.SaveChangesAsync();
 
-					// Удаление тура
 					Tour removedTour = await db.Tours.FirstOrDefaultAsync(t => t.Id == id);
-					if (removedTour != null)
-					{
-						db.Tours.Remove(removedTour);
-						await db.SaveChangesAsync();
-					}
+					if (removedTour == null) return NotFound();
+
+					db.Tours.Remove(removedTour);
+					await db.SaveChangesAsync();
 
 					await transaction.CommitAsync();
 					return Ok();

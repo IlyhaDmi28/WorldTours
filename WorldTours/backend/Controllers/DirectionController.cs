@@ -21,16 +21,14 @@ namespace backend.Controllers
 		[HttpGet("regions")]
 		public async Task<IActionResult> GetRegions()
 		{
-			var regions = await db.Regions
-				.Select(region => new RegionDto
-				{
-					Id = region.Id,
-					Name = region.Name,
-					ImageUrl = PhotoService.ConvertToBase64(region.Image, "jpeg"),
-				})
-				.ToListAsync();
+			List<Region> regions = await db.Regions.ToListAsync();
 
-			return Ok(regions);
+			return Ok(regions.Select(region => new RegionDto
+			{
+				Id = region.Id,
+				Name = region.Name,
+				ImageUrl = PhotoService.ConvertToBase64(region.Image, "jpeg"),
+			}));
 		}
 
 		[HttpGet("countries")]
@@ -38,51 +36,53 @@ namespace backend.Controllers
 		{
 			if (regionId == null || regionId == 0)
 			{
-				var countries = await db.Countries
-					.Select(country => new CountryDto
-					{
-						Id = country.Id,
-						Name = country.Name,
-						FlagUrl = PhotoService.ConvertToBase64(country.Flag, "svg+xml"),
-					})
-					.ToListAsync();
+				List<Country> countries = await db.Countries.ToListAsync();
 
-				return Ok(countries);
-			}
-
-			var filteredCountries = await db.Countries
-				.Where(country => country.RegionId == regionId)
-				.Select(country => new CountryDto
+				return Ok(countries.Select(country => new CountryDto
 				{
 					Id = country.Id,
 					Name = country.Name,
 					FlagUrl = PhotoService.ConvertToBase64(country.Flag, "svg+xml"),
-				})
+				}));
+			}
+
+			List<Country> filteredCountries = await db.Countries
+				.Where(country => country.RegionId == regionId)
 				.ToListAsync();
 
-			return Ok(filteredCountries);
+			return Ok(filteredCountries.Select(country => new CountryDto
+			{
+				Id = country.Id,
+				Name = country.Name,
+				FlagUrl = PhotoService.ConvertToBase64(country.Flag, "svg+xml"),
+			}));
 		}
 
 		[HttpGet("cities")]
-		public async Task<IActionResult> GetCities([FromQuery] int countryId)
+		public async Task<IActionResult> GetCities([FromQuery] int? countryId)
 		{
-			var cities = await db.Cities
+			List<City> cities = await db.Cities
 				.Where(city => city.CountryId == countryId)
-				.Select(city => new CityDto { Id = city.Id, Name = city.Name })
 				.ToListAsync();
 
-			return Ok(cities);
+			return Ok(cities.Select(city => new CityDto {
+				Id = city.Id,
+				Name = city.Name 
+			}));
 		}
 
 		[HttpGet("hotels")]
-		public async Task<IActionResult> GetHotels([FromQuery] int cityId)
+		public async Task<IActionResult> GetHotels([FromQuery] int? cityId)
 		{
-			var hotels = await db.Hotels
+			List<Hotel> hotels = await db.Hotels
 				.Where(hotel => hotel.CityId == cityId)
-				.Select(hotel => new HotelDto { Id = hotel.Id, Name = hotel.Name })
 				.ToListAsync();
 
-			return Ok(hotels);
+			return Ok(hotels.Select(hotel => new HotelDto 
+			{
+				Id = hotel.Id,
+				Name = hotel.Name 
+			}));
 		}
 
 		[HttpGet("get")]
@@ -90,68 +90,59 @@ namespace backend.Controllers
 		{
 			if (hotelId != null && hotelId != 0)
 			{
-				var hotel = await db.Hotels
+				Hotel hotel = await db.Hotels
 					.Include(h => h.City)
-						.ThenInclude(c => c.Country)
-							.ThenInclude(c => c.Region)
+					.ThenInclude(c => c.Country)
+					.ThenInclude(c => c.Region)
 					.FirstOrDefaultAsync(h => h.Id == hotelId);
 
-				if (hotel != null)
+				if (hotel == null) return NotFound();
+					
+				return Ok(new DirectionDto()
 				{
-					return Ok(new DirectionDto()
-					{
-						Region = hotel.City.Country.Region.Name,
-						Country = hotel.City.Country.Name,
-						City = hotel.City.Name,
-						Hotel = hotel.Name,
-						StarsNumber = hotel.StarsNumber
-					});
-				}
+					Region = hotel.City.Country.Region.Name,
+					Country = hotel.City.Country.Name,
+					City = hotel.City.Name,
+					Hotel = hotel.Name,
+					StarsNumber = hotel.StarsNumber
+				});
 			}
 			else if (cityId != null && cityId != 0)
 			{
-				var city = await db.Cities
+				City city = await db.Cities
 					.Include(c => c.Country)
-						.ThenInclude(c => c.Region)
+					.ThenInclude(c => c.Region)
 					.FirstOrDefaultAsync(c => c.Id == cityId);
 
-				if (city != null)
+				if (city == null) return NotFound();
+
+				return Ok(new DirectionDto()
 				{
-					return Ok(new DirectionDto()
-					{
-						Region = city.Country.Region.Name,
-						Country = city.Country.Name,
-						City = city.Name,
-					});
-				}
+					Region = city.Country.Region.Name,
+					Country = city.Country.Name,
+					City = city.Name,
+				});
 			}
 			else if (countryId != null && countryId != 0)
 			{
-				var country = await db.Countries
+				Country country = await db.Countries
 					.Include(c => c.Region)
 					.FirstOrDefaultAsync(c => c.Id == countryId);
 
-				if (country != null)
+				if (country == null) return NotFound();
+
+				return Ok(new DirectionDto()
 				{
-					return Ok(new DirectionDto()
-					{
-						Region = country.Region.Name,
-						Country = country.Name,
-					});
-				}
+					Region = country.Region.Name,
+					Country = country.Name,
+				});
 			}
 			else if (regionId != null && regionId != 0)
 			{
-				var region = await db.Regions
-					.FirstOrDefaultAsync(r => r.Id == regionId);
+				Region region = await db.Regions.FirstOrDefaultAsync(r => r.Id == regionId);
 
-				if (region != null)
-				{
-					return Ok(new DirectionDto()
-					{
-						Region = region.Name,
-					});
-				}
+				if (region == null) return NotFound();
+				return Ok(new DirectionDto() { Region = region.Name });
 			}
 
 			return BadRequest();

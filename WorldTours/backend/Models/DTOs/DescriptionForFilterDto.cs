@@ -9,7 +9,7 @@
 	public class DescriptionForFilterDto
 	{
 		public int CharacteristicId { get; set; }
-		public string CharacteristicName { get; set; }
+		public string? CharacteristicName { get; set; }
 		public int Value { get; set; }
 	}
 }
