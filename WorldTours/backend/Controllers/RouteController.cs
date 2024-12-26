@@ -19,49 +19,70 @@ namespace backend.Controllers
 		[HttpGet("department_departures")]
 		public async Task<IActionResult> GetDepartmentDepartures()
 		{
-			List<DepartmentDeparture> departmentDepartures = await db.DepartmentDepartures
-				.Include(dd => dd.City)
-				.ThenInclude(c => c.Country)
-				.OrderBy(dd => dd.Id)
-				.ToListAsync();
-
-			return Ok(departmentDepartures.Select(dd => new DepartmentDepartureDto
+			try
 			{
-				Id = dd.Id,
-				Name = dd.Name,
-				City = dd.City.Name,
-				Country = dd.City.Country.Name
-			}));
+				List<DepartmentDeparture> departmentDepartures = await db.DepartmentDepartures
+					.Include(dd => dd.City)
+					.ThenInclude(c => c.Country)
+					.OrderBy(dd => dd.Id)
+					.ToListAsync();
+
+				return Ok(departmentDepartures.Select(dd => new DepartmentDepartureDto
+				{
+					Id = dd.Id,
+					Name = dd.Name,
+					City = dd.City.Name,
+					Country = dd.City.Country.Name
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[HttpGet("departure_cities")]
 		public async Task<IActionResult> GetDepartureCities()
 		{
-			List<DepartmentDeparture> cities = await db.DepartmentDepartures
-				.Include(dd => dd.City)
-				.GroupBy(c => c.Id)
-				.Select(c => c.First())
-				.ToListAsync();
-
-			return Ok(cities.Select(dd => new CityDto
+			try
 			{
-				Id = dd.City.Id,
-				Name = dd.City.Name
-			}));
+				List<DepartmentDeparture> cities = await db.DepartmentDepartures
+					.Include(dd => dd.City)
+					.GroupBy(c => c.Id)
+					.Select(c => c.First())
+					.ToListAsync();
+
+				return Ok(cities.Select(dd => new CityDto
+				{
+					Id = dd.City.Id,
+					Name = dd.City.Name
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[HttpGet("transport_types")]
 		public async Task<IActionResult> GetTransportTypes()
 		{
-			List<TransportType> transportTypes = await db.TransportTypes
-				.OrderBy(tt => tt.Id)
-				.ToListAsync();
-
-			return Ok(transportTypes.Select(tt => new DepartmentDepartureDto
+			try
 			{
-				Id = tt.Id,
-				Name = tt.Name,
-			}));
+				List<TransportType> transportTypes = await db.TransportTypes
+					.OrderBy(tt => tt.Id)
+					.ToListAsync();
+
+				return Ok(transportTypes.Select(tt => new DepartmentDepartureDto
+				{
+					Id = tt.Id,
+					Name = tt.Name,
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 	}
 }

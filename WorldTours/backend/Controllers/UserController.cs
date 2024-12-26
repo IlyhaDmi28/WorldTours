@@ -19,55 +19,82 @@ namespace backend.Controllers
 		[HttpPut("edit")]
 		public async Task<IActionResult> EditUser([FromForm] UserForm user)
 		{
-			User editUser = await db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
-			if (editUser == null) return NotFound();
+			try
+			{
+				User editUser = await db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+				if (editUser == null) return NotFound();
 
-			editUser.Name = user.Name;
-			editUser.Surname = user.Surname;
-			editUser.PhoneNumber = user.PhoneNumber;
-			if (user.PhotoFile != null) editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);
+				editUser.Name = user.Name;
+				editUser.Surname = user.Surname;
+				editUser.PhoneNumber = user.PhoneNumber;
+				if (user.PhotoFile != null) editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);
 
-			await db.SaveChangesAsync();
-			return Ok();
+				await db.SaveChangesAsync();
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[HttpPatch("block")]
 		public async Task<IActionResult> BlockUser([FromQuery] int? userId)
 		{
-			User blockedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
-			if (blockedUser == null) return NotFound();
+			try
+			{
+				User blockedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+				if (blockedUser == null) return NotFound();
 
-			blockedUser.BlockedStatus = !blockedUser.BlockedStatus;
-			await db.SaveChangesAsync();
-			return Ok();
+				blockedUser.BlockedStatus = !blockedUser.BlockedStatus;
+				await db.SaveChangesAsync();
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteUser([FromQuery] int? userId)
 		{
-			User removedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
-			if (removedUser == null) return NotFound();
+			try
+			{
+				User removedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+				if (removedUser == null) return NotFound();
 
-			db.Users.Remove(removedUser);
-			await db.SaveChangesAsync();
-			return Ok();
-
+				db.Users.Remove(removedUser);
+				await db.SaveChangesAsync();
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[HttpGet("users")]
 		public async Task<IActionResult> GetUsers()
 		{
-			return Ok(await db.Users.Select(u => new UserDto()
+			try
 			{
-				Id = u.Id,
-				Name = u.Name,
-				Surname = u.Surname,
-				PhotoUrl = PhotoService.ConvertToBase64(u.Photo, "png"),
-				Email = u.Email,
-				PhoneNumber = u.PhoneNumber,
-				Role = u.Role,
-				BlockedStatus = u.BlockedStatus,
-			}).ToListAsync());
+				return Ok(await db.Users.Select(u => new UserDto()
+				{
+					Id = u.Id,
+					Name = u.Name,
+					Surname = u.Surname,
+					PhotoUrl = PhotoService.ConvertToBase64(u.Photo, "png"),
+					Email = u.Email,
+					PhoneNumber = u.PhoneNumber,
+					Role = u.Role,
+					BlockedStatus = u.BlockedStatus,
+				}).ToListAsync());
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 	}
 }
