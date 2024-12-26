@@ -27,11 +27,17 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
 
 	return (
         <div className="booking-menu">
-            <div className='tour-price'>
-                <b>{selectedRoute.price * seatsNumber}</b>
-                <span>BYN</span>
-            </div>
+            <div className='tour-price-and-seats-number'>
+                <div className='tour-price'>
+                    <b>{selectedRoute.price * seatsNumber}</b>
+                    <span>BYN</span>
+                </div>
 
+                <div className='tour-seats-number'>
+                    Осталось мест: <b>{selectedRoute.seatsNumber}</b>
+                </div>
+            </div>
+            
             <div class="main-booking-parametrs-container">
                 <table class="main-booking-parametrs">
                     <tr>
@@ -72,10 +78,10 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
                     <div className='route-date-and-time'>
                         <div>{selectedRoute.arrivalTimeOfDeparture} - {selectedRoute.landingTimeOfDeparture}</div>
                         <div>{selectedRoute.landingDateOfDeparture}</div>
+                        <div>{selectedRoute.arrivalDateOfDeparture}</div>
                     </div>
                     <div className='route-city-and-duration'>
                         <div>{selectedRoute.departmentDeparture.city} - {direction.city}</div>
-                        <div>6 ч 25 мин</div>
                     </div>
                 </div>
                 {/* <hr></hr> */}
@@ -84,10 +90,10 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
                     <div className='route-date-and-time'>
                         <div>{selectedRoute.arrivalTimeOfReturn} - {selectedRoute.landingTimeOfReturn}</div>
                         <div>{selectedRoute.landingDateOfReturn}</div>
+                        <div>{selectedRoute.arrivalDateOfReturn}</div>
                     </div>
                     <div className='route-city-and-duration'>
                         <div>{direction.city} - {selectedRoute.departmentDeparture.city}</div>
-                        <div>6 ч 25 мин</div>
                     </div>
                 </div>
             </div>

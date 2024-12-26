@@ -2,6 +2,7 @@
 using backend.Models.DTOs;
 using backend.Models.Entity;
 using backend.Models.Forms;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,6 +42,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "User")]
 		[HttpPost("add")]
 		public async Task<IActionResult> AddReview([FromBody] ReviewForm review)
 		{
@@ -58,6 +60,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteReview([FromQuery] int? tourId)
 		{

@@ -106,6 +106,16 @@ function Tour() {
 	}, []);
 
 	const sendApplicationForBooking = async (seatsNumber) => {
+		if(!authUser) {
+			alert("Что бы забронировать тур, вам необходимо войти в аккаунт");
+			return;
+		}
+
+		if(authUser.role !== 1) {
+			alert("Только обычные пользователи могут бронировать туры!")
+			return;
+		}
+
 		if(seatsNumber <= 0) {
 			alert("Вы ввели некоретное количество мест!")
 			return;
@@ -116,37 +126,49 @@ function Tour() {
 			return;
 		}
 
-		if(authUser) {
-			try {
-				const routeId = searchParams.get('routeId');
-				await axios.post('https://localhost:7276/booking/add', {userId: authUser.id, routeId: routeId, orderSeatsNumber: seatsNumber }, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					}
-				});
-	
-				alert("Тур успешно забронирован!"); 
-			 } catch (error) {
-				if(error.response != undefined) {
-					if(error.response.status === 409) {
-						alert("Вы уже забронировали этот тур!"); 
-						return;
-					}
+
+		try {
+			const routeId = searchParams.get('routeId');
+			await axios.post('https://localhost:7276/booking/add', {userId: authUser.id, routeId: routeId, orderSeatsNumber: seatsNumber }, {
+				headers: {
+					Authorization: `Bearer ${token}`,
 				}
+			});
+
+			setSelectedRoute((prevSelectedRoute) => {
+				return {
+					...prevSelectedRoute,
+					seatsNumber: selectedRoute.seatsNumber - seatsNumber
+				}
+			})
 	
-				console.log('Ошибка бронировании тура: ', error);
-			} 
-		}
-		else{
-			alert("Что бы забронировать тур, вам необходимо войти в аккаунт")
-		}
+			alert("Тур успешно забронирован!"); 
+		} catch (error) {
+			if(error.response != undefined) {
+				if(error.response.status === 409) {
+					alert("Вы уже забронировали этот тур!"); 
+					return;
+				}
+				if(error.response.status === 401) {
+					alert("Что бы забронировать тур, вам необходимо войти в аккаунт"); 
+					return;
+				}
+			}
+	
+			console.log('Ошибка бронировании тура: ', error);
+		} 
 	}
 
 	const sendReview = async (e) => {
 		if(!authUser) { 
 			alert("Что бы оставить отзыв, вам необходимо авторизироваться!");
 			return;
-		 }
+		}
+
+		if(authUser.role !== 1) {
+			alert("Только обычные пользователи могут оставлять отзывы!");
+			return;
+		}
 
 		const segments = location.pathname.split('/');
 		const id = segments[segments.length - 1];

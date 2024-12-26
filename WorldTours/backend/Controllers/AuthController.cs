@@ -24,6 +24,7 @@ namespace backend.Controllers
             try
             {
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
+
                 return user != null ? Ok(new UserDto()
                 {
                     Id = user.Id,
@@ -52,7 +53,7 @@ namespace backend.Controllers
                 await db.Users.AddAsync(new User(register));
 			    await db.SaveChangesAsync();
 
-                return Ok(new { token = TokenSevice.GenerateToken(register.Email) });
+                return Ok(new { token = TokenSevice.GenerateToken(register.Email, UserRole.User) });
 			}
 			catch (Exception ex)
 			{
@@ -65,7 +66,8 @@ namespace backend.Controllers
         {
 			try
 			{
-				return await db.Users.FirstOrDefaultAsync(u => u.Email == login.Email && u.Password == login.Password) != null ? Ok(new { token = TokenSevice.GenerateToken(login.Email) }) : Unauthorized();
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == login.Email && u.Password == login.Password);
+				return user != null ? Ok(new { token = TokenSevice.GenerateToken(login.Email, user.Role) }) : Unauthorized();
 			}
 			catch (Exception ex)
 			{

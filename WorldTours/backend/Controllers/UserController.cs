@@ -2,6 +2,7 @@
 using backend.Models.DTOs;
 using backend.Models.Entity;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ namespace backend.Controllers
 			db = context;
 		}
 
+		[Authorize]
 		[HttpPut("edit")]
 		public async Task<IActionResult> EditUser([FromForm] UserForm user)
 		{
@@ -38,6 +40,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPatch("block")]
 		public async Task<IActionResult> BlockUser([FromQuery] int? userId)
 		{
@@ -56,6 +59,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteUser([FromQuery] int? userId)
 		{
@@ -74,6 +78,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpGet("users")]
 		public async Task<IActionResult> GetUsers()
 		{

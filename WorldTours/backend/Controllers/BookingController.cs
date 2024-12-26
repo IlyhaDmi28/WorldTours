@@ -3,9 +3,11 @@ using backend.Models.DTOs;
 using backend.Models.Entity;
 using backend.Models.Forms;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
+using System.Security.Claims;
 using Route = backend.Models.Entity.Route;
 
 namespace backend.Controllers
@@ -22,6 +24,8 @@ namespace backend.Controllers
 		}
 
 		[HttpPost("add")]
+
+		[Authorize(Roles = "User")]
 		public async Task<IActionResult> AddBooking([FromBody] ApplicationForBookingForm applicationForBooking)
 		{
 			try
@@ -72,6 +76,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "User")]
 		[HttpGet("bookings")]
 		public async Task<IActionResult> GetBookings([FromQuery] int? userId)
 		{
@@ -133,6 +138,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "Manager, Admin")]
 		[HttpGet("bookings_for_manager")]
 		public async Task<IActionResult> GetBookingsForManager()
 		{
@@ -206,17 +212,40 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize]
 		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteBooking([FromQuery] int? bookingId)
 		{
 			try
 			{
-				Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
-				if (removedBooking == null) return NotFound();
+				using (var transaction = await db.Database.BeginTransactionAsync())
+				{
+					try
+					{
+						Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
+						if (removedBooking == null) return NotFound();
 
-				db.Bookings.Remove(removedBooking);
-				await db.SaveChangesAsync();
-				return Ok();
+						Route route = await db.Routes.FirstOrDefaultAsync(r => r.Id == removedBooking.RouteId);
+						if (route != null)
+						{
+							route.SeatsNumber += removedBooking.OrderSeatsNumber;
+						}
+
+						User user = await db.Users.FirstOrDefaultAsync(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
+						if (user == null) return StatusCode(403);
+						if (User.FindFirst(ClaimTypes.Role).Value == nameof(UserRole.User) && user.Id != removedBooking.UserId) return StatusCode(403);
+
+						db.Bookings.Remove(removedBooking);
+						await db.SaveChangesAsync();
+						await transaction.CommitAsync();
+						return Ok();
+					}
+					catch
+					{
+						await transaction.RollbackAsync();
+						return BadRequest();
+					}
+				}
 			}
 			catch (Exception ex)
 			{
@@ -224,6 +253,7 @@ namespace backend.Controllers
 			}
 		}
 
+		//[Authorize(Roles = "Manager, Admin")]
 		[HttpPatch("confirm")]
 		public async Task<IActionResult> ConfirmBooking([FromQuery] int? bookingId)
 		{

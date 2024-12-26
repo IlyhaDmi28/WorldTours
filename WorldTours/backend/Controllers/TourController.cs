@@ -3,6 +3,7 @@ using backend.Models.DTOs;
 using backend.Models.Entity;
 using backend.Models.Forms;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -108,6 +109,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "Manager, Admin")]
 		[HttpGet("tour_to_edit")]
 		public async Task<IActionResult> GetTourToEdit([FromQuery] int? tourId = null)
 		{
@@ -211,6 +213,7 @@ namespace backend.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
 
 		[HttpGet("get")]
 		public async Task<IActionResult> GetTour([FromQuery] int? tourId = null)
@@ -321,6 +324,8 @@ namespace backend.Controllers
 					.ThenInclude(t => t.Hotel) 
 					.ThenInclude(h => h.City) 
 					.ThenInclude(c => c.Country) 
+					.Where(r => r.SeatsNumber > 0)
+					.OrderBy(r => r.SeatsNumber)
 					.ToListAsync();
 
 				return Ok(routes.Select(t => new TourCardDto
@@ -356,6 +361,8 @@ namespace backend.Controllers
 					.ThenInclude(t => t.Hotel) 
 					.ThenInclude(h => h.City) 
 					.ThenInclude(c => c.Country)
+					.Where(r => r.SeatsNumber > 0)
+					.OrderBy(r => r.SeatsNumber)
 					.ToListAsync();
 
 				foreach (Tour tour in tours)
@@ -439,6 +446,7 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "Manager, Admin")]
 		[HttpGet("tours_to_edit")]
 		public async Task<IActionResult> GetToursToEdit([FromQuery] int? tourTypeId)
 		{
@@ -488,7 +496,7 @@ namespace backend.Controllers
 			}
 		}
 
-
+		[Authorize(Roles = "Manager, Admin")]
 		[HttpPost("add")]
 		public async Task<IActionResult> AddTour([FromForm] TourForm tour)
 		{
@@ -558,7 +566,7 @@ namespace backend.Controllers
 			}
 		}
 
-
+		[Authorize(Roles = "Manager, Admin")]
 		[HttpPut("edit")]
 		public async Task<IActionResult> EditTour([FromForm] TourForm tour)
 		{
@@ -644,8 +652,9 @@ namespace backend.Controllers
 			}
 		}
 
+		[Authorize(Roles = "Manager, Admin")]
 		[HttpDelete("delete")]
-		public async Task<IActionResult> DeleteTour([FromQuery] int tourId)
+		public async Task<IActionResult> DeleteTour([FromQuery] int? tourId)
 		{
 			try
 			{
@@ -689,7 +698,6 @@ namespace backend.Controllers
 			{
 				return BadRequest(ex.Message);
 			}
-
 		}
 	}
 }

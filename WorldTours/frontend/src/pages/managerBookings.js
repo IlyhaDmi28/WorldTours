@@ -91,9 +91,9 @@ function ManagerBookings() {
 	const deleteBooking = async (id) => {
         await axios.delete(`https://localhost:7276/booking/delete?bookingId=${id}`, {
             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-        });
+				'Authorization': 'Bearer ' + token,
+			}
+		});
 		let response;
 		response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
             headers: {

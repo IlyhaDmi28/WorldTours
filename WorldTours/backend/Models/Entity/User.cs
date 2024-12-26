@@ -5,10 +5,10 @@ namespace backend.Models.Entity
 {
     public enum UserRole
     {
-        GUEST,
-        USER,
-        MANAGER,
-        ADMIN
+        Guest,
+        User,
+        Manager,
+        Admin
     }
     public class User
     {
@@ -42,7 +42,7 @@ namespace backend.Models.Entity
             Surname = surname;
             PhoneNumber = phoneNumber;
         }
-        public User(RegisterForm register, UserRole role = UserRole.USER)
+        public User(RegisterForm register, UserRole role = UserRole.User)
         {
             Email = register.Email;
             Password = register.Password;
