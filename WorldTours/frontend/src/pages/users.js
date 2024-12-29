@@ -54,7 +54,12 @@ function Users() {
     };
 
 	const blockUser = async (id) => {
-        await axios.patch(`https://localhost:7276/user/block?userId=${id}`, {
+		if(authUser.blockedStatus) {
+			alert("Вы не можете заблокироват/разблокировать пользователя, так как ваш профиль был заблокирован!");
+			return;
+		}
+
+        await axios.patch(`https://localhost:7276/user/block?userId=${id}`, {}, {
             headers: {
                 'Authorization': 'Bearer ' + token,
             }
@@ -89,7 +94,51 @@ function Users() {
 	}
 
 	const deleteUser = async (id) => {
+		if(authUser.blockedStatus) {
+			alert("Вы не можете удалить пользователя, так как ваш профиль был заблокирован!");
+			return;
+		}
+
         await axios.delete(`https://localhost:7276/user/delete?userId=${id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+
+		let response;
+		response = await axios.get(`https://localhost:7276/user/users`, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+
+		const usersData = response.data;
+		const notBlockedUsersData = usersData.filter(user => !user.blockedStatus);
+		const blockedUsersData = usersData.filter(user => user.blockedStatus);
+		setAllUsers(usersData);
+		setNotBlockedUsers(notBlockedUsersData);
+		setBlockedUsers(blockedUsersData);
+		setUsers(usersData);
+		
+		for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
+			if(isChangeUserListButtonsActive[i]) {
+				switch(i) {
+					case 0: setUsers(usersData); return;
+					case 1: setUsers(notBlockedUsersData); return;
+					case 2: setUsers(blockedUsersData); return;
+					default: setUsers(usersData); return;
+				}
+			}
+		}
+	}
+
+	const changeRole = async (userId, roleId) => {
+		if(authUser.blockedStatus) {
+			alert("Вы не можете изменить роль пользователя, так как ваш профиль был заблокирован!");
+			return;
+		}
+
+        await axios.patch(`https://localhost:7276/user/change_role?userId=${userId}&roleId=${roleId}`,{}, {
             headers: {
                 'Authorization': 'Bearer ' + token,
             }
@@ -150,7 +199,7 @@ function Users() {
 
 			</div>
 			<div className="users-list">
-				{users.map((user) => (<UserCard user={user} deleteUser={deleteUser} blockUser={blockUser}/>))}
+				{users.map((user) => (<UserCard user={user} deleteUser={deleteUser} blockUser={blockUser} changeRole={changeRole}/>))}
 			</div>
 		</div>
 	);

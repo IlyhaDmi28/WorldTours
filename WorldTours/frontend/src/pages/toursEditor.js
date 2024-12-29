@@ -1,12 +1,14 @@
 import '../styles/tours-editor.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import {UserContext} from '../context/userContext';
 import BigHeader from '../components/general/bigHeader';
 import TourTypesNavForEditor from '../components/toursEditor/tourTypesNavForEditor';
 import TourCardForEditor from '../components/toursEditor/tourCardForEditor';
 const token = localStorage.getItem("token");
 
 function ToursEditor() {
+	const {authUser, setAuthUser} = useContext(UserContext);
 	const [tours, setTours] = useState([])
 	const [selectedTourType, setSelectedTourType] = useState(0);
 
@@ -30,6 +32,11 @@ function ToursEditor() {
 	}, []);
 
 	const deleteTour = async (deletedTour) => {
+		if(authUser.blockedStatus) {
+			alert("Вы не можете удалить тур, так как ваш профиль был заблокирован!");
+			return;
+		}
+
         await axios.delete(`https://localhost:7276/tour/delete?tourId=${deletedTour.id}`, {
             headers: {
                 'Authorization': 'Bearer ' + token,

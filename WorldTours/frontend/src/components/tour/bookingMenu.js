@@ -43,11 +43,11 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
                     <tr>
                         <td style={{borderRadius: '10px 0px 0px 0px', borderRight: '1px solid black', borderBottom: '1px solid black'}}>
                             Дата отправления<br/>
-                            <input type="date" value={convertDateToInputFormat(selectedRoute.landingDateOfDeparture)}/>
+                            <input disabled  type="date" value={convertDateToInputFormat(selectedRoute.landingDateOfDeparture)}/>
                         </td>
                         <td style={{borderRadius: '0px 10px 0px 0px'}}>
                             Дата возвращение<br/>
-                            <input type="date" value={convertDateToInputFormat(selectedRoute.arrivalDateOfReturn)}/>
+                            <input disabled  type="date" value={convertDateToInputFormat(selectedRoute.arrivalDateOfReturn)}/>
                         </td>
                     </tr>
                     <tr>
@@ -65,7 +65,7 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
 
             <div className="people-count">
                 <div>Количество людей:</div>
-                <input type="number" value={seatsNumber} onChange={(e) => setSeatsNumber(e.target.value)}/>
+                <input type="number" min={1} max={selectedRoute.seatsNumber} value={seatsNumber} onChange={(e) => setSeatsNumber(e.target.value)}/>
             </div>
 
             <button className="tour-application-button" onClick={() => sendApplicationForBooking(seatsNumber)}>

@@ -253,7 +253,7 @@ namespace backend.Controllers
 			}
 		}
 
-		//[Authorize(Roles = "Manager, Admin")]
+		[Authorize(Roles = "Manager, Admin")]
 		[HttpPatch("confirm")]
 		public async Task<IActionResult> ConfirmBooking([FromQuery] int? bookingId)
 		{

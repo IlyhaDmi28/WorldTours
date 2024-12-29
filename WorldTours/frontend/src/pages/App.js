@@ -12,9 +12,9 @@ import Survey from './survey';
 import User from './user';
 import UserBookings from './userBookings';
 import ManagerBookings from './managerBookings';
-import History from './history';
 import Payment from './payment';
 import Campany from './campany';
+import Error from './error';
 import { UserContext } from '../context/userContext';
 const token = localStorage.getItem("token");
 
@@ -62,6 +62,7 @@ function App() {
 					<Route path="/user" element={<User/>} />
 					<Route path="/payment" element={<Payment/>} />
 					<Route path="/campany" element={<Campany/>} />
+					<Route path="/error/:id" element={<Error/>} />
 
 					{(authUser.role === 2 || authUser.role === 3) && (
 						<>
@@ -81,8 +82,6 @@ function App() {
 					)}
 
 					<Route path="/bookings" element={authUser && authUser.role === 1 ? <UserBookings/> : <Navigate to="/auth" replace />} />
-					<Route path="/history" element={authUser && authUser.role === 1 ? <History/> : <Navigate to="/auth" replace />} />
-
 					{(authUser.role === 2 || authUser.role === 3) && (
 						<>
 							<Route path="/tour_editor/:id" element={authUser ? <TourEditor /> : <Navigate to="/auth" replace />} />

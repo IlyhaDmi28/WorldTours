@@ -79,6 +79,25 @@ namespace backend.Controllers
 		}
 
 		[Authorize(Roles = "Admin")]
+		[HttpPatch("change_role")]
+		public async Task<IActionResult> ChangeRole([FromQuery] int? userId, [FromQuery] UserRole? roleId)
+		{
+			try
+			{
+				User editedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+				if (editedUser == null) return NotFound();
+
+				editedUser.Role = (UserRole)roleId;
+				await db.SaveChangesAsync();
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[Authorize(Roles = "Admin")]
 		[HttpGet("users")]
 		public async Task<IActionResult> GetUsers()
 		{

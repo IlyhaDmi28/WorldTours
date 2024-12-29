@@ -40,7 +40,7 @@ function BookingCardForManager({ booking, deleteBooking, confirmBooking }) {
             <div className="booking-card-user-info">
                 <b>От пользователя:</b> {booking.user.name} {booking.user.surname}, {booking.user.email}, {booking.user.phoneNumber}
             </div>
-            { !booking.status ?  (
+                { !booking.status ?  (
                     <div className="booking-card-confirmation" onClick={(e)=>{e.preventDefault(); confirmBooking(booking.id)}}>
                         Нажмите подтвердить
                     </div>

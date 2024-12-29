@@ -152,15 +152,15 @@ function MainFilters({filter, setFilter, setTours}) {
             <hr></hr>
 
             <div className="input-date">
-                <div>Прибытие</div>
-                <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, dateOfDeparture: e.target.value}}))}/>
+                <div>Отправления с</div>
+                <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, minDateOfDeparture: e.target.value}}))}/>
             </div>
 
             <hr></hr>
 
             <div className="input-date">
-                <div>Убытие</div>
-                <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, dateOfReturn: e.target.value}}))}/>
+                <div>Отправления до</div>
+                <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, maxDateOfDeparture: e.target.value}}))}/>
             </div>
 
             <hr></hr>

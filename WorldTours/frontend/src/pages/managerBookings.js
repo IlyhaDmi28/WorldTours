@@ -55,7 +55,12 @@ function ManagerBookings() {
     };
 
 	const confirmBooking = async (id) => {
-        await axios.patch(`https://localhost:7276/booking/confirm?bookingId=${id}`, {
+		if(authUser.blockedStatus) {
+			alert("Вы не подтвердить бронь тура, так как ваш профиль был заблокирован!");
+			return;
+		}
+
+        await axios.patch(`https://localhost:7276/booking/confirm?bookingId=${id}`, {}, {
             headers: {
                 'Authorization': 'Bearer ' + token,
             }
@@ -89,6 +94,11 @@ function ManagerBookings() {
 	}
 
 	const deleteBooking = async (id) => {
+		if(authUser.blockedStatus) {
+			alert("Вы не удалить бронь тура, так как ваш профиль был заблокирован!");
+			return;
+		}
+
         await axios.delete(`https://localhost:7276/booking/delete?bookingId=${id}`, {
             headers: {
 				'Authorization': 'Bearer ' + token,

@@ -8,7 +8,6 @@ import BookingMenu from '../components/tour/bookingMenu';
 import ReviewCard from '../components/tour/reviewCard';
 import noPhoto from '../img/noPhoto.png';
 import star from '../img/star.svg';
-import food from '../img/food.svg';
 const token = localStorage.getItem("token");
 
 function Tour() {
@@ -77,6 +76,8 @@ function Tour() {
 				
 				setPhotoUrl(tourData.photoUrl === "" ? noPhoto : tourData.photoUrl);
 				console.log(tourData.routes.find(route => route.id === +routeId));
+				const route  = tourData.routes.find(route => route.id === +routeId)
+				if(route === undefined || route === null)  window.location.href = '/error/0';
 				setSelectedRoute(tourData.routes.find(route => route.id === +routeId));
 
 				response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
@@ -113,6 +114,11 @@ function Tour() {
 
 		if(authUser.role !== 1) {
 			alert("Только обычные пользователи могут бронировать туры!")
+			return;
+		}
+
+		if(authUser.blockedStatus) {
+			alert("Вы не можете забронировать тур, так как ваш профиль был заблокирован!");
 			return;
 		}
 
@@ -164,9 +170,14 @@ function Tour() {
 			alert("Что бы оставить отзыв, вам необходимо авторизироваться!");
 			return;
 		}
-
+		
 		if(authUser.role !== 1) {
 			alert("Только обычные пользователи могут оставлять отзывы!");
+			return;
+		}
+
+		if(authUser.blockedStatus) {
+			alert("Вы не можете оставить отзыв, так как ваш профиль был заблокирован!");
 			return;
 		}
 

@@ -1,7 +1,8 @@
 import '../styles/tour-editor.scss';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import {UserContext} from '../context/userContext';
 import Header from '../components/general/header';
 import Regions from '../components/general/regions';
 import Countries from '../components/general/countries';
@@ -16,6 +17,7 @@ import delete3 from '../img/delete3.svg'
 const token = localStorage.getItem("token");
 
 function TourEditor() {
+	const {authUser, setAuthUser} = useContext(UserContext);
 	const location = useLocation();
 	const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
 	const [directionInfo, setDirectionInfo] = useState({
@@ -298,6 +300,11 @@ function TourEditor() {
 	};
 
 	const addRoute = (routes) => {
+		if(authUser.blockedStatus) {
+			alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
+			return;
+		}
+
 		 setTour((prevTour) => ({
 			...prevTour,
 			["routes"]: routes,
@@ -305,6 +312,11 @@ function TourEditor() {
 	}
 
 	const saveTour = async () => {
+		if(authUser.blockedStatus) {
+			alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
+			return;
+		}
+
 		if(
 			(tour.name === "" || tour.name === null) ||
 			(tour.mainDescription === "" || tour.mainDescription === null) ||
