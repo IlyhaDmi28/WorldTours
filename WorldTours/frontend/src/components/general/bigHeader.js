@@ -16,7 +16,7 @@ function BigHeader({filter, setFilter, setTours}) {
                 <div className="info-href">
                     <a href="/campany">О компнаии</a>
                     <a href="/payment">Оплата</a>
-                    <a href="/survey">Куда поехать?</a>
+                    <a href="/travel_info">Куда поехать?</a>
                 </div>
                 {
                     (!authUser|| authUser.role === 1) && <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>

@@ -12,7 +12,7 @@ function Header() {
                 <div className="info-href" style={{width: "40%"}}>
                     <a href="/campany">О компнаии</a>
                     <a href="/payment">Оплата</a>
-                    <a href="/survey">Куда поехать?</a>
+                    <a href="/travel_info">Куда поехать?</a>
                 </div>
             </div>  
             <UserConroller right={'7.5%'}/>

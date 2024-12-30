@@ -12,7 +12,7 @@ INSERT INTO Roles (`Name`) VALUES ('Администратор');
 
 SELECT * FROM Roles;
 
-
+DROP TABLE Users;
 CREATE TABLE `Users` (
   `ID` INT PRIMARY KEY AUTO_INCREMENT,
   `Email` VARCHAR(255) UNIQUE NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `Users` (
 
 SELECT * FROM users;
 
-
+DROP TABLE TourTypes;
 CREATE TABLE TourTypes (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   NAME VARCHAR(255) UNIQUE NOT NULL
@@ -56,6 +56,7 @@ SELECT * FROM characteristictypes;
 SELECT * FROM TourTypes;
 SELECT * FROM characteristics;
 
+DROP TABLE Characteristics;
 CREATE TABLE Characteristics (
   	ID INT PRIMARY KEY AUTO_INCREMENT,
   	CharacteristicTypeID INT,
@@ -184,7 +185,7 @@ ALTER TABLE Countries ADD Flag BLOB;
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Болгария', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/bulgaria.svg'),  1);
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Беларусь', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/belarus.svg'),  1);
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('ОАЭ', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/uae.svg'),  2);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Тайланд', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/thailand.svg'),  10);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Тайланд', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/thailand.svg'),  7);
 INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Норвегия', LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/norway.svg'),  1);
 
 UPDATE Countries SET Flag = LOAD_FILE('D:/Univer/Курсач/WorldTours/frontend/src/img/flags/norway.svg') WHERE NAME = 'Норвегия';
@@ -258,7 +259,7 @@ INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Северный мир'
 
 SELECT * FROM hotels;
 
-
+DROP TABLE nutritiontypes;
 CREATE TABLE NutritionTypes (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255) UNIQUE NOT NULL
@@ -272,6 +273,7 @@ INSERT INTO NutritionTypes (NAME) VALUES ('AI (All inclusive) — всё вкл�
 
 SELECT * FROM nutritiontypes;
 
+DROP TABLE Tours;
 CREATE TABLE Tours (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	Name VARCHAR(255) UNIQUE NOT NULL,

@@ -48,15 +48,17 @@ namespace backend.Controllers
 			{
 				List<DepartmentDeparture> cities = await db.DepartmentDepartures
 					.Include(dd => dd.City)
-					.GroupBy(c => c.Id)
-					.Select(c => c.First())
 					.ToListAsync();
 
-				return Ok(cities.Select(dd => new CityDto
-				{
-					Id = dd.City.Id,
-					Name = dd.City.Name
-				}));
+				return Ok(cities
+					.Select(dd => new CityDto
+					{
+						Id = dd.City.Id,
+						Name = dd.City.Name
+					})
+					.GroupBy(c => c.Id)
+					.Select(c => c.First())
+				);
 			}
 			catch (Exception ex)
 			{

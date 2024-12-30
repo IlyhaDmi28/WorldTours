@@ -9,20 +9,104 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\argentina.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\argentina.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\australia.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\australia.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\belarus.svg",
       "PackagePath": "staticwebassets\\img\\flags\\belarus.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\brazil.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\brazil.svg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\bulgaria.svg",
       "PackagePath": "staticwebassets\\img\\flags\\bulgaria.svg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\canada.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\canada.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\democratic_republic_of_the_congo.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\democratic_republic_of_the_congo.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\egypt.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\egypt.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\france.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\france.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\iItaly.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\iItaly.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\india.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\india.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\indonesia.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\indonesia.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\israel.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\israel.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\japan.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\japan.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\jordan.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\jordan.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\kazakhstan.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\kazakhstan.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\kenya.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\kenya.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\kyrgyzstan.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\kyrgyzstan.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\mexico.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\mexico.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\new_zealand.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\new_zealand.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\norway.svg",
       "PackagePath": "staticwebassets\\img\\flags\\norway.svg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\south_korea.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\south_korea.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\switzerland.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\switzerland.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\thailand.svg",
       "PackagePath": "staticwebassets\\img\\flags\\thailand.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\tunisia.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\tunisia.svg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\turkey.svg",
@@ -31,6 +115,30 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\uae.svg",
       "PackagePath": "staticwebassets\\img\\flags\\uae.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\uar.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\uar.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\usa.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\usa.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\uzbekistan.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\uzbekistan.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\vietnam.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\vietnam.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\сhina.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\сhina.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\сuba.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\сuba.svg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\months\\february.jpg",

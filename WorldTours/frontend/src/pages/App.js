@@ -8,7 +8,7 @@ import Tour from './tour';
 import TourEditor from './tourEditor';
 import Users from './users';
 import Auth from './auth';
-import Survey from './survey';
+import TravelInfo from './travelInfo';
 import User from './user';
 import UserBookings from './userBookings';
 import ManagerBookings from './managerBookings';
@@ -58,7 +58,7 @@ function App() {
 					<Route path="/tours" element={authUser.role === 2 || authUser.role === 3 ? <ToursEditor/> : <Tours/>} />
 					<Route path="/auth" element={<Auth />} />
 					<Route path="/tour/:id" element={<Tour />} />
-					<Route path="/survey" element={<Survey />} />
+					<Route path="/travel_info" element={<TravelInfo />} />
 					<Route path="/user" element={<User/>} />
 					<Route path="/payment" element={<Payment/>} />
 					<Route path="/campany" element={<Campany/>} />
