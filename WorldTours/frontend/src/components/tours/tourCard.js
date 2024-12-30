@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import noPhoto from '../../img/noPhoto.png';
 import star from '../../img/star.svg'
 
@@ -16,7 +17,7 @@ function TourCard({ tour }) {
     //     }
     // };
 	return (
-	    <a className="tour-card" href={`/tour/${tour.id}?routeId=${tour.routeId}`}>
+	    <Link className="tour-card" to={`/tour/${tour.id}?routeId=${tour.routeId}`}>
             <img className="tour-card-img" src={tour.photoUrl === "" ? noPhoto : tour.photoUrl}/>
             <div className="tour-card-info">
                 <div>
@@ -43,7 +44,7 @@ function TourCard({ tour }) {
                     </div>
                 </div>
             </div>
-        </a>
+        </Link>
   	);
 }
 

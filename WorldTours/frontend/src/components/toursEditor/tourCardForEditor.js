@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import noPhoto from '../../img/noPhoto.png';
 import star from '../../img/star.svg'
 import close from '../../img/close.svg'
@@ -7,7 +8,7 @@ function TourCardForEditor({ tour, deleteTour }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
-	    <a className="tour-card-for-editor" href={`/tour_editor/${tour.id}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+	    <Link className="tour-card-for-editor" to={`/tour_editor/${tour.id}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             {isHovered && 
                	<button className="tour-card-for-editor-delete-button" onClick={(e)=>{e.preventDefault(); deleteTour(tour)}}>
                    <img src={close}/>
@@ -26,7 +27,7 @@ function TourCardForEditor({ tour, deleteTour }) {
                     {Array(tour.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
                 </div>
             </div>
-        </a>
+        </Link>
   	);
 }
 

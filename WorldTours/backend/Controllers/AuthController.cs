@@ -50,6 +50,7 @@ namespace backend.Controllers
 			{
 				if (await db.Users.FirstOrDefaultAsync(u => u.Email == register.Email) != null) return Conflict(new { message = "Этот email уже используется." });
 
+                register.Password = HashService.ComputeHash(register.Password);
                 await db.Users.AddAsync(new User(register));
 			    await db.SaveChangesAsync();
 
@@ -66,8 +67,8 @@ namespace backend.Controllers
         {
 			try
 			{
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == login.Email && u.Password == login.Password);
-				return user != null ? Ok(new { token = TokenSevice.GenerateToken(login.Email, user.Role) }) : Unauthorized();
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == login.Email);
+				return user != null && HashService.VerifyHash(login.Password, user.Password) ? Ok(new { token = TokenSevice.GenerateToken(login.Email, user.Role) }) : Unauthorized();
 			}
 			catch (Exception ex)
 			{

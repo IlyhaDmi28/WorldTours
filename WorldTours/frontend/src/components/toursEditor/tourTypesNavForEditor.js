@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TourType from '../tours/tourType'
 import all from '../../img/all.svg'
@@ -54,9 +55,9 @@ function TypesTourNav({setTours, setSelectedTourType, selectedTourType}) {
 			{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={selectedTourType} setTourType={() => changeTourType(tourType.id)}/>))}
 
 			<div className='filter-and-add-tour-button'>
-				<a className='add-tour-button' href='/tour_editor/0'>
+				<Link className='add-tour-button' to='/tour_editor/0'>
 					<img src={add}/>
-				</a>
+				</Link>
 			</div>
         </div>
   	);

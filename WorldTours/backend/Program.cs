@@ -69,15 +69,19 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseCors("AllowSpecificOrigins");
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(); // Обслуживание статических файлов React
+app.UseCors("AllowSpecificOrigins");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-    
+
+// Fallback для маршрутов React SPA
+app.MapFallbackToFile("index.html");
+
+// Маршруты контроллеров
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

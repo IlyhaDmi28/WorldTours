@@ -67,7 +67,7 @@ namespace backend.Controllers
 			try
 			{
 				Review deletedReview = await db.Reviews.FirstOrDefaultAsync(r => r.Id == tourId);
-				if (deletedReview != null) return NotFound();
+				if (deletedReview == null) return NotFound();
 
 				db.Remove(deletedReview);
 				await db.SaveChangesAsync();

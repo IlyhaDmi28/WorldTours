@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import tourp from '../../img/test.jpg'
+import { Link } from 'react-router-dom';
 import star from '../../img/star.svg'
 import deleteButon from '../../img/delete.svg'
 
@@ -7,7 +7,7 @@ function BookingCard({ booking, deleteBooking }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
-	    <a className="booking-card" href={`/tour/${booking.tourId}?routeId=${booking.routeId}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+	    <Link className="booking-card" to={`/tour/${booking.tourId}?routeId=${booking.routeId}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <img className="booking-card-img" src={booking.tourPhotoUrl}/>
             <div className='booking-card-name'>
                 <b>{booking.tourName}</b>
@@ -63,7 +63,7 @@ function BookingCard({ booking, deleteBooking }) {
                     <img src={deleteButon}/>
                 </button>
             }
-        </a>
+        </Link>
   	);
 }
 

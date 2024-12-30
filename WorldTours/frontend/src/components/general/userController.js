@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {UserContext} from '../../context/userContext';
 import account from '../../img/account.svg';
 
@@ -21,10 +22,10 @@ function UserController({ right }) {
                 <img src={authUser.photoUrl === null ? account : authUser.photoUrl}/>
             </button>) : 
             (<button className="user-button" style={{marginTop: '3px'}}>
-                <a href="/auth">
+                <Link to="/auth">
                     <img src={account}/>
                     <b>Войти</b>
-                </a>
+                </Link>
             </button>)
             }
 
@@ -32,12 +33,12 @@ function UserController({ right }) {
             {isOpenUserMenu && (
                 <div className='user-menu' style={{ right }}>
                     <ul>
-                        <li><a href='/user'>Редактировать профиль</a></li>
-                        { authUser.role === 1 && <li><a href='/bookings'>Мои брони</a></li> }
-                        { (authUser.role === 2 || authUser.role === 3) && <li><a href='/bookings'>Заявки на брони</a></li> }
-                        { authUser.role === 3 && <li><a href='/users'>Пользователи</a></li> }
+                        <li><Link to='/user'>Редактировать профиль</Link></li>
+                        { authUser.role === 1 && <li><Link to='/bookings'>Мои брони</Link></li> }
+                        { (authUser.role === 2 || authUser.role === 3) && <li><Link to='/bookings'>Заявки на брони</Link></li> }
+                        { authUser.role === 3 && <li><Link to='/users'>Пользователи</Link></li> }
                         
-                        <li><a href='/tours' style={{color: 'red'}} onClick={logout}>Выйти</a></li>
+                        <li><Link to='/tours' style={{color: 'red'}} onClick={logout}>Выйти</Link></li>
                     </ul>
                 </div>
             )}

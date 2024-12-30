@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.acd15554.css",
+    "main.js": "/static/js/main.499e449c.js",
+    "static/media/team.jpg": "/static/media/team.06fd7bf784dc04183177.jpg",
+    "static/media/logo.png": "/static/media/logo.fc3e93cead041b944f6c.png",
+    "static/media/selectNewPhoto.png": "/static/media/selectNewPhoto.3b2fc0aa369dd6448276.png",
+    "static/media/world.jpg": "/static/media/world.45a182d8688f77baddb6.jpg",
+    "static/media/money.png": "/static/media/money.08aa846d63bc4214ea57.png",
+    "static/media/noPhoto.png": "/static/media/noPhoto.44cac6f65cac84655658.png",
+    "static/media/all.svg": "/static/media/all.87cab03440c6f7cea87a55fe08bac73f.svg",
+    "static/media/ship.svg": "/static/media/ship.d29a80a403675aa964fbc6d76546b0a6.svg",
+    "static/media/bus.svg": "/static/media/bus.f10a0093a85ebd3f03d21d1d3e911e13.svg",
+    "static/media/delete3.svg": "/static/media/delete3.7f80df3931183501f7c87a6b578f41cf.svg",
+    "index.html": "/index.html",
+    "static/media/delete.svg": "/static/media/delete.b1884c5c3e3b278619f619d7547ca9a2.svg",
+    "static/media/airplane.svg": "/static/media/airplane.4026a9a1eb2d2bec1cf97f65fd53ff1f.svg",
+    "static/media/add.svg": "/static/media/add.a7e02350128e1696901529c26de3b8a1.svg",
+    "static/media/delete2.svg": "/static/media/delete2.bd1a061664cdbdd56213969be692e8a2.svg",
+    "static/media/account.svg": "/static/media/account.1688d641a814a9b7dfd71c62394ee828.svg",
+    "static/media/filter.svg": "/static/media/filter.6ea794cdfd82c23a9a9e3f9395916033.svg",
+    "static/media/search.svg": "/static/media/search.0f06f3b5cc005df931f8f8e0a1379f50.svg",
+    "static/media/close.svg": "/static/media/close.fb5bd342e45962bd74168207d7fcb488.svg",
+    "static/media/dark-star.svg": "/static/media/dark-star.224bc5290017337d732d56ff9208889c.svg",
+    "static/media/star.svg": "/static/media/star.3472846b3427817615cd6c658faec760.svg",
+    "main.acd15554.css.map": "/static/css/main.acd15554.css.map",
+    "main.499e449c.js.map": "/static/js/main.499e449c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.acd15554.css",
+    "static/js/main.499e449c.js"
+  ]
+}

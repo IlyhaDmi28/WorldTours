@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import {UserContext} from '../../context/userContext';
 import MainFilters from './mainFilters';
 import UserConroller from './userController';   
@@ -9,14 +10,14 @@ function BigHeader({filter, setFilter, setTours}) {
 
 	return (
 	    <header style={(authUser && authUser.role !== 1) ? {height: '100px'} : {}}>
-            <a className='logo-href' href='/tours'>
+            <Link className='logo-href' to="/tours">
                 <img src={logo} alt="logo" />
-            </a>
+            </Link>
             <div className="info-and-main-filters">
                 <div className="info-href">
-                    <a href="/campany">О компнаии</a>
-                    <a href="/payment">Оплата</a>
-                    <a href="/travel_info">Куда поехать?</a>
+                    <Link to="/campany">О компнаии</Link>
+                    <Link to="/payment">Оплата</Link>
+                    <Link to="/travel_info">Куда поехать?</Link>
                 </div>
                 {
                     (!authUser|| authUser.role === 1) && <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>

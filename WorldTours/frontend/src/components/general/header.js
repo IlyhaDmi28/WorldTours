@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import UserConroller from './userController';
 import logo from '../../img/logo.png';
 
 function Header() {
 	return (
 	    <header style={{height: '100px'}}>
-            <a className='logo-href' href='/tours'>
+            <Link className='logo-href' to="/tours">
                 <img src={logo} alt="logo" />
-            </a>
+            </Link>
             <div className="info-and-main-filters">
                 <div className="info-href" style={{width: "40%"}}>
-                    <a href="/campany">О компнаии</a>
-                    <a href="/payment">Оплата</a>
-                    <a href="/travel_info">Куда поехать?</a>
+                    <Link to="/campany">О компнаии</Link>
+                    <Link to="/payment">Оплата</Link>
+                    <Link to="/travel_info">Куда поехать?</Link>
                 </div>
             </div>  
             <UserConroller right={'7.5%'}/>
