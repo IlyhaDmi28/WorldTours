@@ -1,14 +1,20 @@
+SET NAMES 'utf8mb4';
+SET character_set_client = 'utf8mb4';
+SET character_set_connection = 'utf8mb4';
+SET character_set_results = 'utf8mb4';
+SET character_set_server = 'utf8mb4';
+
 INSERT INTO Roles (`Name`) VALUES ('Пользователь');
 INSERT INTO Roles (`Name`) VALUES ('Менеджер');
 INSERT INTO Roles (`Name`) VALUES ('Администратор');
 
 INSERT INTO Users (`Email`, `Password`, `Role`, `Name`, `Surname`, `PhoneNumber`, `Photo`) VALUES ('admin@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3, 'Admin', 'Admin', '+375336461866', LOAD_FILE('D:/Univer/Курсач/Аватарки/i.png'));
 
-INSERT INTO TourTypes (Name, Image) VALUES ('Отдых на море', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/TourTypes/sea.svg'));
-INSERT INTO TourTypes (Name, Image) VALUES ('Горнолыжный курорт', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/TourTypes/ski.svg'));
-INSERT INTO TourTypes (Name, Image) VALUES ('Путешествия по природе', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/TourTypes/nature.svg'));
-INSERT INTO TourTypes (Name, Image) VALUES ('Культурный туризм', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/TourTypes/culture.svg'));
-INSERT INTO TourTypes (Name, Image) VALUES ('Обычная поездка', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/TourTypes/bus.svg'));
+INSERT INTO TourTypes (Name, Image) VALUES ('Отдых на море', LOAD_FILE('/tmp/sea.svg'));
+INSERT INTO TourTypes (Name, Image) VALUES ('Горнолыжный курорт', LOAD_FILE('/tmp/ski.svg'));
+INSERT INTO TourTypes (Name, Image) VALUES ('Путешествия по природе', LOAD_FILE('/tmp/nature.svg'));
+INSERT INTO TourTypes (Name, Image) VALUES ('Культурный туризм', LOAD_FILE('/tmp/culture.svg'));
+INSERT INTO TourTypes (Name, Image) VALUES ('Обычная поездка', LOAD_FILE('/tmp/bus.svg'));
 
 INSERT INTO CharacteristicTypes (Name) VALUES ('Расположение');
 INSERT INTO CharacteristicTypes (Name) VALUES ('В номере');
@@ -72,53 +78,52 @@ INSERT INTO TransportTypes (NAME) VALUES ('Самолёт');
 INSERT INTO TransportTypes (NAME) VALUES ('Автобус');
 INSERT INTO TransportTypes (NAME) VALUES ('Корабль');
 
-INSERT INTO Regions (Name, Image) VALUES ('Европа и Россия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/europe.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Ближний Восток', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/middle-east.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Северная Африка', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/north-africa.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Африка', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/africa.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Латинская Америка', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/latin-america.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Северная Америка', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/north-america.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Юго-Восточная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/south-east-asia.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Центральная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/central-asia.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Южная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/south-asia.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Восточная Азия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/east-asia.jpg'));
-INSERT INTO Regions (Name, Image) VALUES ('Океания', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/regions/oceania.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Европа и Россия', LOAD_FILE('/tmp/europe.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Ближний Восток', LOAD_FILE('/tmp/middle-east.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Северная Африка', LOAD_FILE('/tmp/north-africa.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Африка', LOAD_FILE('/tmp/africa.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Латинская Америка', LOAD_FILE('/tmp/latin-america.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Северная Америка', LOAD_FILE('/tmp/north-america.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Юго-Восточная Азия', LOAD_FILE('/tmp/south-east-asia.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Центральная Азия', LOAD_FILE('/tmp/central-asia.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Южная Азия', LOAD_FILE('/tmp/south-asia.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Восточная Азия', LOAD_FILE('/tmp/east-asia.jpg'));
+INSERT INTO Regions (Name, Image) VALUES ('Океания', LOAD_FILE('/tmp/oceania.jpg'));
 
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Аргентина', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/argentina.svg'), 5);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Австралия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/australia.svg'), 11);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Беларусь', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/belarus.svg'), 1);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Бразилия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/brazil.svg'), 5);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Болгария', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/bulgaria.svg'), 1);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Канада', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/canada.svg'), 6);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Дем. Респ. Конго', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/democratic_republic_of_the_congo.svg'), 4);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Египет', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/egypt.svg'), 3);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Франция', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/france.svg'), 1);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Италия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/italy.svg'), 1);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Индия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/india.svg'), 9);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Индонезия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/indonesia.svg'), 7);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Израиль', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/israel.svg'), 2);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Япония', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/japan.svg'), 10);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Иордания', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/jordan.svg'), 2);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Казахстан', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/kazakhstan.svg'), 8);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Кения', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/kenya.svg'), 4);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Кыргизстан', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/kyrgyzstan.svg'), 8);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Мексика', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/mexico.svg'), 5);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Новая Зеландия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/new_zealand.svg'), 11);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Норвегия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/norway.svg'), 1);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Южная Корея', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/south_korea.svg'), 10);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Швейцария', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/switzerland.svg'), 1);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Тайланд', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/thailand.svg'), 7);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Тунис', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/tunisia.svg'), 3);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Турция', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/turkey.svg'), 2);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('ОАЭ', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/uae.svg'), 2);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('США', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/usa.svg'), 6);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Узбекистан', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/uzbekistan.svg'), 8);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Вьетнам', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/vietnam.svg'), 7);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Китай', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/сhina.svg'), 10);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Куба', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/сuba.svg'),  5);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Россия', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/russia.svg'),  1);
-INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Польша', LOAD_FILE('D:/Univer/Курсач/WorldTours/backend/wwwroot/img/flags/poland.svg'),  1);
-SELECT * FROM countries;
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Аргентина', LOAD_FILE('/tmp/argentina.svg'), 5);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Австралия', LOAD_FILE('/tmp/australia.svg'), 11);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Беларусь', LOAD_FILE('/tmp/belarus.svg'), 1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Бразилия', LOAD_FILE('/tmp/brazil.svg'), 5);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Болгария', LOAD_FILE('/tmp/bulgaria.svg'), 1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Канада', LOAD_FILE('/tmp/canada.svg'), 6);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Дем. Респ. Конго', LOAD_FILE('/tmp/democratic_republic_of_the_congo.svg'), 4);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Египет', LOAD_FILE('/tmp/egypt.svg'), 3);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Франция', LOAD_FILE('/tmp/france.svg'), 1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Италия', LOAD_FILE('/tmp/italy.svg'), 1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Индия', LOAD_FILE('/tmp/india.svg'), 9);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Индонезия', LOAD_FILE('/tmp/indonesia.svg'), 7);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Израиль', LOAD_FILE('/tmp/israel.svg'), 2);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Япония', LOAD_FILE('/tmp/japan.svg'), 10);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Иордания', LOAD_FILE('/tmp/jordan.svg'), 2);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Казахстан', LOAD_FILE('/tmp/kazakhstan.svg'), 8);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Кения', LOAD_FILE('/tmp/kenya.svg'), 4);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Кыргизстан', LOAD_FILE('/tmp/kyrgyzstan.svg'), 8);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Мексика', LOAD_FILE('/tmp/mexico.svg'), 5);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Новая Зеландия', LOAD_FILE('/tmp/new_zealand.svg'), 11);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Норвегия', LOAD_FILE('/tmp/norway.svg'), 1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Южная Корея', LOAD_FILE('/tmp/south_korea.svg'), 10);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Швейцария', LOAD_FILE('/tmp/switzerland.svg'), 1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Тайланд', LOAD_FILE('/tmp/thailand.svg'), 7);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Тунис', LOAD_FILE('/tmp/tunisia.svg'), 3);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Турция', LOAD_FILE('/tmp/turkey.svg'), 2);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('ОАЭ', LOAD_FILE('/tmp/uae.svg'), 2);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('США', LOAD_FILE('/tmp/usa.svg'), 6);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Узбекистан', LOAD_FILE('/tmp/uzbekistan.svg'), 8);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Вьетнам', LOAD_FILE('/tmp/vietnam.svg'), 7);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Китай', LOAD_FILE('/tmp/сhina.svg'), 10);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Куба', LOAD_FILE('/tmp/сuba.svg'),  5);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Россия', LOAD_FILE('/tmp/russia.svg'),  1);
+INSERT INTO Countries (NAME, Flag, RegionId) VALUES ('Польша', LOAD_FILE('/tmp/poland.svg'),  1);
 
 INSERT INTO Cities (NAME, CountryId) VALUES ('Минск', 3);
 INSERT INTO Cities (NAME, CountryId) VALUES ('Брест', 3);
@@ -257,8 +262,6 @@ INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Аэропорт «Жу
 INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Варшавский аэропорт имени Фридерика Шопена', 89);
 
 INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Порт Майами', 78);
-
-SELECT * FROM cities;
 
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hotel Tango', 4, 5);
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Plaza del Sol', 3, 5);
@@ -517,4 +520,3 @@ INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Capitolio Charm Inn', 3,
 
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Caribbean Sands Resort', 4, 87);
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('White Sand Retreat', 3, 87);
-SELECT * FROM Hotels;

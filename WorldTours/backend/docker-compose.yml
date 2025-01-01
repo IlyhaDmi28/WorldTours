@@ -1,0 +1,39 @@
+﻿services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5119:5119"
+      - "7276:7276"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:7276;http://+:5119
+      - FFMpegPath=/usr/bin/
+      - ConnectionStrings__DefaultConnection=Server=database;Port=3306;Database=worldtours;User=root;Password=bkmz28012004
+    depends_on:
+      - database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webapp-http.rule=Host(`localhost`)"
+      - "traefik.http.services.webapp.loadbalancer.server.port=5119"
+      - "traefik.http.routers.webapp-https.rule=Host(`localhost`)"
+      - "traefik.http.routers.webapp-https.tls=true"
+      - "traefik.http.services.webapp-https.loadbalancer.server.port=7276"
+    volumes:
+      - ./Data:/app/Data
+
+  database:
+    image: mariadb:10.5.2
+    environment:
+      MYSQL_DATABASE: worldtours
+      MYSQL_USER: root
+      MYSQL_PASSWORD: bkmz28012004
+      MYSQL_ROOT_PASSWORD: bkmz28012004
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:

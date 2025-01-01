@@ -89,6 +89,14 @@
       "PackagePath": "staticwebassets\\img\\flags\\norway.svg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\poland.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\poland.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\russia.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\russia.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\south_korea.svg",
       "PackagePath": "staticwebassets\\img\\flags\\south_korea.svg"
     },
