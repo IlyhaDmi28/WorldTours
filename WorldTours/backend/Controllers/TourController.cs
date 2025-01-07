@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -324,7 +325,7 @@ namespace backend.Controllers
 					.ThenInclude(t => t.Hotel) 
 					.ThenInclude(h => h.City) 
 					.ThenInclude(c => c.Country) 
-					.Where(r => r.SeatsNumber > 0)
+					.Where(r => r.SeatsNumber > 0 &&  r.LandingDateOfDeparture > DateTime.Now)
 					.OrderBy(r => r.SeatsNumber)
 					.ToListAsync();
 
@@ -380,8 +381,8 @@ namespace backend.Controllers
 					if (filter.CityId != 0 && filter.CityId != null) routes = routes.Where(t => t.Tour.Hotel.CityId == filter.CityId).ToList();
 					if (filter.CountryId != 0 && filter.CountryId != null) routes = routes.Where(t => t.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
 					if (filter.DepartureCityId != 0 && filter.DepartureCityId != null) routes = routes.Where(t => t.DepartmentDeparture.CityId == filter.DepartureCityId).ToList();
-					if (filter.MinDateOfDeparture != null && filter.MinDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture >= DateTime.Parse(filter.MinDateOfDeparture)).ToList();
-					if (filter.MaxDateOfDeparture != null && filter.MaxDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture <= DateTime.Parse(filter.MaxDateOfDeparture)).ToList();
+					if (filter.MinDateOfDeparture != null && filter.MinDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture >= DateService.ConvertToDateFormat(filter.MinDateOfDeparture)).ToList();
+					if (filter.MaxDateOfDeparture != null && filter.MaxDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture <= DateService.ConvertToDateFormat(filter.MaxDateOfDeparture)).ToList();
 					if (filter.TransportTypeId != 0 && filter.TransportTypeId != null) routes = routes.Where(t => t.TransportTypeId == filter.TransportTypeId).ToList();
 					if (filter.TourTypeId != 0 && filter.TourTypeId != null) routes = routes.Where(t => t.Tour.TourTypeId == filter.TourTypeId).ToList();
 					if (filter.MinPrice != 0 && filter.MinPrice != null) routes = routes.Where(t => t.Price >= filter.MinPrice).ToList();
@@ -523,14 +524,30 @@ namespace backend.Controllers
 
 							await db.Routes.AddRangeAsync(tour.Routes.Select(r => new Models.Entity.Route()
 							{
-								LandingDateOfDeparture = DateTime.Parse(r.LandingDateOfDeparture),
-								LandingTimeOfDeparture = TimeSpan.Parse(r.LandingTimeOfDeparture),
-								ArrivalDateOfDeparture = DateTime.Parse(r.ArrivalDateOfDeparture),
-								ArrivalTimeOfDeparture = TimeSpan.Parse(r.ArrivalTimeOfDeparture),
-								LandingDateOfReturn = DateTime.Parse(r.LandingDateOfReturn),
-								LandingTimeOfReturn = TimeSpan.Parse(r.LandingTimeOfReturn),
-								ArrivalDateOfReturn = DateTime.Parse(r.ArrivalDateOfReturn),
-								ArrivalTimeOfReturn = TimeSpan.Parse(r.ArrivalTimeOfReturn),
+								LandingDateOfDeparture = DateService.ConvertToDateFormat(r.LandingDateOfDeparture),
+								LandingTimeOfDeparture = TimeSpan.ParseExact(
+									r.LandingTimeOfDeparture,
+									@"hh\:mm",
+									CultureInfo.InvariantCulture
+								),
+								ArrivalDateOfDeparture = DateService.ConvertToDateFormat(r.ArrivalDateOfDeparture),
+								ArrivalTimeOfDeparture = TimeSpan.ParseExact(
+									r.ArrivalTimeOfDeparture,
+									@"hh\:mm",
+									CultureInfo.InvariantCulture
+								),
+								LandingDateOfReturn = DateService.ConvertToDateFormat(r.LandingDateOfReturn),
+								LandingTimeOfReturn = TimeSpan.ParseExact(
+									r.LandingTimeOfReturn,
+									@"hh\:mm",
+									CultureInfo.InvariantCulture
+								),
+								ArrivalDateOfReturn = DateService.ConvertToDateFormat(r.ArrivalDateOfReturn),
+								ArrivalTimeOfReturn = TimeSpan.ParseExact(
+									r.ArrivalTimeOfReturn,
+									@"hh\:mm",
+									CultureInfo.InvariantCulture
+								),
 								Price = r.Price,
 								SeatsNumber = r.SeatsNumber,
 								DepartmentDepartureId = r.DepartmentDeparture.Id,
@@ -605,14 +622,30 @@ namespace backend.Controllers
 
 							await db.Routes.AddRangeAsync(tour.Routes.Select(r => new Models.Entity.Route()
 							{
-								LandingDateOfDeparture = DateTime.Parse(r.LandingDateOfDeparture),
-								LandingTimeOfDeparture = TimeSpan.Parse(r.LandingTimeOfDeparture),
-								ArrivalDateOfDeparture = DateTime.Parse(r.ArrivalDateOfDeparture),
-								ArrivalTimeOfDeparture = TimeSpan.Parse(r.ArrivalTimeOfDeparture),
-								LandingDateOfReturn = DateTime.Parse(r.LandingDateOfReturn),
-								LandingTimeOfReturn = TimeSpan.Parse(r.LandingTimeOfReturn),
-								ArrivalDateOfReturn = DateTime.Parse(r.ArrivalDateOfReturn),
-								ArrivalTimeOfReturn = TimeSpan.Parse(r.ArrivalTimeOfReturn),
+								LandingDateOfDeparture = DateService.ConvertToDateFormat(r.LandingDateOfDeparture),
+								LandingTimeOfDeparture = TimeSpan.ParseExact(
+									r.LandingTimeOfDeparture,
+									@"hh\:mm",
+									CultureInfo.InvariantCulture
+								),
+								ArrivalDateOfDeparture = DateService.ConvertToDateFormat(r.ArrivalDateOfDeparture),
+								ArrivalTimeOfDeparture = TimeSpan.ParseExact(
+									r.ArrivalTimeOfDeparture,
+									@"hh\:mm",
+									CultureInfo.InvariantCulture
+								),
+								LandingDateOfReturn = DateService.ConvertToDateFormat(r.LandingDateOfReturn),
+								LandingTimeOfReturn = TimeSpan.ParseExact(
+									r.LandingTimeOfReturn,
+									@"hh\:mm",
+									CultureInfo.InvariantCulture
+								),
+								ArrivalDateOfReturn = DateService.ConvertToDateFormat(r.ArrivalDateOfReturn),
+								ArrivalTimeOfReturn = TimeSpan.ParseExact(
+									r.ArrivalTimeOfReturn,
+									@"hh\:mm",
+									CultureInfo.InvariantCulture
+								),
 								Price = r.Price,
 								SeatsNumber = r.SeatsNumber,
 								DepartmentDepartureId = r.DepartmentDeparture.Id,
@@ -636,14 +669,14 @@ namespace backend.Controllers
 							await transaction.CommitAsync();
 							return Ok();
 						}
-						catch
+						catch (Exception ex)
 						{
+
 							await transaction.RollbackAsync();
 							return BadRequest();
 						}
 					}
 				}
-
 				return BadRequest();
 			}
 			catch (Exception ex)
