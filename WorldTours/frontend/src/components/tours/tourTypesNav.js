@@ -4,13 +4,10 @@ import TourType from './tourType'
 import FilterButton from './filterButton'
 import Filters from './filters'
 import all from '../../img/all.svg'
-import add from '../../img/add.svg'
-import {UserContext} from '../../context/userContext';
 const token = localStorage.getItem("token");
 
 function TypesTourNav({filter, setFilter, setTours, selectedTourType}) {
 	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-	const {authUser, setAuthUser} = useContext(UserContext);
 	const [tourTypes, setTourTypes] = useState([]); 
 
 	useEffect(() => {

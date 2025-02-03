@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import {UserContext} from '../../context/userContext';
+import { useSelector } from 'react-redux';
 import MainFilters from './mainFilters';
 import UserConroller from './userController';   
 import logo from '../../img/logo.png';
 
 function BigHeader({filter, setFilter, setTours}) {
-    const {authUser, setAuthUser} = useContext(UserContext);
+	const authUser = useSelector((state) => state.authUser.value);
 
 	return (
 	    <header style={(authUser && authUser.role !== 1) ? {height: '100px'} : {}}>

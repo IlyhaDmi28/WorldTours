@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../../context/userContext';
+import { useSelector } from 'react-redux';
 import delete2 from '../../img/delete2.svg'
 
 function ReviewCardForEitor({ review, deleteReview }) {
 	const [isHovered, setIsHovered] = useState(false);
-    const {authUser, setAuthUser} = useContext(UserContext);
+    const authUser = useSelector((state) => state.authUser.value);
 
 	return (
 	    <div className='tour-review-card' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>

@@ -1,18 +1,20 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {UserContext} from '../../context/userContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAuthUser } from '../../store/slices/authUserSlice';
 import account from '../../img/account.svg';
 
 function UserController({ right }) {
+    const authUser = useSelector((state) => state.authUser.value);
+ 	const dispatch = useDispatch();
     const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
-    const {authUser, setAuthUser} = useContext(UserContext);
 
     const openOrCloseUserMenu = () => {
         setIsOpenUserMenu(!isOpenUserMenu);
     };
 
     const logout = () => {
-        setAuthUser(false);
+        dispatch(setAuthUser(false));
         localStorage.removeItem('token');
     };
 
