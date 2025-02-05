@@ -72,10 +72,8 @@ function Tour() {
                     }
                 });
 				const tourData = response.data;
-				console.log(tourData);
 				
 				setPhotoUrl(tourData.photoUrl === "" ? noPhoto : tourData.photoUrl);
-				console.log(tourData.routes.find(route => route.id === +routeId));
 				const route  = tourData.routes.find(route => route.id === +routeId)
 				if(route === undefined || route === null)  window.location.href = '/error/0';
 				setSelectedRoute(tourData.routes.find(route => route.id === +routeId));

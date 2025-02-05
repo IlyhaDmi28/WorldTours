@@ -138,7 +138,7 @@ function MainFilters({filter, setFilter, setTours}) {
 
             <div className='input-departure'>
                 <div>Выбирете город отправления</div>
-                
+            
                 <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, departureCityId: e.target.value}}))}>
                     <option key={0} value={0}> Не важно </option>
                     {departureCities.map((departureCity) => (

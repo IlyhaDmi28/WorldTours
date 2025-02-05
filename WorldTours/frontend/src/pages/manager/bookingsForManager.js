@@ -66,8 +66,7 @@ function Bookings() {
             }
         });
 
-		let response;
-		response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
+		const response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
             headers: {
                 'Authorization': 'Bearer ' + token,
              }
@@ -104,8 +103,8 @@ function Bookings() {
 				'Authorization': 'Bearer ' + token,
 			}
 		});
-		let response;
-		response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
+
+		const response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
             headers: {
                 'Authorization': 'Bearer ' + token,
              }

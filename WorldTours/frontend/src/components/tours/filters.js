@@ -179,35 +179,35 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
                         <div>
                             <span>Макс. звёзды отеля:</span>
                             <div className='hotel-stars-buttons'>
-                                <button
+                                {/*комп*/}<button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(1)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(1)}
                                 >
                                     <img src={maxNumberLightHotelStars >= 1 ? star : darkStar}/>
                                 </button>
-                                <button
+                                {/*комп*/}<button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(2)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(2)}
                                 >
                                     <img src={maxNumberLightHotelStars >= 2 ? star : darkStar}/>
                                 </button>
-                                <button
+                                {/*комп*/}<button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(3)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(3)}
                                 >
                                     <img src={maxNumberLightHotelStars >= 3 ? star : darkStar}/>
                                 </button>
-                                <button
+                                {/*комп*/}<button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(4)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(4)}
                                 >
                                     <img src={maxNumberLightHotelStars >= 4 ? star : darkStar}/>
                                 </button>
-                                <button
+                                {/*комп*/}<button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(5)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(5)}

@@ -2,6 +2,7 @@ import '../../styles/tours.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import BigHeader from '../../components/general/bigHeader';
+import MainNavMenu from '../../components/general/mainNavMenu';
 import TourTypesNav from '../../components/tours/tourTypesNav';
 import TourCard from '../../components/tours/tourCard';
 const token = localStorage.getItem("token");
@@ -47,9 +48,9 @@ function Tours() {
 
 	return (
 		<div className="tours">
+			<MainNavMenu/>
 			<BigHeader filter={filter} setFilter={setFilter} setTours={setTours}/>
 			<div className="line-under-header"></div>
-			{/* <TourTypesNav setTourType={setTourType} /> */}
 			<TourTypesNav filter={filter} setFilter={setFilter} setTours={setTours} selectedTourType={filter.tourTypeId}/>
 			<div className="tours-list">
 				{tours.map((tour) => (<TourCard tour={tour} />))}

@@ -15,12 +15,12 @@ function BigHeader({filter, setFilter, setTours}) {
             </Link>
             <div className="info-and-main-filters">
                 <div className="info-href">
-                    <Link to="/campany">О компнаии</Link>
-                    <Link to="/payment">Оплата</Link>
-                    <Link to="/travel_info">Куда поехать?</Link>
+                    <Link to="/campany">Туры</Link>
+                    <Link to="/payment">Экскурсии</Link>
+                    <Link to="/travel_info">Круизы</Link>
                 </div>
                 {
-                    (!authUser|| authUser.role === 1) && <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>
+                    (!authUser || authUser.role === 1) && <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>
                 }
 
             </div>

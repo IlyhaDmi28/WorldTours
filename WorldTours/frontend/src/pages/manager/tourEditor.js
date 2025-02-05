@@ -1,5 +1,5 @@
 import '../../styles/tour-editor.scss';
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -62,6 +62,7 @@ function TourEditor() {
 					'Authorization': 'Bearer ' + token,
 				}
 			});
+
 			const characteristicsData = response.data
 			setTour((prevTour) => {
 				return {
@@ -74,7 +75,6 @@ function TourEditor() {
 			console.error('Ошибка загрузки данных:', error);
 		} 
     };
-
 
 	useEffect(() => {
 		const getData = async () => {
@@ -139,7 +139,6 @@ function TourEditor() {
                     }
                 });
 				const reviewsData = response.data;
-				console.log(reviewsData);
 				setTour((prevTour) => ({
 					...prevTour, 
 					reviews: reviewsData
@@ -405,6 +404,7 @@ function TourEditor() {
 				<div className="tour-editor-info">
 					{directions[directionsPageInndex]} 
 					{directionInfo.hotel !== null ? (
+						//комп
 						<>
 							<div className="main-tour-editor-info">
 								<div>
@@ -423,7 +423,7 @@ function TourEditor() {
 					) : (
 						<>
 							<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
-								Нажмите, что бы добавить пункт направления
+								Нажмите, что бы добавить отель
 							</button>
 						</>
 					)}
@@ -450,7 +450,7 @@ function TourEditor() {
 					<div className="tour-types-nav">
 						{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
         			</div>
-					<div className="tour-editor-characteristics">
+					<div className="tour-editor-characteristics"> {/*комп*/}
 							{tour.descriptions.map((description) => (
 								<div className="tour-editor-characteristic">
 									<div>

@@ -1,5 +1,5 @@
 import '../../styles/bookings.scss';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Header from '../../components/general/header';

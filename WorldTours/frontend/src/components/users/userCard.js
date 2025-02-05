@@ -33,7 +33,7 @@ function UserCard({ user, deleteUser, blockUser, changeRole }) {
             </div>
 
             { !isChangeRoleMode ? (
-                <>
+                <>{/*комп*/}
                     {!user.blockedStatus ?  (
                         <div className="user-card-status" style={{backgroundColor: 'rgb(254, 60, 60'}} onClick={(e)=>{e.preventDefault(); blockUser(user.id)}}>
                             Заблокировать
@@ -50,7 +50,7 @@ function UserCard({ user, deleteUser, blockUser, changeRole }) {
                     </div>
                 </>
             ) : (
-                <div className='user-card-roles'>
+                <div className='user-card-roles'>{/*комп*/}
                     <div onClick={() => changeRole(user.id, 1)}>Пользователь</div>
                     <div onClick={() => changeRole(user.id, 2)}>Менеджер</div>
                     <div onClick={() => changeRole(user.id, 3)}>Админимстратор</div>

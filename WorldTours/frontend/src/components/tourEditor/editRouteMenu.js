@@ -264,7 +264,7 @@ function EditRouteMenu({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteM
                 </div>
                 
                 <hr></hr>
-                <div className="edit-route-controller">
+                <div className="edit-route-controller">{/*комп*/}
                     <button onClick={clearRoute}>Очистить всё</button>
                     <button onClick={(e) =>{ 
                         if(
