@@ -49,10 +49,18 @@ function TypesTourNavForManager({setTours, setSelectedTourType, selectedTourType
 
 	return (
 	    <div className="tour-types-nav">
-			<TourType tourType={{id: 0, name: "Все виды туров", imageUrl: all}} selectedTourType={selectedTourType} setTourType={() => changeTourType(0)}/>
-			{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={selectedTourType} setTourType={() => changeTourType(tourType.id)}/>))}
+			<div className="tour-types-nav-list">
+				{/* <button className='tour-types-nav-page-button'>B</button> */}
 
-			<div className='filter-and-add-tour-button'>
+				<div className="tour-types-list">
+					<TourType tourType={{id: 0, name: "Все виды туров", imageUrl: all}} selectedTourType={selectedTourType} setTourType={() => changeTourType(0)}/>
+					{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={selectedTourType} setTourType={() => changeTourType(tourType.id)}/>))}
+				</div>
+
+				{/* <button className='tour-types-nav-page-button'>N</button> */}
+			</div>
+
+			<div className='add-tour-button'>
 				<Link className='add-tour-button' to='/tour_editor/0'>
 					<img src={add}/>
 				</Link>

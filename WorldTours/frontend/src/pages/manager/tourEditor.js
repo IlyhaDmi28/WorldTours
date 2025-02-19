@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Header from '../../components/general/header';
+import ImagesAndMap from '../../components/tour/imagesAndMap';
 import Regions from '../../components/general/regions';
 import Countries from '../../components/general/countries';
 import Cities from '../../components/general/cities';
@@ -398,6 +399,7 @@ function TourEditor() {
 					<img src={photoUrl} alt="click to change" onClick={setPhotoUropenFileDialogToSelectPhoto}/>
                     <input type="file" ref={ tour.photoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
 				</div>
+				<ImagesAndMap images={photoUrl}/>
 			</div>
 
 			<div className="tour-editor-info-and-reservation">
@@ -433,7 +435,7 @@ function TourEditor() {
 						<textarea name='mainDescription' value={tour.mainDescription} onChange={changeTour}/>
 					</div>
 
-					<div className='nutrition-type'>
+					{/* <div className='nutrition-type'>
 						<div><b>Тип питание</b></div>
 						<select name='nutritionTypeId' value={tour.nutritionTypeId} onChange={changeTour}>
                             {nutritionTypes.map((nutritionType) => (
@@ -445,11 +447,35 @@ function TourEditor() {
                                 </option>
                             ))}
                         </select>
+					</div> */}
+
+					<div className='nutrition-type'>
+						<div><b>Тип тура</b></div>
+						<select name='nutritionTypeId' value={tour.tourTypeId} onChange={changeTour}>
+                            {tourTypes.map((tourType) => (
+                                <option 
+                                    key={tourType.id}
+                                    value={tourType.id}
+                                >
+									
+                                    {tourType.name}
+                                </option>
+                            ))}
+                        </select>
 					</div>
 
 					<div className="tour-types-nav">
-						{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
+						<div className="tour-types-nav-list">
+							{/* <button className='tour-types-nav-page-button'>B</button> */}
+
+							<div className="tour-types-list">
+								{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
+							</div>
+							
+							{/* <button className='tour-types-nav-page-button'>N</button> */}
+						</div>
         			</div>
+					
 					<div className="tour-editor-characteristics"> {/*комп*/}
 							{tour.descriptions.map((description) => (
 								<div className="tour-editor-characteristic">

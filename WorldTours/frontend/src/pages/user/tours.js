@@ -48,7 +48,6 @@ function Tours() {
 
 	return (
 		<div className="tours">
-			<MainNavMenu/>
 			<BigHeader filter={filter} setFilter={setFilter} setTours={setTours}/>
 			<div className="line-under-header"></div>
 			<TourTypesNav filter={filter} setFilter={setFilter} setTours={setTours} selectedTourType={filter.tourTypeId}/>

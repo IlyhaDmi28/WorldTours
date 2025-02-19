@@ -1,5 +1,5 @@
 @import './variabels/colors.scss'; 
-$indent-from-top-main-filter: 13px;
+$indent-from-top-main-filter: 12px;
 
 @mixin main-filter($width) {
 	width: $width;
@@ -52,7 +52,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	height: 145px;
-	margin-top: 30px;
+	margin-top: 32px;
 
 	.logo-href {
 		height: 75px;
@@ -85,17 +85,16 @@ header {
 			border-radius: 32px;
 			margin-top: 24px;
 			box-shadow: 3px 3px 3px $grey-color;
-			display: flex;
 			font-size: 12px;
+			display: flex;
 	
 			.input-route {
-				@include main-filter(30%);
+				@include main-filter(22%);
 				border-radius: 32px 0px 0px 32px;
-		
+
 				>div {
-					width: 87%; /*Делаем отступ 13% и ширину 87% от контейнера, тем самы освобождаем место перед элемент и элемент не вылазит за другой*/
-					margin-left: 13%;
-		
+					margin-left: 16%;
+
 					&:nth-child(2) {
 						margin-top: 5px;
 						color: $grey-color;
@@ -109,55 +108,114 @@ header {
 			}
 
 			.input-departure {
-				@include main-filter(24%);
+				@include main-filter(16%);
 				
 				div {
-					margin-left: 8%;
-				}
-
-				select {
-					margin-left: 6%;
-					margin-top: 5px;
-					border: none;
-					color: $grey-color;
-					font-size: 14px;
-				}
-			}
-		
-			.input-date {
-				@include main-filter(15%);
-		
-				div {
-					width: 90%; /*Делаем отступ 13% и ширину 87% от контейнера, тем самы освобождаем место перед элемент и элемент не вылазит за другой*/
 					margin-left: 10%;
 				}
-		
-				input {
-					width: 80%; /*Делаем отступ 13% и ширину 87% от контейнера, тем самы освобождаем место перед элемент и элемент не вылазит за другой*/
-					margin-left: 8%;
-					border: none;
-					margin-top: 3px;
-					color: $grey-color;
-					font-size: 14px;
-				}
-			}
-		
-			.input-transport {
-				@include main-filter(20%);
-
-				div {
-					margin-left: 8%;
-				}
 
 				select {
-					margin-left: 6%;
+					margin-left: 7%;
 					margin-top: 5px;
 					border: none;
 					color: $grey-color;
 					font-size: 14px;
 				}
 			}
-		
+			
+			.input-dates {
+				@include main-filter(25%);
+
+				padding-top: $indent-from-top-main-filter - 2px;
+
+				.input-date {
+					display: flex;
+					margin-left: 5%;
+					width: 100%;
+					height: 16px;
+
+					div {
+						padding-top: 2px;
+					}
+					
+					input {
+						margin-left:10px;
+						border: none;
+						margin-top: 3px;
+						color: $grey-color;
+						font-size: 14px;
+
+					}
+
+					&:nth-child(1) {
+						input {
+							margin-left: 17px;
+						}
+					}
+
+					&:nth-child(2) {
+						margin-top: 5px;
+					}
+				}
+			
+			}
+			
+			.input-transport {
+				@include main-filter(12%);
+
+				div {
+					margin-left: 10%;
+				}
+
+				select {
+					margin-left: 7%;
+					margin-top: 5px;
+					border: none;
+					color: $grey-color;
+					font-size: 14px;
+				}
+			}
+			
+			.inputs-number-seats-and-days {
+				@include main-filter(16%);
+
+				// .input-number-seats-or-days {
+				// 	display: flex;
+				// 	justify-content: space-between;
+
+				// 	input {
+				// 		height: 16px;
+				// 		margin-right: 10px;
+				// 		width: 40%;
+				// 	}
+				// }
+
+				padding-top: $indent-from-top-main-filter - 2px;
+
+				.input-number-seats-or-days {
+					display: flex;
+				 	justify-content: left;
+					height: 16px;
+					column-gap: 8%;
+
+					div {
+						padding-top: 2px;
+						margin-left: 8%;
+					}
+					
+					input {
+						width: 25%;
+
+						border: none;
+						border-bottom: 1px solid gray;
+					}
+
+					&:nth-child(2) {
+						margin-top: 5px;
+					}
+				}
+			}
+
 			.search-by-main-filters {
 				width: 50px;
 				height: 45px;
@@ -360,7 +418,7 @@ header {
 }
 
 .main-nav-menu {
-	background-color: rgb(2, 98, 252);
+	background-color: rgb(38, 171, 253);
 	height: 22px;
 	position: absolute;
 	width: 100%;
@@ -375,8 +433,8 @@ header {
 	}
 
 	a {
-		font-size: 15px;
-		margin-left: 36px;
+		font-size: 14px;
+		margin-left: 3%;
 		color: white;
 	}
 }

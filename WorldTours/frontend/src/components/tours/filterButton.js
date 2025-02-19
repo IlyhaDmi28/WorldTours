@@ -4,7 +4,7 @@ function FilterButton({ openFilters }) {
 	return (
 	    <button className="filter-button" onClick={openFilters}> 
             <img src={filter}/>
-            <div>Фильры</div>
+            <div>Фильтры</div>
         </button>
   	);
 }

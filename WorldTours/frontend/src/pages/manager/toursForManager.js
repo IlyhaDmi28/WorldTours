@@ -7,7 +7,7 @@ import TourTypesNavForManager from '../../components/tours/tourTypesNavForManage
 import TourCardForManager from '../../components/tours/tourCardForManager';
 const token = localStorage.getItem("token");
 
-function Tours() {
+function ToursForManager() {
 	const authUser = useSelector((state) => state.authUser.value)
 	const [tours, setTours] = useState([])
 	const [selectedTourType, setSelectedTourType] = useState(0);
@@ -58,4 +58,4 @@ function Tours() {
 	);
 }
 
-export default Tours;
+export default ToursForManager;

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import MainNavMenu from './mainNavMenu';
 import MainFilters from './mainFilters';
 import UserConroller from './userController';   
 import logo from '../../img/logo.png';
@@ -10,6 +11,8 @@ function BigHeader({filter, setFilter, setTours}) {
 
 	return (
 	    <header style={(authUser && authUser.role !== 1) ? {height: '100px'} : {}}>
+			<MainNavMenu/>
+
             <Link className='logo-href' to="/tours">
                 <img src={logo} alt="logo" />
             </Link>

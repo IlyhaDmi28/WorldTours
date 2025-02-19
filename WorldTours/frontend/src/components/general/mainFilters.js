@@ -130,14 +130,14 @@ function MainFilters({filter, setFilter, setTours}) {
 	return (
 	    <div className="main-filters"> 
             <div className="input-route" onClick={() => {deleteSelectedDirection(); setDirectionsPageInndex(directionsPageInndex == 0 ? 1 : 0 )}}>
-                <div>Выберите направление</div>
+                <div>Направление</div>
                 <div>{(directionInfo.city !== null || directionInfo.country !== null) ?  `${directionInfo.country}${directionInfo.city !== null ? ", " + directionInfo.city : ""}` : "Регион, страна, город"}</div>
             </div>
 
             <hr></hr>
 
             <div className='input-departure'>
-                <div>Выбирете город отправления</div>
+                <div>Город отправления</div>
             
                 <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, departureCityId: e.target.value}}))}>
                     <option key={0} value={0}> Не важно </option>
@@ -151,22 +151,21 @@ function MainFilters({filter, setFilter, setTours}) {
 
             <hr></hr>
 
-            <div className="input-date">
-                <div>Отправления с</div>
-                <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, minDateOfDeparture: e.target.value}}))}/>
-            </div>
-
-            <hr></hr>
-
-            <div className="input-date">
-                <div>Отправления до</div>
-                <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, maxDateOfDeparture: e.target.value}}))}/>
+            <div className="input-dates">
+                <div className="input-date">
+                    <div>Отправления с</div>
+                    <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, minDateOfDeparture: e.target.value}}))}/>
+                </div>
+                <div className="input-date">
+                    <div>Отправления до</div>
+                    <input type="date" onChange={(e) => setFilter((prevFilter => {return {...prevFilter, maxDateOfDeparture: e.target.value}}))}/>
+                </div>
             </div>
 
             <hr></hr>
 
             <div className="input-transport">
-                <div>Выбирете транспорт</div>
+                <div>Вид транспорта</div>
                 <select onChange={(e) => setFilter((prevFilter => {return {...prevFilter, transportTypeId: e.target.value}}))}>
                     <option key={0} value={0}>Не важно</option>
                     {transportTypes.map((transportType) => (
@@ -175,6 +174,19 @@ function MainFilters({filter, setFilter, setTours}) {
                         </option>
                     ))}
                 </select>
+            </div>
+
+            <hr></hr>
+
+            <div className="inputs-number-seats-and-days">
+                <div className='input-number-seats-or-days'>
+                    <div>Кол. мест:</div>
+                    <input type="number"/>
+                </div>
+                <div className='input-number-seats-or-days'>
+                    <div>Кол. дней:</div>
+                    <input type="number"/>
+                </div>
             </div>
 
             <button className='search-by-main-filters' onClick={getTours}>

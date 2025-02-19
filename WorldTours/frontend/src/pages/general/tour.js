@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import Header from '../../components/general/header';
 import BookingMenu from '../../components/tour/bookingMenu';
 import ReviewCard from '../../components/tour/reviewCard';
+import ImagesAndMap from '../../components/tour/imagesAndMap';
+import ModalImageGallery from '../../components/general/modalImageGallery';
 import noPhoto from '../../img/noPhoto.png';
 import star from '../../img/star.svg';
 const token = localStorage.getItem("token");
@@ -16,7 +18,7 @@ function Tour() {
 
 	const authUser = useSelector((state) => state.authUser.value);
 
-	const [photoUrl, setPhotoUrl] = useState(noPhoto); 
+	const [photosUrl, setPhotosUrl] = useState([noPhoto]); 
 	const [review, setReview] = useState(""); 
 	const [tour, setTour] = useState({
 		id: 0,
@@ -56,6 +58,7 @@ function Tour() {
         price: 0,
         seatsNumber: 0,
 	});
+	const [indexOfSelectedImage, setIndexOfSelectedImage] = useState(-1); 
 		
 	useEffect(() => {
 		const getData = async () => {
@@ -73,7 +76,11 @@ function Tour() {
                 });
 				const tourData = response.data;
 				
-				setPhotoUrl(tourData.photoUrl === "" ? noPhoto : tourData.photoUrl);
+				// setPhotosUrl((prevPhotos) => 
+				// 	prevPhotos.map((photo, i) => (i === 0 ? (tourData.photoUrl === "" ? noPhoto : tourData.photoUrl) : photo))
+				// );
+				setPhotosUrl([tourData.photoUrl, tourData.photoUrl, tourData.photoUrl , tourData.photoUrl , tourData.photoUrl , tourData.photoUrl , tourData.photoUrl, tourData.photoUrl]);
+
 				const route  = tourData.routes.find(route => route.id === +routeId)
 				if(route === undefined || route === null)  window.location.href = '/error/0';
 				setSelectedRoute(tourData.routes.find(route => route.id === +routeId));
@@ -214,7 +221,8 @@ function Tour() {
 
 			<BookingMenu selectedRoute={selectedRoute} routes={tour.routes} direction={{country: tour.direction.country, city: tour.direction.city}} sendApplicationForBooking={sendApplicationForBooking}/>
 			<div className="tour-images">
-				<img className="main-tour-img" src={photoUrl} />
+				<img className="main-tour-img" src={photosUrl[0]} />
+				<ImagesAndMap images={photosUrl.slice(1)}/>
 			</div>
 
 			<div className="tour-info-and-reservation">
@@ -265,6 +273,9 @@ function Tour() {
 					)}
 				</div>
 			</div>
+
+			{/* {indexOfSelectedImage !== -1 && <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl}/>} */}
+			<ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl}/>
 		</div>
 	);
 }
