@@ -10,6 +10,14 @@ import ImagesAndMap from '../../components/tour/imagesAndMap';
 import ModalImageGallery from '../../components/general/modalImageGallery';
 import noPhoto from '../../img/noPhoto.png';
 import star from '../../img/star.svg';
+import t1 from '../../img/test_photos/t1.jpg';
+import t2 from '../../img/test_photos/t2.jpg';
+import t3 from '../../img/test_photos/t3.jpg';
+import t4 from '../../img/test_photos/t4.jpg';
+import t5 from '../../img/test_photos/t5.jpg';
+import t6 from '../../img/test_photos/t6.png';
+import t7 from '../../img/test_photos/t7.png';
+import t8 from '../../img/test_photos/t8.png';
 const token = localStorage.getItem("token");
 
 function Tour() {
@@ -79,7 +87,7 @@ function Tour() {
 				// setPhotosUrl((prevPhotos) => 
 				// 	prevPhotos.map((photo, i) => (i === 0 ? (tourData.photoUrl === "" ? noPhoto : tourData.photoUrl) : photo))
 				// );
-				setPhotosUrl([tourData.photoUrl, tourData.photoUrl, tourData.photoUrl , tourData.photoUrl , tourData.photoUrl , tourData.photoUrl , tourData.photoUrl, tourData.photoUrl]);
+				setPhotosUrl([tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
 
 				const route  = tourData.routes.find(route => route.id === +routeId)
 				if(route === undefined || route === null)  window.location.href = '/error/0';
@@ -208,6 +216,22 @@ function Tour() {
 		}));
 	}
 
+	const showImages = (index) => {
+		setIndexOfSelectedImage(index);
+
+		if (index !== -1) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "auto";
+		}
+	}
+
+	const handleOverlayClick = (e) => {
+        if (e.target === e.currentTarget) {
+            showImages(-1);
+        }
+    };
+
 	return (
 		<div className="tour narrow-conteiner">
 			<Header />
@@ -221,8 +245,8 @@ function Tour() {
 
 			<BookingMenu selectedRoute={selectedRoute} routes={tour.routes} direction={{country: tour.direction.country, city: tour.direction.city}} sendApplicationForBooking={sendApplicationForBooking}/>
 			<div className="tour-images">
-				<img className="main-tour-img" src={photosUrl[0]} />
-				<ImagesAndMap images={photosUrl.slice(1)}/>
+				<img className="main-tour-img" src={photosUrl[0]} onClick={() => showImages(0)}/>
+				<ImagesAndMap images={photosUrl.slice(1)} showImages={showImages}/>
 			</div>
 
 			<div className="tour-info-and-reservation">
@@ -274,8 +298,8 @@ function Tour() {
 				</div>
 			</div>
 
-			{/* {indexOfSelectedImage !== -1 && <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl}/>} */}
-			<ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl}/>
+			{indexOfSelectedImage !== -1 && <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl} handleOverlayClick={handleOverlayClick} showImages={showImages}/>}
+			{/* <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl}/> */}
 		</div>
 	);
 }

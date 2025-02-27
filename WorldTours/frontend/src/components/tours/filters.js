@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import star from '../../img/star.svg'
 import darkStar from '../../img/dark-star.svg'
+import { Rating  } from "@mui/material";
 import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
@@ -135,7 +136,7 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
                     </div>
 
                     <div className="hotel-stars-filter">
-                        <div>
+                        {/* <div>
                             <span>Мин. звёзды отеля:</span>
                             <div className='hotel-stars-buttons'>
                                 <button
@@ -179,35 +180,35 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
                         <div>
                             <span>Макс. звёзды отеля:</span>
                             <div className='hotel-stars-buttons'>
-                                {/*комп*/}<button
+                               <button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(1)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(1)}
                                 >
                                     <img src={maxNumberLightHotelStars >= 1 ? star : darkStar}/>
                                 </button>
-                                {/*комп*/}<button
+                                <button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(2)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(2)}
                                 >
                                     <img src={maxNumberLightHotelStars >= 2 ? star : darkStar}/>
                                 </button>
-                                {/*комп*/}<button
+                                <button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(3)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(3)}
                                 >
                                     <img src={maxNumberLightHotelStars >= 3 ? star : darkStar}/>
                                 </button>
-                                {/*комп*/}<button
+                                <button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(4)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(4)}
                                 >
                                     <img src={maxNumberLightHotelStars >= 4 ? star : darkStar}/>
                                 </button>
-                                {/*комп*/}<button
+                                <button
                                     onMouseEnter={() => setMaxNumberLightHotelStars(5)}
                                     onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
                                     onClick={() => ClickMaxHotelStars(5)}
@@ -215,6 +216,15 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
                                     <img src={maxNumberLightHotelStars >= 5 ? star : darkStar}/>
                                 </button>
                             </div>
+                        </div> */}
+                        <div>
+                            <label>Мин. звёзд:</label>
+							<Rating name="min-hotel-stars" defaultValue={1} precision={1} size="large"/>
+                        </div>
+
+                        <div>
+                            <label>Макс. звёзд:</label>
+							<Rating name="max-hotel-stars" defaultValue={5} precision={1} size="large"/>
                         </div>
                     </div>
 

@@ -87,7 +87,7 @@ function TypesTourNav({filter, setFilter, setTours, selectedTourType}) {
 				{/* <button className='tour-types-nav-page-button'>N</button> */}
 			</div>
 
-			<FilterButton openFilters={openFilters}/>
+			<FilterButton text={"Фильтры"} openFilters={openFilters} />
 			<Filters filter={filter} setFilter={setFilter} isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} setTours={setTours}/>
         </div>
   	);

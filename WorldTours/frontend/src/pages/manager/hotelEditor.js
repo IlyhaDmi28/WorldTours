@@ -1,4 +1,4 @@
-import '../../styles/tour-editor.scss';
+import '../../styles/hotel-editor.scss';
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -6,16 +6,23 @@ import { useSelector } from 'react-redux';
 import Header from '../../components/general/header';
 import ImagesAndMap from '../../components/tour/imagesAndMap';
 import ModalImageGallery from '../../components/general/modalImageGallery';
+import { Rating  } from "@mui/material";
+import { TextField   } from "@mui/material";
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Modal from '@mui/material/Modal';
 import Regions from '../../components/general/regions';
 import Countries from '../../components/general/countries';
 import Cities from '../../components/general/cities';
 import Hotels from '../../components/general/hotels';
-import RoutesMenu from '../../components/tourEditor/routesMenu';
+import RoomTypesMenu from '../../components/hotelEditor/roomTypesMenu';
 import TourType from '../../components/tours/tourType'
 import ReviewCardForEitor from '../../components/tourEditor/reviewCardForEitor';
 import selectNewPhoto from '../../img/selectNewPhoto.png';
 import star from '../../img/star.svg';
 import delete3 from '../../img/delete3.svg'
+import map from '../../img/map.png'
 import t1 from '../../img/test_photos/t1.jpg';
 import t2 from '../../img/test_photos/t2.jpg';
 import t3 from '../../img/test_photos/t3.jpg';
@@ -26,15 +33,14 @@ import t7 from '../../img/test_photos/t7.png';
 import t8 from '../../img/test_photos/t8.png';
 const token = localStorage.getItem("token");
 
-function TourEditor() {
+function HotelEditor() {
 	const authUser = useSelector((state) => state.authUser.value);
 	const location = useLocation();
 	const [directionsPageInndex, setDirectionsPageInndex] = useState(0);
 	const [directionInfo, setDirectionInfo] = useState({
-		hotel: null,
 		country: null,
 		city: null,
-		starsNumber: null
+		address: null
 	});
 	
 	const [tourTypes, setTourTypes] = useState([]); 
@@ -44,7 +50,6 @@ function TourEditor() {
 		regionId: null,
 		countryId: null,
 		cityId: null,
-		hotelId: null,
 	});
 
 	const [tour, setTour] = useState({
@@ -60,7 +65,7 @@ function TourEditor() {
 		reviews: []
 	});
 	const [indexOfSelectedImage, setIndexOfSelectedImage] = useState(-1); 
-	
+	const [isOpenMap, setIsOpenMap] = useState(false);
 
 	const changeCharacteristics = async (id) => {
 		try {
@@ -166,10 +171,10 @@ function TourEditor() {
 
 	useEffect(() => {
 		const getDirectionInfo = async () => {
-			if (direction.regionId != null && direction.countryId != null && direction.cityId != null && direction.hotelId != null) {
+			if (direction.regionId != null && direction.countryId != null && direction.cityId != null) {
 				try {
 					const response = await axios.get(
-						`https://localhost:7276/direction/get?countryId=${direction.countryId}&cityId=${direction.cityId}&hotelId=${direction.hotelId}`,
+						`https://localhost:7276/direction/get?countryId=${direction.countryId}&cityId=${direction.cityId}`,
 						{
 							headers: {
 								Authorization: `Bearer ${token}`,
@@ -205,18 +210,6 @@ function TourEditor() {
 						...prevDirection,
 						cityId: directionId
 					}
-				case 4:
-					setTour((prevTour) => {
-						return {
-							...prevTour,
-							hotelId: directionId
-						}
-					})
-
-					return {
-						...prevDirection,
-						hotelId: directionId
-					}
 				default:
 					break;
 			}
@@ -235,33 +228,29 @@ function TourEditor() {
 
 	const directions = [
         null,
-        <Regions position={{left: '12%', top: '4%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections} />,
+        <Regions position={{left: '25%', top: '5%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections} />,
         <Countries regionId={direction.regionId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
         <Cities countyId={direction.countryId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-        <Hotels cityId={direction.cityId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
     ]
 
     const deleteSelectedDirection = () => {
 		setDirectionInfo({
-			hotel: null,
 			country: null,
 			city: null,
-			starsNumber: null
+		});
+
+		setDirectionInfo((prevDirectionInfo) => {
+			return {
+				...prevDirectionInfo,
+				country: null,
+				city: null,
+			}
 		});
 
 		setDirection({
 			regionId: null,
 			countryId: null,
 			cityId: null,
-			hotelId: null,
-		});
-
-		setTour((prevTour) => {
-
-			return {
-				...prevTour,
-				hotelId: null
-			}
 		});
 	}
 
@@ -411,62 +400,96 @@ function TourEditor() {
     };
 
 	return (
-		<div className="tour narrow-conteiner">
+		<div className="hotel-editor narrow-conteiner">
 			<Header />
 			<div className="line-under-header"></div>
 
-			<div className="tour-editor-name">
-				<div>
-					<b>Название тура</b>
+			<RoomTypesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={addRoute}/>
+			<div className="hotel-editor-images-and-name">
+				<div className="hotel-editor-name-and-main-photo">
+					<div className="hotel-editor-name">
+						<div>
+							<b>Название отеля</b>
+						</div>
+						<TextField className='hotel-editor-name-input' sx={{"& input": {fontSize: "19px"}, }} placeholder='Название' type="search" variant="standard"/>
+
+						{/* <input name="name"type='text' value={tour.name} onChange={changeTour}/> */}
+					</div>
+					<div className="main-hotel-editor-photo">
+						<img src={photosUrl[0]} alt="click to change" onClick={setPhotoUropenFileDialogToSelectPhoto}/>
+						<input type="file" ref={ tour.photoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
+					</div>
 				</div>
-				<input name="name"type='text' value={tour.name} onChange={changeTour}/>
+				
+				<div className='other-hotel-photos-and-controller'>
+					<div className='hotel-photos-controller'>
+						<button><b>Загрузить фото</b></button>
+					</div>
+					<div className='other-hotel-photos'>
+						<div>
+							{photosUrl.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
+						</div>
+						{photosUrl.length > 7 && <button className='more-hotel-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
+					</div>
+				</div>
+				{/* <ImagesAndMap images={photosUrl.slice(1)} showImages={showImages}/> */}
 			</div>
 
-			<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={addRoute}/>
-			<div className="tour-editor-images">
-				<div className="main-tour-editor-img">
-					<img src={photosUrl[0]} alt="click to change" onClick={setPhotoUropenFileDialogToSelectPhoto}/>
-                    <input type="file" ref={ tour.photoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
-				</div>
-				<ImagesAndMap images={photosUrl.slice(1)} showImages={showImages}/>
-			</div>
+			<div className="hotel-editor-info-and-reservation">
+				<div className="hotel-editor-info">
 
-			<div className="tour-editor-info-and-reservation">
-				<div className="tour-editor-info">
 					{directions[directionsPageInndex]} 
-					{directionInfo.hotel !== null ? (
-						//комп
-						<>
-							<div className="main-tour-editor-info">
-								<div>
-									<b>{directionInfo.hotel}</b>
-									<button onClick={deleteSelectedDirection}>
-										<img src={delete3}/>
+					<div className='hotel-editor-location'>
+						<div className='select-city-and-address-of-hotel'>
+							<div>
+								<div><b>Страная, город: </b></div>
+
+								{directionInfo.city !== null ? 
+									(<>
+										<div className='hotel-editor-loaction-info'>{directionInfo.country}, {directionInfo.city} </div> 
+										<DeleteIcon onClick={deleteSelectedDirection}/>
+									</>) :
+									<button onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
+										<b>Выбрать страну, город</b>
 									</button>
-								</div>
-								<div>{directionInfo.country}, {directionInfo.city}</div>
+								}
 							</div>
 
-							<div className="tour-editor-hotel-stars">
-								{Array(directionInfo.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
+							<div>
+								<div><b>Адресс: </b></div>
+								<TextField  sx={{"& input": {fontSize: "19px"}, }} className='hotel-editor-input-address' placeholder='улица, дом' type="search" variant="standard"/>
 							</div>
-						</>
-					) : (
-						<>
-							<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
-								Нажмите, что бы добавить отель
-							</button>
-						</>
-					)}
+						</div>
 
-					<div className="tour-editor-desription">
-						<div><b>Описание</b></div>
-						<textarea name='mainDescription' value={tour.mainDescription} onChange={changeTour}/>
+						<img className='hotel-editor-map' src={map} onClick={() => setIsOpenMap(true)}/>
 					</div>
 
-					{/* <div className='nutrition-type'>
+					<div className="hotel-editor-stars">
+						<div><b>Количество звёзд: </b></div>
+						<Rating className="input-hotel-stars" name="hotel-stars" defaultValue={1} precision={1}/>
+					</div>
+
+					<div className="hotel-editor-desription">
+						<div><b>Общее описание</b></div>
+						<TextField className='hotel-editor-desription-input'
+							multiline
+							rows={10}
+							maxRows={20}
+							placeholder='Описание'
+						/>
+						{/* <textarea name='mainDescription' value={tour.mainDescription} onChange={changeTour}/> */}
+					</div>
+
+					<div className='nutrition-type'>
 						<div><b>Тип питание</b></div>
-						<select name='nutritionTypeId' value={tour.nutritionTypeId} onChange={changeTour}>
+						<Select className='nutrition-type-select' value={tour.nutritionTypeId} onChange={changeTour}>
+							{nutritionTypes.map((nutritionType) => (
+								<MenuItem value={nutritionType.id}>
+									{nutritionType.name}
+								</MenuItem>
+							))}
+						</Select>
+						{/* <select name='nutritionTypeId' value={tour.nutritionTypeId} onChange={changeTour}>
                             {nutritionTypes.map((nutritionType) => (
                                 <option 
                                     key={nutritionType.id}
@@ -475,10 +498,10 @@ function TourEditor() {
                                     {nutritionType.name}
                                 </option>
                             ))}
-                        </select>
-					</div> */}
+                        </select> */}
+					</div>
 
-					<div className='nutrition-type'>
+					{/* <div className='nutrition-type'>
 						<div><b>Тип тура</b></div>
 						<select name='nutritionTypeId' value={tour.tourTypeId} onChange={changeTour}>
                             {tourTypes.map((tourType) => (
@@ -491,20 +514,8 @@ function TourEditor() {
                                 </option>
                             ))}
                         </select>
-					</div>
+					</div> */}
 
-					<div className="tour-types-nav">
-						<div className="tour-types-nav-list">
-							{/* <button className='tour-types-nav-page-button'>B</button> */}
-
-							<div className="tour-types-list">
-								{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
-							</div>
-							
-							{/* <button className='tour-types-nav-page-button'>N</button> */}
-						</div>
-        			</div>
-					
 					<div className="tour-editor-characteristics"> {/*комп*/}
 							{tour.descriptions.map((description) => (
 								<div className="tour-editor-characteristic">
@@ -536,10 +547,19 @@ function TourEditor() {
 					)}
 				</div>
 			</div>
-			{indexOfSelectedImage !== -1 && <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl} handleOverlayClick={handleOverlayClick} showImages={showImages}/>}
 
+			{indexOfSelectedImage !== -1 && <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl} handleOverlayClick={handleOverlayClick} showImages={showImages}/>}
+			
+			<Modal open={isOpenMap}
+				onClose={() => setIsOpenMap(false)}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+				className='tour-map-on-modal'
+			>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d588.0220734032202!2d27.616216344539804!3d53.876858255031635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbce18581d62a7%3A0xfbca977ea03db2c7!2z0J_QsNGA0YLQuNC30LDQvdGB0LrQuNC5INC_0YDQvtGB0L8uIDMyLzEsINCc0LjQvdGB0LosINCc0LjQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMIDIyMDEwNw!5e0!3m2!1sru!2sby!4v1739876954826!5m2!1sru!2sby" width="600" height="450" style={{border: '0px'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+			</Modal>
 		</div>
 	);
 }
 
-export default TourEditor;
+export default HotelEditor;

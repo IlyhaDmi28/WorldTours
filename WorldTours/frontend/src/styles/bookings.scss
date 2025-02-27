@@ -1,5 +1,7 @@
-@import './components/current-and-past-bookings.scss'; 
+@import './variabels/colors.scss'; 
 $indent-from-left-booking: 200px;
+$margin-from-left-booking: 200px;
+
 
 .change-show-bookings-list {
 	display: flex;
@@ -41,6 +43,70 @@ $indent-from-left-booking: 200px;
 
 .bookings-list {
 	.booking-card {
+		display: block;
+		position: relative;
+		height: 180px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+		border-bottom: 1px solid $light-grey-color;
+
+		.booking-card-img {
+			position: absolute;
+			height: 180px;
+			width: 180px;
+			border-radius: 10px;
+		}
+
+		.booking-card-name {
+			position: absolute;
+			font-size: 20px;
+			left: $margin-from-left-booking;
+			top: 27px;
+		}
+
+		.booking-card-route {
+			position: absolute;
+			font-size: 14px;
+			left: $margin-from-left-booking;
+			top: 55px;
+			color: $dark-grey-color;
+		}
+
+		.booking-card-department-departure-and-hotle {
+			position: absolute;
+			font-size: 14px;
+			left: $margin-from-left-booking;
+			top: 97px;
+			color: $dark-grey-color;
+		}
+
+		.booking-card-hotel-stars {
+			position: absolute;
+			display: flex;
+			left: $margin-from-left-booking;
+			top: 137px;
+
+			display: flex;
+			column-gap: 8px;
+
+			img {
+				height: 18px;
+			}
+		}
+
+		.tour-card-price {
+			b {
+				font-size: 24px;
+			}
+			span {
+				font-size: 14px;
+			}
+			position: absolute;
+			right: 0px;
+			top: 40%;
+		}
+
 		.booking-card-status {
 			position: absolute;
 			font-size: 13px;

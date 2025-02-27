@@ -3,7 +3,7 @@ import airplane from "../../img/airplane.svg"
 import bus from "../../img/bus.svg"
 import ship from "../../img/ship.svg"
 
-function ImagesAndMap({images}) {
+function ImagesAndMap({images, showImages}) {
     const [mode, setMode] = useState('images');
 
     useEffect(() => {
@@ -28,9 +28,9 @@ function ImagesAndMap({images}) {
             {mode === 'images' && 
                 <div className='other-tour-images'>
                     <div>
-					    {images.slice(0, 6).map((image) => (<img src={image}/>))}
+					    {images.slice(0, 6).map((image, i) => (<img src={image} onClick={() => showImages(i + 1)}/>))}
                     </div>
-                    {images.length > 6 && <button className='more-tour-images-button'>Показать больше ...</button>}
+                    {images.length > 6 && <button className='more-tour-images-button' onClick={() => showImages(0)}>Показать больше ...</button>}
                 </div>
             }
 

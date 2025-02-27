@@ -1,0 +1,135 @@
+@import './variabels/colors.scss';
+
+.vertical-list-page {
+    padding-right: 8%;
+    padding-left: 8%;
+}
+
+.hotels-filters-parametrs {
+    display: flex;
+	height: 80px;
+    width: 100%;
+
+	.select-hotel-place {
+		width: 230px;
+        height: 55px;
+		font-size: 13px;
+		border: 1px solid black;
+		border-radius: 14px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+        padding-left: 12px;
+        text-align: left;
+        background-color: rgb(244, 244, 244);
+        margin-top: 1.5%;
+
+        div {
+            margin-top: 2px;
+            color: $dark-grey-color;
+		    font-size: 13px;
+
+        }
+	}
+
+    .hotels-stars-filters-parametr {
+		text-align: left;
+		font-size: 14px;
+		width: 200px;
+        margin-top: 2.2%;
+        margin-left: 3%;
+
+		>div {
+			display: flex;
+				
+			label {
+                margin-top: 1px;
+                width: 45%;
+			}
+
+            &:nth-child(2){
+                margin-top: 2px;
+            }
+		}
+    }
+
+    .hotels-sort-parametrs {
+        display: flex;
+        margin-top: 2.2%;
+        font-size: 14px;
+
+        span {
+            margin-top: 2   px;
+        }
+
+        >div {
+            margin-left: 6px;
+
+            select {
+                width: 230px;
+                height: 24px;
+                border-radius: 8px;
+                font-size: 14px;
+            }
+
+            >div {
+                margin-top: 4px;
+                margin-left: 4px;
+                font-size: 13px;
+                display: flex;
+                column-gap: 4%;
+
+                >div {
+                    display: flex;
+                }
+
+                input {
+                    margin: 0;
+                    margin-left: 2px;
+                }
+            }
+        }
+        
+    }
+
+
+    .filter-and-sort-buttons{
+        display: flex;
+        width: 190px;
+        justify-content: space-between;
+        margin-top: 2.2%;
+        margin-left: auto;
+        .filter-button {
+            height: 40px;
+            width: 140px;
+            display: flex;
+            border: 1px solid $grey-color;
+            border-radius: 12px;
+            background-color: white;
+    
+            img {
+                height: 45%;
+                margin: auto 0 auto 5%;
+            }
+    
+            div {
+                margin: auto 0 auto 10px;
+                font-size: 13px;
+            }
+        }
+    
+        .sort-button{
+            height: 40px;
+            width: 45px;
+            display: flex;
+            border: 1px solid $grey-color;
+            border-radius: 10px;
+            background-color: white;
+
+            img {
+                height: 50%;
+                margin: auto;
+            }
+        }
+    }
+    
+}

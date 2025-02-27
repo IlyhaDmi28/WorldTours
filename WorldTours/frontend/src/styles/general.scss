@@ -235,6 +235,36 @@ header {
 		}
 	}
 
+	.header-search-input-and-add-button {
+		width: 65%;
+		margin-top: 40px;
+		padding-left: 10%;
+		display: flex;
+
+		input {
+			width: 84%;
+			border: none;
+			border-bottom: 2px solid rgb(96, 96, 96);
+			font-size: 18px;
+			padding-left: 8px;
+			height: 25px;
+		}
+
+		button {
+			margin-left: 2%;
+			height: 32px;
+			width: 120px;
+			font-size: 12px;
+			background-color: rgb(60, 80, 254);
+			border-radius: 8px;
+			border: none;
+
+			b {
+				color: white;
+			}
+		}
+	}
+
 	.user-controller {
 		.user-button {
 			width: 50px;
@@ -251,7 +281,7 @@ header {
 
 		.user-menu {
 			position: absolute;
-			top: 60px;
+			top: 80px;
 			right: 0px;
 			background-color: white;
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);

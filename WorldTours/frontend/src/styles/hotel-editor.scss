@@ -1,0 +1,606 @@
+@import './variabels/colors.scss';
+
+.hotel-editor-images-and-name {
+	height: 450px;
+	display: flex;
+	width: 100%;
+	column-gap: 2%;
+
+	.hotel-editor-name-and-main-photo {
+		width: 47.5%;
+
+		.hotel-editor-name {
+			height: 70px;
+			margin-top: 10px;
+		
+			div {
+				font-size: 16px;
+			}
+			
+			// input {
+			// 	font-size: 22px;
+			// 	height: 30px;
+			// 	width: 99%;
+			// 	border-radius: 10px;
+			// 	margin-top: 5px;
+			// }
+
+			.hotel-editor-name-input {
+				font-size: 22px;
+				height: 30px;
+				width: 99%;
+				margin-top: 5px;
+			}
+		}
+	
+		.main-hotel-editor-photo {
+			width: 100%;
+			height: 84%;
+			border-radius: 12px;
+	
+			img {
+				width: 100%;
+				height: 100%;
+				border-radius: 12px;
+			}
+		}
+	}
+
+	.other-hotel-photos-and-controller {
+		width: 50%;
+		margin-top: 33px;
+
+		.hotel-photos-controller {
+			width: 100%;
+			display: flex;
+			column-gap: 1.5%;
+
+			button {
+				height: 32px;
+				width: 32%;
+				border-radius: 8px;
+				border: none;
+				background-color: rgb(60, 80, 254);
+				margin-top: 2px;
+
+				b {
+					font-size: 13px;
+					color: white;
+				}
+			}
+		}
+		
+		.other-hotel-photos {
+			width: 100%;
+			height: 75%;
+			margin-top: 15px;
+
+			div {
+				display: flex;
+				flex-wrap: wrap;
+				column-gap: 1%;
+				row-gap: 3%;
+				height: 88%;
+				align-items: stretch;
+
+				img {
+					width: 32.66%;
+					height: 150px;
+					border-radius: 8px;
+				}
+			}
+
+			.more-hotel-photos-button {
+				height: 27px;
+				width: 260px;
+				margin-top: 52px;
+				border-radius: 10px;
+				margin-left: 27.5%;
+				border: 1px solid black;
+			}
+		}
+
+		.tour-map {
+			border: 1px solid black;
+			width: 100%;
+			height: 88%;
+			padding-top: 10px;
+		}
+	}
+}
+
+.hotel-editor-info {
+	width: 57%;
+	margin-top: 20px;
+	
+	.hotel-editor-location {
+		display: flex;
+
+		.select-city-and-address-of-hotel {
+			>div {
+				display: flex;
+				height: 40px;
+				
+				>div:nth-child(1) {
+					font-size: 19px;
+					margin-top: 6px;
+				}
+		
+				.hotel-editor-loaction-info {
+					font-size: 20px;
+					margin-top: 6px;
+					margin-left: 12px;
+				}
+		
+				svg {
+					margin-top: 5px;
+					margin-left: 5px;
+					color: red;
+				}
+		
+				>button {
+					height: 30px;
+					width: 280px;
+					border: none;
+					background-color: rgb(55, 187, 55);
+					margin-left: 12px;
+					margin-top: 4px;
+					border-radius: 8px;
+					
+					b {
+						font-size: 14px;
+						color: white;
+					}
+				}
+		
+				.hotel-editor-input-address {
+					height: 28px;
+					width: 440px;
+					font-size: 18px;
+					margin-left: 15px;
+				}
+			}
+		}
+
+		.hotel-editor-map {
+			width: 60px;
+			height: 60px;
+			margin-left: auto;
+			margin-top: 8px;
+		}
+	}
+
+	.select-city-or-address-of-hotel {
+		display: flex;
+		height: 40px;
+		
+		>div:nth-child(1) {
+			font-size: 19px;
+			margin-top: 6px;
+		}
+
+		.hotel-editor-loaction-info {
+			font-size: 20px;
+			margin-top: 6px;
+			margin-left: 12px;
+		}
+
+		svg {
+			margin-top: 5px;
+			margin-left: 5px;
+			color: red;
+		}
+
+		>button {
+			height: 30px;
+			width: 280px;
+			border: none;
+			background-color: rgb(55, 187, 55);
+			margin-left: 12px;
+			margin-top: 4px;
+			border-radius: 8px;
+			
+			b {
+				font-size: 14px;
+				color: white;
+			}
+		}
+
+		.hotel-editor-input-address {
+			height: 28px;
+			width: 440px;
+			font-size: 18px;
+			margin-left: 15px;
+		}
+	}
+
+	.hotel-editor-stars {
+		display: flex;
+		height: 40px;
+		margin-top: 10px;
+
+		>div {
+			font-size: 22px;
+			margin-top: 6px;
+		}
+
+		.input-hotel-stars {
+			margin-left: 14px;
+			font-size: 32px;
+			column-gap: 8px;
+		}
+	}
+
+
+	.hotel-editor-desription {
+		margin-top: 25px;
+		text-align: justify;
+		font-size: 16px;
+		padding-bottom: 5px;
+		line-height: 25px;
+	
+		textarea {
+			font-size: 16px;
+			width: 100%;
+			height: 200px;
+		}
+
+		.hotel-editor-desription-input {
+			font-size: 16px;
+			width: 100%;
+		}
+	}
+
+	.nutrition-type {
+		padding-bottom: 30px;
+
+		margin-top: 20px;
+
+		.nutrition-type-select  {
+			height: 40px;
+			width: 100%;
+			margin-top: 3px;
+			border: 1px solid black;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+
+		select {
+			height: 40px;
+			width: 100%;
+			margin-top: 3px;
+			border: 1px solid black;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+	}
+	
+	.tour-editor-characteristic {
+		border-top: 1px solid $light-grey-color;
+		padding-top: 25px;
+		padding-bottom: 25px;
+		display: flex;
+	
+		> div:nth-child(1) {
+			width: 30%;
+		}
+	
+		> div:nth-child(2) {
+			margin-left: 13%;
+			margin-top: 0;
+			list-style: none;
+		}
+	}
+}
+
+.tour-editor-info-and-reservation {
+	display: flex;
+	margin-top: 20px;
+
+	.select-tour-direction {
+		width: 30%;
+		font-size: 14px;
+		border: 1px solid black;
+		border-radius: 10px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+}
+
+.routes-menu {
+	width: 26%;
+	height: 500px;
+	border: 1px solid black;
+	position: absolute;
+	margin-left: 47%;
+	// margin-top: 400px;
+	margin-top: 475px;
+	border-radius: 10px;
+	padding-left: 26px;
+	padding-right: 20px;
+
+	.routes-menu-name-and-add-route-button {
+		margin-top: 22px;
+		display: flex;
+		justify-content: space-between;
+
+		b {
+			font-size: 22px;
+		}
+
+		button {
+			border-radius: 100%;
+
+			padding: 0;
+			width: 35px;
+			height: 35px;
+			background-color: white;
+			border: none;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+
+	.routes {
+		width: 100%;
+		height: 72%;
+		margin-top: 16px;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: $light-grey-color transparent;
+
+		.route-card {
+			border: 1px solid black;
+			display: flex;
+			justify-content: space-between;
+			padding: 4%;
+			border-radius: 16px;
+			position: relative;
+			margin-top: 10px;
+			
+			.route-card-directions {
+				width: 63%;
+
+				.route-card-direction {
+					.route-card-direction-type {
+						font-size: 14px;
+					}
+
+					.route-card-direction-info {
+						display: flex;
+						justify-content: space-between;
+						margin-top: 3px;
+						color: $dark-grey-color;
+						
+						>div {
+							font-size: 12px;
+						}
+					}
+				}
+
+				.route-card-direction:nth-child(2) {
+					margin-top: 10px;
+				}
+
+			}
+
+			.route-card-info {
+				.route-card-transport {
+					font-size: 14px;
+
+					>div:nth-child(2) {
+						margin-top: 3px;
+					}
+				}
+			}
+
+			.route-card-price-or-places {
+				margin-top: 18px;
+				font-size: 14px;
+
+				span {
+					font-size: 12px;
+				}
+			}
+		}
+
+		.delete-route-card-button {
+			position: absolute;
+			top: 4px;
+			right: 6px;
+			width: 11px;
+			height: 11px;
+			border: none;
+			z-index: 1001;
+			border-radius: 100%;
+			padding: 0px;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+
+	.route-card:hover {
+		background-color: rgb(235, 235, 235);
+	}
+
+	.buttons-under-routes {
+		.save-routes-button {
+			width: 80%;
+			height: 45px;
+			margin-left: 40px;
+			margin-top: 15px;
+			border-radius: 10px;
+			font-size: 16px;
+			color: white;
+			border: none;
+			background-color: rgb(231, 51, 81);
+		}
+	}
+}
+
+.edit-route-menu-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); // Затемнение фона
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; // Модальное окно впереди всех элементов
+}
+
+.edit-route-menu {
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1002; // На всякий случай
+	width: 600px;
+	text-align: center;
+
+	.close-edit-route-menu-button {
+		margin-left: 97%;
+		width: 20px;
+		height: 20px;
+		border: none;
+		background-color: white;
+		padding: 0px;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	h2 {
+		margin: 0px;
+	}
+
+	h3 {
+		margin: 5px 0px 0px 10px;
+		text-align: left;
+		margin-bottom: 5px;
+	}
+
+	hr {
+		width: 100%;
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+
+	input {
+		font-size: 16px;
+		margin-top: 3px;
+		width: 100%;
+		height: 35px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+	
+	select {
+		font-size: 18px;
+		margin-top: 3px;
+		width: 100%;
+		height: 40px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+
+	.parameter-name {
+		text-align: left;
+		font-size: 16px;
+		margin-left: 10px;
+	}
+
+	.route-direction-dates-and-times {
+		.route-direction-date-and-time {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 10px;
+
+			>div:nth-child(1) {
+				width: 60%;
+			}
+
+			>div:nth-child(2) {
+				width: 30%;
+			}
+		}
+	}
+
+	.edit-route-other-parameters {
+		margin-top: 30px;
+		margin-bottom: 15px;
+
+		.edit-route-other-parameter {
+			margin-top: 10px;
+		}
+
+		.edit-route-price-and-place {
+			display: flex;
+			margin-top: 15px;
+
+			.edit-route-price-or-place {
+				display: flex;
+				justify-content: left;
+				
+				.parameter-name {
+					margin-left: 0px;
+					text-align: right;
+					padding-top: 10px;
+				}
+
+				input {
+					margin-top: 0px;
+					width: 50%;
+					margin-left: 10px;
+				}
+			}
+
+
+		}
+	}
+
+	.edit-route-controller{
+		display: flex;
+		justify-content: space-between;
+		margin-top: 7px;
+
+		>button {
+			height: 45px;
+			font-size: 17px;
+		}
+
+		>button:nth-child(1) {
+			background-color: white;
+			border: none;
+		}
+
+		>button:nth-child(2) {
+			width: 240px;
+			color: white;
+			background-color: black;
+			border: none;
+			border-radius: 20px;
+		}
+	}
+}
+
+.tour-map-on-modal {
+	height: 100%;
+	display: flex;
+
+	>iframe {
+		border: 3px solid black;
+		width: 60%;
+		height: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

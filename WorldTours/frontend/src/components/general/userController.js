@@ -38,6 +38,7 @@ function UserController({ right }) {
                         <li><Link to='/user'>Редактировать профиль</Link></li>
                         { authUser.role === 1 && <li><Link to='/bookings'>Мои брони</Link></li> }
                         { (authUser.role === 2 || authUser.role === 3) && <li><Link to='/bookings'>Заявки на брони</Link></li> }
+                        { (authUser.role === 2 || authUser.role === 3) && <li><Link to='/hotels_for_edit'>Редактор отелей</Link></li> }
                         { authUser.role === 3 && <li><Link to='/users'>Пользователи</Link></li> }
                         
                         <li><Link to='/tours' style={{color: 'red'}} onClick={logout}>Выйти</Link></li>

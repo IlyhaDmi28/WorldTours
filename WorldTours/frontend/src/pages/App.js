@@ -6,12 +6,14 @@ import Tours from './user/tours';
 import ToursForManager from './manager/toursForManager';
 import Tour from './general/tour';
 import TourEditor from './manager/tourEditor';
+import HotelEditor from './manager/hotelEditor';
 import Users from './admin/users';
 import Auth from './general/auth';
 import TravelInfo from './general/travelInfo';
 import User from './general/user';
 import Bookings from './user/bookings';
 import BookingsForManager from './manager/bookingsForManager';
+import HotelsForEdit from './manager/hotelsForEdit';
 import Payment from './general/payment';
 import Campany from './general/campany';
 import Error from './error';
@@ -72,6 +74,11 @@ function App() {
 							<Route path="/bookings" element={authUser ? <BookingsForManager /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
+				{(authUser.role === 2 || authUser.role === 3) && (
+					<>
+							<Route path="/hotels_for_edit" element={authUser ? <HotelsForEdit /> : <Navigate to="/auth" replace />} />
+					</>
+				)}
 				{(authUser.role === 1) && (
 					<>
 						<Route path="/bookings" element={authUser ? <Bookings /> : <Navigate to="/auth" replace />} />
@@ -88,6 +95,11 @@ function App() {
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 						<Route path="/tour_editor/:id" element={authUser ? <TourEditor /> : <Navigate to="/auth" replace />} />
+					</>
+				)}
+				{(authUser.role === 2 || authUser.role === 3) && (
+					<>
+						<Route path="/hotel_editor/:id" element={authUser ? <HotelEditor /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
 			</Routes>

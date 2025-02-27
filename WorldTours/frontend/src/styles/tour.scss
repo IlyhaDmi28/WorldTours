@@ -432,11 +432,14 @@
 	background-color: rgba(0, 0, 0, 0.849); // Затемнение фона
 	justify-content: center;
 	z-index: 1000; // Модальное окно впереди всех элементов
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: rgb(66, 66, 66) transparent;
 
 	.image-gallery {
 		width: 75%;
 		text-align: center;
-
+		
 		.showed-image {
 			margin-top: 50px;
 			height: 70%;
@@ -449,10 +452,11 @@
 			text-align: center;
 			justify-content: center;
 			margin-top: 20px;
-	
+		
+
 			img {
-				height: 70px;
-				width: 70px;
+				height: 80px;
+				width: 80px;
 			}
 			
 		}
