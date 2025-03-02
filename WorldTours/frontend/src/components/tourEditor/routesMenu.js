@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RouteCard from "./routeCard";
-import EditRouteMenu from "./editRouteMenu";
+import RouteEditor from "./routeEditor";
 import add from "../../img/add.svg"
 
 function RoutesMenu({directionInfo, routes, setRoutes, saveTour}) {
@@ -37,7 +37,7 @@ function RoutesMenu({directionInfo, routes, setRoutes, saveTour}) {
                 </button>
             </div>
             
-			<EditRouteMenu routes={routes} setRoutes={setRoutes} isEditRouteMenuOpen={isEditRouteMenuOpen} closeEditRouteMenu={closeEditRouteMenu} />
+			<RouteEditor routes={routes} setRoutes={setRoutes} isEditRouteMenuOpen={isEditRouteMenuOpen} closeEditRouteMenu={closeEditRouteMenu} />
 
         </div>
 	);

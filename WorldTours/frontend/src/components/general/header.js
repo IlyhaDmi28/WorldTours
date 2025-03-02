@@ -16,7 +16,7 @@ function Header({addButtonText}) {
             <div className='header-search-input-and-add-button'>
                 <input  type='text' placeholder='Поиск'/>
                 {addButtonText && <button>{addButtonText}</button>}
-                <button><Link to='/hotel_editor/7'><b>Добавить отель</b></Link></button>
+                <button><Link to='/hotel_editor/0'><b>Добавить отель</b></Link></button>
             </div>
             
             <UserConroller right={'7.5%'}/>

@@ -11,5 +11,6 @@ namespace backend.Models.Entity
         public string Name { get; set; }
 
         public ICollection<Tour> Tours { get; set; }
-    }
+        public ICollection<Hotel> Hotels { get; set; }
+	}
 }

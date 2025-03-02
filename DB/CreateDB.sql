@@ -77,17 +77,60 @@ CREATE TABLE TransportTypes (
   Name VARCHAR(255) UNIQUE NOT NULL
 );
 
-CREATE TABLE Hotels (
-  ID INT PRIMARY KEY AUTO_INCREMENT,
-  Name VARCHAR(255) UNIQUE NOT NULL,
-  StarsNumber INT NOT NULL,
-  CityId INT,
-  FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`)
+CREATE TABLE NutritionTypes (
+  	ID INT PRIMARY KEY AUTO_INCREMENT,
+  	Name VARCHAR(255) UNIQUE NOT NULL
 );
 
-CREATE TABLE NutritionTypes (
-  ID INT PRIMARY KEY AUTO_INCREMENT,
-  Name VARCHAR(255) UNIQUE NOT NULL
+SELECT * FROM hotels;
+CREATE TABLE Hotels (
+  	ID INT PRIMARY KEY AUTO_INCREMENT,
+   Name VARCHAR(255) UNIQUE NOT NULL,
+  	CityId INT,
+  	Address VARCHAR(255),
+  	StarsNumber INT NOT NULL,
+	MainDescription VARCHAR(255),
+	NutritionTypeId INT,
+	PhotosDirectory VARCHAR(255),
+   FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`),
+   FOREIGN KEY (`NutritionTypeId`) REFERENCES `NutritionTypes`(`ID`)
+);
+
+CREATE TABLE HotelCharacteristics (
+  	ID INT PRIMARY KEY AUTO_INCREMENT,
+  	NAME VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE HotelDescriptions (
+  	ID INT PRIMARY KEY AUTO_INCREMENT,
+  	CharacteristicID INT,
+  	HotelID INT,
+	FOREIGN KEY (`CharacteristicID`) REFERENCES `HotelCharacteristics`(`ID`),
+	FOREIGN KEY (`HotelID`) REFERENCES `Hotels`(`ID`)
+);
+
+
+CREATE TABLE RoomTypes (
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	NAME VARCHAR(255) NOT NULL,
+	Price INT,
+	SeatsNumber INT,
+	RoomsNumber INT,
+	HotelId INT,
+  	FOREIGN KEY (`HotelId`) REFERENCES `Hotels`(`ID`)
+);
+
+CREATE TABLE RoomTypeCharacteristics (
+  	ID INT PRIMARY KEY AUTO_INCREMENT,
+  	NAME VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE RoomTypeDescriptions (
+  	ID INT PRIMARY KEY AUTO_INCREMENT,
+  	CharacteristicID INT,
+  	RoomTypeID INT,
+	FOREIGN KEY (`CharacteristicID`) REFERENCES `RoomTypeCharacteristics`(`ID`),
+	FOREIGN KEY (`RoomTypeID`) REFERENCES `RoomTypes`(`ID`)
 );
 
 CREATE TABLE Tours (

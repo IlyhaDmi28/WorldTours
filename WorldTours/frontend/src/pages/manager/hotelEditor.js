@@ -1,9 +1,12 @@
 import '../../styles/hotel-editor.scss';
+import "leaflet/dist/leaflet.css";
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { MapContainer, TileLayer, Marker, useMapEvents, Popup  } from "react-leaflet";
 import Header from '../../components/general/header';
+
 import ImagesAndMap from '../../components/tour/imagesAndMap';
 import ModalImageGallery from '../../components/general/modalImageGallery';
 import { Rating  } from "@mui/material";
@@ -18,6 +21,7 @@ import Cities from '../../components/general/cities';
 import Hotels from '../../components/general/hotels';
 import RoomTypesMenu from '../../components/hotelEditor/roomTypesMenu';
 import TourType from '../../components/tours/tourType'
+import ClickableMap from '../../components/general/clickableMap'
 import ReviewCardForEitor from '../../components/tourEditor/reviewCardForEitor';
 import selectNewPhoto from '../../img/selectNewPhoto.png';
 import star from '../../img/star.svg';
@@ -46,52 +50,28 @@ function HotelEditor() {
 	const [tourTypes, setTourTypes] = useState([]); 
 	const [photosUrl, setPhotosUrl] = useState([selectNewPhoto]); 
 	const [nutritionTypes, setNutritionTypes] = useState([]);
+	const [characteristics, setCharacteristics] = useState([]);
+
 	const [direction, setDirection] = useState({
 		regionId: null,
 		countryId: null,
 		cityId: null,
 	});
 
-	const [tour, setTour] = useState({
-		photoFile: useRef(null), // Используем useRef для открытия input
+	const [hotel, setHotel] = useState({
 		id: 0,
+		photosFiles: [], // Используем useRef для открытия input
 		name: null,
-		hotelId: null,
+		cityId: null,
+		address: null,
+		starsNumber: 1,
 		mainDescription: null,
-		nutritionTypeId: null,
-		tourTypeId: null,
-		routes: [],
-		descriptions: [],
-		reviews: []
+		nutritionTypeId: 1,
+		characteristics: [],
+		roomTypes: []
 	});
 	const [indexOfSelectedImage, setIndexOfSelectedImage] = useState(-1); 
 	const [isOpenMap, setIsOpenMap] = useState(false);
-
-	const changeCharacteristics = async (id) => {
-		try {
-			setTour((prevTour) => ({
-				...prevTour,
-				["tourTypeId"]: id,
-			}));
-
-			const response = await axios.get(`https://localhost:7276/tour/characteristics?tourTypeId=${id}`, {
-				headers: {
-					'Authorization': 'Bearer ' + token,
-				}
-			});
-
-			const characteristicsData = response.data
-			setTour((prevTour) => {
-				return {
-					...prevTour,
-					descriptions: characteristicsData,
-				};
-
-			});
-		} catch (error) {
-			console.error('Ошибка загрузки данных:', error);
-		} 
-    };
 
 	useEffect(() => {
 		const getData = async () => {
@@ -100,47 +80,43 @@ function HotelEditor() {
     			const id = segments[segments.length - 1];
 
 				let response;
-				response = await axios.get(`https://localhost:7276/tour/tour_to_edit?tourId=${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-				const tourData = response.data;
-				await changeCharacteristics(tourData.tourTypeId);
-				setTour((prevTour) => ({
-					...prevTour, // Сохраняем предыдущие значения
-					id: tourData.id,
-					name: tourData.name,
-					hotelId: tourData.hotelId,
-					mainDescription: tourData.mainDescription,
-					nutritionTypeId: tourData.nutritionTypeId,
-					tourTypeId: tourData.tourTypeId,
-					routes: tourData.routes,
-					descriptions: tourData.descriptions,
-				}));
-				if(id === '0') await changeCharacteristics(tourData.tourTypeId);  
-				setPhotosUrl([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
 
-				if(tourData.hotelId !== null) {
-					response = await axios.get(
-						`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						}
-					);
-					const directionInfoData = response.data;
-					setDirectionInfo(directionInfoData);
-				}
+				// response = await axios.get(`https://localhost:7276/tour/tour_to_edit?tourId=${id}`, {
+                //     headers: {
+                //         'Authorization': 'Bearer ' + token,
+                //     }
+                // });
+				// const tourData = response.data;
+				// setHotel((prevHotel) => ({
+				// 	...prevHotel, // Сохраняем предыдущие значения
+				// 	id: tourData.id,
+				// 	name: tourData.name,
+				// 	mainDescription: tourData.mainDescription,
+				// 	nutritionTypeId: tourData.nutritionTypeId,
+				// 	descriptions: tourData.descriptions,
+				// }));
+				// setPhotosUrl([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
 
-                response = await axios.get('https://localhost:7276/tour/tour_types', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-				const typesData = response.data;
-				setTourTypes(typesData);
+				// if(tourData.hotelId !== null) {
+				// 	response = await axios.get(
+				// 		`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
+				// 		{
+				// 			headers: {
+				// 				Authorization: `Bearer ${token}`,
+				// 			},
+				// 		}
+				// 	);
+				// 	const directionInfoData = response.data;
+				// 	setDirectionInfo(directionInfoData);
+				// }
+
+                // response = await axios.get('https://localhost:7276/tour/tour_types', {
+                //     headers: {
+                //         'Authorization': 'Bearer ' + token,
+                //     }
+                // });
+				// const typesData = response.data;
+				// setTourTypes(typesData);
 
 				response = await axios.get('https://localhost:7276/tour/nutrition_types', {
                     headers: {
@@ -150,16 +126,15 @@ function HotelEditor() {
 				const nutritionTypesData = response.data;
 				setNutritionTypes(nutritionTypesData);
 
-				response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
+				response = await axios.get('https://localhost:7276/hotel/characteristics', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
-				const reviewsData = response.data;
-				setTour((prevTour) => ({
-					...prevTour, 
-					reviews: reviewsData
-				}));
+				const characteristicsData = response.data;
+				console.log(characteristicsData);
+				console.log('characteristicsData');
+				setCharacteristics(characteristicsData);
 
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
@@ -206,6 +181,13 @@ function HotelEditor() {
 						countryId: directionId
 					}
 				case 3:
+					setHotel((prevHotel) => {
+						return {
+							...prevHotel,
+							cityId: directionId
+						}
+					})
+
 					return {
 						...prevDirection,
 						cityId: directionId
@@ -228,9 +210,9 @@ function HotelEditor() {
 
 	const directions = [
         null,
-        <Regions position={{left: '25%', top: '5%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections} />,
-        <Countries regionId={direction.regionId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
-        <Cities countyId={direction.countryId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Regions position={{left: '19%', top: '6%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections} />,
+        <Countries regionId={direction.regionId} position={{left: '12%', top: '28%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
+        <Cities countyId={direction.countryId} position={{left: '22%', top: '28%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
     ]
 
     const deleteSelectedDirection = () => {
@@ -254,102 +236,130 @@ function HotelEditor() {
 		});
 	}
 
-	const changePhoto = (e) => {
-        if (e.target.files && e.target.files[0]) {
-			const reader = new FileReader();
-			reader.onload = (e) => {
-				setPhotosUrl((prevPhotos) => 
-					prevPhotos.map((photo, i) => (i === 0 ? e.target.result : photo))
-				);
-			};
-			reader.readAsDataURL(e.target.files[0]);
-        }
+	const loadPhotos = (e) => {
+		const files = Array.from(e.target.files); // Получаем массив файлов
 
-		const file = e.target.files[0]; // Получаем выбранный файл
-		if (file) {
-			setTour((prevState) => ({
-			...prevState,
-			photoFile: file, // Сохраняем файл в состоянии
+		if (files) {
+			setHotel((prevHotel) => ({
+			...prevHotel,
+			photosFiles: files, // Сохраняем файл в состоянии
 			}));
 		}
+
+		const newImages = files.map(file => URL.createObjectURL(file)); // Создаём ссылки на изображения
+		setPhotosUrl(newImages); // Добавляем новые фото в массив
+
+        // if (e.target.files && e.target.files[0]) {
+		// 	const reader = new FileReader();
+		// 	reader.onload = (e) => {
+		// 		setPhotosUrl((prevPhotos) => 
+		// 			prevPhotos.map((photo, i) => (i === 0 ? e.target.result : photo))
+		// 		);
+		// 	};
+		// 	reader.readAsDataURL(e.target.files[0]);
+        // }
+
+		// const file = e.target.files[0]; // Получаем выбранный файл
+		// if (file) {
+		// 	setHotel((prevHotel) => ({
+		// 	...prevHotel,
+		// 	photosFiles: file, // Сохраняем файл в состоянии
+		// 	}));
+		// }
     };
 
-	const changeTour = (e) => {
+	const changeHotel = (e) => {
 		const { name, value } = e.target;
-        setTour((prevTour) => ({
-			...prevTour,
+        setHotel((prevHotel) => ({
+			...prevHotel,
             [name]: value,
         }));
 	}
     // Функция для открытия input по нажатию на изображение
     const setPhotoUropenFileDialogToSelectPhoto = () => {
-        tour.photoFile.current.click();
+        hotel.photosFiles.current.click();
     };
 
-	const changeDescription = (id) => {
-		setTour((prevTour) => ({
-			...prevTour,
-			descriptions: prevTour.descriptions.map((item) => 
-				item.characteristic.id === id ? {
-					...item,
-					description: {
-						...item.description,
-						value: !item.description.value, // Инвертируем значение
-					},
-				} : item
-			),
-		}));
+	const changeCharacteristics = (changedCharacteristic, value) => {
+		console.log('changedCharacteristic');
+		console.log(changedCharacteristic);
+		console.log(value);
+		if(value) {
+
+			const newCharacteristics = [...hotel.characteristics];
+			newCharacteristics.push(changedCharacteristic);
+			setHotel((prevHotel) => {
+				return {
+					...prevHotel,
+					characteristics: newCharacteristics
+				}
+			})
+
+			// setHotel((prevHotel) => ({
+			// 	...prevHotel,
+			// 	characteristics: [...prevHotel.characteristics, changedCharacteristic]
+			// }));
+		}
+		else {
+			setHotel((prevHotel) => ({
+				...prevHotel,
+				characteristics: prevHotel.characteristics.filter((characteristic) => characteristic.id !== changedCharacteristic.id)
+			}));
+		}
+
+
 	};
 
-	const addRoute = (routes) => {
-		if(authUser.blockedStatus) {
-			alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
-			return;
-		}
+	// const addRoute = (routes) => {
+	// 	if(authUser.blockedStatus) {
+	// 		alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
+	// 		return;
+	// 	}
 
-		 setTour((prevTour) => ({
-			...prevTour,
-			["routes"]: routes,
-		}));
-	}
+	// 	 setTour((prevTour) => ({
+	// 		...prevTour,
+	// 		["routes"]: routes,
+	// 	}));
+	// }
 
-	const saveTour = async () => {
-		if(authUser.blockedStatus) {
-			alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
-			return;
-		}
+	const saveHotel = async () => {
+		console.log(hotel);
+		// if(authUser.blockedStatus) {
+		// 	alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
+		// 	return;
+		// }
 
-		if(
-			(tour.name === "" || tour.name === null) ||
-			(tour.mainDescription === "" || tour.mainDescription === null) ||
-			(tour.hotelId === "" || tour.hotelId === null) ||
-			(tour.nutritionTypeId === "" || tour.nutritionTypeId === null) ||
-			(tour.tourTypeId === "" || tour.tourTypeId === null)
-		) {
-			alert("Вы не заполнили все поля!")
-			return;
-		}
+		// if(
+		// 	(hotel.name === "" || hotel.name === null) ||
+		// 	(hotel.mainDescription === "" || hotel.mainDescription === null) ||
+		// 	(hotel.hotelId === "" || hotel.hotelId === null) ||
+		// 	(hotel.nutritionTypeId === "" || hotel.nutritionTypeId === null) ||
+		// 	(hotel.tourTypeId === "" || hotel.tourTypeId === null)
+		// ) {
+		// 	alert("Вы не заполнили все поля!")
+		// 	return;
+		// }
 
-		if(tour.routes ===  null || tour.routes.length === 0) {
-			alert("Вы не добавили ни одного маршрута!")
-			return;
-		}
+		// if(tour.routes ===  null || tour.routes.length === 0) {
+		// 	alert("Вы не добавили ни одного маршрута!")
+		// 	return;
+		// }
 
 		const segments = location.pathname.split('/');
     	const id = segments[segments.length - 1];
 
 		if(id === '0') {
-			await axios.post('https://localhost:7276/tour/add', tour, {
+			await axios.post('https://localhost:7276/hotel/add', hotel, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`,
 				}
 		  	});
 
-			window.location.href = '/tours';
+			// window.location.href = '/tours';
 		}
 		else {
-			await axios.put('https://localhost:7276/tour/edit', tour, {
+			await axios.put('https://localhost:7276/tour/edit', hotel, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`,
@@ -358,29 +368,6 @@ function HotelEditor() {
 
 			window.location.href = '/tours';
 		}
-	}
-
-	const deleteReview = async (id) => {
-		await axios.delete(`https://localhost:7276/review/delete?tourId=${id}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			}
-		});
-
-		const segments = location.pathname.split('/');
-    	const tourId = segments[segments.length - 1];
-
-		const response = await axios.get(`https://localhost:7276/review/reviews?tourId=${tourId}`, {
-			headers: {
-				'Authorization': 'Bearer ' + token,
-			}
-		});
-		const reviewsData = response.data;
-		console.log(reviewsData);
-		setTour((prevTour) => ({
-			...prevTour, 
-			reviews: reviewsData
-		}));
 	}
 
 	const showImages = (index) => {
@@ -399,31 +386,49 @@ function HotelEditor() {
         }
     };
 
+	const addRoomType = (roomTypes) => {
+		console.log(hotel);
+		if(authUser.blockedStatus) {
+			alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
+			return;
+		}
+
+		setHotel((prevHotel) => ({
+			...prevHotel,
+			["roomTypes"]: roomTypes,
+		}));
+	}
+
 	return (
 		<div className="hotel-editor narrow-conteiner">
 			<Header />
 			<div className="line-under-header"></div>
 
-			<RoomTypesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={addRoute}/>
+			<RoomTypesMenu roomTypes={hotel.roomTypes} setRoomTypes={addRoomType} saveHotel={saveHotel}/>
 			<div className="hotel-editor-images-and-name">
 				<div className="hotel-editor-name-and-main-photo">
 					<div className="hotel-editor-name">
 						<div>
 							<b>Название отеля</b>
 						</div>
-						<TextField className='hotel-editor-name-input' sx={{"& input": {fontSize: "19px"}, }} placeholder='Название' type="search" variant="standard"/>
-
-						{/* <input name="name"type='text' value={tour.name} onChange={changeTour}/> */}
+						<TextField
+							className='hotel-editor-name-input' 
+							name='name'
+							sx={{"& input": {fontSize: "19px"}, }} 
+							placeholder='Название' type="search" 
+							variant="standard"
+							onChange={changeHotel}
+						/>
 					</div>
 					<div className="main-hotel-editor-photo">
-						<img src={photosUrl[0]} alt="click to change" onClick={setPhotoUropenFileDialogToSelectPhoto}/>
-						<input type="file" ref={ tour.photoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
+						<img src={photosUrl[0]} alt="click to change" onClick={() => showImages(0)}/>
+						<input type="file" multiple  ref={ hotel.photosFiles} onChange={loadPhotos} style={{ display: 'none' }} accept="image/*"/>
 					</div>
 				</div>
 				
 				<div className='other-hotel-photos-and-controller'>
 					<div className='hotel-photos-controller'>
-						<button><b>Загрузить фото</b></button>
+						<button onClick={setPhotoUropenFileDialogToSelectPhoto}><b>Загрузить изображения</b></button>
 					</div>
 					<div className='other-hotel-photos'>
 						<div>
@@ -457,7 +462,7 @@ function HotelEditor() {
 
 							<div>
 								<div><b>Адресс: </b></div>
-								<TextField  sx={{"& input": {fontSize: "19px"}, }} className='hotel-editor-input-address' placeholder='улица, дом' type="search" variant="standard"/>
+								<TextField name="address" sx={{"& input": {fontSize: "19px"}, }} className='hotel-editor-input-address' placeholder='улица, дом' type="search" variant="standard" onChange={changeHotel}/>
 							</div>
 						</div>
 
@@ -466,68 +471,52 @@ function HotelEditor() {
 
 					<div className="hotel-editor-stars">
 						<div><b>Количество звёзд: </b></div>
-						<Rating className="input-hotel-stars" name="hotel-stars" defaultValue={1} precision={1}/>
+						<Rating 
+							className="input-hotel-stars" 
+							name="starsNumber" 
+							defaultValue={hotel.starsNumber} 
+							precision={1}
+							onChange={(e) => {setHotel((prevHotel) => ({
+								...prevHotel,
+								starsNumber: +e.target.value,
+							}));}}
+						/>
 					</div>
 
 					<div className="hotel-editor-desription">
 						<div><b>Общее описание</b></div>
 						<TextField className='hotel-editor-desription-input'
+							name="mainDescription"
 							multiline
 							rows={10}
 							maxRows={20}
 							placeholder='Описание'
+							onChange={changeHotel}
 						/>
-						{/* <textarea name='mainDescription' value={tour.mainDescription} onChange={changeTour}/> */}
 					</div>
 
 					<div className='nutrition-type'>
 						<div><b>Тип питание</b></div>
-						<Select className='nutrition-type-select' value={tour.nutritionTypeId} onChange={changeTour}>
+						<Select className='nutrition-type-select' name="nutritionTypeId" value={hotel.nutritionTypeId} onChange={changeHotel}>
 							{nutritionTypes.map((nutritionType) => (
 								<MenuItem value={nutritionType.id}>
 									{nutritionType.name}
 								</MenuItem>
 							))}
 						</Select>
-						{/* <select name='nutritionTypeId' value={tour.nutritionTypeId} onChange={changeTour}>
-                            {nutritionTypes.map((nutritionType) => (
-                                <option 
-                                    key={nutritionType.id}
-                                    value={nutritionType.id}
-                                >
-                                    {nutritionType.name}
-                                </option>
-                            ))}
-                        </select> */}
 					</div>
-
-					{/* <div className='nutrition-type'>
-						<div><b>Тип тура</b></div>
-						<select name='nutritionTypeId' value={tour.tourTypeId} onChange={changeTour}>
-                            {tourTypes.map((tourType) => (
-                                <option 
-                                    key={tourType.id}
-                                    value={tourType.id}
-                                >
-									
-                                    {tourType.name}
-                                </option>
-                            ))}
-                        </select>
-					</div> */}
-
+								
 					<div className="tour-editor-characteristics"> {/*комп*/}
-							{tour.descriptions.map((description) => (
+							{characteristics.map((characteristic) => (
 								<div className="tour-editor-characteristic">
 									<div>
-										<b>{description.characteristic.name}</b>
+										<b>{characteristic.name}</b>
 									</div>
 									<div>
 										<div>
 										<input
 											type="checkbox"
-											checked={description.description.value}
-											onChange={() => changeDescription(description.characteristic.id)}
+											onChange={(e) =>{changeCharacteristics(characteristic, e.target.value)}}
 										/>
 										</div>
 									</div>
@@ -538,25 +527,11 @@ function HotelEditor() {
 
 			</div>
 
-			<div className='tour-review'>
-				<h2>Отзывы</h2>
-
-				<div className='tour-review-list'>
-					{tour.reviews.map((review) => 
-						(<ReviewCardForEitor review={review} deleteReview={deleteReview}/>)
-					)}
-				</div>
-			</div>
-
 			{indexOfSelectedImage !== -1 && <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl} handleOverlayClick={handleOverlayClick} showImages={showImages}/>}
 			
-			<Modal open={isOpenMap}
-				onClose={() => setIsOpenMap(false)}
-				aria-labelledby="modal-modal-title"
-				aria-describedby="modal-modal-description"
-				className='tour-map-on-modal'
-			>
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d588.0220734032202!2d27.616216344539804!3d53.876858255031635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbce18581d62a7%3A0xfbca977ea03db2c7!2z0J_QsNGA0YLQuNC30LDQvdGB0LrQuNC5INC_0YDQvtGB0L8uIDMyLzEsINCc0LjQvdGB0LosINCc0LjQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMIDIyMDEwNw!5e0!3m2!1sru!2sby!4v1739876954826!5m2!1sru!2sby" width="600" height="450" style={{border: '0px'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+			<Modal open={isOpenMap} onClose={() => setIsOpenMap(false)} className='tour-map-on-modal'>
+				{/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d588.0220734032202!2d27.616216344539804!3d53.876858255031635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbce18581d62a7%3A0xfbca977ea03db2c7!2z0J_QsNGA0YLQuNC30LDQvdGB0LrQuNC5INC_0YDQvtGB0L8uIDMyLzEsINCc0LjQvdGB0LosINCc0LjQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMIDIyMDEwNw!5e0!3m2!1sru!2sby!4v1739876954826!5m2!1sru!2sby" width="600" height="450" style={{border: '0px'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
+				<ClickableMap/>
 			</Modal>
 		</div>
 	);

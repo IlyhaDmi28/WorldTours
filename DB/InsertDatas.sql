@@ -67,7 +67,7 @@ INSERT INTO Charcteristics_TourTypes (TourTypeID, CharacteristicID) VALUES (5, 8
 INSERT INTO Charcteristics_TourTypes (TourTypeID, CharacteristicID) VALUES (5, 9);
 INSERT INTO Charcteristics_TourTypes (TourTypeID, CharacteristicID) VALUES (5, 15);
 
-
+SELECT * FROM NutritionTypes;
 INSERT INTO NutritionTypes (NAME) VALUES ('RO (Room only) — без питания');
 INSERT INTO NutritionTypes (NAME) VALUES ('BB (Bed & breakfast) — завтрак');
 INSERT INTO NutritionTypes (NAME) VALUES ('HB (Half board) — полупансион');
@@ -262,6 +262,20 @@ INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Аэропорт «Жу
 INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Варшавский аэропорт имени Фридерика Шопена', 89);
 
 INSERT INTO DepartmentDepartures (NAME, CityId) VALUES ('Порт Майами', 78);
+
+
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Бассейн');
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Джакузи');
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Дискотеки');
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Бильярд');
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Тенис');
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Различные развлечения');
+
+
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Наличие Wi-fi');
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Раздельные кровати');
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Раздельный санузел');
+
 
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hotel Tango', 4, 5);
 INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Plaza del Sol', 3, 5);

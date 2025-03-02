@@ -23,6 +23,9 @@ namespace backend.DB
 		public DbSet<Models.Entity.Route> Routes { get; set; }
 		public DbSet<Booking> Bookings { get; set; }
 		public DbSet<Review> Reviews { get; set; }
+		public DbSet<HotelCharacteristic> HotelCharacteristics { get; set; }
+		public DbSet<RoomType> RoomTypes { get; set; }
+		public DbSet<RoomTypeCharacteristic> RoomTypeCharacteristics { get; set; }
 
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -49,6 +52,40 @@ namespace backend.DB
 						.WithMany()
 						.HasForeignKey("TourTypeID")
 						.HasConstraintName("FK_Charcteristics_TourTypes_TourTypes")
+				);
+
+			modelBuilder.Entity<Hotel>()
+				.HasMany(h => h.Characteristics)
+				.WithMany(hc => hc.Hotels)
+				.UsingEntity<Dictionary<string, object>>(
+					"HotelDescriptions", // Название промежуточной таблицы
+					j => j
+						.HasOne<HotelCharacteristic>()
+						.WithMany()
+						.HasForeignKey("CharacteristicID")
+						.HasConstraintName("FK_HotelDescriptions_HotelCharacteristics"),
+					j => j
+						.HasOne<Hotel>()
+						.WithMany()
+						.HasForeignKey("TourTypeID")
+						.HasConstraintName("FK_HotelDescriptions_Hotels")
+				);
+
+			modelBuilder.Entity<RoomType>()
+				.HasMany(rt => rt.Characteristics)
+				.WithMany(rtc => rtc.RoomTypes)
+				.UsingEntity<Dictionary<string, object>>(
+					"RoomTypeDescriptions", // Название промежуточной таблицы
+					j => j
+						.HasOne<RoomTypeCharacteristic>()
+						.WithMany()
+						.HasForeignKey("CharacteristicID")
+						.HasConstraintName("FK_RoomTypeDescriptions_RoomTypeCharacteristics"),
+					j => j
+						.HasOne<RoomType>()
+						.WithMany()
+						.HasForeignKey("TourTypeID")
+						.HasConstraintName("FK_RoomTypeDescriptions_RoomTypes")
 				);
 
 
@@ -133,10 +170,25 @@ namespace backend.DB
 				.HasForeignKey(t => t.HotelId)
 				.OnDelete(DeleteBehavior.SetNull);
 
+			// Настройка Tour
+			modelBuilder.Entity<Hotel>()
+				.HasMany(h => h.RoomTypes)
+				.WithOne(rt => rt.Hotel)
+				.HasForeignKey(rt => rt.HotelId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+
 			// Настройка NutritionType
 			modelBuilder.Entity<NutritionType>()
 				.HasMany(nt => nt.Tours)
 				.WithOne(t => t.NutritionType)
+				.HasForeignKey(t => t.NutritionTypeId)
+				.OnDelete(DeleteBehavior.SetNull);
+
+			// Настройка NutritionType
+			modelBuilder.Entity<NutritionType>()
+				.HasMany(nt => nt.Hotels)
+				.WithOne(h => h.NutritionType)
 				.HasForeignKey(t => t.NutritionTypeId)
 				.OnDelete(DeleteBehavior.SetNull);
 
@@ -194,6 +246,7 @@ namespace backend.DB
 			modelBuilder.Entity<City>().HasIndex(c => c.Name).IsUnique();
 			modelBuilder.Entity<DepartmentDeparture>().HasIndex(dd => dd.Name).IsUnique();
 			modelBuilder.Entity<Hotel>().HasIndex(h => h.Name).IsUnique();
+			modelBuilder.Entity<HotelCharacteristic>().HasIndex(hc => hc.Name).IsUnique();
 			modelBuilder.Entity<NutritionType>().HasIndex(nt => nt.Name).IsUnique();
 			modelBuilder.Entity<TourType>().HasIndex(tt => tt.Name).IsUnique();
 			modelBuilder.Entity<Characteristic>().HasIndex(c => c.Name).IsUnique();

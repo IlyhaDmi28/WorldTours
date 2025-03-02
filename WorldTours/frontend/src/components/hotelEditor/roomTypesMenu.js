@@ -1,44 +1,35 @@
 import React, { useState } from 'react';
-// import RouteCard from "./routeCard";
-// import EditRouteMenu from "./editRouteMenu";
+import RoomTypeCard from "./roomTypeCard";
+import RoomTypeEditor from "./roomTypeEditor";
+import Modal from '@mui/material/Modal';
 import add from "../../img/add.svg"
 
-function RoomTypesMenu({directionInfo, routes, setRoutes, saveTour}) {
-    const [isEditRouteMenuOpen, setIsEditRouteMenuOpen] = useState(false);
-
-    // Функция для открытия модального окна
-	const openEditRouteMenu = () => {
-		setIsEditRouteMenuOpen(true);
-		document.body.style.overflow = 'hidden'; // Отключаем прокрутку страницы
-	};
-
-	// Функция для закрытия модального окна
-	const closeEditRouteMenu = () => {
-		setIsEditRouteMenuOpen(false);
-		document.body.style.overflow = 'auto'; // Включаем прокрутку страницы обратно
-	};
+function RoomTypesMenu({roomTypes, setRoomTypes, saveHotel}) {
+    const [isOpenRouteEditor, setIsOpenRouteEditor] = useState(false);
 
 	return (
-        <div className="routes-menu">
-            <div className="routes-menu-name-and-add-route-button">
+        <div className="room-types-menu">
+            <div className="room-types-menu-name-and-add-route-button">
                 <b>Типы номеров:</b>
-                <button  onClick={openEditRouteMenu}>
+                <button onClick={() => setIsOpenRouteEditor(true)}>
                     <img src={add}/>
                 </button>
             </div>
 
-            <div className="routes">
-                {/* {routes.map((route, index) => (<RouteCard directionInfo={directionInfo} route={route} deleteRoute={() => setRoutes(routes.filter((_, i) => i !== index))}/>))} */}
+            <div className="room-types">
+                {roomTypes.map((roomType, index) => (<RoomTypeCard roomType={roomType} deleteRoomType={() => {console.log('zzzzz'); setRoomTypes(roomTypes.filter((_, i) => i !== index))}}/>))}
             </div>
 
-            <div className="buttons-under-routes">
-                <button className="save-routes-button" onClick={saveTour}>
+            <div className="buttons-under-room-types">
+                <button className="save-room-types-button" onClick={saveHotel}>
                     <b>Сохранить отель</b>
                 </button>
             </div>
             
 			{/* <EditRouteMenu routes={routes} setRoutes={setRoutes} isEditRouteMenuOpen={isEditRouteMenuOpen} closeEditRouteMenu={closeEditRouteMenu} /> */}
-
+            <Modal className='room-type-editor-modal' open={isOpenRouteEditor} onClose={() => setIsOpenRouteEditor(false)} >
+				<RoomTypeEditor roomTypes={roomTypes} setRoomTypes={setRoomTypes} closeModal={() => setIsOpenRouteEditor(false)}/>
+			</Modal>
         </div>
 	);
 }
