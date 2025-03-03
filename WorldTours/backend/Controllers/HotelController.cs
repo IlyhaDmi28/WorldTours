@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Reflection.PortableExecutable;
+using static System.Net.WebRequestMethods;
 
 
 namespace backend.Controllers
@@ -125,12 +126,13 @@ namespace backend.Controllers
 
 								List<string> savedFilePaths = new List<string>();
 
+								int i = 0;
 								foreach (var file in hotel.PhotosFiles)
 								{
 									if (file.Length > 0)
 									{
 										// Генерируем уникальное имя файла
-										string uniqueFileName = $"{Guid.NewGuid()}_{file.FileName}";
+										string uniqueFileName = $"{i++}.jpg";
 										string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
 										// Сохраняем файл
@@ -157,6 +159,122 @@ namespace backend.Controllers
 				}
 
 				return BadRequest();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[Authorize(Roles = "Manager, Admin")]
+		[HttpGet("hotels_for_edit")]
+		public async Task<IActionResult> GetHotelForEdit()
+		{
+			try
+			{
+				List<Hotel> hotels = await db.Hotels
+					.Include(h => h.City)
+					.ThenInclude(c => c.Country)
+					.ToListAsync();
+
+				return Ok(hotels.Select(h=> new HotelForEditCardDto()
+				{
+					Id = h.Id,
+					Name = h.Name,
+					City = h.City.Name,
+					Country = h.City.Country.Name,
+					Address = h.Address,
+					StarsNumber = h.StarsNumber,
+					PhotoUrl = $"https://localhost:7276/uploads/hotels/{h.Name}/0.jpg"
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[Authorize(Roles = "Manager, Admin")]
+		[HttpGet("hotel_for_editor")]
+		public async Task<IActionResult> GetHotelForEditor([FromQuery] int? hotelId = null)
+		{
+			try
+			{
+				HotelForEditorDto hotelForEditorDto = null;
+				if (hotelId == 0)
+				{
+					hotelForEditorDto = new HotelForEditorDto()
+					{
+						Id = 0,
+						Name = "",
+						MainDescription = string.Empty,
+						CityId = null,
+						NutritionTypeId = 1,
+						StarsNumber = 1,
+						Address = string.Empty,
+						PhotosUrls = new List<string>(),
+						Characteristics = new List<CharacteristicDto>(),
+						RoomTypes = new List<RoomTypeDto>(),
+					};
+				}
+				else
+				{
+					Hotel hotel = await db.Hotels
+						.Include(h => h.Characteristics)
+						.Include(h => h.City)
+						.Include(h => h.RoomTypes)
+						.ThenInclude(rt => rt.Characteristics)
+						.FirstOrDefaultAsync(h => h.Id == hotelId);
+
+					if (hotel == null) return NotFound();
+
+					string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotels", hotel.Name);
+
+					List<string> fileNames = new List<string>();
+					List<string> fileUrls = new List<string>();
+					// Проверяем, существует ли папка
+					if (Directory.Exists(folderPath))
+					{
+						// Получаем все файлы из папки
+						string[] files = Directory.GetFiles(folderPath);
+						
+						// Создаём список только с названиями файлов
+						fileNames = files.Select(Path.GetFileName).ToList();
+					}
+					else
+					{
+						Console.WriteLine("Папка не найдена.");
+					}
+
+					foreach (string fileName in fileNames)
+					{
+						fileUrls.Add($"https://localhost:7276/uploads/hotels/{hotel.Name}/{fileName}");
+					}
+
+					hotelForEditorDto = new HotelForEditorDto
+					{
+						Id = hotel.Id,
+						Name = hotel.Name,
+						MainDescription = hotel.MainDescription,
+						CityId = hotel.CityId,
+						Address = hotel.Address,
+						NutritionTypeId = hotel.NutritionTypeId,
+						StarsNumber = hotel.StarsNumber,
+						Characteristics = hotel.Characteristics.Select(c => new CharacteristicDto { Id = c.Id, Name = c.Name }).ToList(),
+						RoomTypes = hotel.RoomTypes.Select(rt => new RoomTypeDto
+						{
+							Id = rt.Id,
+							Name = rt.Name,
+							SeatsNumber = rt.SeatsNumber,
+							RoomsNumber = rt.RoomsNumber,
+							Price = rt.Price,
+							Characteristics = rt.Characteristics.Select(c => new CharacteristicDto { Id = c.Id, Name = c.Name }).ToList()
+						}).ToList(),
+						PhotosUrls = fileUrls
+					};
+				}
+
+				return Ok(hotelForEditorDto);
 			}
 			catch (Exception ex)
 			{

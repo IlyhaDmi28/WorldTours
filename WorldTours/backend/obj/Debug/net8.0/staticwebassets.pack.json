@@ -573,6 +573,70 @@
       "PackagePath": "staticwebassets\\static\\media\\world.45a182d8688f77baddb6.jpg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\dfgfdgdfgfd\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\dfgfdgdfgfd\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\dfgfdgdfgfd\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\dfgfdgdfgfd\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\dfgfdgdfgfd\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\dfgfdgdfgfd\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\dfgfdgdfgfd\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\dfgfdgdfgfd\\3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\null\\0",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\null"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sdfsdfsdf\\0",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\sdfsdfsdf"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sdsssssss\\0",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\sdsssssss"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\zzzzzzz\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\zzzzzzz\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\zzzzzzz\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\zzzzzzz\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\zzzzzzz\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\zzzzzzz\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\zzzzzzz\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\zzzzzzz\\3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Тестовый отель\\124557c7-09f4-41c6-aab2-5016a2eff97b_b28d390973a14b14672c14a380dfbf48.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Тестовый отель\\124557c7-09f4-41c6-aab2-5016a2eff97b_b28d390973a14b14672c14a380dfbf48.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Тестовый отель\\6df2896d-ccdc-4b2a-b8ee-c6003240104b_200924183413-dubai-9-1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Тестовый отель\\6df2896d-ccdc-4b2a-b8ee-c6003240104b_200924183413-dubai-9-1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Тестовый отель\\cc204b05-ae7e-4878-92af-3d0e0c72e39b_KcTGuROzbiMH9-bX1HrjSrfUakrQgqfMcuD7Dg7rhoWMC2XM6h02gZj9J070OFJyaWj5hN9CdQ6xH955WYdnwh7k8IcukgkJKsqxz9tw4lfhmH1w-w.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Тестовый отель\\cc204b05-ae7e-4878-92af-3d0e0c72e39b_KcTGuROzbiMH9-bX1HrjSrfUakrQgqfMcuD7Dg7rhoWMC2XM6h02gZj9J070OFJyaWj5hN9CdQ6xH955WYdnwh7k8IcukgkJKsqxz9tw4lfhmH1w-w.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Тестовый отель\\cc6f6a65-428d-40a8-9afd-69bf7aad1512_orig.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Тестовый отель\\cc6f6a65-428d-40a8-9afd-69bf7aad1512_orig.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Тестовый отель\\cdffff70-ffde-4870-98e9-d3ad812e3b24__51a5d589-71ef-4f48-a404-a079216bf26c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Тестовый отель\\cdffff70-ffde-4870-98e9-d3ad812e3b24__51a5d589-71ef-4f48-a404-a079216bf26c.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.backend.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

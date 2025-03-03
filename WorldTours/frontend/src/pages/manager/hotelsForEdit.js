@@ -7,7 +7,7 @@ import { Rating  } from "@mui/material";
 import FilterButton from "../../components/tours/filterButton";
 import SortButton from "../../components/general/sortButton";
 import Header from '../../components/general/header';
-import BookingCardForManager from '../../components/bookings/bookingCardForManager';
+import HotelCardForEdit from '../../components/hotelsForEdit/hotelCardForEdit';
 import star from '../../img/star.svg'
 import darkStar from '../../img/dark-star.svg'
 const token = localStorage.getItem("token");
@@ -23,29 +23,21 @@ function HotelsForEdit() {
 
 	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false]);
 	const authUser = useSelector((state) => state.authUser.value);
-	const [bookings, setBookings] = useState([]);
-	const [allBookings, setAllBookings] = useState([]);
-	const [notConfirmedBookings, setNotConfirmedBookings] = useState([]);
-	const [confirmedBookings, setConfirmedBookings] = useState([]);
- 	const [minNumberLightHotelStars, setMinNumberLightHotelStars] = useState(filter.minHotelStars);
-	const [maxNumberLightHotelStars, setMaxNumberLightHotelStars] = useState(filter.maxHotelStars);
+	const [hotels, setHotels] = useState([]);
 
 	useEffect(() => {
 		const getData = async () => {
             try {
 				let response;
-				response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
+				response = await axios.get(`https://localhost:7276/hotel/hotels_for_edit`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
 
-				const bookingData = response.data;
-				console.log(bookingData);
-				setBookings(bookingData);
-				setAllBookings(bookingData);
-				setNotConfirmedBookings(bookingData.filter(booking => booking.status === null));
-				setConfirmedBookings(bookingData.filter(booking => booking.status === true));
+				const hotelsgData = response.data;
+				console.log(hotelsgData);
+				setHotels(hotelsgData);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -54,116 +46,49 @@ function HotelsForEdit() {
         getData();
 	}, []);
 	
-    const handlClickChangeBookingListButton = (buttonId) => {
-		let arr = [];
-		for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
-			arr[i] = i === buttonId;
-		}
+    
 
-		switch(buttonId) {
-			case 0: setBookings(allBookings); break;
-			case 1: setBookings(notConfirmedBookings); break;
-			case 2: setBookings(confirmedBookings); break;
-			default: setBookings(allBookings); break;
-		}
+	// const deleteBooking = async (id) => {
+	// 	if(authUser.blockedStatus) {
+	// 		alert("Вы не удалить бронь тура, так как ваш профиль был заблокирован!");
+	// 		return;
+	// 	}
 
-		setIsAllButtonActive(arr);
-    };
+    //     await axios.delete(`https://localhost:7276/booking/delete?bookingId=${id}`, {
+    //         headers: {
+	// 			'Authorization': 'Bearer ' + token,
+	// 		}
+	// 	});
 
-	const confirmBooking = async (id) => {
-		if(authUser.blockedStatus) {
-			alert("Вы не подтвердить бронь тура, так как ваш профиль был заблокирован!");
-			return;
-		}
+	// 	const response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
+    //         headers: {
+    //             'Authorization': 'Bearer ' + token,
+    //          }
+    //     });
 
-        await axios.patch(`https://localhost:7276/booking/confirm?bookingId=${id}`, {}, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-        });
+	// 	const bookingData = response.data;
+	// 	const notConfirmedBookingsData = bookingData.filter(booking => booking.status === null);
+	// 	const confirmedBookingsData =bookingData.filter(booking => booking.status === true);
+	// 	setAllBookings(bookingData);
+	// 	setNotConfirmedBookings(notConfirmedBookingsData);
+	// 	setConfirmedBookings(confirmedBookingsData);
+	// 	setBookings(bookingData);
 
-		const response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-             }
-        });
+	// 	for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
+	// 		if(isChangeBookingListButtonsActive[i]) {
+	// 			switch(i) {
+	// 				case 0: setBookings(bookingData); return;
+	// 				case 1: setBookings(notConfirmedBookingsData); return;
+	// 				case 2: setBookings(confirmedBookingsData); return;
+	// 				default: setBookings(bookingData); return;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
-		const bookingData = response.data;
-		const notConfirmedBookingsData = bookingData.filter(booking => booking.status === null);
-		const confirmedBookingsData =bookingData.filter(booking => booking.status === true);
-		setAllBookings(bookingData);
-		setNotConfirmedBookings(notConfirmedBookingsData);
-		setConfirmedBookings(confirmedBookingsData);
-		setBookings(bookingData);
-
-		for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
-			if(isChangeBookingListButtonsActive[i]) {
-				switch(i) {
-					case 0: setBookings(bookingData); return;
-					case 1: setBookings(notConfirmedBookingsData); return;
-					case 2: setBookings(confirmedBookingsData); return;
-					default: setBookings(bookingData); return;
-				}
-			}
-		}
-	}
-
-	const deleteBooking = async (id) => {
-		if(authUser.blockedStatus) {
-			alert("Вы не удалить бронь тура, так как ваш профиль был заблокирован!");
-			return;
-		}
-
-        await axios.delete(`https://localhost:7276/booking/delete?bookingId=${id}`, {
-            headers: {
-				'Authorization': 'Bearer ' + token,
-			}
-		});
-
-		const response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-             }
-        });
-
-		const bookingData = response.data;
-		const notConfirmedBookingsData = bookingData.filter(booking => booking.status === null);
-		const confirmedBookingsData =bookingData.filter(booking => booking.status === true);
-		setAllBookings(bookingData);
-		setNotConfirmedBookings(notConfirmedBookingsData);
-		setConfirmedBookings(confirmedBookingsData);
-		setBookings(bookingData);
-
-		for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
-			if(isChangeBookingListButtonsActive[i]) {
-				switch(i) {
-					case 0: setBookings(bookingData); return;
-					case 1: setBookings(notConfirmedBookingsData); return;
-					case 2: setBookings(confirmedBookingsData); return;
-					default: setBookings(bookingData); return;
-				}
-			}
-		}
-	}
-
-	const ClickMinHotelStars = (hotelStarButtonId) => {
-        setMinNumberLightHotelStars(hotelStarButtonId);
-        setFilter((prevfilter) => ({
-            ...prevfilter,
-            ["minHotelStars"]: hotelStarButtonId,
-        }));
-    }
-
-    const ClickMaxHotelStars = (hotelStarButtonId) => {
-        setMaxNumberLightHotelStars(hotelStarButtonId);
-        setFilter((prevfilter) => ({
-            ...prevfilter,
-            ["maxHotelStars"]: hotelStarButtonId,
-        }));
-    }
-
+	
 	return (
-		<div className="bookings narrow-conteiner">
+		<div className="hotels-for-editor narrow-conteiner">
 			<Header/>
 			<div className="line-under-header"></div>
 			<main className='vertical-list-page'>
@@ -213,8 +138,8 @@ function HotelsForEdit() {
 						<SortButton/>
 					</div>
 				</div>
-				<div className="bookings-list">
-					{bookings.map((booking) => (<BookingCardForManager booking={booking} deleteBooking={deleteBooking} confirmBooking={confirmBooking}/>))}
+				<div className="hotels-list">
+					{hotels.map((hotel) => (<HotelCardForEdit hotel={hotel}/>))}
 				</div>
 			</main>
 			

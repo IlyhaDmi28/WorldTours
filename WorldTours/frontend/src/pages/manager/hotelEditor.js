@@ -81,21 +81,27 @@ function HotelEditor() {
 
 				let response;
 
-				// response = await axios.get(`https://localhost:7276/tour/tour_to_edit?tourId=${id}`, {
-                //     headers: {
-                //         'Authorization': 'Bearer ' + token,
-                //     }
-                // });
-				// const tourData = response.data;
-				// setHotel((prevHotel) => ({
-				// 	...prevHotel, // Сохраняем предыдущие значения
-				// 	id: tourData.id,
-				// 	name: tourData.name,
-				// 	mainDescription: tourData.mainDescription,
-				// 	nutritionTypeId: tourData.nutritionTypeId,
-				// 	descriptions: tourData.descriptions,
-				// }));
-				// setPhotosUrl([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
+				response = await axios.get(`https://localhost:7276/hotel/hotel_for_editor?hotelId=${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const hotelData = response.data;
+				console.log(hotelData);
+				setHotel((prevHotel) => ({
+					...prevHotel, 
+
+					id: hotelData.id,
+					name: hotelData.name,
+					cityId: hotelData.cityId,
+					address: hotelData.address,
+					starsNumber: hotelData.starsNumber,
+					mainDescription: hotelData.mainDescription,
+					nutritionTypeId:  hotelData.nutritionTypeId,
+					characteristics: hotelData.characteristics,
+					roomTypes: hotelData.roomTypes
+				}));
+				setPhotosUrl(hotelData.photosUrls === null ? [selectNewPhoto] : hotelData.photosUrls);
 
 				// if(tourData.hotelId !== null) {
 				// 	response = await axios.get(
@@ -436,6 +442,7 @@ function HotelEditor() {
 							sx={{"& input": {fontSize: "19px"}, }} 
 							placeholder='Название' type="search" 
 							variant="standard"
+							value={hotel.name}
 							onChange={changeHotel}
 						/>
 					</div>
@@ -481,7 +488,7 @@ function HotelEditor() {
 
 							<div>
 								<div><b>Адресс: </b></div>
-								<TextField name="address" sx={{"& input": {fontSize: "19px"}, }} className='hotel-editor-input-address' placeholder='улица, дом' type="search" variant="standard" onChange={changeHotel}/>
+								<TextField name="address" value={hotel.address} sx={{"& input": {fontSize: "19px"}, }} className='hotel-editor-input-address' placeholder='улица, дом' type="search" variant="standard" onChange={changeHotel}/>
 							</div>
 						</div>
 
@@ -493,7 +500,8 @@ function HotelEditor() {
 						<Rating 
 							className="input-hotel-stars" 
 							name="starsNumber" 
-							defaultValue={hotel.starsNumber} 
+							defaultValue={1} 
+							value={hotel.starsNumber} 
 							precision={1}
 							onChange={(e) => {setHotel((prevHotel) => ({
 								...prevHotel,
@@ -507,6 +515,7 @@ function HotelEditor() {
 						<TextField className='hotel-editor-desription-input'
 							name="mainDescription"
 							multiline
+							value={hotel.mainDescription}
 							rows={10}
 							maxRows={20}
 							placeholder='Описание'
