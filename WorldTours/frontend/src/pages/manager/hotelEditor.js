@@ -349,7 +349,26 @@ function HotelEditor() {
     	const id = segments[segments.length - 1];
 
 		if(id === '0') {
-			await axios.post('https://localhost:7276/hotel/add', hotel, {
+			const formData = new FormData();
+			
+			formData.append("Id", hotel.id);
+			formData.append("Name", hotel.name);
+			formData.append("CityId", hotel.cityId);
+			formData.append("Address", hotel.address);
+			formData.append("StarsNumber", hotel.starsNumber);
+			formData.append("MainDescription", hotel.mainDescription);
+			formData.append("NutritionTypeId", hotel.nutritionTypeId);
+
+			// Отправка фотографий (каждый файл добавляется отдельно)
+			hotel.photosFiles.forEach((file) => {
+				formData.append("PhotosFiles", file); // Название должно совпадать с C#
+			});
+
+			// Отправка массивов в виде JSON
+			formData.append("Characteristics", JSON.stringify(hotel.characteristics));
+			formData.append("RoomTypes", JSON.stringify(hotel.roomTypes));
+
+			await axios.post('https://localhost:7276/hotel/add', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`,
@@ -516,7 +535,7 @@ function HotelEditor() {
 										<div>
 										<input
 											type="checkbox"
-											onChange={(e) =>{changeCharacteristics(characteristic, e.target.value)}}
+											onChange={(e) =>{changeCharacteristics(characteristic, e.target.checked)}}
 										/>
 										</div>
 									</div>

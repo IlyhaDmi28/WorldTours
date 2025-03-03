@@ -85,13 +85,17 @@ function RoomTypeEditor({roomTypes, setRoomTypes, closeModal}) {
 	}, []);
 
     
-    const removeSelectedCharacteristic = (index) => {
+    const removeSelectedCharacteristic = (characteristic) => {
         setRoomType((prevRoomType) => {
             return {
                 ...prevRoomType,
-                characteristics: prevRoomType.characteristics.filter((_, i) => i !== index)
+                characteristics: prevRoomType.characteristics.filter((removedCharacteristic) => characteristic.id !== removedCharacteristic.id)
             }
         })
+
+        const newCharacteristics = [...characteristics];
+        newCharacteristics.push(characteristic);
+        setCharacteristics(newCharacteristics);
     }
 
     const AddSelectedCharacteristic = (characteristic) => {
@@ -103,6 +107,8 @@ function RoomTypeEditor({roomTypes, setRoomTypes, closeModal}) {
                 characteristics: newCharacteristics
             }
         })
+
+        setCharacteristics(characteristics.filter((removedCharacteristic) => removedCharacteristic.id !== characteristic.id));
     };
 
     const changeRoomType = (e) => {
@@ -166,10 +172,10 @@ function RoomTypeEditor({roomTypes, setRoomTypes, closeModal}) {
                 <div>
                     {roomType.characteristics.map((characteristic, index) => (
                         <div className='room-type-editor-characteristic'>
-                            {characteristic.name} <ClearIcon className='remove-room-type-characteristic-button' onClick={() => removeSelectedCharacteristic(index)}/>
+                            {characteristic.name} <ClearIcon className='remove-room-type-characteristic-button' onClick={() => removeSelectedCharacteristic(characteristic)}/>
                         </div>
                     ))}
-                    <AddIcon onClick={(e) => {setAnchorEl(e.currentTarget)}} />
+                   <AddIcon onClick={(e) => {setAnchorEl(e.currentTarget)}} />
                     <Menu
                         anchorEl={anchorEl}
                         open={isOpenCharacteristicsMenu}

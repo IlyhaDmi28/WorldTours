@@ -58,6 +58,7 @@ CREATE TABLE Countries (
   FOREIGN KEY (`RegionId`) REFERENCES `Regions`(`ID`)
 );
 
+SELECT * FROM Cities;
 CREATE TABLE Cities (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255) UNIQUE NOT NULL,
@@ -96,11 +97,13 @@ CREATE TABLE Hotels (
    FOREIGN KEY (`NutritionTypeId`) REFERENCES `NutritionTypes`(`ID`)
 );
 
+SELECT * FROM HotelCharacteristics;
 CREATE TABLE HotelCharacteristics (
   	ID INT PRIMARY KEY AUTO_INCREMENT,
   	NAME VARCHAR(255) UNIQUE NOT NULL
 );
 
+SELECT * FROM HotelDescriptions;
 CREATE TABLE HotelDescriptions (
   	ID INT PRIMARY KEY AUTO_INCREMENT,
   	CharacteristicID INT,
@@ -109,7 +112,7 @@ CREATE TABLE HotelDescriptions (
 	FOREIGN KEY (`HotelID`) REFERENCES `Hotels`(`ID`)
 );
 
-
+SELECT * FROM RoomTypes;
 CREATE TABLE RoomTypes (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	NAME VARCHAR(255) NOT NULL,
@@ -125,6 +128,7 @@ CREATE TABLE RoomTypeCharacteristics (
   	NAME VARCHAR(255) UNIQUE NOT NULL
 );
 
+SELECT * FROM RoomTypeDescriptions;
 CREATE TABLE RoomTypeDescriptions (
   	ID INT PRIMARY KEY AUTO_INCREMENT,
   	CharacteristicID INT,

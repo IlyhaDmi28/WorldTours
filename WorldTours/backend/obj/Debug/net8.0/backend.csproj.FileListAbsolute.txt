@@ -40,3 +40,4 @@ D:\Univer\Курсач\WorldTours\backend\obj\Debug\net8.0\ref\backend.dll
 D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\MySqlConnector.dll
 D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\Newtonsoft.Json.dll

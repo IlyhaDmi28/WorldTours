@@ -67,7 +67,7 @@ namespace backend.DB
 					j => j
 						.HasOne<Hotel>()
 						.WithMany()
-						.HasForeignKey("TourTypeID")
+						.HasForeignKey("HotelID")
 						.HasConstraintName("FK_HotelDescriptions_Hotels")
 				);
 
@@ -84,7 +84,7 @@ namespace backend.DB
 					j => j
 						.HasOne<RoomType>()
 						.WithMany()
-						.HasForeignKey("TourTypeID")
+						.HasForeignKey("RoomTypeID")
 						.HasConstraintName("FK_RoomTypeDescriptions_RoomTypes")
 				);
 

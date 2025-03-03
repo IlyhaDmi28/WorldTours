@@ -14,7 +14,7 @@ namespace backend.Models.Forms
 		public string MainDescription { get; set; }
 		public int? NutritionTypeId { get; set; }
 		public List<IFormFile> PhotosFiles { get; set; }
-		public List<CharacteristicForm> Characteristics { get; set; }
-		public List<RoomTypeForm> RoomTypes { get; set; }
+		public string Characteristics { get; set; }
+		public string RoomTypes { get; set; }
 	}
 }
