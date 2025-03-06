@@ -5,19 +5,30 @@ import Modal from '@mui/material/Modal';
 import add from "../../img/add.svg"
 
 function RoomTypesMenu({roomTypes, setRoomTypes, saveHotel}) {
-    const [isOpenRouteEditor, setIsOpenRouteEditor] = useState(false);
+    const [isOpenRoomTypeEditor, setIsOpenRoomTypEditor] = useState(false);
+    const [selectedRoomType, setSelectedRoomType] = useState(null);
+    
+    const openRoomTypeEditor = (roomType) => {
+        setSelectedRoomType(roomType);
+        setIsOpenRoomTypEditor(true);
+    }
+
+    const closeRoomTypeEditor = () => {
+        setSelectedRoomType(null);
+        setIsOpenRoomTypEditor(false);
+    }
 
 	return (
         <div className="room-types-menu">
             <div className="room-types-menu-name-and-add-route-button">
                 <b>Типы номеров:</b>
-                <button onClick={() => setIsOpenRouteEditor(true)}>
+                <button onClick={() => setIsOpenRoomTypEditor(true)}>
                     <img src={add}/>
                 </button>
             </div>
 
             <div className="room-types">
-                {roomTypes.map((roomType, index) => (<RoomTypeCard roomType={roomType} deleteRoomType={() => {console.log('zzzzz'); setRoomTypes(roomTypes.filter((_, i) => i !== index))}}/>))}
+                {roomTypes.map((roomType, index) => (<RoomTypeCard roomType={roomType} openRoomTypeEditor={openRoomTypeEditor} deleteRoomType={() => {setRoomTypes(roomTypes.filter((_, i) => i !== index))}}/>))}
             </div>
 
             <div className="buttons-under-room-types">
@@ -27,8 +38,8 @@ function RoomTypesMenu({roomTypes, setRoomTypes, saveHotel}) {
             </div>
             
 			{/* <EditRouteMenu routes={routes} setRoutes={setRoutes} isEditRouteMenuOpen={isEditRouteMenuOpen} closeEditRouteMenu={closeEditRouteMenu} /> */}
-            <Modal className='room-type-editor-modal' open={isOpenRouteEditor} onClose={() => setIsOpenRouteEditor(false)} >
-				<RoomTypeEditor roomTypes={roomTypes} setRoomTypes={setRoomTypes} closeModal={() => setIsOpenRouteEditor(false)}/>
+            <Modal className='room-type-editor-modal' open={isOpenRoomTypeEditor} onClose={closeRoomTypeEditor} >
+				<RoomTypeEditor selectedRoomType={selectedRoomType} roomTypes={roomTypes} setRoomTypes={setRoomTypes} closeModal={closeRoomTypeEditor}/>
 			</Modal>
         </div>
 	);

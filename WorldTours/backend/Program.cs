@@ -26,11 +26,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigins",
             builder =>
             {
-                builder.WithOrigins("http://localhost:3000")
-                       .AllowAnyMethod()
-                       .AllowAnyHeader()
-                       .AllowCredentials(); // Включите, если используете аутентификацию с cookie
-            }
+				builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+						.AllowAnyMethod()
+						.AllowAnyHeader()
+						.AllowCredentials();
+			}
     );
 });// указывает, будет ли валидироваться издатель при валидации токена
 
@@ -77,7 +77,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // Обслуживание статических файлов React
+app.UseStaticFiles(new StaticFileOptions
+{
+	OnPrepareResponse = ctx =>
+	{
+		ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+	}
+});
 app.UseCors("AllowSpecificOrigins");
 app.UseRouting();
 app.UseAuthentication();

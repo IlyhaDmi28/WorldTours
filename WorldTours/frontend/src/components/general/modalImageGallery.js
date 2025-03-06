@@ -1,8 +1,9 @@
 import { useState, useEffect  } from "react";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-function ModalImageGallery({ index, images, handleOverlayClick }) {
+function ModalImageGallery({ index, images, setImages, handleOverlayClick }) {
   	const [indexOfSelectedImage, setIndexOfSelectedImage] = useState(index);
 
   	const goBackImage = () => {
@@ -65,6 +66,20 @@ function ModalImageGallery({ index, images, handleOverlayClick }) {
 			<div className="image-gallery-list">
 				{images.map((image, i) => (<img src={image} onClick={() => {setIndexOfSelectedImage(i);  }}/>))}
 			</div>
+			{setImages !== undefined &&
+			 	<DeleteIcon
+					className='image-delete-button' 
+					onClick={(e) => { 
+						setImages(
+							images.filter((_, i) => i !== indexOfSelectedImage)
+						)
+
+						if(images.length - 1 === 0) handleOverlayClick(e);
+						if(indexOfSelectedImage === images.length - 1) setIndexOfSelectedImage(images.length - 2);
+					}
+				}
+				/>
+			}
 		</div>
     </div>
   );

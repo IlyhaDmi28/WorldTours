@@ -29,7 +29,7 @@ function HotelsForEdit() {
 		const getData = async () => {
             try {
 				let response;
-				response = await axios.get(`https://localhost:7276/hotel/hotels_for_edit`, {
+				response = await axios.get(`https://localhost:7276/hotel/hotels_for_editor`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }

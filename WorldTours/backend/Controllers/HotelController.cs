@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Data;
 using System.Globalization;
 using System.Reflection.PortableExecutable;
 using static System.Net.WebRequestMethods;
@@ -167,8 +168,8 @@ namespace backend.Controllers
 		}
 
 		[Authorize(Roles = "Manager, Admin")]
-		[HttpGet("hotels_for_edit")]
-		public async Task<IActionResult> GetHotelForEdit()
+		[HttpGet("hotels_for_editor")]
+		public async Task<IActionResult> GetHotelsForEditor()
 		{
 			try
 			{
@@ -194,6 +195,7 @@ namespace backend.Controllers
 			}
 		}
 
+
 		[Authorize(Roles = "Manager, Admin")]
 		[HttpGet("hotel_for_editor")]
 		public async Task<IActionResult> GetHotelForEditor([FromQuery] int? hotelId = null)
@@ -212,7 +214,7 @@ namespace backend.Controllers
 						NutritionTypeId = 1,
 						StarsNumber = 1,
 						Address = string.Empty,
-						PhotosUrls = new List<string>(),
+						PhotosUrls = null,
 						Characteristics = new List<CharacteristicDto>(),
 						RoomTypes = new List<RoomTypeDto>(),
 					};
@@ -275,6 +277,127 @@ namespace backend.Controllers
 				}
 
 				return Ok(hotelForEditorDto);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[Authorize(Roles = "Manager, Admin")]
+		[HttpPut("edit")]
+		public async Task<IActionResult> EditHotel([FromForm] HotelForm hotel)
+		{
+			try
+			{
+				if (hotel.Id != 0)
+				{
+					using (var transaction = await db.Database.BeginTransactionAsync())
+					{
+						try
+						{
+
+							Hotel editedHotel = await db.Hotels.FirstOrDefaultAsync(h => h.Id == hotel.Id);
+
+							if (editedHotel == null) return NotFound();
+
+							List<CharacteristicForm> characteristics  = JsonConvert.DeserializeObject<List<CharacteristicForm>>(hotel.Characteristics);
+							List<RoomTypeForm> roomTypes = JsonConvert.DeserializeObject<List<RoomTypeForm>>(hotel.RoomTypes);
+
+							List<int> characteristicIds = characteristics.Select(hc => hc.Id).ToList();
+							ICollection<HotelCharacteristic> hotelCharacteristics = await db.HotelCharacteristics
+								   .Where(hc => characteristicIds.Contains(hc.Id))
+								   .ToListAsync();
+
+							Hotel newHotel = new Hotel()
+							{
+								Name = hotel.Name,
+								MainDescription = hotel.MainDescription,
+								CityId = hotel.CityId,
+								Address = hotel.Address,
+								StarsNumber = hotel.StarsNumber,
+								NutritionTypeId = hotel.NutritionTypeId,
+								PhotosDirectory = hotel.Name,
+								Characteristics = hotelCharacteristics,
+							};
+
+
+							editedHotel.Name = hotel.Name;
+							editedHotel.MainDescription = hotel.MainDescription;
+							editedHotel.CityId = hotel.CityId;
+							editedHotel.Address = hotel.Address;
+							editedHotel.StarsNumber = hotel.StarsNumber;
+							editedHotel.NutritionTypeId = hotel.NutritionTypeId;
+							editedHotel.PhotosDirectory = hotel.Name;
+							editedHotel.Characteristics = hotelCharacteristics;
+
+							await db.SaveChangesAsync();
+
+
+							List<RoomType> editedRoomTypes = await db.RoomTypes
+								.Where(rt => roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
+								.ToListAsync();
+
+							for (int i = 0; i < editedRoomTypes.Count; i++)
+							{
+								editedRoomTypes[i].Name = roomTypes[i].Name;
+								editedRoomTypes[i].SeatsNumber = roomTypes[i].SeatsNumber;
+								editedRoomTypes[i].RoomsNumber = roomTypes[i].RoomsNumber;
+								editedRoomTypes[i].Price = roomTypes[i].Price;
+								editedRoomTypes[i].Characteristics = roomTypes[i].Characteristics.Select(c => new RoomTypeCharacteristic
+								{
+									Id = c.Id,
+									Name = c.Name,
+								}).ToList();
+							}
+							
+							await db.SaveChangesAsync();
+
+
+							if (hotel.PhotosFiles != null && hotel.PhotosFiles.Count > 0)
+							{
+								// Создаём папку для загрузок, если её нет
+								string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotels", hotel.Name);
+								if (!Directory.Exists(uploadsFolder))
+								{
+									Directory.CreateDirectory(uploadsFolder);
+								}
+
+								List<string> savedFilePaths = new List<string>();
+
+								int i = 0;
+								foreach (var file in hotel.PhotosFiles)
+								{
+									if (file.Length > 0)
+									{
+										// Генерируем уникальное имя файла
+										string uniqueFileName = $"{i++}.jpg";
+										string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+										// Сохраняем файл
+										using (var fileStream = new FileStream(filePath, FileMode.Create))
+										{
+											await file.CopyToAsync(fileStream);
+										}
+
+										savedFilePaths.Add($"/uploads/hotels/{hotel.Name}/{uniqueFileName}"); // Относительный путь для клиента
+									}
+								}
+
+							}
+
+							await transaction.CommitAsync();
+							return Ok();
+						}
+						catch (Exception ex)
+						{
+
+							await transaction.RollbackAsync();
+							return BadRequest();
+						}
+					}
+				}
+				return BadRequest();
 			}
 			catch (Exception ex)
 			{

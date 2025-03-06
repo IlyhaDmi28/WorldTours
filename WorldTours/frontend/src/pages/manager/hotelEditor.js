@@ -22,6 +22,7 @@ import Hotels from '../../components/general/hotels';
 import RoomTypesMenu from '../../components/hotelEditor/roomTypesMenu';
 import TourType from '../../components/tours/tourType'
 import ClickableMap from '../../components/general/clickableMap'
+import RemovedImagesMenu from '../../components/general/removedImagesMenu'
 import ReviewCardForEitor from '../../components/tourEditor/reviewCardForEitor';
 import selectNewPhoto from '../../img/selectNewPhoto.png';
 import star from '../../img/star.svg';
@@ -48,7 +49,8 @@ function HotelEditor() {
 	});
 	
 	const [tourTypes, setTourTypes] = useState([]); 
-	const [photosUrl, setPhotosUrl] = useState([selectNewPhoto]); 
+	const [photosUrls, setPhotosUrls] = useState([selectNewPhoto]); 
+	const [photosFiles, setPhotosFiles] = useState([]); 
 	const [nutritionTypes, setNutritionTypes] = useState([]);
 	const [characteristics, setCharacteristics] = useState([]);
 
@@ -60,7 +62,6 @@ function HotelEditor() {
 
 	const [hotel, setHotel] = useState({
 		id: 0,
-		photosFiles: [], // Используем useRef для открытия input
 		name: null,
 		cityId: null,
 		address: null,
@@ -101,20 +102,21 @@ function HotelEditor() {
 					characteristics: hotelData.characteristics,
 					roomTypes: hotelData.roomTypes
 				}));
-				setPhotosUrl(hotelData.photosUrls === null ? [selectNewPhoto] : hotelData.photosUrls);
+				setPhotosUrls(hotelData.photosUrls === null ? [selectNewPhoto] : hotelData.photosUrls);
 
-				// if(tourData.hotelId !== null) {
-				// 	response = await axios.get(
-				// 		`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
-				// 		{
-				// 			headers: {
-				// 				Authorization: `Bearer ${token}`,
-				// 			},
-				// 		}
-				// 	);
-				// 	const directionInfoData = response.data;
-				// 	setDirectionInfo(directionInfoData);
-				// }
+				if(hotelData.cityId !== null) {
+					response = await axios.get(
+						`https://localhost:7276/direction/get?cityId=${hotelData.cityId}`,
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+	
+					const directionInfoData = response.data;
+					setDirectionInfo(directionInfoData);
+				}
 
                 // response = await axios.get('https://localhost:7276/tour/tour_types', {
                 //     headers: {
@@ -141,7 +143,6 @@ function HotelEditor() {
 				console.log(characteristicsData);
 				console.log('characteristicsData');
 				setCharacteristics(characteristicsData);
-
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -243,35 +244,10 @@ function HotelEditor() {
 	}
 
 	const loadPhotos = (e) => {
-		const files = Array.from(e.target.files); // Получаем массив файлов
-
-		if (files) {
-			setHotel((prevHotel) => ({
-			...prevHotel,
-			photosFiles: files, // Сохраняем файл в состоянии
-			}));
-		}
+		const files = Array.from(e.target.files); 
 
 		const newImages = files.map(file => URL.createObjectURL(file)); // Создаём ссылки на изображения
-		setPhotosUrl(newImages); // Добавляем новые фото в массив
-
-        // if (e.target.files && e.target.files[0]) {
-		// 	const reader = new FileReader();
-		// 	reader.onload = (e) => {
-		// 		setPhotosUrl((prevPhotos) => 
-		// 			prevPhotos.map((photo, i) => (i === 0 ? e.target.result : photo))
-		// 		);
-		// 	};
-		// 	reader.readAsDataURL(e.target.files[0]);
-        // }
-
-		// const file = e.target.files[0]; // Получаем выбранный файл
-		// if (file) {
-		// 	setHotel((prevHotel) => ({
-		// 	...prevHotel,
-		// 	photosFiles: file, // Сохраняем файл в состоянии
-		// 	}));
-		// }
+		setPhotosUrls(newImages); // Добавляем новые фото в массив  
     };
 
 	const changeHotel = (e) => {
@@ -283,7 +259,7 @@ function HotelEditor() {
 	}
     // Функция для открытия input по нажатию на изображение
     const setPhotoUropenFileDialogToSelectPhoto = () => {
-        hotel.photosFiles.current.click();
+        photosFiles.current.click();
     };
 
 	const changeCharacteristics = (changedCharacteristic, value) => {
@@ -328,6 +304,20 @@ function HotelEditor() {
 	// 	}));
 	// }
 
+	const createFileFromObjectUrl = async (objectUrl, fileName) => {
+		const response = await axios.get(objectUrl, { responseType: "blob" }); // Загружаем как Blob
+		const blob = response.data;
+		return new File([blob], fileName, { type: blob.type }); // Создаём новый File
+	};
+	
+	// Функция для обработки массива Object URL
+	const convertObjectUrlsToFiles = async (objectUrls) => {
+		const filePromises = objectUrls.map((url, index) =>
+			createFileFromObjectUrl(url, `copied_image_${index}.jpg`)
+		);
+		return await Promise.all(filePromises);
+	};
+
 	const saveHotel = async () => {
 		console.log(hotel);
 		// if(authUser.blockedStatus) {
@@ -354,6 +344,8 @@ function HotelEditor() {
 		const segments = location.pathname.split('/');
     	const id = segments[segments.length - 1];
 
+		const copiedphotosFiles = await convertObjectUrlsToFiles(photosUrls);
+
 		if(id === '0') {
 			const formData = new FormData();
 			
@@ -366,7 +358,7 @@ function HotelEditor() {
 			formData.append("NutritionTypeId", hotel.nutritionTypeId);
 
 			// Отправка фотографий (каждый файл добавляется отдельно)
-			hotel.photosFiles.forEach((file) => {
+			copiedphotosFiles.forEach((file) => {
 				formData.append("PhotosFiles", file); // Название должно совпадать с C#
 			});
 
@@ -384,7 +376,26 @@ function HotelEditor() {
 			// window.location.href = '/tours';
 		}
 		else {
-			await axios.put('https://localhost:7276/tour/edit', hotel, {
+			const formData = new FormData();
+			
+			formData.append("Id", hotel.id);
+			formData.append("Name", hotel.name);
+			formData.append("CityId", hotel.cityId);
+			formData.append("Address", hotel.address);
+			formData.append("StarsNumber", hotel.starsNumber);
+			formData.append("MainDescription", hotel.mainDescription);
+			formData.append("NutritionTypeId", hotel.nutritionTypeId);
+
+			// Отправка фотографий (каждый файл добавляется отдельно)
+			copiedphotosFiles.forEach((file) => {
+				formData.append("PhotosFiles", file); // Название должно совпадать с C#
+			});
+
+			// Отправка массивов в виде JSON
+			formData.append("Characteristics", JSON.stringify(hotel.characteristics));
+			formData.append("RoomTypes", JSON.stringify(hotel.roomTypes));
+
+			await axios.put('https://localhost:7276/hotel/edit', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`,
@@ -424,6 +435,10 @@ function HotelEditor() {
 		}));
 	}
 
+	const HasCharacteristic = (characteristic) => {	
+		return hotel.characteristics.some((ch) => ch.id === characteristic.id);
+	}
+
 	return (
 		<div className="hotel-editor narrow-conteiner">
 			<Header />
@@ -447,8 +462,8 @@ function HotelEditor() {
 						/>
 					</div>
 					<div className="main-hotel-editor-photo">
-						<img src={photosUrl[0]} alt="click to change" onClick={() => showImages(0)}/>
-						<input type="file" multiple  ref={ hotel.photosFiles} onChange={loadPhotos} style={{ display: 'none' }} accept="image/*"/>
+						<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
+						<input type="file" multiple  ref={ photosFiles} onChange={loadPhotos} style={{ display: 'none' }} accept="image/*"/>
 					</div>
 				</div>
 				
@@ -458,12 +473,12 @@ function HotelEditor() {
 					</div>
 					<div className='other-hotel-photos'>
 						<div>
-							{photosUrl.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
+							{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
 						</div>
-						{photosUrl.length > 7 && <button className='more-hotel-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
+						{photosUrls.length > 7 && <button className='more-hotel-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
 					</div>
 				</div>
-				{/* <ImagesAndMap images={photosUrl.slice(1)} showImages={showImages}/> */}
+				{/* <ImagesAndMap images={photosUrls.slice(1)} showImages={showImages}/> */}
 			</div>
 
 			<div className="hotel-editor-info-and-reservation">
@@ -533,7 +548,8 @@ function HotelEditor() {
 							))}
 						</Select>
 					</div>
-								
+
+		
 					<div className="tour-editor-characteristics"> {/*комп*/}
 							{characteristics.map((characteristic) => (
 								<div className="tour-editor-characteristic">
@@ -544,6 +560,7 @@ function HotelEditor() {
 										<div>
 										<input
 											type="checkbox"
+											checked={HasCharacteristic(characteristic)}
 											onChange={(e) =>{changeCharacteristics(characteristic, e.target.checked)}}
 										/>
 										</div>
@@ -551,13 +568,14 @@ function HotelEditor() {
 								</div>
 							))}
 					</div>
+
 				</div>
 
 			</div>
 
-			{indexOfSelectedImage !== -1 && <ModalImageGallery index={indexOfSelectedImage} images={photosUrl} handleOverlayClick={handleOverlayClick} showImages={showImages}/>}
+			{indexOfSelectedImage !== -1 && <ModalImageGallery index={indexOfSelectedImage} setImages={setPhotosUrls} images={photosUrls} handleOverlayClick={handleOverlayClick} showImages={showImages}/>}
 			
-			<Modal open={isOpenMap} onClose={() => setIsOpenMap(false)} className='tour-map-on-modal'>
+			<Modal open={isOpenMap} onClose={() => setIsOpenMap(false)} className='hotel-map-on-modal'>
 				{/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d588.0220734032202!2d27.616216344539804!3d53.876858255031635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbce18581d62a7%3A0xfbca977ea03db2c7!2z0J_QsNGA0YLQuNC30LDQvdGB0LrQuNC5INC_0YDQvtGB0L8uIDMyLzEsINCc0LjQvdGB0LosINCc0LjQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMIDIyMDEwNw!5e0!3m2!1sru!2sby!4v1739876954826!5m2!1sru!2sby" width="600" height="450" style={{border: '0px'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
 				<ClickableMap/>
 			</Modal>

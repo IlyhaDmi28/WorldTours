@@ -9,13 +9,13 @@ import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
-function RoomTypeEditor({roomTypes, setRoomTypes, closeModal}) {    
+function RoomTypeEditor({selectedRoomType, roomTypes, setRoomTypes, closeModal}) {    
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpenCharacteristicsMenu = Boolean(anchorEl);
 
     const [characteristics, setCharacteristics] = useState(['sdfsdg', 'dfgdf', 'gfhjgf']);
 
-    const [roomType, setRoomType] = useState({
+    const [roomType, setRoomType] = useState(selectedRoomType !== null ? selectedRoomType : {
         name: null,
         seatsNumber: null,
         roomsNumber: null,
@@ -113,9 +113,6 @@ function RoomTypeEditor({roomTypes, setRoomTypes, closeModal}) {
 
     const changeRoomType = (e) => {
         const { name, value } = e.target;
-        console.log('sdfs');
-        console.log(name);
-        console.log(value);
 
         setRoomType((prevRoomType) => ({
             ...prevRoomType,
@@ -124,8 +121,24 @@ function RoomTypeEditor({roomTypes, setRoomTypes, closeModal}) {
     };
 
     const saveRoomType = () => {
-        console.log(roomType); 
-        setRoomTypes([...roomTypes, roomType]);
+        console.log(roomTypes); 
+
+        let hyu = roomTypes;
+        for(let i = 0; i < roomTypes.length; i++) {
+            if(hyu[i].id === roomType.id) {
+                console.log('xxxxxfff'); 
+
+                hyu[i] = roomType;
+                setRoomTypes(hyu);
+                return;
+            }
+            else {
+                console.log('dddddgggg'); 
+
+                setRoomTypes([...roomTypes, roomType]);
+                return;
+            }
+        }
     };
 
     const clearRoute = () => {
