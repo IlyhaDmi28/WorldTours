@@ -5,7 +5,7 @@ import UserConroller from './userController';
 
 import logo from '../../img/logo.png';
 
-function Header({addButtonText}) {
+function Header({SearchInputComponent, AddButtonComponent}) {
 	return (
 	    <header style={{height: '90px'}}>
 			<MainNavMenu/>
@@ -14,9 +14,11 @@ function Header({addButtonText}) {
             </Link>
 
             <div className='header-search-input-and-add-button'>
-                <input  type='text' placeholder='Поиск'/>
-                {addButtonText && <button>{addButtonText}</button>}
-                <button><Link to='/hotel_editor/0'><b>Добавить отель</b></Link></button>
+                {SearchInputComponent} 
+                {AddButtonComponent} 
+                {/* <input  type='text' placeholder='Поиск'/> */}
+                {/* {addButtonText && <button>{addButtonText}</button>} */}
+                {/* <button><Link to='/hotel_editor/0'><b>Добавить отель</b></Link></button> */}
             </div>
             
             <UserConroller right={'7.5%'}/>

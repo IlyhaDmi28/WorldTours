@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from '../../components/general/header';
+import Header from '../components/general/header';
 
 function TravelInfo() {
 	return (

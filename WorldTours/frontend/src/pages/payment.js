@@ -1,7 +1,7 @@
-import '../../styles/payment.scss';
+import '../styles/payment.scss';
 import React, { useState } from 'react';
-import Header from '../../components/general/header';
-import Money from '../../img/money.png';
+import Header from '../components/general/header';
+import Money from '../img/money.png';
 
 function Payment() {
 	return (

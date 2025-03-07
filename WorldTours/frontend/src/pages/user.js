@@ -1,8 +1,8 @@
-import '../../styles/user.scss';
+import '../styles/user.scss';
 import React, { useState, useRef, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import Header from '../../components/general/header';
-import account from '../../img/account.svg';
+import Header from '../components/general/header';
+import account from '../img/account.svg';
 import axios from 'axios';
 const token = localStorage.getItem("token");
 

@@ -1,9 +1,9 @@
-import '../../styles/bookings.scss';
+import '../styles/bookings.scss';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import Header from '../../components/general/header';
-import BookingCard from '../../components/bookings/bookingCard';
+import Header from '../components/general/header';
+import BookingCard from '../components/bookings/bookingCard';
 const token = localStorage.getItem("token");
 
 function Bookings() {

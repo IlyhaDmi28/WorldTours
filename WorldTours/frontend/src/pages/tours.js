@@ -1,10 +1,10 @@
-import '../../styles/tours.scss';
+import '../styles/tours.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import BigHeader from '../../components/general/bigHeader';
-import MainNavMenu from '../../components/general/mainNavMenu';
-import TourTypesNav from '../../components/tours/tourTypesNav';
-import TourCard from '../../components/tours/tourCard';
+import BigHeader from '../components/general/bigHeader';
+import MainNavMenu from '../components/general/mainNavMenu';
+import TourTypesNav from '../components/tours/tourTypesNav';
+import TourCard from '../components/tours/tourCard';
 const token = localStorage.getItem("token");
 
 function Tours() {

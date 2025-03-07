@@ -13,14 +13,11 @@ function RoomTypeCard({roomType, deleteRoomType, openRoomTypeEditor}) {
                 <div>Цена: {roomType.price} BYN</div>
             </div>
 
-            {/* {isHovered && 
-                <button className="delete-route-card-button" onClick={deleteRoomType}>
+            {isHovered && 
+                <button className="delete-room-type-card-button" onClick={deleteRoomType}>
                     <img src={delete2}/>
                 </button>
-            } */}
-                <button className="delete-route-card-button" onClick={(e) => {e.stopPropagation(); deleteRoomType()}}>
-                    <img src={delete2}/>
-                </button>
+            }
         </div>
 	);
 }

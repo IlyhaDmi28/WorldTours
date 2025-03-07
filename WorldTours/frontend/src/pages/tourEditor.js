@@ -1,29 +1,29 @@
-import '../../styles/tour-editor.scss';
+import '../styles/tour-editor.scss';
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import Header from '../../components/general/header';
-import ImagesAndMap from '../../components/tour/imagesAndMap';
-import ModalImageGallery from '../../components/general/modalImageGallery';
-import Regions from '../../components/general/regions';
-import Countries from '../../components/general/countries';
-import Cities from '../../components/general/cities';
-import Hotels from '../../components/general/hotels';
-import RoutesMenu from '../../components/tourEditor/routesMenu';
-import TourType from '../../components/tours/tourType'
-import ReviewCardForEitor from '../../components/tourEditor/reviewCardForEitor';
-import selectNewPhoto from '../../img/selectNewPhoto.png';
-import star from '../../img/star.svg';
-import delete3 from '../../img/delete3.svg'
-import t1 from '../../img/test_photos/t1.jpg';
-import t2 from '../../img/test_photos/t2.jpg';
-import t3 from '../../img/test_photos/t3.jpg';
-import t4 from '../../img/test_photos/t4.jpg';
-import t5 from '../../img/test_photos/t5.jpg';
-import t6 from '../../img/test_photos/t6.png';
-import t7 from '../../img/test_photos/t7.png';
-import t8 from '../../img/test_photos/t8.png';
+import Header from '../components/general/header';
+import ImagesAndMap from '../components/tour/imagesAndMap';
+import ModalImageGallery from '../components/general/modalImageGallery';
+import Regions from '../components/general/regions';
+import Countries from '../components/general/countries';
+import Cities from '../components/general/cities';
+import Hotels from '../components/general/hotels';
+import RoutesMenu from '../components/tourEditor/routesMenu';
+import TourType from '../components/tours/tourType'
+import ReviewCardForEitor from '../components/tourEditor/reviewCardForEitor';
+import selectNewPhoto from '../img/selectNewPhoto.png';
+import star from '../img/star.svg';
+import delete3 from '../img/delete3.svg'
+import t1 from '../img/test_photos/t1.jpg';
+import t2 from '../img/test_photos/t2.jpg';
+import t3 from '../img/test_photos/t3.jpg';
+import t4 from '../img/test_photos/t4.jpg';
+import t5 from '../img/test_photos/t5.jpg';
+import t6 from '../img/test_photos/t6.png';
+import t7 from '../img/test_photos/t7.png';
+import t8 from '../img/test_photos/t8.png';
 const token = localStorage.getItem("token");
 
 function TourEditor() {

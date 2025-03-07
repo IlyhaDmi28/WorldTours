@@ -1,12 +1,12 @@
-import '../../styles/bookings.scss';
+import '../styles/bookings.scss';
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import Header from '../../components/general/header';
-import BookingCardForManager from '../../components/bookings/bookingCardForManager';
+import Header from '../components/general/header';
+import BookingCardForManager from '../components/bookings/bookingCardForManager';
 const token = localStorage.getItem("token");
 
-function Bookings() {
+function BookingsForManager() {
 	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false]);
 	const authUser = useSelector((state) => state.authUser.value);
 	const [bookings, setBookings] = useState([]);
@@ -163,4 +163,4 @@ function Bookings() {
 	);
 }
 
-export default Bookings;
+export default BookingsForManager;

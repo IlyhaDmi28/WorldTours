@@ -3,7 +3,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function ModalImageGallery({ index, images, setImages, handleOverlayClick }) {
+function ModalImageGallery({ index, images, setImages, closeModal }) {
   	const [indexOfSelectedImage, setIndexOfSelectedImage] = useState(index);
 
   	const goBackImage = () => {
@@ -21,31 +21,29 @@ function ModalImageGallery({ index, images, setImages, handleOverlayClick }) {
   	useEffect(() => {
     	const handleKeyDown = (event) => {
 			if (event.key === "ArrowRight") {
-				goNextImage(); // Здесь можно вызвать функцию, например, для перелистывания слайдера
+				goNextImage();
 			}
 			if (event.key === "ArrowLeft") {
-				goBackImage(); // Здесь можно вызвать функцию, например, для перелистывания слайдера
+				goBackImage();
 			}
 			if (event.key === "Escape") {
-				handleOverlayClick(event); // Здесь можно вызвать функцию, например, для перелистывания слайдера
+				closeModal(event); 
 			}
     	};
 
-		// Добавляем слушатель события
 		window.addEventListener("keydown", handleKeyDown);
 
-		// Убираем слушатель при размонтировании компонента
 		return () => {
 			window.removeEventListener("keydown", handleKeyDown);
 		};
   	}, []);
 
   return (
-    <div className="modal-image-gallery" onClick={handleOverlayClick}>
-		<div className="image-gallery" onClick={handleOverlayClick}> 
-			<div className="showed-image" onClick={handleOverlayClick}>
+    <div className="modal-image-gallery" onClick={closeModal}>
+		<div className="image-gallery" onClick={closeModal}> 
+			<div className="showed-image" onClick={closeModal}>
 				<ArrowBackIosNewIcon 
-					className="arrow-imagel-gallery" 
+					className="arrow-navigation-image-gallery" 
 					onClick = {goBackImage}
 					style={{
 						marginRight: '10px',
@@ -54,7 +52,7 @@ function ModalImageGallery({ index, images, setImages, handleOverlayClick }) {
 				/>
 				<img src={images[indexOfSelectedImage]} alt="Full Size" />
 				<ArrowForwardIosIcon 
-					className="arrow-imagel-gallery"
+					className="arrow-navigation-image-gallery"
 					onClick = {goNextImage}
 					style={{
 						marginLeft: '10px',
@@ -62,22 +60,20 @@ function ModalImageGallery({ index, images, setImages, handleOverlayClick }) {
 					}}
 				/>
 			</div>
-			{/* <img className="showed-image" src={selectedImage} alt="Full Size" /> */}
 			<div className="image-gallery-list">
 				{images.map((image, i) => (<img src={image} onClick={() => {setIndexOfSelectedImage(i);  }}/>))}
 			</div>
 			{setImages !== undefined &&
 			 	<DeleteIcon
-					className='image-delete-button' 
+					className='image-gallery-delete-button' 
 					onClick={(e) => { 
 						setImages(
 							images.filter((_, i) => i !== indexOfSelectedImage)
 						)
 
-						if(images.length - 1 === 0) handleOverlayClick(e);
+						if(images.length - 1 === 0) closeModal(e);
 						if(indexOfSelectedImage === images.length - 1) setIndexOfSelectedImage(images.length - 2);
-					}
-				}
+					}}
 				/>
 			}
 		</div>

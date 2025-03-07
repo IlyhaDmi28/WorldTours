@@ -1,13 +1,13 @@
-import '../../styles/tours.scss';
+import '../styles/tours.scss';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import BigHeader from '../../components/general/bigHeader';
-import TourTypesNavForManager from '../../components/tours/tourTypesNavForManager';
-import TourCardForManager from '../../components/tours/tourCardForManager';
+import BigHeader from '../components/general/bigHeader';
+import TourTypesNavForManager from '../components/tours/tourTypesNavForManager';
+import TourCardForManager from '../components/tours/tourCardForManager';
 const token = localStorage.getItem("token");
 
-function ToursForManager() {
+function ToursForEditor() {
 	const authUser = useSelector((state) => state.authUser.value)
 	const [tours, setTours] = useState([])
 	const [selectedTourType, setSelectedTourType] = useState(0);
@@ -58,4 +58,4 @@ function ToursForManager() {
 	);
 }
 
-export default ToursForManager;
+export default ToursForEditor;

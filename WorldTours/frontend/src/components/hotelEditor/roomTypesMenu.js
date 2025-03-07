@@ -20,14 +20,14 @@ function RoomTypesMenu({roomTypes, setRoomTypes, saveHotel}) {
 
 	return (
         <div className="room-types-menu">
-            <div className="room-types-menu-name-and-add-route-button">
+            <div className="room-types-menu-name-and-add-button">
                 <b>Типы номеров:</b>
                 <button onClick={() => setIsOpenRoomTypEditor(true)}>
                     <img src={add}/>
                 </button>
             </div>
 
-            <div className="room-types">
+            <div className="room-types-list">
                 {roomTypes.map((roomType, index) => (<RoomTypeCard roomType={roomType} openRoomTypeEditor={() => openRoomTypeEditor(index)} deleteRoomType={() => {setRoomTypes(roomTypes.filter((_, i) => i !== index))}}/>))}
             </div>
 

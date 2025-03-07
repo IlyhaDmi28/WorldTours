@@ -251,31 +251,20 @@
 		}
 	}
 
-	.nutrition-type {
+	.hotel-editor-nutrition-type {
 		padding-bottom: 30px;
-
 		margin-top: 20px;
 
-		.nutrition-type-select  {
+		.hotel-editor-nutrition-type-select {
 			height: 40px;
 			width: 100%;
 			margin-top: 3px;
-			border: 1px solid black;
-			border-radius: 5px;
-			font-size: 16px;
-		}
-
-		select {
-			height: 40px;
-			width: 100%;
-			margin-top: 3px;
-			border: 1px solid black;
 			border-radius: 5px;
 			font-size: 16px;
 		}
 	}
 	
-	.tour-editor-characteristic {
+	.hotel-editor-characteristic {
 		border-top: 1px solid $light-grey-color;
 		padding-top: 25px;
 		padding-bottom: 25px;
@@ -615,7 +604,7 @@
 	padding-left: 26px;
 	padding-right: 20px;
 
-	.room-types-menu-name-and-add-route-button {
+	.room-types-menu-name-and-add-button {
 		margin-top: 22px;
 		display: flex;
 		justify-content: space-between;
@@ -639,7 +628,7 @@
 		}
 	}
 
-	.room-types {
+	.room-types-list {
 		width: 100%;
 		height: 72%;
 		margin-top: 16px;
@@ -673,7 +662,7 @@
 			}
 		}
 		
-		.delete-route-card-button {
+		.delete-room-type-card-button {
 			position: absolute;
 			top: 4px;
 			right: 6px;
@@ -724,7 +713,7 @@
 	width: 600px;
 	text-align: center;
 
-	.close-edit-route-menu-button {
+	.close-room-type-editor-button {
 		margin-left: 97%;
 		width: 20px;
 		height: 20px;

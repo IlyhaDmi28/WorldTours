@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import star from '../../img/star.svg'
 import AddIcon from '@mui/icons-material/Add';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ClearIcon from '@mui/icons-material/Clear';
-import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
@@ -29,43 +27,6 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
             try {
 				let response;
 
-				// response = await axios.get(`https://localhost:7276/tour/tour_to_edit?tourId=${id}`, {
-                //     headers: {
-                //         'Authorization': 'Bearer ' + token,
-                //     }
-                // });
-				// const tourData = response.data;
-				// setHotel((prevHotel) => ({
-				// 	...prevHotel, // Сохраняем предыдущие значения
-				// 	id: tourData.id,
-				// 	name: tourData.name,
-				// 	mainDescription: tourData.mainDescription,
-				// 	nutritionTypeId: tourData.nutritionTypeId,
-				// 	descriptions: tourData.descriptions,
-				// }));
-				// setPhotosUrl([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
-
-				// if(tourData.hotelId !== null) {
-				// 	response = await axios.get(
-				// 		`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
-				// 		{
-				// 			headers: {
-				// 				Authorization: `Bearer ${token}`,
-				// 			},
-				// 		}
-				// 	);
-				// 	const directionInfoData = response.data;
-				// 	setDirectionInfo(directionInfoData);
-				// }
-
-                // response = await axios.get('https://localhost:7276/tour/tour_types', {
-                //     headers: {
-                //         'Authorization': 'Bearer ' + token,
-                //     }
-                // });
-				// const typesData = response.data;
-				// setTourTypes(typesData);
-
 				response = await axios.get('https://localhost:7276/room_type/characteristics', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
@@ -73,9 +34,8 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
                 });
 				const characteristicsData = response.data;
 
-                const characteristicsidsToRemove = new Set(roomType.characteristics.map(item => item.id));
-				setCharacteristics(characteristicsData.filter(item => !characteristicsidsToRemove.has(item.id)));
-
+                const characteristicsIdsToRemove = new Set(roomType.characteristics.map(item => item.id));
+				setCharacteristics(characteristicsData.filter(item => !characteristicsIdsToRemove.has(item.id)));
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -85,30 +45,52 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
 	}, []);
 
     
+    // const removeSelectedCharacteristic = (characteristic) => {
+    //     setRoomType((prevRoomType) => {
+    //         return {
+    //             ...prevRoomType,
+    //             characteristics: prevRoomType.characteristics.filter((removedCharacteristic) => characteristic.id !== removedCharacteristic.id)
+    //         }
+    //     })
+
+    //     const newCharacteristics = [...characteristics];
+    //     newCharacteristics.push(characteristic);
+    //     setCharacteristics(newCharacteristics);
+    // }
+
     const removeSelectedCharacteristic = (characteristic) => {
-        setRoomType((prevRoomType) => {
-            return {
-                ...prevRoomType,
-                characteristics: prevRoomType.characteristics.filter((removedCharacteristic) => characteristic.id !== removedCharacteristic.id)
-            }
-        })
+        setRoomType((prevRoomType) => ({
+            ...prevRoomType,
+            characteristics: prevRoomType.characteristics.filter(
+                (removedCharacteristic) => removedCharacteristic.id !== characteristic.id
+            ),
+        }));
+    
+        setCharacteristics((prevCharacteristics) => [...prevCharacteristics, characteristic]);
+    };
 
-        const newCharacteristics = [...characteristics];
-        newCharacteristics.push(characteristic);
-        setCharacteristics(newCharacteristics);
-    }
+    // const AddSelectedCharacteristic = (characteristic) => {
+    //     const newCharacteristics = [...roomType.characteristics];
+    //     newCharacteristics.push(characteristic);
+    //     setRoomType((prevRoomType) => {
+    //         return {
+    //             ...prevRoomType,
+    //             characteristics: newCharacteristics
+    //         }
+    //     })
 
-    const AddSelectedCharacteristic = (characteristic) => {
-        const newCharacteristics = [...roomType.characteristics];
-        newCharacteristics.push(characteristic);
-        setRoomType((prevRoomType) => {
-            return {
-                ...prevRoomType,
-                characteristics: newCharacteristics
-            }
-        })
+    //     setCharacteristics(characteristics.filter((removedCharacteristic) => removedCharacteristic.id !== characteristic.id));
+    // };
 
-        setCharacteristics(characteristics.filter((removedCharacteristic) => removedCharacteristic.id !== characteristic.id));
+    const addSelectedCharacteristic = (characteristic) => {
+        setRoomType((prevRoomType) => ({
+            ...prevRoomType,
+            characteristics: [...prevRoomType.characteristics, characteristic], // Добавляем характеристику напрямую
+        }));
+    
+        setCharacteristics((prevCharacteristics) =>
+            prevCharacteristics.filter((removedCharacteristic) => removedCharacteristic.id !== characteristic.id)
+        );
     };
 
     const changeRoomType = (e) => {
@@ -120,24 +102,52 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
         }));
     };
 
-    const saveRoomType = () => {
-        console.log(roomTypes); 
+    // const saveRoomType = () => {
+    //     console.log(roomTypes); 
 
-        if(indexOfSelectedRoomType === -1)  setRoomTypes([...roomTypes, roomType]);
-        else {
-            let hyu = roomTypes;
-            hyu[indexOfSelectedRoomType] = roomType;
-            setRoomTypes(hyu);
-        }
+    //     if(indexOfSelectedRoomType === -1)  setRoomTypes([...roomTypes, roomType]);
+    //     else {
+    //         let hyu = roomTypes;
+    //         hyu[indexOfSelectedRoomType] = roomType;
+    //         setRoomTypes(hyu);
+    //     }
+    // };
+
+    const saveRoomType = () => {
+        console.log(roomTypes);
+    
+        setRoomTypes((prevRoomTypes) => {
+            if (indexOfSelectedRoomType === -1) {
+                return [...prevRoomTypes, roomType]; // Добавляем новый элемент
+            } else {
+                return prevRoomTypes.map((rt, index) =>
+                    index === indexOfSelectedRoomType ? roomType : rt
+                ); // Создаём новый массив с обновлённым элементом
+            }
+        });
     };
 
-    const clearRoute = () => {
+    const clearRoute = async () => {
+        const response = await axios.get('https://localhost:7276/room_type/characteristics', {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+        const characteristicsData = response.data;
+        setCharacteristics(characteristicsData);
         
+        setRoomType({
+            name: null,
+            seatsNumber: null,
+            roomsNumber: null,
+            price: null,
+            characteristics: [],
+        });
     };
 
     return (
         <div className="room-type-editor">
-            <button className="close-edit-route-menu-button" onClick={closeModal}>
+            <button className="close-room-type-editor-button" onClick={closeModal}>
                 <img src={close}/>
             </button>
 
@@ -192,8 +202,8 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
                             },
                         }}
                     >
-                        {characteristics.map((characteristic, index) => (
-                            <MenuItem onClick={() => AddSelectedCharacteristic(characteristic)}>{characteristic.name}</MenuItem>
+                        {characteristics.map((characteristic) => (
+                            <MenuItem onClick={() => addSelectedCharacteristic(characteristic)}>{characteristic.name}</MenuItem>
                         ))}
                     </Menu>
                 </div>
@@ -201,7 +211,7 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
 
             <hr></hr>
 
-            <div className='room-type-editor-controller'>{/*комп*/}
+            <div className='room-type-editor-controller'>
                 <button onClick={clearRoute}>Очистить всё</button>
                 <button onClick={saveRoomType}>Сохранить</button>
             </div>

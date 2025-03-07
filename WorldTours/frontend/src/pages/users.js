@@ -1,9 +1,9 @@
-import '../../styles/users.scss';
+import '../styles/users.scss';
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import Header from '../../components/general/header';
-import UserCard from '../../components/users/userCard';
+import Header from '../components/general/header';
+import UserCard from '../components/users/userCard';
 const token = localStorage.getItem("token");
 
 function Users() {

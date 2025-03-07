@@ -136,8 +136,8 @@ $margin-from-left-booking: 200px;
     
 }
 
-.hotels-list {
-	.hotel-card {
+.hotels-for-editor-list {
+	.hotel-for-editor-card {
 		display: block;
 		position: relative;
 		height: 180px;
@@ -146,21 +146,21 @@ $margin-from-left-booking: 200px;
 		width: 100%;
 		border-bottom: 1px solid $light-grey-color;
 
-		.hotel-card-img {
+		.hotel-for-editor-card-img {
 			position: absolute;
 			height: 180px;
 			width: 180px;
 			border-radius: 10px;
 		}
 
-		.hotel-card-name {
+		.hotel-for-editor-card-name {
 			position: absolute;
 			font-size: 20px;
 			left: $margin-from-left-booking;
 			top: 27px;
 		}
 
-		.hotel-card-loacation {
+		.hotel-for-editor-card-loacation {
 			position: absolute;
 			font-size: 16px;
 			left: $margin-from-left-booking;
@@ -168,7 +168,7 @@ $margin-from-left-booking: 200px;
 			color: $dark-grey-color;
 		}
 
-        .hotel-card-address {
+        .hotel-for-editor-card-address {
             position: absolute;
 			font-size: 16px;
 			left: $margin-from-left-booking;
@@ -176,14 +176,14 @@ $margin-from-left-booking: 200px;
 			color: $dark-grey-color;
         }
 
-		.hotel-card-stars {
+		.hotel-for-editor-card-stars {
 			position: absolute;
 			left: $margin-from-left-booking - 3px;
 			top: 120px;
+            font-size: 20px;
+        }
 
-		}
-
-		.hotel-card-delete-button {
+		.hotel-for-editor-card-delete-button {
 			position: absolute;
 			top: 10px;
 			right: 0px;

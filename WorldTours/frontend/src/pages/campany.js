@@ -1,7 +1,7 @@
-import '../../styles/campany.scss';
-import Header from '../../components/general/header';
-import logo from '../../img/logo.png';
-import team from '../../img/team.jpg';
+import '../styles/campany.scss';
+import Header from '../components/general/header';
+import logo from '../img/logo.png';
+import team from '../img/team.jpg';
 
 function Campany() {
 	return (

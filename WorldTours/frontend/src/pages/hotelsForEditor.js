@@ -1,28 +1,23 @@
-import '../../styles/hotels-for-edit.scss';
-import React, { useState, useEffect, useContext } from 'react';
+import '../styles/hotels-for-editor.scss';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { Button } from "@mui/material";
+import { Link } from 'react-router-dom';
 import { Rating  } from "@mui/material";
-import FilterButton from "../../components/tours/filterButton";
-import SortButton from "../../components/general/sortButton";
-import Header from '../../components/general/header';
-import HotelCardForEdit from '../../components/hotelsForEdit/hotelCardForEdit';
-import star from '../../img/star.svg'
-import darkStar from '../../img/dark-star.svg'
+import FilterButton from "../components/tours/filterButton";
+import SortButton from "../components/general/sortButton";
+import Header from '../components/general/header';
+import HotelCardForEditor from '../components/hotelsForEditor/hotelCardForEditor';
 const token = localStorage.getItem("token");
 
-function HotelsForEdit() {
-	const [filter, setFilter] = useState({
-		regionId: 0,
-		countryId: 0,
-		cityId: 0,
-        minHotelStars: 1,
-        maxHotelStars: 5,
-	});
+function HotelsForEditor() {
+	// const [filter, setFilter] = useState({
+	// 	regionId: 0,
+	// 	countryId: 0,
+	// 	cityId: 0,
+    //     minHotelStars: 1,
+    //     maxHotelStars: 5,
+	// });
 
-	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false]);
-	const authUser = useSelector((state) => state.authUser.value);
 	const [hotels, setHotels] = useState([]);
 
 	useEffect(() => {
@@ -89,7 +84,7 @@ function HotelsForEdit() {
 	
 	return (
 		<div className="hotels-for-editor narrow-conteiner">
-			<Header/>
+			<Header SearchInputComponent={<input  type='text' placeholder='Поиск'/>} AddButtonComponent={<button><Link to='/hotel_editor/0'><b>Добавить отель</b></Link></button>}/>
 			<div className="line-under-header"></div>
 			<main className='vertical-list-page'>
 				<div className='hotels-filters-parametrs'>
@@ -138,8 +133,8 @@ function HotelsForEdit() {
 						<SortButton/>
 					</div>
 				</div>
-				<div className="hotels-list">
-					{hotels.map((hotel) => (<HotelCardForEdit hotel={hotel}/>))}
+				<div className="hotels-for-editor-list">
+					{hotels.map((hotel) => (<HotelCardForEditor hotel={hotel}/>))}
 				</div>
 			</main>
 			
@@ -147,4 +142,4 @@ function HotelsForEdit() {
 	);
 }
 
-export default HotelsForEdit;
+export default HotelsForEditor;

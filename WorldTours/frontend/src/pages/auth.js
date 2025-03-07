@@ -1,8 +1,8 @@
-import '../../styles/auth.scss';
+import '../styles/auth.scss';
 import React, { useState, useEffect } from 'react';
-import LoginForm from '../../components/auth/loginForm';
-import RegisterForm from '../../components/auth/registerForm';
-import AuthLogo from '../../components/auth/authLogo';
+import LoginForm from '../components/auth/loginForm';
+import RegisterForm from '../components/auth/registerForm';
+import AuthLogo from '../components/auth/authLogo';
 
 function Auth() {
 	useEffect(() => {

@@ -2,20 +2,20 @@ import '../styles/general.scss';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Tours from './user/tours';
-import ToursForManager from './manager/toursForManager';
-import Tour from './general/tour';
-import TourEditor from './manager/tourEditor';
-import HotelEditor from './manager/hotelEditor';
-import Users from './admin/users';
-import Auth from './general/auth';
-import TravelInfo from './general/travelInfo';
-import User from './general/user';
-import Bookings from './user/bookings';
-import BookingsForManager from './manager/bookingsForManager';
-import HotelsForEdit from './manager/hotelsForEdit';
-import Payment from './general/payment';
-import Campany from './general/campany';
+import Tours from './tours';
+import ToursForEditor from './toursForEditor';
+import Tour from './tour';
+import TourEditor from './tourEditor';
+import HotelEditor from './hotelEditor';
+import Users from './users';
+import Auth from './auth';
+import TravelInfo from './travelInfo';
+import User from './user';
+import Bookings from './bookings';
+import BookingsForManager from './bookingsForManager';
+import HotelsForEditor from './hotelsForEditor';
+import Payment from './payment';
+import Campany from './campany';
 import Error from './error';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuthUser } from '../store/slices/authUserSlice';
@@ -60,7 +60,7 @@ function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/tours" element={authUser.role === 2 || authUser.role === 3 ? <ToursForManager/> : <Tours/>} />
+				<Route path="/tours" element={authUser.role === 2 || authUser.role === 3 ? <ToursForEditor/> : <Tours/>} />
 				<Route path="/auth" element={<Auth />} />
 				<Route path="/tour/:id" element={<Tour />} />
 				<Route path="/travel_info" element={<TravelInfo />} />
@@ -76,7 +76,7 @@ function App() {
 				)}
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
-							<Route path="/hotels_for_edit" element={authUser ? <HotelsForEdit /> : <Navigate to="/auth" replace />} />
+							<Route path="/hotels_for_editor" element={authUser ? <HotelsForEditor /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
 				{(authUser.role === 1) && (
