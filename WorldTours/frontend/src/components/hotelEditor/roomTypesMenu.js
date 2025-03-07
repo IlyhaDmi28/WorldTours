@@ -6,15 +6,15 @@ import add from "../../img/add.svg"
 
 function RoomTypesMenu({roomTypes, setRoomTypes, saveHotel}) {
     const [isOpenRoomTypeEditor, setIsOpenRoomTypEditor] = useState(false);
-    const [selectedRoomType, setSelectedRoomType] = useState(null);
+    const [indexOfSelectedRoomType, setIndexOfSelectedRoomType] = useState(-1);
     
-    const openRoomTypeEditor = (roomType) => {
-        setSelectedRoomType(roomType);
+    const openRoomTypeEditor = (index) => {
+        setIndexOfSelectedRoomType(index);
         setIsOpenRoomTypEditor(true);
     }
 
     const closeRoomTypeEditor = () => {
-        setSelectedRoomType(null);
+        setIndexOfSelectedRoomType(-1);
         setIsOpenRoomTypEditor(false);
     }
 
@@ -28,7 +28,7 @@ function RoomTypesMenu({roomTypes, setRoomTypes, saveHotel}) {
             </div>
 
             <div className="room-types">
-                {roomTypes.map((roomType, index) => (<RoomTypeCard roomType={roomType} openRoomTypeEditor={openRoomTypeEditor} deleteRoomType={() => {setRoomTypes(roomTypes.filter((_, i) => i !== index))}}/>))}
+                {roomTypes.map((roomType, index) => (<RoomTypeCard roomType={roomType} openRoomTypeEditor={() => openRoomTypeEditor(index)} deleteRoomType={() => {setRoomTypes(roomTypes.filter((_, i) => i !== index))}}/>))}
             </div>
 
             <div className="buttons-under-room-types">
@@ -39,7 +39,7 @@ function RoomTypesMenu({roomTypes, setRoomTypes, saveHotel}) {
             
 			{/* <EditRouteMenu routes={routes} setRoutes={setRoutes} isEditRouteMenuOpen={isEditRouteMenuOpen} closeEditRouteMenu={closeEditRouteMenu} /> */}
             <Modal className='room-type-editor-modal' open={isOpenRoomTypeEditor} onClose={closeRoomTypeEditor} >
-				<RoomTypeEditor selectedRoomType={selectedRoomType} roomTypes={roomTypes} setRoomTypes={setRoomTypes} closeModal={closeRoomTypeEditor}/>
+				<RoomTypeEditor indexOfSelectedRoomType={indexOfSelectedRoomType} roomTypes={roomTypes} setRoomTypes={setRoomTypes} closeModal={closeRoomTypeEditor}/>
 			</Modal>
         </div>
 	);

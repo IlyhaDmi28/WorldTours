@@ -9,13 +9,13 @@ import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
-function RoomTypeEditor({selectedRoomType, roomTypes, setRoomTypes, closeModal}) {    
+function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, closeModal}) {    
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpenCharacteristicsMenu = Boolean(anchorEl);
 
     const [characteristics, setCharacteristics] = useState(['sdfsdg', 'dfgdf', 'gfhjgf']);
 
-    const [roomType, setRoomType] = useState(selectedRoomType !== null ? selectedRoomType : {
+    const [roomType, setRoomType] = useState(indexOfSelectedRoomType !== -1 ? roomTypes[indexOfSelectedRoomType] : {
         name: null,
         seatsNumber: null,
         roomsNumber: null,
@@ -72,9 +72,9 @@ function RoomTypeEditor({selectedRoomType, roomTypes, setRoomTypes, closeModal})
                     }
                 });
 				const characteristicsData = response.data;
-				console.log(characteristicsData);
-				console.log('characteristicsData');
-				setCharacteristics(characteristicsData);
+
+                const characteristicsidsToRemove = new Set(roomType.characteristics.map(item => item.id));
+				setCharacteristics(characteristicsData.filter(item => !characteristicsidsToRemove.has(item.id)));
 
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
@@ -123,21 +123,11 @@ function RoomTypeEditor({selectedRoomType, roomTypes, setRoomTypes, closeModal})
     const saveRoomType = () => {
         console.log(roomTypes); 
 
-        let hyu = roomTypes;
-        for(let i = 0; i < roomTypes.length; i++) {
-            if(hyu[i].id === roomType.id) {
-                console.log('xxxxxfff'); 
-
-                hyu[i] = roomType;
-                setRoomTypes(hyu);
-                return;
-            }
-            else {
-                console.log('dddddgggg'); 
-
-                setRoomTypes([...roomTypes, roomType]);
-                return;
-            }
+        if(indexOfSelectedRoomType === -1)  setRoomTypes([...roomTypes, roomType]);
+        else {
+            let hyu = roomTypes;
+            hyu[indexOfSelectedRoomType] = roomType;
+            setRoomTypes(hyu);
         }
     };
 

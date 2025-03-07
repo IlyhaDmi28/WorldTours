@@ -4,6 +4,7 @@ using backend.Models.Entity;
 using backend.Models.Forms;
 using backend.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -309,18 +310,7 @@ namespace backend.Controllers
 								   .Where(hc => characteristicIds.Contains(hc.Id))
 								   .ToListAsync();
 
-							Hotel newHotel = new Hotel()
-							{
-								Name = hotel.Name,
-								MainDescription = hotel.MainDescription,
-								CityId = hotel.CityId,
-								Address = hotel.Address,
-								StarsNumber = hotel.StarsNumber,
-								NutritionTypeId = hotel.NutritionTypeId,
-								PhotosDirectory = hotel.Name,
-								Characteristics = hotelCharacteristics,
-							};
-
+							db.Database.ExecuteSqlRaw("DELETE FROM HotelDescriptions WHERE HotelID = {0}", hotel.Id);
 
 							editedHotel.Name = hotel.Name;
 							editedHotel.MainDescription = hotel.MainDescription;
@@ -332,11 +322,28 @@ namespace backend.Controllers
 							editedHotel.Characteristics = hotelCharacteristics;
 
 							await db.SaveChangesAsync();
-
-
+							
 							List<RoomType> editedRoomTypes = await db.RoomTypes
 								.Where(rt => roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
 								.ToListAsync();
+
+							List<RoomType> allRoomTypesForHotel = await db.RoomTypes
+								.Where(rt => rt.HotelId == hotel.Id)
+								.ToListAsync();
+
+							List<RoomType> removedRoomTypes = await db.RoomTypes.Where(rt => rt.HotelId == hotel.Id)
+								.Where(rt => !roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
+								.ToListAsync();
+
+							foreach (RoomType roomType in allRoomTypesForHotel)
+							{
+								db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", roomType.Id);
+
+							}
+
+							db.RoomTypes.RemoveRange(removedRoomTypes);
+
+							await db.SaveChangesAsync();
 
 							for (int i = 0; i < editedRoomTypes.Count; i++)
 							{
@@ -344,14 +351,49 @@ namespace backend.Controllers
 								editedRoomTypes[i].SeatsNumber = roomTypes[i].SeatsNumber;
 								editedRoomTypes[i].RoomsNumber = roomTypes[i].RoomsNumber;
 								editedRoomTypes[i].Price = roomTypes[i].Price;
+
+								//db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", editedRoomTypes[i].Id);
+
 								editedRoomTypes[i].Characteristics = roomTypes[i].Characteristics.Select(c => new RoomTypeCharacteristic
 								{
 									Id = c.Id,
 									Name = c.Name,
 								}).ToList();
 							}
-							
+
 							await db.SaveChangesAsync();
+
+							if (editedRoomTypes.Count != roomTypes.Count)
+							{
+								var newRoomTypes = roomTypes.Where(rt => rt.Id == 0)
+								.Select(rt => new RoomType()
+								{
+									Name = rt.Name,
+									SeatsNumber = rt.SeatsNumber,
+									RoomsNumber = rt.RoomsNumber,
+									Price = rt.Price,
+									HotelId = hotel.Id
+								})
+								.ToList();
+
+								// Добавляем объекты RoomType без характеристик
+								await db.RoomTypes.AddRangeAsync(newRoomTypes);
+								await db.SaveChangesAsync(); // Сохраняем, чтобы получить ID новых записей
+
+								// Теперь загружаем характеристики
+								foreach (var newRoomType in newRoomTypes)
+								{
+									var rt = roomTypes.FirstOrDefault(r => r.Name == newRoomType.Name);
+									if (rt != null && rt.Characteristics != null && rt.Characteristics.Any())
+									{
+										newRoomType.Characteristics = await db.RoomTypeCharacteristics
+											.Where(rtc => rt.Characteristics.Select(c => c.Id).Contains(rtc.Id))
+											.ToListAsync();
+									}
+								}
+
+								await db.SaveChangesAsync();
+							}
 
 
 							if (hotel.PhotosFiles != null && hotel.PhotosFiles.Count > 0)
