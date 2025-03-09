@@ -1,6 +1,5 @@
 @import './variabels/colors.scss'; 
-$indent-from-left-booking: 200px;
-$margin-from-left-booking: 200px;
+$indent-from-left-on-card: 200px;
 
 
 .change-show-bookings-list {
@@ -21,22 +20,17 @@ $margin-from-left-booking: 200px;
 	}
 
 	button:hover:nth-child(1)  {
-		background-color: rgb(209, 216, 0); 
+		background-color: $yellow-color; 
 		color: white;
 	}
 
 	button:hover:nth-child(2)  {
-		background-color: rgb(69, 189, 69); 
+		background-color: $green-color; 
 		color: white;
 	}
 
 	button:hover:nth-child(3)  {
-		background-color: rgb(60, 80, 254); 
-		color: white;
-	}
-
-	button:hover:nth-child(4)  {
-		background-color: rgb(224, 190, 39); 
+		background-color: $blue-color; 
 		color: white;
 	}
 }
@@ -61,14 +55,14 @@ $margin-from-left-booking: 200px;
 		.booking-card-name {
 			position: absolute;
 			font-size: 20px;
-			left: $margin-from-left-booking;
+			left: $indent-from-left-on-card;
 			top: 27px;
 		}
 
 		.booking-card-route {
 			position: absolute;
 			font-size: 14px;
-			left: $margin-from-left-booking;
+			left: $indent-from-left-on-card;
 			top: 55px;
 			color: $dark-grey-color;
 		}
@@ -76,7 +70,7 @@ $margin-from-left-booking: 200px;
 		.booking-card-department-departure-and-hotle {
 			position: absolute;
 			font-size: 14px;
-			left: $margin-from-left-booking;
+			left: $indent-from-left-on-card;
 			top: 97px;
 			color: $dark-grey-color;
 		}
@@ -84,7 +78,7 @@ $margin-from-left-booking: 200px;
 		.booking-card-hotel-stars {
 			position: absolute;
 			display: flex;
-			left: $margin-from-left-booking;
+			left: $indent-from-left-on-card;
 			top: 137px;
 
 			display: flex;
@@ -110,8 +104,8 @@ $margin-from-left-booking: 200px;
 		.booking-card-status {
 			position: absolute;
 			font-size: 13px;
-			background-color: rgb(69, 189, 69);
-			left: $indent-from-left-booking;
+			background-color: $green-color;
+			left: $indent-from-left-on-card;
 			bottom: 22px;
 			height: 22px;
 			padding-top: 6px;
@@ -124,7 +118,7 @@ $margin-from-left-booking: 200px;
 		.booking-card-confirmation {
 			position: absolute;
 			font-size: 14px;
-			background-color: rgb(69, 189, 69);
+			background-color: $green-color;
 			left: 800px;
 			bottom: 20px;
 			height: 24px;
@@ -138,7 +132,7 @@ $margin-from-left-booking: 200px;
 		.booking-card-user-info {
 			position: absolute;
 			font-size: 15px;
-			left: $margin-from-left-booking;
+			left: $indent-from-left-on-card;
 			bottom: 22px;
 			height: 22px;
 			padding-top: 6px;

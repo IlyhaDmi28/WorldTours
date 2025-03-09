@@ -238,17 +238,17 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
                     </div>
                     <div className='edit-route-other-parameter'>
                         <div className='parameter-name'>Тип транспорта</div>
-                        <select name="transportType" value={route.transportType.id} onChange={changeTransportType}>
-                            {transportTypes.map((transportType) => (
-                                <option 
-                                    key={transportType.id}
-                                    value={transportType.id}
-                                >
-                                    {transportType.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                            <select name="transportType" value={route.transportType.id} onChange={changeTransportType}>
+                                {transportTypes.map((transportType) => (
+                                    <option 
+                                        key={transportType.id}
+                                        value={transportType.id}
+                                    >
+                                        {transportType.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
                     <div className='edit-route-price-and-place'>
                         <div className='edit-route-price-or-place'>

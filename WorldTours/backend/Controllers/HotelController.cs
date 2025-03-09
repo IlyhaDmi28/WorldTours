@@ -285,161 +285,295 @@ namespace backend.Controllers
 			}
 		}
 
+		//[Authorize(Roles = "Manager, Admin")]
+		//[HttpPut("edit")]
+		//public async Task<IActionResult> EditHotel([FromForm] HotelForm hotel)
+		//{
+		//	try
+		//	{
+		//		if (hotel.Id != 0)
+		//		{
+		//			using (var transaction = await db.Database.BeginTransactionAsync())
+		//			{
+		//				try
+		//				{
+
+		//					Hotel editedHotel = await db.Hotels.FirstOrDefaultAsync(h => h.Id == hotel.Id);
+
+		//					if (editedHotel == null) return NotFound();
+
+		//					List<CharacteristicForm> characteristics  = JsonConvert.DeserializeObject<List<CharacteristicForm>>(hotel.Characteristics);
+		//					List<RoomTypeForm> roomTypes = JsonConvert.DeserializeObject<List<RoomTypeForm>>(hotel.RoomTypes);
+
+		//					List<int> characteristicIds = characteristics.Select(hc => hc.Id).ToList();
+		//					ICollection<HotelCharacteristic> hotelCharacteristics = await db.HotelCharacteristics
+		//						   .Where(hc => characteristicIds.Contains(hc.Id))
+		//						   .ToListAsync();
+
+		//					db.Database.ExecuteSqlRaw("DELETE FROM HotelDescriptions WHERE HotelID = {0}", hotel.Id);
+
+		//					editedHotel.Name = hotel.Name;
+		//					editedHotel.MainDescription = hotel.MainDescription;
+		//					editedHotel.CityId = hotel.CityId;
+		//					editedHotel.Address = hotel.Address;
+		//					editedHotel.StarsNumber = hotel.StarsNumber;
+		//					editedHotel.NutritionTypeId = hotel.NutritionTypeId;
+		//					editedHotel.PhotosDirectory = hotel.Name;
+		//					editedHotel.Characteristics = hotelCharacteristics;
+
+		//					await db.SaveChangesAsync();
+
+		//					List<RoomType> editedRoomTypes = await db.RoomTypes
+		//						.Where(rt => roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
+		//						.ToListAsync();
+
+		//					List<RoomType> allRoomTypesForHotel = await db.RoomTypes
+		//						.Where(rt => rt.HotelId == hotel.Id)
+		//						.ToListAsync();
+
+		//					List<RoomType> deletedRoomTypes = await db.RoomTypes.Where(rt => rt.HotelId == hotel.Id)
+		//						.Where(rt => !roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
+		//						.ToListAsync();
+
+		//					foreach (RoomType roomType in allRoomTypesForHotel)
+		//					{
+		//						db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", roomType.Id);
+
+		//					}
+
+		//					db.RoomTypes.RemoveRange(deletedRoomTypes);
+
+		//					await db.SaveChangesAsync();
+
+		//					for (int i = 0; i < editedRoomTypes.Count; i++)
+		//					{
+		//						editedRoomTypes[i].Name = roomTypes[i].Name;
+		//						editedRoomTypes[i].SeatsNumber = roomTypes[i].SeatsNumber;
+		//						editedRoomTypes[i].RoomsNumber = roomTypes[i].RoomsNumber;
+		//						editedRoomTypes[i].Price = roomTypes[i].Price;
+
+		//						//db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", editedRoomTypes[i].Id);
+
+		//						editedRoomTypes[i].Characteristics = roomTypes[i].Characteristics.Select(c => new RoomTypeCharacteristic
+		//						{
+		//							Id = c.Id,
+		//							Name = c.Name,
+		//						}).ToList();
+		//					}
+
+		//					await db.SaveChangesAsync();
+
+		//					if (editedRoomTypes.Count != roomTypes.Count)
+		//					{
+		//						var newRoomTypes = roomTypes.Where(rt => rt.Id == 0)
+		//						.Select(rt => new RoomType()
+		//						{
+		//							Name = rt.Name,
+		//							SeatsNumber = rt.SeatsNumber,
+		//							RoomsNumber = rt.RoomsNumber,
+		//							Price = rt.Price,
+		//							HotelId = hotel.Id
+		//						})
+		//						.ToList();
+
+		//						// Добавляем объекты RoomType без характеристик
+		//						await db.RoomTypes.AddRangeAsync(newRoomTypes);
+		//						await db.SaveChangesAsync(); // Сохраняем, чтобы получить ID новых записей
+
+		//						// Теперь загружаем характеристики
+		//						foreach (var newRoomType in newRoomTypes)
+		//						{
+		//							var rt = roomTypes.FirstOrDefault(r => r.Name == newRoomType.Name);
+		//							if (rt != null && rt.Characteristics != null && rt.Characteristics.Any())
+		//							{
+		//								newRoomType.Characteristics = await db.RoomTypeCharacteristics
+		//									.Where(rtc => rt.Characteristics.Select(c => c.Id).Contains(rtc.Id))
+		//									.ToListAsync();
+		//							}
+		//						}
+
+		//						await db.SaveChangesAsync();
+		//					}
+
+
+		//					if (hotel.PhotosFiles != null && hotel.PhotosFiles.Count > 0)
+		//					{
+		//						// Создаём папку для загрузок, если её нет
+		//						string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotels", hotel.Name);
+		//						if (!Directory.Exists(uploadsFolder))
+		//						{
+		//							Directory.CreateDirectory(uploadsFolder);
+		//						}
+
+		//						List<string> savedFilePaths = new List<string>();
+
+		//						int i = 0;
+		//						foreach (var file in hotel.PhotosFiles)
+		//						{
+		//							if (file.Length > 0)
+		//							{
+		//								// Генерируем уникальное имя файла
+		//								string uniqueFileName = $"{i++}.jpg";
+		//								string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+		//								// Сохраняем файл
+		//								using (var fileStream = new FileStream(filePath, FileMode.Create))
+		//								{
+		//									await file.CopyToAsync(fileStream);
+		//								}
+
+		//								savedFilePaths.Add($"/uploads/hotels/{hotel.Name}/{uniqueFileName}"); // Относительный путь для клиента
+		//							}
+		//						}
+		//					}
+
+		//					await transaction.CommitAsync();
+		//					return Ok();
+		//				}
+		//				catch (Exception ex)
+		//				{
+
+		//					await transaction.RollbackAsync();
+		//					return BadRequest();
+		//				}
+		//			}
+		//		}
+		//		return BadRequest();
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return BadRequest(ex.Message);
+		//	}
+		//}
+
 		[Authorize(Roles = "Manager, Admin")]
 		[HttpPut("edit")]
 		public async Task<IActionResult> EditHotel([FromForm] HotelForm hotel)
 		{
 			try
 			{
-				if (hotel.Id != 0)
+				if (hotel.Id == 0) return BadRequest("Invalid hotel ID.");
+
+				using (var transaction = await db.Database.BeginTransactionAsync())
 				{
-					using (var transaction = await db.Database.BeginTransactionAsync())
+					try
 					{
-						try
+						Hotel editedHotel = await db.Hotels.FirstOrDefaultAsync(h => h.Id == hotel.Id);
+						if (editedHotel == null) return NotFound();
+
+						// Десериализация характеристик и типов номеров
+						var characteristics = JsonConvert.DeserializeObject<List<CharacteristicForm>>(hotel.Characteristics);
+						var roomTypes = JsonConvert.DeserializeObject<List<RoomTypeForm>>(hotel.RoomTypes);
+
+						// Получение характеристик за один запрос
+						var hotelCharacteristics = await db.HotelCharacteristics
+							.Where(hc => characteristics.Select(c => c.Id).Contains(hc.Id))
+							.ToListAsync();
+
+						// Обновление данных отеля
+						db.Database.ExecuteSqlRaw("DELETE FROM HotelDescriptions WHERE HotelID = {0}", hotel.Id);
+						editedHotel.Name = hotel.Name;
+						editedHotel.MainDescription = hotel.MainDescription;
+						editedHotel.CityId = hotel.CityId;
+						editedHotel.Address = hotel.Address;
+						editedHotel.StarsNumber = hotel.StarsNumber;
+						editedHotel.NutritionTypeId = hotel.NutritionTypeId;
+						editedHotel.PhotosDirectory = hotel.Name;
+						editedHotel.Characteristics = hotelCharacteristics;
+
+						await db.SaveChangesAsync();
+
+						// Получаем все типы номеров отеля
+						var allRoomTypesForHotel = await db.RoomTypes
+							.Where(rt => rt.HotelId == hotel.Id)
+							.ToListAsync();
+
+						// Разделение на удаляемые и редактируемые номера
+						var editedRoomTypes = allRoomTypesForHotel.Where(rt => roomTypes.Any(rt2 => rt2.Id == rt.Id)).ToList();
+						var deletedRoomTypes = allRoomTypesForHotel.Where(rt => !roomTypes.Any(rt2 => rt2.Id == rt.Id)).ToList();
+
+						// Удаление описаний номеров перед изменением
+						db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID IN ({0})",
+							string.Join(",", allRoomTypesForHotel.Select(rt => rt.Id)));
+
+						// Удаление типов номеров
+						db.RoomTypes.RemoveRange(deletedRoomTypes);
+						await db.SaveChangesAsync();
+
+						// Обновление существующих номеров
+						foreach (var rt in editedRoomTypes)
 						{
-
-							Hotel editedHotel = await db.Hotels.FirstOrDefaultAsync(h => h.Id == hotel.Id);
-
-							if (editedHotel == null) return NotFound();
-
-							List<CharacteristicForm> characteristics  = JsonConvert.DeserializeObject<List<CharacteristicForm>>(hotel.Characteristics);
-							List<RoomTypeForm> roomTypes = JsonConvert.DeserializeObject<List<RoomTypeForm>>(hotel.RoomTypes);
-
-							List<int> characteristicIds = characteristics.Select(hc => hc.Id).ToList();
-							ICollection<HotelCharacteristic> hotelCharacteristics = await db.HotelCharacteristics
-								   .Where(hc => characteristicIds.Contains(hc.Id))
-								   .ToListAsync();
-
-							db.Database.ExecuteSqlRaw("DELETE FROM HotelDescriptions WHERE HotelID = {0}", hotel.Id);
-
-							editedHotel.Name = hotel.Name;
-							editedHotel.MainDescription = hotel.MainDescription;
-							editedHotel.CityId = hotel.CityId;
-							editedHotel.Address = hotel.Address;
-							editedHotel.StarsNumber = hotel.StarsNumber;
-							editedHotel.NutritionTypeId = hotel.NutritionTypeId;
-							editedHotel.PhotosDirectory = hotel.Name;
-							editedHotel.Characteristics = hotelCharacteristics;
-
-							await db.SaveChangesAsync();
-							
-							List<RoomType> editedRoomTypes = await db.RoomTypes
-								.Where(rt => roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
-								.ToListAsync();
-
-							List<RoomType> allRoomTypesForHotel = await db.RoomTypes
-								.Where(rt => rt.HotelId == hotel.Id)
-								.ToListAsync();
-
-							List<RoomType> removedRoomTypes = await db.RoomTypes.Where(rt => rt.HotelId == hotel.Id)
-								.Where(rt => !roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
-								.ToListAsync();
-
-							foreach (RoomType roomType in allRoomTypesForHotel)
+							var formRoom = roomTypes.First(r => r.Id == rt.Id);
+							rt.Name = formRoom.Name;
+							rt.SeatsNumber = formRoom.SeatsNumber;
+							rt.RoomsNumber = formRoom.RoomsNumber;
+							rt.Price = formRoom.Price;
+							rt.Characteristics = formRoom.Characteristics.Select(c => new RoomTypeCharacteristic
 							{
-								db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", roomType.Id);
-
-							}
-
-							db.RoomTypes.RemoveRange(removedRoomTypes);
-
-							await db.SaveChangesAsync();
-
-							for (int i = 0; i < editedRoomTypes.Count; i++)
-							{
-								editedRoomTypes[i].Name = roomTypes[i].Name;
-								editedRoomTypes[i].SeatsNumber = roomTypes[i].SeatsNumber;
-								editedRoomTypes[i].RoomsNumber = roomTypes[i].RoomsNumber;
-								editedRoomTypes[i].Price = roomTypes[i].Price;
-
-								//db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", editedRoomTypes[i].Id);
-
-								editedRoomTypes[i].Characteristics = roomTypes[i].Characteristics.Select(c => new RoomTypeCharacteristic
-								{
-									Id = c.Id,
-									Name = c.Name,
-								}).ToList();
-							}
-
-							await db.SaveChangesAsync();
-
-							if (editedRoomTypes.Count != roomTypes.Count)
-							{
-								var newRoomTypes = roomTypes.Where(rt => rt.Id == 0)
-								.Select(rt => new RoomType()
-								{
-									Name = rt.Name,
-									SeatsNumber = rt.SeatsNumber,
-									RoomsNumber = rt.RoomsNumber,
-									Price = rt.Price,
-									HotelId = hotel.Id
-								})
-								.ToList();
-
-								// Добавляем объекты RoomType без характеристик
-								await db.RoomTypes.AddRangeAsync(newRoomTypes);
-								await db.SaveChangesAsync(); // Сохраняем, чтобы получить ID новых записей
-
-								// Теперь загружаем характеристики
-								foreach (var newRoomType in newRoomTypes)
-								{
-									var rt = roomTypes.FirstOrDefault(r => r.Name == newRoomType.Name);
-									if (rt != null && rt.Characteristics != null && rt.Characteristics.Any())
-									{
-										newRoomType.Characteristics = await db.RoomTypeCharacteristics
-											.Where(rtc => rt.Characteristics.Select(c => c.Id).Contains(rtc.Id))
-											.ToListAsync();
-									}
-								}
-
-								await db.SaveChangesAsync();
-							}
-
-
-							if (hotel.PhotosFiles != null && hotel.PhotosFiles.Count > 0)
-							{
-								// Создаём папку для загрузок, если её нет
-								string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotels", hotel.Name);
-								if (!Directory.Exists(uploadsFolder))
-								{
-									Directory.CreateDirectory(uploadsFolder);
-								}
-
-								List<string> savedFilePaths = new List<string>();
-
-								int i = 0;
-								foreach (var file in hotel.PhotosFiles)
-								{
-									if (file.Length > 0)
-									{
-										// Генерируем уникальное имя файла
-										string uniqueFileName = $"{i++}.jpg";
-										string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-										// Сохраняем файл
-										using (var fileStream = new FileStream(filePath, FileMode.Create))
-										{
-											await file.CopyToAsync(fileStream);
-										}
-
-										savedFilePaths.Add($"/uploads/hotels/{hotel.Name}/{uniqueFileName}"); // Относительный путь для клиента
-									}
-								}
-
-							}
-
-							await transaction.CommitAsync();
-							return Ok();
+								Id = c.Id,
+								Name = c.Name,
+							}).ToList();
 						}
-						catch (Exception ex)
+
+						await db.SaveChangesAsync();
+
+						// Добавление новых номеров
+						var newRoomTypes = roomTypes
+							.Where(rt => rt.Id == 0)
+							.Select(rt => new RoomType
+							{
+								Name = rt.Name,
+								SeatsNumber = rt.SeatsNumber,
+								RoomsNumber = rt.RoomsNumber,
+								Price = rt.Price,
+								HotelId = hotel.Id
+							})
+							.ToList();
+
+						await db.RoomTypes.AddRangeAsync(newRoomTypes);
+						await db.SaveChangesAsync();
+
+						// Привязываем характеристики к новым номерам
+						foreach (var newRoom in newRoomTypes)
 						{
-
-							await transaction.RollbackAsync();
-							return BadRequest();
+							var formRoom = roomTypes.FirstOrDefault(rt => rt.Name == newRoom.Name);
+							if (formRoom?.Characteristics?.Any() == true)
+							{
+								newRoom.Characteristics = await db.RoomTypeCharacteristics
+									.Where(rtc => formRoom.Characteristics.Select(c => c.Id).Contains(rtc.Id))
+									.ToListAsync();
+							}
 						}
+
+						await db.SaveChangesAsync();
+
+						// Обработка загрузки фотографий
+						if (hotel.PhotosFiles?.Count > 0)
+						{
+							string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotels", hotel.Name);
+							if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+							for (int i = 0; i < hotel.PhotosFiles.Count; i++)
+							{
+								var file = hotel.PhotosFiles[i];
+								if (file.Length > 0)
+								{
+									string filePath = Path.Combine(uploadsFolder, $"{i}.jpg");
+									using var fileStream = new FileStream(filePath, FileMode.Create);
+									await file.CopyToAsync(fileStream);
+								}
+							}
+						}
+
+						await transaction.CommitAsync();
+						return Ok();
+					}
+					catch (Exception ex)
+					{
+						await transaction.RollbackAsync();
+						return BadRequest();
 					}
 				}
-				return BadRequest();
 			}
 			catch (Exception ex)
 			{

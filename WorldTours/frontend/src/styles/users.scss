@@ -1,6 +1,4 @@
 @import './variabels/colors.scss'; 
-$margin-from-left-user: 200px;
-$indent-from-left-user: 200px;
 
 .change-show-users-list {
 	display: flex;
@@ -20,22 +18,17 @@ $indent-from-left-user: 200px;
 	}
 
 	button:hover:nth-child(1)  {
-		background-color: rgb(209, 216, 0); 
+		background-color: $yellow-color; 
 		color: white;
 	}
 
 	button:hover:nth-child(2)  {
-		background-color: rgb(69, 189, 69); 
+		background-color: $green-color; 
 		color: white;
 	}
 
 	button:hover:nth-child(3)  {
-		background-color: rgb(254, 60, 60); 
-		color: white;
-	}
-
-	button:hover:nth-child(4)  {
-		background-color: rgb(224, 190, 39); 
+		background-color: $red-color; 
 		color: white;
 	}
 }
@@ -63,14 +56,14 @@ $indent-from-left-user: 200px;
 		.user-card-name {
 			position: absolute;
 			font-size: 20px;
-			left: $margin-from-left-user;
+			left: $indent-from-left-on-card;
 			top: 27px;
 		}
 
 		.user-card-contact-info {
 			position: absolute;
 			font-size: 14px;
-			left: $margin-from-left-user;
+			left: $indent-from-left-on-card;
 			top: 80px;
 			color: $dark-grey-color;
 
@@ -82,7 +75,7 @@ $indent-from-left-user: 200px;
 		.user-card-hotel-stars {
 			position: absolute;
 			display: flex;
-			left: $margin-from-left-user;
+			left: $indent-from-left-on-card;
 			top: 137px;
 
 			display: flex;
@@ -108,8 +101,8 @@ $indent-from-left-user: 200px;
 		.user-card-status {
 			position: absolute;
 			font-size: 13px;
-			background-color: rgb(69, 189, 69);
-			left: $indent-from-left-user;
+			background-color: $green-color;
+			left: $indent-from-left-on-card;
 			bottom: 22px;
 			height: 22px;
 			padding-top: 6px;
@@ -122,8 +115,8 @@ $indent-from-left-user: 200px;
 		.user-card-change-role {
 			position: absolute;
 			font-size: 13px;
-			background-color: rgb(60, 80, 254);
-			left: $indent-from-left-user + 170px;
+			background-color: $blue-color;
+			left: $indent-from-left-on-card + 170px;
 			bottom: 22px;
 			height: 22px;
 			padding-top: 6px;
@@ -136,7 +129,7 @@ $indent-from-left-user: 200px;
 		.user-card-roles {
 			position: absolute;
 			display: flex;
-			left: $indent-from-left-user;
+			left: $indent-from-left-on-card;
 			bottom: 22px;
 			height: 22px;
 			color: white;
@@ -144,7 +137,7 @@ $indent-from-left-user: 200px;
 			justify-content: space-between;
 
 			>div {
-				background-color: rgb(224, 190, 39);
+				background-color: $orange-color;
 				height: 100%;
 				text-align: center;
 				border-radius: 10px;
@@ -154,7 +147,7 @@ $indent-from-left-user: 200px;
 			}
 
 			>div:nth-last-child(1) {
-				background-color: rgb(254, 60, 60);
+				background-color: $red-color;
 				
 			}
 		}
@@ -162,7 +155,7 @@ $indent-from-left-user: 200px;
 		.user-card-confirmation {
 			position: absolute;
 			font-size: 14px;
-			background-color: rgb(69, 189, 69);
+			background-color: $green-color;
 			left: 800px;
 			bottom: 20px;
 			height: 24px;
@@ -176,7 +169,7 @@ $indent-from-left-user: 200px;
 		.user-card-user-info {
 			position: absolute;
 			font-size: 15px;
-			left: $margin-from-left-user;
+			left: $indent-from-left-on-card;
 			bottom: 22px;
 			height: 22px;
 			padding-top: 6px;

@@ -1,6 +1,4 @@
 @import './variabels/colors.scss';
-$indent-from-left-booking: 200px;
-$margin-from-left-booking: 200px;
 
 .vertical-list-page {
     padding-right: 8%;
@@ -156,14 +154,14 @@ $margin-from-left-booking: 200px;
 		.hotel-for-editor-card-name {
 			position: absolute;
 			font-size: 20px;
-			left: $margin-from-left-booking;
+			left: $indent-from-left-on-card;
 			top: 27px;
 		}
 
 		.hotel-for-editor-card-loacation {
 			position: absolute;
 			font-size: 16px;
-			left: $margin-from-left-booking;
+			left: $indent-from-left-on-card;
 			top: 82px;
 			color: $dark-grey-color;
 		}
@@ -171,14 +169,14 @@ $margin-from-left-booking: 200px;
         .hotel-for-editor-card-address {
             position: absolute;
 			font-size: 16px;
-			left: $margin-from-left-booking;
+			left: $indent-from-left-on-card;
 			top: 100px;
 			color: $dark-grey-color;
         }
 
 		.hotel-for-editor-card-stars {
 			position: absolute;
-			left: $margin-from-left-booking - 3px;
+			left: $indent-from-left-on-card - 3px;
 			top: 120px;
             font-size: 20px;
         }

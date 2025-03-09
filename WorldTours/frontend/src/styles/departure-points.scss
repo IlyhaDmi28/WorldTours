@@ -1,0 +1,359 @@
+@import './variabels/colors.scss';
+
+.vertical-list-page {
+    padding-right: 8%;
+    padding-left: 8%;
+}
+
+.vertical-list-filters-parameters {
+    display: flex;
+	height: 80px;
+    width: 100%;
+
+	.select-location {
+		width: 230px;
+        height: 55px;
+		font-size: 13px;
+		border: 1px solid black;
+		border-radius: 14px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+        padding-left: 12px;
+        text-align: left;
+        background-color: rgb(244, 244, 244);
+        margin-top: 1.5%;
+
+        div {
+            margin-top: 2px;
+            color: $dark-grey-color;
+		    font-size: 13px;
+
+        }
+	}
+
+    .transport-list-on-filter {
+		width: 200px;
+        margin-top: 2.2%;
+        margin-left: 3%;
+        display: flex;
+        column-gap: 6%;
+
+        img:nth-child(1) {
+            height: 40px;
+            padding-bottom: 10px;
+        }
+
+        img {
+            height: 50px;
+        }
+
+        img:hover {
+            border-bottom: 1px solid black;
+        }
+    }
+
+    .filter-and-sort-buttons{
+        display: flex;
+        width: 190px;
+        justify-content: space-between;
+        margin-top: 2.2%;
+        margin-left: auto;
+        .filter-button {
+            height: 40px;
+            width: 140px;
+            display: flex;
+            border: 1px solid $grey-color;
+            border-radius: 12px;
+            background-color: white;
+    
+            img {
+                height: 45%;
+                margin: auto 0 auto 5%;
+            }
+    
+            div {
+                margin: auto 0 auto 10px;
+                font-size: 13px;
+            }
+        }
+    
+        .sort-button{
+            height: 40px;
+            width: 45px;
+            display: flex;
+            border: 1px solid $grey-color;
+            border-radius: 10px;
+            background-color: white;
+
+            img {
+                height: 50%;
+                margin: auto;
+            }
+        }
+    }
+    
+}
+
+.departure-points-list {
+	.departure-point-card {
+		display: block;
+		position: relative;
+		height: 80px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		width: 100%;
+		border-bottom: 1px solid $light-grey-color;
+
+		.departure-point-card-transport {
+			position: absolute;
+			height: 80px;
+		}
+
+		.departure-point-card-name {
+			position: absolute;
+			font-size: 20px;
+            left: 100px;
+			top: 17px;
+		}
+
+		.departure-point-card-loacation {
+			position: absolute;
+			font-size: 16px;
+            left: 100px;
+			top: 42px;
+			color: $dark-grey-color;
+		}
+
+        .departure-point-card-address {
+            position: absolute;
+			font-size: 16px;
+            left: 100px;
+			top: 62px;
+			color: $dark-grey-color;
+        }
+
+		.departure-point-card-delete-button {
+			position: absolute;
+			top: 10px;
+			right: 0px;
+			width: 35px;
+			height: 35px;
+			background-color: white;
+			border: none;
+			z-index: 1001;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+}
+
+.departure-point-editor-modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.departure-point-editor {
+	//Вынести
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1002; // На всякий случай
+	width: 600px;
+	text-align: center;
+
+	.close-modal-editor-button {
+		margin-left: 97%;
+		width: 20px;
+		height: 20px;
+		border: none;
+		background-color: white;
+		padding: 0px;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	h2 {
+		margin: 0px;
+	}
+
+	h3 {
+		margin: 5px 0px 0px 10px;
+		text-align: left;
+		margin-bottom: 5px;
+	}
+
+	hr {
+		width: 100%;
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+
+	input {
+		font-size: 16px;
+		margin-top: 3px;
+		width: 100%;
+		height: 35px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+	
+	select {
+		font-size: 18px;
+		margin-top: 3px;
+		width: 100%;
+		height: 40px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+
+	.parameter-name {
+		text-align: left;
+		font-size: 16px;
+		margin-left: 10px;
+	}
+
+	.departure-point-editor-info {
+		>div {
+			>div {
+				margin-top: 10px;
+			}
+		}
+	}
+
+	.departure-point-editor-location-info {
+		margin-top: 22px;
+
+		.departure-point-editor-location {
+            display: flex;
+    
+            .select-city-and-address-of-hotel {
+                >div {
+                    display: flex;
+                    height: 40px;
+                    
+                    >div:nth-child(1) {
+                        font-size: 19px;
+                        margin-top: 6px;
+                    }
+            
+                    .hotel-editor-loaction-info {
+                        font-size: 20px;
+                        margin-top: 6px;
+                        margin-left: 12px;
+                    }
+            
+                    svg {
+                        margin-top: 5px;
+                        margin-left: 5px;
+                        color: red;
+                    }
+            
+                    >button {
+                        height: 30px;
+                        width: 280px;
+                        border: none;
+                        background-color: $green-color;
+                        margin-left: 12px;
+                        margin-top: 4px;
+                        border-radius: 8px;
+                        
+                        b {
+                            font-size: 14px;
+                            color: white;
+                        }
+                    }
+            
+                    .hotel-editor-input-address {
+                        height: 28px;
+                        width: 440px;
+                        font-size: 18px;
+                        margin-left: 15px;
+                    }
+                }
+            }
+    
+            .hotel-editor-map {
+                width: 60px;
+                height: 60px;
+                margin-left: auto;
+                margin-top: 8px;
+            }
+        }
+    
+        .select-city-or-address-of-hotel {
+            display: flex;
+            height: 40px;
+            
+            >div:nth-child(1) {
+                font-size: 19px;
+                margin-top: 6px;
+            }
+    
+            .hotel-editor-loaction-info {
+                font-size: 20px;
+                margin-top: 6px;
+                margin-left: 12px;
+            }
+    
+            svg {
+                margin-top: 5px;
+                margin-left: 5px;
+                color: red;
+            }
+    
+            >button {
+                height: 30px;
+                width: 280px;
+                border: none;
+                background-color: rgb(55, 187, 55);
+                margin-left: 12px;
+                margin-top: 4px;
+                border-radius: 8px;
+                
+                b {
+                    font-size: 14px;
+                    color: white;
+                }
+            }
+    
+            .hotel-editor-input-address {
+                height: 28px;
+                width: 440px;
+                font-size: 18px;
+                margin-left: 15px;
+            }
+        }
+	}
+
+	.modal-editor-controller{
+		//Вынести
+		display: flex;
+		justify-content: space-between;
+		margin-top: 7px;
+
+		>button {
+			height: 45px;
+			font-size: 17px;
+		}
+
+		>button:nth-child(1) {
+			background-color: white;
+			border: none;
+		}
+
+		>button:nth-child(2) {
+			width: 240px;
+			color: white;
+			background-color: black;
+			border: none;
+			border-radius: 20px;
+		}
+	}
+}

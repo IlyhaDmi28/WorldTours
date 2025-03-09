@@ -60,7 +60,7 @@
 				width: 32%;
 				border-radius: 8px;
 				border: none;
-				background-color: rgb(60, 80, 254);
+				background-color: $blue-color;
 				margin-top: 2px;
 
 				b {
@@ -142,7 +142,7 @@
 					height: 30px;
 					width: 280px;
 					border: none;
-					background-color: rgb(55, 187, 55);
+					background-color: $green-color;
 					margin-left: 12px;
 					margin-top: 4px;
 					border-radius: 8px;
@@ -504,7 +504,7 @@
 			flex-wrap: wrap;
 
 			.room-type-editor-characteristic {
-				background-color: rgb(55, 187, 55);
+				background-color: $green-color;
 				padding: 5px 8px 5px 12px;
 				border-radius: 16px;
 				color: white;
