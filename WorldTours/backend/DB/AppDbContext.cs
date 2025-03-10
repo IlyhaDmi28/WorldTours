@@ -163,6 +163,12 @@ namespace backend.DB
 				.HasForeignKey(r => r.TransportTypeId)
 				.OnDelete(DeleteBehavior.Restrict);
 
+			modelBuilder.Entity<TransportType>()
+				.HasMany(tt => tt.DepartmentDepartures)
+				.WithOne(dd => dd.TransportType)
+				.HasForeignKey(dd =>dd.TransportTypeId)
+				.OnDelete(DeleteBehavior.Restrict);
+
 			// Настройка Hotel
 			modelBuilder.Entity<Hotel>()
 				.HasMany(h => h.Tours)

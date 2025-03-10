@@ -14,7 +14,7 @@ import User from './user';
 import Bookings from './bookings';
 import BookingsForManager from './bookingsForManager';
 import HotelsForEditor from './hotelsForEditor';
-import DeparturePoints from './departurePoints';
+import DepartmentDepartures from './departmentDepartures';
 import Payment from './payment';
 import Campany from './campany';
 import Error from './error';
@@ -82,7 +82,7 @@ function App() {
 				)}
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
-							<Route path="/departure_points" element={authUser ? <DeparturePoints /> : <Navigate to="/auth" replace />} />
+							<Route path="/department_departures" element={authUser ? <DepartmentDepartures /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
 				{(authUser.role === 1) && (

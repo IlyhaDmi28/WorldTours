@@ -16,7 +16,7 @@ function ClickableMap() {
   }
 
   return (
-    <MapContainer className="clickable-map" center={markerPosition} zoom={10}>
+    <MapContainer className="clickable-map"  center={markerPosition} zoom={10}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       
       <MapClickHandler />

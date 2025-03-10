@@ -66,16 +66,20 @@ CREATE TABLE Cities (
   FOREIGN KEY (`CountryId`) REFERENCES `Countries`(`ID`)
 );
 
+CREATE TABLE TransportTypes (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) UNIQUE NOT NULL
+);
+
+SELECT * FROM DepartmentDepartures;
 CREATE TABLE DepartmentDepartures (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255) UNIQUE NOT NULL,
   CityId INT,
-  FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`)
-);
-
-CREATE TABLE TransportTypes (
-  ID INT PRIMARY KEY AUTO_INCREMENT,
-  Name VARCHAR(255) UNIQUE NOT NULL
+  Address VARCHAR(255),
+  TransportTypeId INT,
+  FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`),
+  FOREIGN KEY (`TransportTypeId`) REFERENCES `TransportTypes`(`ID`)
 );
 
 CREATE TABLE NutritionTypes (
@@ -165,6 +169,7 @@ CREATE TABLE Reviews (
   	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 );
 
+DROP TABLE routes;
 CREATE TABLE Routes (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	LandingDateOfDeparture DATE,
@@ -185,6 +190,7 @@ CREATE TABLE Routes (
   	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 );
 
+DROP TABLE Bookings;
 CREATE TABLE Bookings (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	OrderSeatsNumber INT,

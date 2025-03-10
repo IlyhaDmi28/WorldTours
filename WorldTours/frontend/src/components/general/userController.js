@@ -62,7 +62,7 @@ function UserController({ right }) {
                 }
 
                 { (authUser.role === 2 || authUser.role === 3) && 
-                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/departure_points'>Редактор транспорта</Link></MenuItem>
+                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/department_departures'>Редактор транспорта</Link></MenuItem>
                 }
 
                 { authUser.role === 3 && 

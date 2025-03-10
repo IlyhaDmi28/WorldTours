@@ -509,3 +509,14 @@ header {
 	}
 	
 }
+
+.hotel-map-on-modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.clickable-map {
+		width: 800px;
+		height: 100%;
+	}
+}

@@ -10,10 +10,18 @@ namespace backend.Models.Entity
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
-        public int CityId { get; set; }
+
+		[MaxLength(255)]
+		public string Address { get; set; }
+		public int CityId { get; set; }
 
         [ForeignKey(nameof(CityId))]
+
+        public int TransportTypeId { get; set; }
+
+        [ForeignKey(nameof(TransportTypeId))]
         public City City { get; set; }
-        public ICollection<Route> Routes { get; set; }
-    }
+        public TransportType TransportType { get; set; }
+		public ICollection<Route> Routes { get; set; }
+	}
 }

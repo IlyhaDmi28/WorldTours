@@ -94,8 +94,8 @@
     
 }
 
-.departure-points-list {
-	.departure-point-card {
+.department-departures-list {
+	.department-departure-card {
 		display: block;
 		position: relative;
 		height: 80px;
@@ -104,19 +104,19 @@
 		width: 100%;
 		border-bottom: 1px solid $light-grey-color;
 
-		.departure-point-card-transport {
+		.department-departure-card-transport {
 			position: absolute;
 			height: 80px;
 		}
 
-		.departure-point-card-name {
+		.department-departure-card-name {
 			position: absolute;
 			font-size: 20px;
             left: 100px;
 			top: 17px;
 		}
 
-		.departure-point-card-loacation {
+		.department-departure-card-loacation {
 			position: absolute;
 			font-size: 16px;
             left: 100px;
@@ -124,7 +124,7 @@
 			color: $dark-grey-color;
 		}
 
-        .departure-point-card-address {
+        .department-departure-card-address {
             position: absolute;
 			font-size: 16px;
             left: 100px;
@@ -132,7 +132,7 @@
 			color: $dark-grey-color;
         }
 
-		.departure-point-card-delete-button {
+		.department-departure-card-delete-button {
 			position: absolute;
 			top: 10px;
 			right: 0px;
@@ -149,13 +149,13 @@
 	}
 }
 
-.departure-point-editor-modal {
+.department-departure-editor-modal {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.departure-point-editor {
+.department-departure-editor {
 	//Вынести
 	background-color: white;
 	padding: 20px;
@@ -219,7 +219,7 @@
 		margin-left: 10px;
 	}
 
-	.departure-point-editor-info {
+	.department-departure-editor-info {
 		>div {
 			>div {
 				margin-top: 10px;
@@ -227,23 +227,25 @@
 		}
 	}
 
-	.departure-point-editor-location-info {
+	.department-departure-editor-location-info {
 		margin-top: 22px;
-
-		.departure-point-editor-location {
+        margin-bottom: 22px;
+		.department-departure-editor-location {
             display: flex;
+		    margin-top: 10px;
     
-            .select-city-and-address-of-hotel {
+            .select-city-and-address-of-department-departure {
                 >div {
                     display: flex;
                     height: 40px;
                     
                     >div:nth-child(1) {
                         font-size: 19px;
-                        margin-top: 6px;
+                        margin-top: 8px;
+                        margin-left: 8px;
                     }
             
-                    .hotel-editor-loaction-info {
+                    .department-departure-editor-loaction-info {
                         font-size: 20px;
                         margin-top: 6px;
                         margin-left: 12px;
@@ -257,12 +259,12 @@
             
                     >button {
                         height: 30px;
-                        width: 280px;
+                        width: 333px;
                         border: none;
                         background-color: $green-color;
                         margin-left: 12px;
                         margin-top: 4px;
-                        border-radius: 8px;
+                        border-radius: 6px;
                         
                         b {
                             font-size: 14px;
@@ -270,65 +272,20 @@
                         }
                     }
             
-                    .hotel-editor-input-address {
-                        height: 28px;
-                        width: 440px;
-                        font-size: 18px;
+                    .department-departure-editor-input-address {
+                        width: 400px;
                         margin-left: 15px;
                     }
                 }
             }
     
-            .hotel-editor-map {
+            .department-departure-editor-map {
                 width: 60px;
                 height: 60px;
                 margin-left: auto;
                 margin-top: 8px;
             }
-        }
-    
-        .select-city-or-address-of-hotel {
-            display: flex;
-            height: 40px;
-            
-            >div:nth-child(1) {
-                font-size: 19px;
-                margin-top: 6px;
-            }
-    
-            .hotel-editor-loaction-info {
-                font-size: 20px;
-                margin-top: 6px;
-                margin-left: 12px;
-            }
-    
-            svg {
-                margin-top: 5px;
-                margin-left: 5px;
-                color: red;
-            }
-    
-            >button {
-                height: 30px;
-                width: 280px;
-                border: none;
-                background-color: rgb(55, 187, 55);
-                margin-left: 12px;
-                margin-top: 4px;
-                border-radius: 8px;
-                
-                b {
-                    font-size: 14px;
-                    color: white;
-                }
-            }
-    
-            .hotel-editor-input-address {
-                height: 28px;
-                width: 440px;
-                font-size: 18px;
-                margin-left: 15px;
-            }
+
         }
 	}
 

@@ -11,5 +11,6 @@ namespace backend.Models.Entity
         public string Name { get; set; }
 
         public ICollection<Route> Routes { get; set; }
-    }
+        public ICollection<DepartmentDeparture> DepartmentDepartures { get; set; }
+	}
 }
