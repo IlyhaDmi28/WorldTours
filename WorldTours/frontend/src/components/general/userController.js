@@ -58,6 +58,10 @@ function UserController({ right }) {
                 }
 
                 { (authUser.role === 2 || authUser.role === 3) && 
+                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/tours_for_editor'>Редактор туров</Link></MenuItem>
+                }
+
+                { (authUser.role === 2 || authUser.role === 3) && 
                     <MenuItem onClick={() => setAnchorEl(null)}><Link to='/hotels_for_editor'>Редактор отелей</Link></MenuItem>
                 }
 

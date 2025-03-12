@@ -483,44 +483,79 @@ namespace backend.Controllers
 
 						await db.SaveChangesAsync();
 
-						// Получаем все типы номеров отеля
+						//List<RoomType> editedRoomTypes = await db.RoomTypes
+						//.Where(rt => roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
+						//.ToListAsync();
+
+						//List<RoomType> allRoomTypesForHotel = await db.RoomTypes
+						//	.Where(rt => rt.HotelId == hotel.Id)
+						//	.ToListAsync();
+
+						//List<RoomType> deletedRoomTypes = await db.RoomTypes.Where(rt => rt.HotelId == hotel.Id)
+						//	.Where(rt => !roomTypes.Select(rt2 => rt2.Id).ToList().Contains(rt.Id))
+						//	.ToListAsync();
+
 						var allRoomTypesForHotel = await db.RoomTypes
 							.Where(rt => rt.HotelId == hotel.Id)
+							.Include(rt => rt.Characteristics)
 							.ToListAsync();
 
-						// Разделение на удаляемые и редактируемые номера
 						var editedRoomTypes = allRoomTypesForHotel.Where(rt => roomTypes.Any(rt2 => rt2.Id == rt.Id)).ToList();
 						var deletedRoomTypes = allRoomTypesForHotel.Where(rt => !roomTypes.Any(rt2 => rt2.Id == rt.Id)).ToList();
 
-						// Удаление описаний номеров перед изменением
-						db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID IN ({0})",
-							string.Join(",", allRoomTypesForHotel.Select(rt => rt.Id)));
+						foreach (RoomType roomType in allRoomTypesForHotel)
+						{
+							db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", roomType.Id);
 
-						// Удаление типов номеров
+						}
+						await db.SaveChangesAsync();
+						db.ChangeTracker.Clear();
+						editedRoomTypes = await db.RoomTypes
+							.Where(rt => roomTypes.Select(rt2 => rt2.Id).Contains(rt.Id))
+							.Include(rt => rt.Characteristics)
+							.ToListAsync();
+						//db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID IN ({0})",
+						//	string.Join(",", allRoomTypesForHotel.Select(rt => rt.Id)));
+
 						db.RoomTypes.RemoveRange(deletedRoomTypes);
+
 						await db.SaveChangesAsync();
 
-						// Обновление существующих номеров
-						foreach (var rt in editedRoomTypes)
+						foreach (var editedRoomType in editedRoomTypes)
 						{
-							var formRoom = roomTypes.First(r => r.Id == rt.Id);
-							rt.Name = formRoom.Name;
-							rt.SeatsNumber = formRoom.SeatsNumber;
-							rt.RoomsNumber = formRoom.RoomsNumber;
-							rt.Price = formRoom.Price;
-							rt.Characteristics = formRoom.Characteristics.Select(c => new RoomTypeCharacteristic
-							{
-								Id = c.Id,
-								Name = c.Name,
-							}).ToList();
+							var roomType = roomTypes.First(rt => rt.Id == editedRoomType.Id);
+
+							editedRoomType.Name = roomType.Name;
+							editedRoomType.SeatsNumber = roomType.SeatsNumber;
+							editedRoomType.RoomsNumber = roomType.RoomsNumber;
+							editedRoomType.Price = roomType.Price;
+
+							//editedRoomType.Characteristics.Clear();
+							//await db.SaveChangesAsync(); // Сохраняем изменения, чтобы удалить связи в БД
+
+							//editedRoomType.Characteristics = roomType.Characteristics.Select(c => new RoomTypeCharacteristic
+							//{
+							//	Id = c.Id,
+							//	Name = c.Name,
+							//}).ToList();
+
+							editedRoomType.Characteristics = roomType.Characteristics
+								.Select(c => 
+									db.RoomTypeCharacteristics.Local.FirstOrDefault(rc => rc.Id == c.Id) 
+									?? db.RoomTypeCharacteristics.Attach(new RoomTypeCharacteristic
+									{
+										Id = c.Id,
+										Name = c.Name
+									}).Entity)
+								.ToList();
 						}
 
 						await db.SaveChangesAsync();
 
-						// Добавление новых номеров
-						var newRoomTypes = roomTypes
-							.Where(rt => rt.Id == 0)
-							.Select(rt => new RoomType
+						if (editedRoomTypes.Count != roomTypes.Count)
+						{
+							var newRoomTypes = roomTypes.Where(rt => rt.Id == 0)
+							.Select(rt => new RoomType()
 							{
 								Name = rt.Name,
 								SeatsNumber = rt.SeatsNumber,
@@ -530,20 +565,125 @@ namespace backend.Controllers
 							})
 							.ToList();
 
-						await db.RoomTypes.AddRangeAsync(newRoomTypes);
-						await db.SaveChangesAsync();
+							// Добавляем объекты RoomType без характеристик
+							await db.RoomTypes.AddRangeAsync(newRoomTypes);
+							await db.SaveChangesAsync(); // Сохраняем, чтобы получить ID новых записей
+
+							// Теперь загружаем характеристики
+							foreach (var newRoomType in newRoomTypes)
+							{
+								var rt = roomTypes.FirstOrDefault(r => r.Name == newRoomType.Name);
+								if (rt != null && rt.Characteristics != null && rt.Characteristics.Any())
+								{
+									newRoomType.Characteristics = await db.RoomTypeCharacteristics
+										.Where(rtc => rt.Characteristics.Select(c => c.Id).Contains(rtc.Id))
+										.ToListAsync();
+								}
+							}
+
+							await db.SaveChangesAsync();
+						}
+
+						// Получаем все типы номеров отеля
+						//var allRoomTypesForHotel = await db.RoomTypes
+						//	.Where(rt => rt.HotelId == hotel.Id)
+						//	.ToListAsync();
+
+						//var editedRoomTypes = allRoomTypesForHotel.Where(rt => roomTypes.Any(rt2 => rt2.Id == rt.Id)).ToList();
+						//var deletedRoomTypes = allRoomTypesForHotel.Where(rt => !roomTypes.Any(rt2 => rt2.Id == rt.Id)).ToList();
+
+						//for (int i = 0; i < editedRoomTypes.Count; i++)
+						//{
+						//	editedRoomTypes[i].Name = roomTypes[i].Name;
+						//	editedRoomTypes[i].SeatsNumber = roomTypes[i].SeatsNumber;
+						//	editedRoomTypes[i].RoomsNumber = roomTypes[i].RoomsNumber;
+						//	editedRoomTypes[i].Price = roomTypes[i].Price;
+
+						//	//db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", editedRoomTypes[i].Id);
+
+						//	editedRoomTypes[i].Characteristics = roomTypes[i].Characteristics.Select(c => new RoomTypeCharacteristic
+						//	{
+						//		Id = c.Id,
+						//		Name = c.Name,
+						//	}).ToList();
+						//}
+
+						//await db.SaveChangesAsync();
+
+						//if (editedRoomTypes.Count != roomTypes.Count)
+						//{
+						//	var newRoomTypes = roomTypes.Where(rt => rt.Id == 0)
+						//	.Select(rt => new RoomType()
+						//	{
+						//		Name = rt.Name,
+						//		SeatsNumber = rt.SeatsNumber,
+						//		RoomsNumber = rt.RoomsNumber,
+						//		Price = rt.Price,
+						//		HotelId = hotel.Id
+						//	})
+						//	.ToList();
+
+						//	// Добавляем объекты RoomType без характеристик
+						//	await db.RoomTypes.AddRangeAsync(newRoomTypes);
+						//	await db.SaveChangesAsync(); // Сохраняем, чтобы получить ID новых записей
+
+
+
+						//								 // Разделение на удаляемые и редактируемые номера
+							
+
+						//// Удаление описаний номеров перед изменением
+						//db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID IN ({0})",
+						//	string.Join(",", allRoomTypesForHotel.Select(rt => rt.Id)));
+
+						//// Удаление типов номеров
+						//db.RoomTypes.RemoveRange(deletedRoomTypes);
+						//await db.SaveChangesAsync();
+
+						//// Обновление существующих номеров
+						//foreach (var rt in editedRoomTypes)
+						//{
+						//	var formRoom = roomTypes.First(r => r.Id == rt.Id);
+						//	rt.Name = formRoom.Name;
+						//	rt.SeatsNumber = formRoom.SeatsNumber;
+						//	rt.RoomsNumber = formRoom.RoomsNumber;
+						//	rt.Price = formRoom.Price;
+						//	rt.Characteristics = formRoom.Characteristics.Select(c => new RoomTypeCharacteristic
+						//	{
+						//		Id = c.Id,
+						//		Name = c.Name,
+						//	}).ToList();
+						//}
+
+						//await db.SaveChangesAsync();
+
+						//// Добавление новых номеров
+						//var newRoomTypes = roomTypes
+						//	.Where(rt => rt.Id == 0)
+						//	.Select(rt => new RoomType
+						//	{
+						//		Name = rt.Name,
+						//		SeatsNumber = rt.SeatsNumber,
+						//		RoomsNumber = rt.RoomsNumber,
+						//		Price = rt.Price,
+						//		HotelId = hotel.Id
+						//	})
+						//	.ToList();
+
+						//await db.RoomTypes.AddRangeAsync(newRoomTypes);
+						//await db.SaveChangesAsync();
 
 						// Привязываем характеристики к новым номерам
-						foreach (var newRoom in newRoomTypes)
-						{
-							var formRoom = roomTypes.FirstOrDefault(rt => rt.Name == newRoom.Name);
-							if (formRoom?.Characteristics?.Any() == true)
-							{
-								newRoom.Characteristics = await db.RoomTypeCharacteristics
-									.Where(rtc => formRoom.Characteristics.Select(c => c.Id).Contains(rtc.Id))
-									.ToListAsync();
-							}
-						}
+						//foreach (var newRoom in newRoomTypes)
+						//{
+						//	var formRoom = roomTypes.FirstOrDefault(rt => rt.Name == newRoom.Name);
+						//	if (formRoom?.Characteristics?.Any() == true)
+						//	{
+						//		newRoom.Characteristics = await db.RoomTypeCharacteristics
+						//			.Where(rtc => formRoom.Characteristics.Select(c => c.Id).Contains(rtc.Id))
+						//			.ToListAsync();
+						//	}
+						//}
 
 						await db.SaveChangesAsync();
 
@@ -569,6 +709,45 @@ namespace backend.Controllers
 						return Ok();
 					}
 					catch (Exception ex)
+					{
+						await transaction.RollbackAsync();
+						return BadRequest();
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[Authorize(Roles = "Manager, Admin")]
+		[HttpDelete("delete")]
+		public async Task<IActionResult> DeleteHotel([FromQuery] int? hotelId)
+		{
+			try
+			{
+				using (var transaction = await db.Database.BeginTransactionAsync())
+				{
+					try
+					{
+						Hotel deletedHotel = await db.Hotels.Include(h => h.RoomTypes).FirstOrDefaultAsync(h => h.Id == hotelId);
+						if (deletedHotel == null) return NotFound();
+
+						foreach (RoomType roomType in deletedHotel.RoomTypes)
+						{
+							db.Database.ExecuteSqlRaw("DELETE FROM RoomTypeDescriptions WHERE RoomTypeID = {0}", roomType.Id);
+						}
+
+						db.Database.ExecuteSqlRaw("DELETE FROM HotelDescriptions WHERE HotelID = {0}", hotelId);
+
+						db.Hotels.Remove(deletedHotel);
+						await db.SaveChangesAsync();
+						await transaction.CommitAsync();
+
+						return Ok();
+					}
+					catch
 					{
 						await transaction.RollbackAsync();
 						return BadRequest();

@@ -1,0 +1,428 @@
+@import './variabels/colors.scss';
+@import './mixins/tour-type.scss';
+
+.tour-types-nav {
+	height: 100px;
+	padding-left: 2%;
+	padding-right: 4%;
+	display: flex;
+	justify-content: space-between;
+
+	.tour-types-nav-list {
+		height: 100%;
+		width: 89%;
+		display: flex;
+
+		.tour-types-list {
+			width: 95%;
+			display: flex;
+			justify-content: left;
+			column-gap: 10%;
+
+			.tour-type {
+				@include tour-type(80px, 11px, 5px);
+				margin-top: 10px;
+		
+				&:hover {
+					border-bottom: 2px solid black;
+				}
+
+				&:nth-child(1) {
+					margin-left: 3%;
+				}
+			}
+		}
+
+		.tour-types-nav-page-button {
+			width: 10px;
+			
+		}
+	
+	}
+
+	
+	.filter-button {
+		margin-top: 20px;
+		height: 50%;
+		width: 150px;
+		display: flex;
+		border: 1px solid $grey-color;
+		border-radius: 12px;
+		background-color: white;
+
+		img {
+			height: 40%;
+			margin: auto 0 auto 10%;
+		}
+
+		div {
+			margin: auto 0 auto 20px;
+			font-size: 14px;
+		}
+	}
+
+	.add-tour-button {
+		display: flex;
+
+		.add-tour-button {
+			img {
+				border-radius: 100%;
+				
+				margin-left: 10px;
+				margin-top: 45%;
+				width: 40px;
+				height: 40px;
+				background-color: white;
+				border: none;
+				width: 100%;
+			}
+		}
+	}
+}
+
+.tours-list {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 1.7%;
+	row-gap: 20px;
+	width: 100%;
+
+	.tour-card {
+		height: 380px;
+		width: 320px;
+		
+		.tour-card-img {
+			height: 78%;
+			width: 100%;
+			border-radius: 15px;
+		}
+
+        .tour-card-info {
+			position: relative;
+			height: 22%;
+            .tour-card-name {
+				position: absolute;
+                font-size: 16px;
+				margin-top: 5px;
+                width: 80%;
+            }
+    
+            .tour-card-mark {
+				position: absolute;
+                font-size: 13px;
+                right: 0px;
+				margin-top: 3px;
+                background-color: #d50000;
+                padding: 4px 10px;
+                color: white;
+                border-radius: 5px;
+            }
+    
+            .tour-card-country-and-city {
+				position: absolute;
+                font-size: 14px;
+                margin-top: 30px;
+                color: $dark-grey-color;
+            }
+
+			.tour-card-type-img {
+				position: absolute;
+				width: 24px;
+				margin-top: 33px;
+				right: 7px;
+			}
+
+			.tour-card-dates {
+				position: absolute;
+				font-size: 13px;
+				margin-top: 48px;
+                color: $dark-grey-color;
+			}
+    
+            .tour-card-hotel-stars {
+				position: absolute;
+				bottom: 0px;
+                display: flex;
+                width: 40%;
+                column-gap: 8px;
+    
+                img {
+                     height: 18px;
+                }
+            }
+    
+            .tour-card-price {
+				position: absolute;
+                right: 0px;
+				bottom: 0px;
+				margin-top: 64px;
+				
+                b {
+                    font-size: 18px;
+                }
+    
+                span {
+                    font-size: 12px;
+                    margin-left: 3px;
+                }
+            }
+        }
+	}
+}
+
+.filters-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); // Затемнение фона
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; // Модальное окно впереди всех элементов
+}
+
+.filters {
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1002; // На всякий случай
+	width: 600px;
+	text-align: center;
+	font-size: 18px;
+
+	h2 {
+		margin: 0px;
+	}
+
+	hr {
+		width: 100%;
+	}
+
+	.close-filters-button {
+		margin-left: 97%;
+		width: 20px;
+		height: 20px;
+		border: none;
+		background-color: white;
+		padding: 0px;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.tour-filters {
+		margin-top: 30px;
+		margin-bottom: 20px;
+		.max-min-price-filter {
+			display: flex;
+			width: 100%;
+			justify-content: center;
+			gap: 5%;
+			
+			>div {
+				width: 100%;
+				>div {
+					text-align: left;
+					padding-left: 10px;
+					
+				}
+		
+				input {
+					font-size: 18px;
+					width: 100%;
+					height: 30px;
+					border: 1px solid $grey-color;
+					border-radius: 5px;
+				}
+			}
+		}
+		
+		// .hotel-stars-filter {
+		// 	margin-top: 20px;
+		// 	text-align: left;
+		// 	font-size: 18px;
+			
+		// 	>div {
+		// 		display: flex;
+		// 		padding-left: 5px;
+				
+		// 		span {
+		// 			margin-top: 4px;
+		// 			width: 30%;
+		// 		}
+				
+	
+		// 		.hotel-stars-buttons {
+		// 			display: flex;
+				
+		// 			button {
+		// 				background-color: white;
+		// 				border: none;
+		// 				width: 27px;
+		// 				height: 27px;
+		// 				padding: 0;
+	
+		// 				img {
+		// 					width: 90%;
+		// 					height: 90%;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+	
+		// 	>div:nth-child(2) {
+		// 		margin-top: 10px;
+		// 	}
+		// }
+
+		.hotel-stars-filter {
+			margin-top: 20px;
+			text-align: left;
+			font-size: 18px;
+			
+			>div {
+				display: flex;
+				padding-left: 5px;
+				height: 30px;
+				
+				>label {
+					width: 20%;
+					margin-top: 5px;
+				}
+			}
+	
+			>div:nth-child(2) {
+				margin-top: 4px;
+			}
+		}
+		
+		.nutrition-filter {
+			text-align: left;
+			margin-top: 20px;	
+			padding-left: 5px;
+
+		
+			select {
+				height: 30px;
+				width: 48%;
+				margin-top: 3px;
+				border: 1px solid black;
+				border-radius: 5px;
+				font-size: 16px;
+			}
+		}
+	}
+
+	.hotel-filters {
+		display: grid;
+		grid-template-columns: 1fr repeat(3, 100px);
+		gap: 10px;
+		max-width: 600px;
+		background: white;
+		padding: 10px 20px 10px 20px;
+
+		div {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.characteristic-filter {
+			justify-content: start;
+			font-weight: 500;
+		}
+
+		.heading-filters {
+			font-weight: bold;
+			text-align: center;
+		}
+
+		input[type="radio"] {
+			accent-color: blue; /* Цвет для активного радио-кнопки */
+		}
+	}
+
+	.filter-controllers {
+		display: flex;
+		justify-content: space-between;
+
+		>button {
+			height: 45px;
+			font-size: 17px;
+		}
+
+		>button:nth-child(1) {
+			background-color: white;
+			border: none;
+		}
+
+		>button:nth-child(2) {
+			width: 240px;
+			color: white;
+			background-color: black;
+			border: none;
+			border-radius: 20px;
+		}
+	}
+	
+}
+
+.tour-card-for-editor {
+    height: 395px;
+    width: 320px;
+    position: relative;
+
+    .tour-card-for-editor-delete-button {
+        margin-left: 90%;
+        margin-top: 10px;
+		width: 20px;
+		height: 20px;
+		border: none;
+		padding: 0px;
+        position: absolute;
+        z-index: 1001;
+        background-color: transparent;
+        
+		img {
+			width: 100%;
+			height: 100%;
+		}
+    }
+
+    .tour-card-for-editor-img {
+        height: 75%;
+        width: 100%;
+        border-radius: 15px;
+    }
+
+    .tour-card-for-editor-info {
+        .tour-card-for-edito-name {
+            margin-top: 4px;
+            font-size: 16px;
+            width: 80%;
+        }
+
+        .tour-card-for-editor-country-and-city {
+            font-size: 14px;
+            margin-top: 5px;
+            color: $dark-grey-color;
+        }
+
+        .tour-card-for-editor-hotel-stars {
+            margin-top: 5px;
+            display: flex;
+            width: 40%;
+            column-gap: 8px;
+
+            img {
+                height: 18px;
+            }
+        }
+    }
+}
+

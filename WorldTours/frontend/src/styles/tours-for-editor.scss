@@ -1,0 +1,154 @@
+@import './variabels/colors.scss';
+@import './mixins/tour-type.scss';
+
+.vertical-list-page {
+    padding-right: 8%;
+    padding-left: 8%;
+}
+
+.tours-filters-parametrs {
+    display: flex;
+	height: 80px;
+    width: 100%;
+
+	.select-tour-direction {
+		width: 230px;
+        height: 55px;
+		font-size: 13px;
+		border: 1px solid black;
+		border-radius: 14px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+        padding-left: 12px;
+        text-align: left;
+        background-color: rgb(244, 244, 244);
+        margin-top: 1.5%;
+
+        div {
+            margin-top: 2px;
+            color: $dark-grey-color;
+		    font-size: 13px;
+
+        }
+	}
+
+	.tour-types-filter{
+		display: flex;
+		justify-content: left;
+
+		.tour-types-list {
+			display: flex;
+			justify-content: left;
+			width: 100%;
+
+			.tour-type {
+				@include tour-type(75px, 10px, 1px);
+				margin-top: 10px;
+			
+				&:hover {
+					border-bottom: 2px solid black;
+				}
+			}
+		}
+
+		
+	}
+
+    .filter-and-sort-buttons{
+        display: flex;
+        width: 190px;
+        justify-content: space-between;
+        margin-top: 2.2%;
+        margin-left: auto;
+
+        .filter-button {
+            height: 40px;
+            width: 140px;
+            display: flex;
+            border: 1px solid $grey-color;
+            border-radius: 12px;
+            background-color: white;
+    
+            img {
+                height: 45%;
+                margin: auto 0 auto 5%;
+            }
+    
+            div {
+                margin: auto 0 auto 10px;
+                font-size: 13px;
+            }
+        }
+    
+        .sort-button{
+            height: 40px;
+            width: 45px;
+            display: flex;
+            border: 1px solid $grey-color;
+            border-radius: 10px;
+            background-color: white;
+
+            img {
+                height: 50%;
+                margin: auto;
+            }
+        }
+    }
+    
+}
+
+.tours-for-editor-list {
+	.tour-for-editor-card {
+		display: block;
+		position: relative;
+		height: 180px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+		border-bottom: 1px solid $light-grey-color;
+
+		.tour-for-editor-card-img {
+			position: absolute;
+			height: 180px;
+			width: 180px;
+			border-radius: 10px;
+		}
+
+		.tour-for-editor-card-name {
+			position: absolute;
+			font-size: 20px;
+			left: $indent-from-left-on-card;
+			top: 27px;
+		}
+
+		.tour-for-editor-card-direction {
+			position: absolute;
+			font-size: 16px;
+			left: $indent-from-left-on-card;
+			top: 82px;
+			color: $dark-grey-color;
+		}
+
+		.tour-for-editor-card-hotel-stars {
+			position: absolute;
+			left: $indent-from-left-on-card - 3px;
+			top: 120px;
+            font-size: 20px;
+        }
+
+		.tour-for-editor-card-delete-button {
+			position: absolute;
+			top: 10px;
+			right: 0px;
+			width: 35px;
+			height: 35px;
+			background-color: white;
+			border: none;
+			z-index: 1001;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+}

@@ -61,7 +61,7 @@ function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/tours" element={authUser.role === 2 || authUser.role === 3 ? <ToursForEditor/> : <Tours/>} />
+				<Route path="/tours" element={<Tours/>} />
 				<Route path="/auth" element={<Auth />} />
 				<Route path="/tour/:id" element={<Tour />} />
 				<Route path="/travel_info" element={<TravelInfo />} />
@@ -73,6 +73,11 @@ function App() {
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 							<Route path="/bookings" element={authUser ? <BookingsForManager /> : <Navigate to="/auth" replace />} />
+					</>
+				)}
+				{(authUser.role === 2 || authUser.role === 3) && (
+					<>
+							<Route path="/tours_for_editor" element={authUser ? <ToursForEditor /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
 				{(authUser.role === 2 || authUser.role === 3) && (

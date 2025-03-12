@@ -174,7 +174,7 @@ namespace backend.DB
 				.HasMany(h => h.Tours)
 				.WithOne(t => t.Hotel)
 				.HasForeignKey(t => t.HotelId)
-				.OnDelete(DeleteBehavior.SetNull);
+				.OnDelete(DeleteBehavior.Cascade);
 
 			// Настройка Tour
 			modelBuilder.Entity<Hotel>()

@@ -114,17 +114,17 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
     // };
 
     const saveRoomType = () => {
-        console.log(roomTypes);
-    
-        setRoomTypes((prevRoomTypes) => {
-            if (indexOfSelectedRoomType === -1) {
-                return [...prevRoomTypes, roomType]; // Добавляем новый элемент
-            } else {
-                return prevRoomTypes.map((rt, index) =>
-                    index === indexOfSelectedRoomType ? roomType : rt
-                ); // Создаём новый массив с обновлённым элементом
-            }
-        });
+        let newRoomTypes;
+        
+        if(indexOfSelectedRoomType === -1) {
+            newRoomTypes = roomTypes;
+            newRoomTypes.push(roomType);
+            setRoomTypes(newRoomTypes);
+        }
+        else {
+            newRoomTypes = roomTypes.map((rt, index) => index === indexOfSelectedRoomType ? roomType : rt);
+            setRoomTypes(newRoomTypes);
+        }
     };
 
     const clearRoute = async () => {

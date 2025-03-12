@@ -357,7 +357,7 @@ function HotelEditor() {
         }
     };
 
-	const addRoomType = (roomTypes) => {
+	const setRoomTypes = (roomTypes) => {
 		console.log(hotel);
 		if(authUser.blockedStatus) {
 			alert("Вы не можете сохранить отель, так как ваш профиль был заблокирован!");
@@ -379,7 +379,7 @@ function HotelEditor() {
 			<Header />
 			<div className="line-under-header"></div>
 
-			<RoomTypesMenu roomTypes={hotel.roomTypes} setRoomTypes={addRoomType} saveHotel={saveHotel}/>
+			<RoomTypesMenu roomTypes={hotel.roomTypes} setRoomTypes={setRoomTypes} saveHotel={saveHotel}/>
 			<div className="hotel-editor-images-and-name">
 				<div className="hotel-editor-name-and-main-photo">
 					<div className="hotel-editor-name">

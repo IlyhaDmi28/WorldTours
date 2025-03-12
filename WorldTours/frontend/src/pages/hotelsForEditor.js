@@ -43,43 +43,15 @@ function HotelsForEditor() {
 	
     
 
-	// const deleteBooking = async (id) => {
-	// 	if(authUser.blockedStatus) {
-	// 		alert("Вы не удалить бронь тура, так как ваш профиль был заблокирован!");
-	// 		return;
-	// 	}
+	const deleteHotel = async (id) => {
+        await axios.delete(`https://localhost:7276/hotel/delete?hotelId=${id}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			}
+		});
 
-    //     await axios.delete(`https://localhost:7276/booking/delete?bookingId=${id}`, {
-    //         headers: {
-	// 			'Authorization': 'Bearer ' + token,
-	// 		}
-	// 	});
-
-	// 	const response = await axios.get(`https://localhost:7276/booking/bookings_for_manager`, {
-    //         headers: {
-    //             'Authorization': 'Bearer ' + token,
-    //          }
-    //     });
-
-	// 	const bookingData = response.data;
-	// 	const notConfirmedBookingsData = bookingData.filter(booking => booking.status === null);
-	// 	const confirmedBookingsData =bookingData.filter(booking => booking.status === true);
-	// 	setAllBookings(bookingData);
-	// 	setNotConfirmedBookings(notConfirmedBookingsData);
-	// 	setConfirmedBookings(confirmedBookingsData);
-	// 	setBookings(bookingData);
-
-	// 	for(let i = 0; i < isChangeBookingListButtonsActive.length; i++) {
-	// 		if(isChangeBookingListButtonsActive[i]) {
-	// 			switch(i) {
-	// 				case 0: setBookings(bookingData); return;
-	// 				case 1: setBookings(notConfirmedBookingsData); return;
-	// 				case 2: setBookings(confirmedBookingsData); return;
-	// 				default: setBookings(bookingData); return;
-	// 			}
-	// 		}
-	// 	}
-	// }
+		window.location.href = '/hotels_for_editor';
+	}
 
 	
 	return (
@@ -134,7 +106,7 @@ function HotelsForEditor() {
 					</div>
 				</div>
 				<div className="hotels-for-editor-list">
-					{hotels.map((hotel) => (<HotelCardForEditor hotel={hotel}/>))}
+					{hotels.map((hotel) => (<HotelCardForEditor hotel={hotel} deleteHotel={deleteHotel}/>))}
 				</div>
 			</main>
 			
