@@ -1,103 +1,88 @@
 @import './variabels/colors.scss';
-@import './mixins/tour-type.scss';
 
-.tour-editor-images-and-name {
-	height: 450px;
+.tour-editor-name {
+	height: 70px;
+	margin-top: 10px;
+
+	div {
+		font-size: 16px;
+	}
+
+	input {
+		font-size: 22px;
+		height: 30px;
+		width: 46.5%;
+		border-radius: 10px;
+		margin-top: 5px;
+	}
+}
+
+.tour-editor-images {
+	height: 375px;
 	display: flex;
 	width: 100%;
-	column-gap: 2%;
+	column-gap: 3%;
 
-	.tour-editor-name-and-main-photo {
-		width: 47.5%;
+	.main-tour-editor-img {
+		width: 47%;
+		height: 100%;
+		border-radius: 15px;
 
-		.tour-editor-name {
-			height: 70px;
-			margin-top: 10px;
-		
-			div {
-				font-size: 16px;
-			}
-			
-			// input {
-			// 	font-size: 22px;
-			// 	height: 30px;
-			// 	width: 99%;
-			// 	border-radius: 10px;
-			// 	margin-top: 5px;
-			// }
-
-			.tour-editor-name-input {
-				font-size: 22px;
-				height: 30px;
-				width: 99%;
-				margin-top: 5px;
-			}
-		}
-	
-		.main-tour-editor-photo {
+		img {
 			width: 100%;
-			height: 84%;
-			border-radius: 12px;
-	
-			img {
-				width: 100%;
-				height: 100%;
-				border-radius: 12px;
-			}
+			height: 100%;
+			border-radius: 15px;
 		}
 	}
 
-	.other-tour-photos-and-controller {
+	.images-and-map {
 		width: 50%;
-		margin-top: 33px;
 
-		.tour-photos-controller {
+		.select-tour-images-or-map {
 			width: 100%;
 			display: flex;
 			column-gap: 1.5%;
 
 			button {
-				height: 32px;
-				width: 32%;
+				height: 28px;
+				width: 90px;
 				border-radius: 8px;
-				border: none;
-				background-color: $blue-color;
-				margin-top: 2px;
+				border: 1px solid black;
+				margin-top: 9px;
 
-				b {
-					font-size: 13px;
-					color: white;
+				&:nth-child(1) {
+					margin-left: 1%;
 				}
 			}
 		}
 		
-		.other-tour-photos {
+		.other-tour-images {
 			width: 100%;
-			height: 75%;
-			margin-top: 15px;
+			height: 88%;
+			padding-top: 10px;
 
 			div {
 				display: flex;
 				flex-wrap: wrap;
-				column-gap: 1%;
-				row-gap: 3%;
+				column-gap: 1.3%;
+				row-gap: 2%;
 				height: 88%;
 				align-items: stretch;
 
 				img {
-					width: 32.66%;
-					height: 150px;
+					width: 32%;
+					height: 140px;
 					border-radius: 8px;
 				}
 			}
 
-			.more-tour-photos-button {
+			.more-tour-images-button {
 				height: 27px;
 				width: 260px;
-				margin-top: 52px;
 				border-radius: 10px;
-				margin-left: 27.5%;
-				border: 1px solid black;
+				margin-left: 26%;
+				margin-top: 8px;
+				border: 1px solid  black;
 			}
 		}
 
@@ -110,149 +95,42 @@
 	}
 }
 
-// .tour-editor-name {
-// 	height: 70px;
-// 	margin-top: 10px;
-
-// 	div {
-// 		font-size: 16px;
-// 	}
-
-// 	input {
-// 		font-size: 22px;
-// 		height: 30px;
-// 		width: 46.5%;
-// 		border-radius: 10px;
-// 		margin-top: 5px;
-// 	}
-// }
-
-// .tour-editor-images {
-// 	height: 375px;
-// 	display: flex;
-// 	width: 100%;
-// 	column-gap: 3%;
-
-// 	.main-tour-editor-img {
-// 		width: 47%;
-// 		height: 100%;
-// 		border-radius: 15px;
-
-// 		img {
-// 			width: 100%;
-// 			height: 100%;
-// 			border-radius: 15px;
-// 		}
-// 	}
-
-// 	.images-and-map {
-// 		width: 50%;
-
-// 		.select-tour-images-or-map {
-// 			width: 100%;
-// 			display: flex;
-// 			column-gap: 1.5%;
-
-// 			button {
-// 				height: 28px;
-// 				width: 90px;
-// 				border-radius: 8px;
-// 				border: 1px solid black;
-// 				margin-top: 9px;
-
-// 				&:nth-child(1) {
-// 					margin-left: 1%;
-// 				}
-// 			}
-// 		}
-		
-// 		.other-tour-images {
-// 			width: 100%;
-// 			height: 88%;
-// 			padding-top: 10px;
-
-// 			div {
-// 				display: flex;
-// 				flex-wrap: wrap;
-// 				column-gap: 1.3%;
-// 				row-gap: 2%;
-// 				height: 88%;
-// 				align-items: stretch;
-
-// 				img {
-// 					width: 32%;
-// 					height: 140px;
-// 					border-radius: 8px;
-// 				}
-// 			}
-
-// 			.more-tour-images-button {
-// 				height: 27px;
-// 				width: 260px;
-// 				border-radius: 10px;
-// 				margin-left: 26%;
-// 				margin-top: 8px;
-// 				border: 1px solid  black;
-// 			}
-// 		}
-
-// 		.tour-map {
-// 			border: 1px solid black;
-// 			width: 100%;
-// 			height: 88%;
-// 			padding-top: 10px;
-// 		}
-// 	}
-// }
-
 .tour-editor-info {
 	width: 57%;
 
 	.main-tour-editor-info {
-		display: flex;
-		height: 40px;
+		div:nth-child(1) {
+			width: 100%;
+			font-size: 22px;
+			display: flex;
+			justify-content: space-between;
 
-		.hotel-editor-loaction-info {
-			font-size: 20px;
+			>button {
+				width: 30px;
+				height: 30px;
+				border: none;
+				background-color: white;
+				padding: 0;
+
+				img {
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	
+		div:nth-child(2) {
+			font-size: 16px;
 			margin-top: 6px;
-		}
-
-		svg {
-			margin-top: 5px;
-			margin-left: 5px;
-			color: red;
-		}
-	}
-
-	.select-tour-direction {
-		height: 30px;
-		width: 280px;
-		border: none;
-		background-color: $green-color;
-		margin-left: 12px;
-		margin-top: 4px;
-		border-radius: 8px;
-		
-		b {
-			font-size: 14px;
-			color: white;
 		}
 	}
 	
-	// .tour-editor-hotel-stars {
-	// 	margin-top: 8px;
-	// 	padding-bottom: 30px;
-	// 	width: 100%;
-	// 	display: flex;
-	// 	column-gap: 10px;
-	// 	border-bottom: 1px solid $light-grey-color;
-	// }
-
 	.tour-editor-hotel-stars {
-		padding-bottom: 20px;
-		font-size: 32px;
-		column-gap: 8px;
+		margin-top: 8px;
+		padding-bottom: 30px;
 		width: 100%;
+		display: flex;
+		column-gap: 10px;
 		border-bottom: 1px solid $light-grey-color;
 	}
 
@@ -263,9 +141,10 @@
 		padding-bottom: 5px;
 		line-height: 25px;
 	
-		.tour-editor-desription-input {
+		textarea {
 			font-size: 16px;
 			width: 100%;
+			height: 200px;
 		}
 	}
 
@@ -282,28 +161,6 @@
 		}
 	}
 	
-	.select-tour-types {
-		display: flex;
-		justify-content: left;
-		padding-bottom: 20px;
-
-		.tour-types-list {
-			display: flex;
-			justify-content: left;
-			width: 100%;
-			column-gap: 50px;
-
-			.tour-type {
-				@include tour-type(80px, 11px, 5px);
-				margin-top: 10px;
-			
-				&:hover {
-					border-bottom: 2px solid black;
-				}
-			}
-		}
-	}
-
 	.tour-editor-characteristic {
 		border-top: 1px solid $light-grey-color;
 		padding-top: 25px;
@@ -343,7 +200,7 @@
 	border: 1px solid black;
 	position: absolute;
 	margin-left: 47%;
-	margin-top: 30px;
+	margin-top: 400px;
 	border-radius: 10px;
 	padding-left: 26px;
 	padding-right: 20px;

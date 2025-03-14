@@ -3,9 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { TextField   } from "@mui/material";
-import { Rating  } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
 import Header from '../components/general/header';
 import ImagesAndMap from '../components/tour/imagesAndMap';
 import ModalImageGallery from '../components/general/modalImageGallery';
@@ -41,10 +38,8 @@ function TourEditor() {
 	});
 	
 	const [tourTypes, setTourTypes] = useState([]); 
-	const [photosUrls, setPhotosUrls] = useState([selectNewPhoto]); 
-	const [photosFiles, setPhotosFiles] = useState([]); 
+	const [photosUrl, setPhotosUrl] = useState([selectNewPhoto]); 
 	const [nutritionTypes, setNutritionTypes] = useState([]);
-
 	const [direction, setDirection] = useState({
 		regionId: null,
 		countryId: null,
@@ -64,7 +59,6 @@ function TourEditor() {
 		descriptions: [],
 		reviews: []
 	});
-
 	const [indexOfSelectedImage, setIndexOfSelectedImage] = useState(-1); 
 	
 
@@ -120,7 +114,7 @@ function TourEditor() {
 					descriptions: tourData.descriptions,
 				}));
 				if(id === '0') await changeCharacteristics(tourData.tourTypeId);  
-				setPhotosUrls([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
+				setPhotosUrl([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
 
 				if(tourData.hotelId !== null) {
 					response = await axios.get(
@@ -271,12 +265,25 @@ function TourEditor() {
 		});
 	}
 
-	const loadPhotos = (e) => {
-		const files = Array.from(e.target.files); 
-	
-		const newImages = files.map(file => URL.createObjectURL(file)); // Создаём ссылки на изображения
-		setPhotosUrls(newImages); // Добавляем новые фото в массив  
-	};
+	const changePhoto = (e) => {
+        if (e.target.files && e.target.files[0]) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				setPhotosUrl((prevPhotos) => 
+					prevPhotos.map((photo, i) => (i === 0 ? e.target.result : photo))
+				);
+			};
+			reader.readAsDataURL(e.target.files[0]);
+        }
+
+		const file = e.target.files[0]; // Получаем выбранный файл
+		if (file) {
+			setTour((prevState) => ({
+			...prevState,
+			photoFile: file, // Сохраняем файл в состоянии
+			}));
+		}
+    };
 
 	const changeTour = (e) => {
 		const { name, value } = e.target;
@@ -397,8 +404,8 @@ function TourEditor() {
 		}
 	}
 
-	const closeImagesGallery = (e) => {
-        if (e.target === e.currentTarget || e.key === "Escape") {
+	const handleOverlayClick = (e) => {
+        if (e.target === e.currentTarget) {
             showImages(-1);
         }
     };
@@ -408,88 +415,54 @@ function TourEditor() {
 			<Header />
 			<div className="line-under-header"></div>
 
-			<div className="tour-editor-images-and-name">
-				<div className="tour-editor-name-and-main-photo">
-					<div className="tour-editor-name">
-						<div>
-							<b>Название отеля</b>
-						</div>
-						<TextField
-							className='tour-editor-name-input' 
-							name='name'
-							sx={{"& input": {fontSize: "19px"}, }} 
-							placeholder='Название' type="search" 
-							variant="standard"
-							value={tour.name}
-							onChange={changeTour}
-						/>
-					</div>
-					<div className="main-tour-editor-photo">
-						<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
-						<input type="file" multiple  
-						ref={ photosFiles} 
-						onChange={loadPhotos} 
-						style={{ display: 'none' }} accept="image/*"/>
-					</div>
+			<div className="tour-editor-name">
+				<div>
+					<b>Название тура</b>
 				</div>
-							
-				<div className='other-tour-photos-and-controller'>
-					<div className='tour-photos-controller'>
-						<button onClick={setPhotoUropenFileDialogToSelectPhoto}><b>Загрузить изображения</b></button>
-					</div>
-					<div className='other-tour-photos'>
-						<div>
-							{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
-						</div>
-						{photosUrls.length > 7 && <button className='more-tour-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
-					</div>
-				</div>
+				<input name="name"type='text' value={tour.name} onChange={changeTour}/>
 			</div>
 
 			<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={addRoute}/>
+			<div className="tour-editor-images">
+				<div className="main-tour-editor-img">
+					<img src={photosUrl[0]} alt="click to change" onClick={setPhotoUropenFileDialogToSelectPhoto}/>
+                    <input type="file" ref={ tour.photoFile} onChange={changePhoto} style={{ display: 'none' }} accept="image/*"/>
+				</div>
+				<ImagesAndMap images={photosUrl.slice(1)} showImages={showImages}/>
+			</div>
 
 			<div className="tour-editor-info-and-reservation">
 				<div className="tour-editor-info">
 					{directions[directionsPageInndex]} 
-					{directionInfo.hotel !== null ? 
-					(<>
-						<div className="main-tour-editor-info">
-							<div className='hotel-editor-loaction-info'>{directionInfo.country}, {directionInfo.city} </div> 
-							<DeleteIcon onClick={deleteSelectedDirection}/>
-						</div>
+					{directionInfo.hotel !== null ? (
+						//комп
+						<>
+							<div className="main-tour-editor-info">
+								<div>
+									<b>{directionInfo.hotel}</b>
+									<button onClick={deleteSelectedDirection}>
+										<img src={delete3}/>
+									</button>
+								</div>
+								<div>{directionInfo.country}, {directionInfo.city}</div>
+							</div>
 
-						<Rating 
-							className="tour-editor-hotel-stars" 
-							name="starsNumber" 
-							defaultValue={directionInfo.starsNumber}
-							readOnly 
-						/>
-						{/* <div className="tour-editor-hotel-stars">
-							{Array(directionInfo.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
-						</div> */}
-					</>) :
-						<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
-							<b>Выбрать страну, город</b>
-						</button>
-					}
+							<div className="tour-editor-hotel-stars">
+								{Array(directionInfo.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
+							</div>
+						</>
+					) : (
+						<>
+							<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
+								Нажмите, что бы добавить отель
+							</button>
+						</>
+					)}
 
 					<div className="tour-editor-desription">
-						<div><b>Общее описание</b></div>
-						<TextField className='tour-editor-desription-input'
-							name="mainDescription"
-							multiline
-							value={tour.mainDescription}
-							rows={10}
-							maxRows={20}
-							placeholder='Описание'
-							onChange={changeTour}
-						/>
-					</div>
-
-					{/* <div className="tour-editor-desription">
 						<div><b>Описание</b></div>
 						<textarea name='mainDescription' value={tour.mainDescription} onChange={changeTour}/>
-					</div> */}
+					</div>
 
 					{/* <div className='nutrition-type'>
 						<div><b>Тип питание</b></div>
@@ -505,7 +478,7 @@ function TourEditor() {
                         </select>
 					</div> */}
 
-					{/* <div className='nutrition-type'>
+					<div className='nutrition-type'>
 						<div><b>Тип тура</b></div>
 						<select name='nutritionTypeId' value={tour.tourTypeId} onChange={changeTour}>
                             {tourTypes.map((tourType) => (
@@ -518,16 +491,18 @@ function TourEditor() {
                                 </option>
                             ))}
                         </select>
-					</div> */}
+					</div>
 
-					<div className="select-tour-types">
-						{/* <button className='tour-types-nav-page-button'>B</button> */}
+					<div className="tour-types-nav">
+						<div className="tour-types-nav-list">
+							{/* <button className='tour-types-nav-page-button'>B</button> */}
 
-						<div className="tour-types-list">
-							{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
-						</div>
+							<div className="tour-types-list">
+								{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
+							</div>
 							
-						{/* <button className='tour-types-nav-page-button'>N</button> */}
+							{/* <button className='tour-types-nav-page-button'>N</button> */}
+						</div>
         			</div>
 					
 					<div className="tour-editor-characteristics"> {/*комп*/}
@@ -561,7 +536,7 @@ function TourEditor() {
 					)}
 				</div>
 			</div>
-			{indexOfSelectedImage !== -1 && <ModalImageGallery index={indexOfSelectedImage} setImages={setPhotosUrls} images={photosUrls} closeModal={closeImagesGallery} showImages={showImages}/>}
+			{indexOfSelectedImage !== -1 && <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl} handleOverlayClick={handleOverlayClick} showImages={showImages}/>}
 
 		</div>
 	);

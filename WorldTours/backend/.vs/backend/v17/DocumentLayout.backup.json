@@ -241,11 +241,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HotelController.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HotelController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HotelController.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HotelController.cs",
+              "RelativeToolTip": "Controllers\\HotelController.cs",
+              "ViewState": "AgIAAMoCAAAAAAAAAAAgwN4CAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T19:40:39.636Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -279,19 +292,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-10T16:52:25.686Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HotelController.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HotelController.cs",
-              "RelativeDocumentMoniker": "Controllers\\HotelController.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HotelController.cs",
-              "RelativeToolTip": "Controllers\\HotelController.cs",
-              "ViewState": "AgIAAMYCAAAAAAAAAAAwwOICAABoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T19:40:39.636Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
