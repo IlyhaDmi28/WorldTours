@@ -5,11 +5,13 @@ import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
-function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMenu}) {
+function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
     const [transportTypes, setTransportTypes] = useState([]);
     
     const [departmentDepartures, setDepartmentDepartures] = useState([]);
-    const [route, setRoute] = useState({
+    
+    console.log(indexOfSelectedRoute);
+    const [route, setRoute] = useState(indexOfSelectedRoute !== -1 ? routes[indexOfSelectedRoute] :{
         landingDateOfDeparture: "",
         landingTimeOfDeparture: "",
         arrivalDateOfDeparture: "",
@@ -35,7 +37,7 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
     useEffect(() => {
 		const getData = async () => {
             try {
-                const response = await axios.get('https://localhost:7276/route/department_departures', {
+                const response = await axios.get('https://localhost:7276/department_departure/department_departures', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -78,17 +80,6 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
         getData();
 	}, []);
 
-
-    if (!isEditRouteMenuOpen) {
-        return null; // Если модальное окно закрыто, возвращаем null, чтобы не рендерить его
-    }
-
-    const handleOverlayClick = (e) => {
-        if (e.target === e.currentTarget) {
-            closeEditRouteMenu();
-        }
-    };
-
     const changeRoute = (e) => {
         const { name, value } = e.target;
         setRoute((prevRoute) => ({
@@ -109,6 +100,9 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
                 city: selectedDepartmentDeparture.city,
                 country: selectedDepartmentDeparture.country,
             },
+            transportType: {
+                id: selectedDepartmentDeparture.transportTypeId 
+            }
         }));
     };
 
@@ -123,6 +117,39 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
                     name: selectedTransportType.name,
                 },
             }));
+        }
+    };
+
+    const saveRoute = () => {
+        if(
+            (route.landingDateOfDeparture === "" || route.landingDateOfDeparture === null) ||
+            (route.landingTimeOfDeparture === "" || route.landingTimeOfDeparture === null) ||
+            (route.arrivalDateOfDeparture === "" || route.arrivalDateOfDeparture === null) ||
+            (route.arrivalTimeOfDeparture === "" || route.arrivalTimeOfDeparture === null) ||
+            (route.landingDateOfReturn === "" || route.landingDateOfReturn === null) ||
+            (route.landingTimeOfReturn === "" || route.landingTimeOfReturn === null) ||
+            (route.arrivalDateOfReturn === "" || route.arrivalDateOfReturn === null) ||
+            (route.arrivalTimeOfReturn === "" || route.arrivalTimeOfReturn === null) ||
+            (route.departmentDeparture === "" || route.departmentDeparture === null) ||
+            (route.transportType === "" || route.transportType === null) ||
+            (route.departmentDeparture === "" || route.departmentDeparture === null) ||
+            (route.price === "" ||route.price === null) ||
+            (route.seatsNumber === "" || route.seatsNumber === null)
+        ) {
+            alert("Вы не заполнили все поля!");
+            return;
+        }
+        
+        let newRoutes;
+        console.log(indexOfSelectedRoute);
+        if(indexOfSelectedRoute === -1) {
+            newRoutes = routes;
+            newRoutes.push(route);
+            setRoutes(newRoutes);
+        }
+        else {
+            newRoutes = routes.map((r, index) => index === indexOfSelectedRoute ? route : r);
+            setRoutes(newRoutes);
         }
     };
 
@@ -152,14 +179,13 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
     };
 
     return (
-        <div className="edit-route-menu-overlay" onClick={handleOverlayClick}>
-            <div className="edit-route-menu">
-                <button className="close-edit-route-menu-button" onClick={closeEditRouteMenu}>
+            <div className="route-editor">
+                <button className="close-route-editor-button" onClick={closeModal}>
                     <img src={close}/>
                 </button>
 
                 <h2>Маршрут</h2>
-                <div className='edit-route-directions'>
+                <div className='route-editor-directions'>
                     <h3>Отправление</h3>
                     <hr></hr>
                     <div className='route-direction-dates-and-times'>
@@ -189,7 +215,7 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
                     </div>
                 </div>
                 
-                <div className='edit-route-directions' style={{marginTop: '10px'}} >
+                <div className='route-editor-directions' style={{marginTop: '10px'}} >
                     <h3>Возвращение</h3>
                     <hr></hr>
                     <div className='route-direction-dates-and-times'>
@@ -219,11 +245,11 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
                     </div>
                 </div>
 
-                <div className='edit-route-other-parameters'>
+                <div className='route-editor-other-parameters'>
                     <h3>Дополнительные настройки маршрута</h3>
                     <hr></hr>
 
-                    <div className='edit-route-other-parameter'>
+                    <div className='route-editor-other-parameter'>
                         <div className='parameter-name'>Пункт отправления</div>
                         <select name="departmentDeparture" value={route.departmentDeparture.id} onChange={changeDepartmentDeparture}>
                             {departmentDepartures.map((departmentDeparture) => (
@@ -236,9 +262,9 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
                             ))}
                         </select>
                     </div>
-                    <div className='edit-route-other-parameter'>
+                    <div className='route-editor-other-parameter'>
                         <div className='parameter-name'>Тип транспорта</div>
-                            <select name="transportType" value={route.transportType.id} onChange={changeTransportType}>
+                            <select name="transportType" value={route.transportType.id} onChange={changeTransportType} disabled>
                                 {transportTypes.map((transportType) => (
                                     <option 
                                         key={transportType.id}
@@ -250,13 +276,13 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
                             </select>
                         </div>
 
-                    <div className='edit-route-price-and-place'>
-                        <div className='edit-route-price-or-place'>
+                    <div className='route-editor-price-and-place'>
+                        <div className='route-editor-price-or-place'>
                             <div className='parameter-name'><b>Цена:</b></div>
                             <input type='number' name="price" value={route.price} onChange={changeRoute}/>
                         </div>
 
-                        <div className='edit-route-price-or-place'>
+                        <div className='route-editor-price-or-place'>
                             <div className='parameter-name'><b>Кол. мест: </b></div>
                             <input type='number' name="seatsNumber" value={route.seatsNumber} onChange={changeRoute}/>
                         </div>
@@ -264,33 +290,11 @@ function RouteEditor({ routes, setRoutes, isEditRouteMenuOpen, closeEditRouteMen
                 </div>
                 
                 <hr></hr>
-                <div className="edit-route-controller">{/*комп*/}
+                <div className="route-editor-controller">{/*комп*/}
                     <button onClick={clearRoute}>Очистить всё</button>
-                    <button onClick={(e) =>{ 
-                        if(
-                            (route.landingDateOfDeparture === "" || route.landingDateOfDeparture === null) ||
-                            (route.landingTimeOfDeparture === "" || route.landingTimeOfDeparture === null) ||
-                            (route.arrivalDateOfDeparture === "" || route.arrivalDateOfDeparture === null) ||
-                            (route.arrivalTimeOfDeparture === "" || route.arrivalTimeOfDeparture === null) ||
-                            (route.landingDateOfReturn === "" || route.landingDateOfReturn === null) ||
-                            (route.landingTimeOfReturn === "" || route.landingTimeOfReturn === null) ||
-                            (route.arrivalDateOfReturn === "" || route.arrivalDateOfReturn === null) ||
-                            (route.arrivalTimeOfReturn === "" || route.arrivalTimeOfReturn === null) ||
-                            (route.departmentDeparture === "" || route.departmentDeparture === null) ||
-                            (route.transportType === "" || route.transportType === null) ||
-                            (route.departmentDeparture === "" || route.departmentDeparture === null) ||
-                            (route.price === "" ||route.price === null) ||
-                            (route.seatsNumber === "" || route.seatsNumber === null)
-                        ) {
-                            alert("Вы не заполнили все поля!");
-                            return;
-                        }
-
-                        setRoutes([...routes, route])}
-                    }>Сохранить</button>
+                    <button onClick={saveRoute}>Сохранить</button>
                 </div>
             </div>
-        </div>
     );
 }
 

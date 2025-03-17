@@ -9,9 +9,7 @@ namespace backend.DB
     {
 		public DbSet<User> Users { get; set; }
 		public DbSet<TourType> TourTypes { get; set; }
-		public DbSet<CharacteristicType> CharacteristicTypes { get; set; }
-		public DbSet<Characteristic> Characteristics { get; set; }
-		public DbSet<Description> Descriptions { get; set; }
+		public DbSet<TourCharacteristic> TourCharacteristics { get; set; }
 		public DbSet<Region> Regions { get; set; }
 		public DbSet<Country> Countries { get; set; }
 		public DbSet<City> Cities { get; set; }
@@ -35,24 +33,6 @@ namespace backend.DB
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-
-			// Настройка связи многие-ко-многим
-			modelBuilder.Entity<TourType>()
-				.HasMany(tt => tt.Characteristics)
-				.WithMany(c => c.TourTypes)
-				.UsingEntity<Dictionary<string, object>>(
-					"Charcteristics_TourTypes", // Название промежуточной таблицы
-					j => j
-						.HasOne<Characteristic>()
-						.WithMany()
-						.HasForeignKey("CharacteristicID")
-						.HasConstraintName("FK_Charcteristics_TourTypes_Characteristics"),
-					j => j
-						.HasOne<TourType>()
-						.WithMany()
-						.HasForeignKey("TourTypeID")
-						.HasConstraintName("FK_Charcteristics_TourTypes_TourTypes")
-				);
 
 			modelBuilder.Entity<Hotel>()
 				.HasMany(h => h.Characteristics)
@@ -88,6 +68,23 @@ namespace backend.DB
 						.HasConstraintName("FK_RoomTypeDescriptions_RoomTypes")
 				);
 
+			modelBuilder.Entity<Tour>()
+				.HasMany(t => t.Characteristics)
+				.WithMany(tc => tc.Tours)
+				.UsingEntity<Dictionary<string, object>>(
+					"TourDescriptions", // Название промежуточной таблицы
+					j => j
+						.HasOne<TourCharacteristic>()
+						.WithMany()
+						.HasForeignKey("CharacteristicID")
+						.HasConstraintName("FK_TourDescriptions_TourCharacteristics"),
+					j => j
+						.HasOne<Tour>()
+						.WithMany()
+						.HasForeignKey("RoomTypeID")
+						.HasConstraintName("FK_TourDescriptions_Tours")
+				);
+
 
 			// Настройка User
 			modelBuilder.Entity<User>()
@@ -100,27 +97,6 @@ namespace backend.DB
 				.WithOne(t => t.TourType)
 				.HasForeignKey(t => t.TourTypeId)
 				.OnDelete(DeleteBehavior.SetNull);
-
-
-			modelBuilder.Entity<CharacteristicType>()
-			.HasMany(ct => ct.Characteristics)
-			.WithOne(c => c.CharacteristicType)
-			.HasForeignKey(c => c.CharacteristicTypeId)
-			.OnDelete(DeleteBehavior.Cascade);
-
-			// Настройка Characteristic
-			modelBuilder.Entity<Characteristic>()
-				.HasMany(c => c.Descriptions)
-				.WithOne(d => d.Characteristic)
-				.HasForeignKey(d => d.CharacteristicId)
-				.OnDelete(DeleteBehavior.Cascade);
-
-			// Настройка Description
-			modelBuilder.Entity<Description>()
-				.HasOne(d => d.Tour)
-				.WithMany(t => t.Descriptions)
-				.HasForeignKey(d => d.TourId)
-				.OnDelete(DeleteBehavior.Cascade);
 
 			// Настройка Region
 			modelBuilder.Entity<Region>()
@@ -255,7 +231,7 @@ namespace backend.DB
 			modelBuilder.Entity<HotelCharacteristic>().HasIndex(hc => hc.Name).IsUnique();
 			modelBuilder.Entity<NutritionType>().HasIndex(nt => nt.Name).IsUnique();
 			modelBuilder.Entity<TourType>().HasIndex(tt => tt.Name).IsUnique();
-			modelBuilder.Entity<Characteristic>().HasIndex(c => c.Name).IsUnique();
+			modelBuilder.Entity<TourCharacteristic>().HasIndex(c => c.Name).IsUnique();
 			modelBuilder.Entity<Tour>().HasIndex(t => t.Name).IsUnique();
 		}
 	}

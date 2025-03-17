@@ -19,7 +19,6 @@ namespace backend.Models.Entity
 		[MaxLength(255)]
 		public string MainDescription { get; set; }
 		public int? NutritionTypeId { get; set; }
-		public string PhotosDirectory { get; set; }
 
 		[ForeignKey(nameof(NutritionTypeId))]
 		public NutritionType NutritionType { get; set; }

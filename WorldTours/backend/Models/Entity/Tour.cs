@@ -15,7 +15,6 @@ namespace backend.Models.Entity
         public int? TourTypeId { get; set; }
         public int? NutritionTypeId { get; set; }
         public int? HotelId { get; set; }
-        public byte[]? Photo { get; set; }
 
         [ForeignKey(nameof(TourTypeId))]
         public TourType TourType { get; set; }
@@ -23,8 +22,8 @@ namespace backend.Models.Entity
         public NutritionType NutritionType { get; set; }
         [ForeignKey(nameof(HotelId))]
         public Hotel Hotel { get; set; }
-        public ICollection<Route> Routes { get; set; }
-        public ICollection<Description> Descriptions { get; set; }
+		public ICollection<TourCharacteristic> Characteristics { get; set; }
+		public ICollection<Route> Routes { get; set; }
         public ICollection<Review> Reviews { get; set; }
 	}
 }

@@ -43,6 +43,7 @@ function ToursForEditor() {
                     }
                 });
 				const typesData = response.data;
+				console.log(typesData);
 				setTourTypes(typesData);
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);

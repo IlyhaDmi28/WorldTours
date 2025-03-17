@@ -11,7 +11,7 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpenCharacteristicsMenu = Boolean(anchorEl);
 
-    const [characteristics, setCharacteristics] = useState(['sdfsdg', 'dfgdf', 'gfhjgf']);
+    const [characteristics, setCharacteristics] = useState([]);
 
     const [roomType, setRoomType] = useState(indexOfSelectedRoomType !== -1 ? roomTypes[indexOfSelectedRoomType] : {
         name: null,
@@ -115,6 +115,7 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
 
     const saveRoomType = () => {
         let newRoomTypes;
+        console.log(indexOfSelectedRoomType);
         
         if(indexOfSelectedRoomType === -1) {
             newRoomTypes = roomTypes;

@@ -3,18 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.Models.Entity
 {
-    public class Country
+    public class TourCharacteristic
     {
         [Key]
         public int Id { get; set; }
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
-		public string PathToFlag { get; set; }
-        public int RegionId { get; set; }
 
-        [ForeignKey(nameof(RegionId))]
-        public Region Region { get; set; }
-        public ICollection<City> Cities { get; set; }
+		// Навигационное свойство для связи многие-ко-многим
+		public ICollection<Tour> Tours { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace backend.Controllers
 				{
 					Id = r.Id,
 					Name = r.Name,
-					ImageUrl = PhotoService.ConvertToBase64(r.Image, "jpeg"),
+					ImageUrl = $"https://localhost:7276/{r.PathToImage}",
 				}));
 			}
 			catch (Exception ex)
@@ -51,7 +51,7 @@ namespace backend.Controllers
 					{
 						Id = c.Id,
 						Name = c.Name,
-						FlagUrl = PhotoService.ConvertToBase64(c.Flag, "svg+xml"),
+						FlagUrl = $"https://localhost:7276/{c.PathToFlag}",
 					}));
 				}
 
@@ -63,7 +63,7 @@ namespace backend.Controllers
 				{
 					Id = c.Id,
 					Name = c.Name,
-					FlagUrl = PhotoService.ConvertToBase64(c.Flag, "svg+xml"),
+					FlagUrl = $"https://localhost:7276/{c.PathToFlag}",
 				}));
 			}
 			catch (Exception ex)

@@ -21,33 +21,18 @@
 	  NAME VARCHAR(255) UNIQUE NOT NULL
 	);
 	
-	CREATE TABLE CharacteristicTypes (
-	  ID INT PRIMARY KEY AUTO_INCREMENT,
-	  NAME VARCHAR(255) UNIQUE NOT NULL
-	);
-	
-	CREATE TABLE Characteristics (
+	CREATE TABLE TourCharacteristics (
 	  	ID INT PRIMARY KEY AUTO_INCREMENT,
-	  	CharacteristicTypeID INT,
 	  	NAME VARCHAR(255) UNIQUE NOT NULL,
-		FOREIGN KEY (`CharacteristicTypeID`) REFERENCES `CharacteristicTypes`(`ID`)
 	);
 	
-	CREATE TABLE Descriptions (
+	CREATE TABLE TourDescriptions (
 	  	ID INT PRIMARY KEY AUTO_INCREMENT,
 	  	Value BOOLEAN DEFAULT 0 NOT NULL,
 	  	CharacteristicID INT,
 	  	TourID INT,
 		FOREIGN KEY (`CharacteristicID`) REFERENCES `Characteristics`(`ID`),
 		FOREIGN KEY (`TourID`) REFERENCES `Tours`(`ID`)
-	);
-	
-	CREATE TABLE Charcteristics_TourTypes (
-	  ID INT PRIMARY KEY AUTO_INCREMENT,
-	  CharacteristicID INT,
-	  TourTypeID INT,
-	  FOREIGN KEY (`CharacteristicID`) REFERENCES `Characteristics`(`ID`),
-	  FOREIGN KEY (`TourTypeID`) REFERENCES `TourTypes`(`ID`)
 	);
 	
 	CREATE TABLE Regions (

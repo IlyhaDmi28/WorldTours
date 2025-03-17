@@ -1,5 +1,3 @@
-SELECT VERSION();
-
 CREATE TABLE `Roles` (
   `ID` TINYINT PRIMARY KEY AUTO_INCREMENT,
   `Name` VARCHAR(255) UNIQUE NOT NULL
@@ -21,44 +19,23 @@ CREATE TABLE `Users` (
 CREATE TABLE TourTypes (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   NAME VARCHAR(255) UNIQUE NOT NULL,
-  Image LONGBLOB
-);
-
-CREATE TABLE CharacteristicTypes (
-  ID INT PRIMARY KEY AUTO_INCREMENT,
-  NAME VARCHAR(255) UNIQUE NOT NULL
-);
-
-CREATE TABLE Characteristics (
-  	ID INT PRIMARY KEY AUTO_INCREMENT,
-  	CharacteristicTypeID INT,
-  	NAME VARCHAR(255) UNIQUE NOT NULL,
-	FOREIGN KEY (`CharacteristicTypeID`) REFERENCES `CharacteristicTypes`(`ID`)
-);
-
-CREATE TABLE Charcteristics_TourTypes (
-  ID INT PRIMARY KEY AUTO_INCREMENT,
-  CharacteristicID INT,
-  TourTypeID INT,
-  FOREIGN KEY (`CharacteristicID`) REFERENCES `Characteristics`(`ID`),
-  FOREIGN KEY (`TourTypeID`) REFERENCES `TourTypes`(`ID`)
+  PathToImage VARCHAR(255)
 );
 
 CREATE TABLE Regions (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255) UNIQUE NOT NULL,
-  Image LONGBLOB
+  PathToImage VARCHAR(255)
 );
 
 CREATE TABLE Countries (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255) UNIQUE NOT NULL,
-  Flag LONGBLOB,
+  PathToFlag VARCHAR(255),
   RegionId INT,
   FOREIGN KEY (`RegionId`) REFERENCES `Regions`(`ID`)
 );
 
-SELECT * FROM Cities;
 CREATE TABLE Cities (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255) UNIQUE NOT NULL,
@@ -71,7 +48,6 @@ CREATE TABLE TransportTypes (
   Name VARCHAR(255) UNIQUE NOT NULL
 );
 
-SELECT * FROM DepartmentDepartures;
 CREATE TABLE DepartmentDepartures (
   ID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255) UNIQUE NOT NULL,
@@ -87,7 +63,6 @@ CREATE TABLE NutritionTypes (
   	Name VARCHAR(255) UNIQUE NOT NULL
 );
 
-SELECT * FROM hotels;
 CREATE TABLE Hotels (
   	ID INT PRIMARY KEY AUTO_INCREMENT,
    Name VARCHAR(255) UNIQUE NOT NULL,
@@ -96,18 +71,15 @@ CREATE TABLE Hotels (
   	StarsNumber INT NOT NULL,
 	MainDescription VARCHAR(255),
 	NutritionTypeId INT,
-	PhotosDirectory VARCHAR(255),
    FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`),
    FOREIGN KEY (`NutritionTypeId`) REFERENCES `NutritionTypes`(`ID`)
 );
 
-SELECT * FROM HotelCharacteristics;
 CREATE TABLE HotelCharacteristics (
   	ID INT PRIMARY KEY AUTO_INCREMENT,
   	NAME VARCHAR(255) UNIQUE NOT NULL
 );
 
-SELECT * FROM HotelDescriptions;
 CREATE TABLE HotelDescriptions (
   	ID INT PRIMARY KEY AUTO_INCREMENT,
   	CharacteristicID INT,
@@ -116,7 +88,6 @@ CREATE TABLE HotelDescriptions (
 	FOREIGN KEY (`HotelID`) REFERENCES `Hotels`(`ID`)
 );
 
-SELECT * FROM RoomTypes;
 CREATE TABLE RoomTypes (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	NAME VARCHAR(255) NOT NULL,
@@ -132,7 +103,6 @@ CREATE TABLE RoomTypeCharacteristics (
   	NAME VARCHAR(255) UNIQUE NOT NULL
 );
 
-SELECT * FROM RoomTypeDescriptions;
 CREATE TABLE RoomTypeDescriptions (
   	ID INT PRIMARY KEY AUTO_INCREMENT,
   	CharacteristicID INT,
@@ -147,16 +117,19 @@ CREATE TABLE Tours (
 	MainDescription VARCHAR(255),
 	TourTypeId INT,
 	NutritionTypeId INT,
-	HotelId INT,
-	Photo LONGBLOB
+	HotelId INT
 );
 
-CREATE TABLE Descriptions (
-  	ID INT PRIMARY KEY AUTO_INCREMENT,
-  	Value BOOLEAN DEFAULT 0 NOT NULL,
-  	CharacteristicID INT,
-  	TourID INT,
-	FOREIGN KEY (`CharacteristicID`) REFERENCES `Characteristics`(`ID`),
+CREATE TABLE TourCharacteristics (
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	NAME VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE TourDescriptions (
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	CharacteristicID INT,
+	TourID INT,
+	FOREIGN KEY (`CharacteristicID`) REFERENCES `TourCharacteristics`(`ID`),
 	FOREIGN KEY (`TourID`) REFERENCES `Tours`(`ID`)
 );
 
@@ -169,7 +142,6 @@ CREATE TABLE Reviews (
   	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 );
 
-DROP TABLE routes;
 CREATE TABLE Routes (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	LandingDateOfDeparture DATE,
@@ -190,7 +162,6 @@ CREATE TABLE Routes (
   	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 );
 
-DROP TABLE Bookings;
 CREATE TABLE Bookings (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	OrderSeatsNumber INT,

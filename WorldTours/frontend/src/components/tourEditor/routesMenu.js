@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
 import RouteCard from "./routeCard";
 import RouteEditor from "./routeEditor";
+import Modal from '@mui/material/Modal';
 import add from "../../img/add.svg"
 
 function RoutesMenu({directionInfo, routes, setRoutes, saveTour}) {
-    const [isEditRouteMenuOpen, setIsEditRouteMenuOpen] = useState(false);
+    const [isOpenRouteEditor, setIsOpenRouteEditor] = useState(false);
+    const [indexOfSelectedRoute, setIndexOfSelectedRoute] = useState(-1);
 
-    // Функция для открытия модального окна
-	const openEditRouteMenu = () => {
-		setIsEditRouteMenuOpen(true);
-		document.body.style.overflow = 'hidden'; // Отключаем прокрутку страницы
-	};
+    const openRouteEditor = (index) => {
+        setIndexOfSelectedRoute(index);
+        setIsOpenRouteEditor(true);
+    }
 
-	// Функция для закрытия модального окна
-	const closeEditRouteMenu = () => {
-		setIsEditRouteMenuOpen(false);
-		document.body.style.overflow = 'auto'; // Включаем прокрутку страницы обратно
-	};
+    const closeRouteEditor = () => {
+        setIndexOfSelectedRoute(-1);
+        setIsOpenRouteEditor(false);
+    }
 
 	return (
         <div className="routes-menu">
             <div className="routes-menu-name-and-add-route-button">
                 <b>Маршруты:</b>
-                <button  onClick={openEditRouteMenu}>
+                <button  onClick={() => setIsOpenRouteEditor(true)}>
                     <img src={add}/>
                 </button>
             </div>
 
-            <div className="routes">
-                {routes.map((route, index) => (<RouteCard directionInfo={directionInfo} route={route} deleteRoute={() => setRoutes(routes.filter((_, i) => i !== index))}/>))}
+            <div className="routes-list">
+                {routes.map((route, index) => (<RouteCard directionInfo={directionInfo} openRouteEditor={() => openRouteEditor(index)}  route={route} deleteRoute={() => setRoutes(routes.filter((_, i) => i !== index))}/>))}
             </div>
 
             <div className="buttons-under-routes">
@@ -37,7 +37,9 @@ function RoutesMenu({directionInfo, routes, setRoutes, saveTour}) {
                 </button>
             </div>
             
-			<RouteEditor routes={routes} setRoutes={setRoutes} isEditRouteMenuOpen={isEditRouteMenuOpen} closeEditRouteMenu={closeEditRouteMenu} />
+            <Modal className='route-editor-modal' open={isOpenRouteEditor} onClose={closeRouteEditor} >
+                <RouteEditor indexOfSelectedRoute={indexOfSelectedRoute} routes={routes} setRoutes={setRoutes} closeModal={closeRouteEditor}/>
+			</Modal>
 
         </div>
 	);

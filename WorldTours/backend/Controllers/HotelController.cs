@@ -80,7 +80,7 @@ namespace backend.Controllers
 								Address = hotel.Address,
 								StarsNumber = hotel.StarsNumber,
 								NutritionTypeId = hotel.NutritionTypeId,
-								PhotosDirectory = hotel.Name,
+								//PhotosDirectory = hotel.Name,
 								Characteristics = hotelCharacteristics,
 							};
 
@@ -478,7 +478,7 @@ namespace backend.Controllers
 						editedHotel.Address = hotel.Address;
 						editedHotel.StarsNumber = hotel.StarsNumber;
 						editedHotel.NutritionTypeId = hotel.NutritionTypeId;
-						editedHotel.PhotosDirectory = hotel.Name;
+						//editedHotel.PhotosDirectory = hotel.Name;
 						editedHotel.Characteristics = hotelCharacteristics;
 
 						await db.SaveChangesAsync();

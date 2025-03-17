@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { TextField   } from "@mui/material";
 import { Rating  } from "@mui/material";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from '../components/general/header';
 import ImagesAndMap from '../components/tour/imagesAndMap';
@@ -17,16 +19,6 @@ import RoutesMenu from '../components/tourEditor/routesMenu';
 import TourType from '../components/tours/tourType'
 import ReviewCardForEitor from '../components/tourEditor/reviewCardForEitor';
 import selectNewPhoto from '../img/selectNewPhoto.png';
-import star from '../img/star.svg';
-import delete3 from '../img/delete3.svg'
-import t1 from '../img/test_photos/t1.jpg';
-import t2 from '../img/test_photos/t2.jpg';
-import t3 from '../img/test_photos/t3.jpg';
-import t4 from '../img/test_photos/t4.jpg';
-import t5 from '../img/test_photos/t5.jpg';
-import t6 from '../img/test_photos/t6.png';
-import t7 from '../img/test_photos/t7.png';
-import t8 from '../img/test_photos/t8.png';
 const token = localStorage.getItem("token");
 
 function TourEditor() {
@@ -43,7 +35,7 @@ function TourEditor() {
 	const [tourTypes, setTourTypes] = useState([]); 
 	const [photosUrls, setPhotosUrls] = useState([selectNewPhoto]); 
 	const [photosFiles, setPhotosFiles] = useState([]); 
-	const [nutritionTypes, setNutritionTypes] = useState([]);
+	const [characteristics, setCharacteristics] = useState([]);
 
 	const [direction, setDirection] = useState({
 		regionId: null,
@@ -53,7 +45,6 @@ function TourEditor() {
 	});
 
 	const [tour, setTour] = useState({
-		photoFile: useRef(null), // Используем useRef для открытия input
 		id: 0,
 		name: null,
 		hotelId: null,
@@ -61,137 +52,13 @@ function TourEditor() {
 		nutritionTypeId: null,
 		tourTypeId: null,
 		routes: [],
-		descriptions: [],
+		characteristics: [],
 		reviews: []
 	});
 
 	const [indexOfSelectedImage, setIndexOfSelectedImage] = useState(-1); 
-	
-
-	const changeCharacteristics = async (id) => {
-		try {
-			setTour((prevTour) => ({
-				...prevTour,
-				["tourTypeId"]: id,
-			}));
-
-			const response = await axios.get(`https://localhost:7276/tour/characteristics?tourTypeId=${id}`, {
-				headers: {
-					'Authorization': 'Bearer ' + token,
-				}
-			});
-
-			const characteristicsData = response.data
-			setTour((prevTour) => {
-				return {
-					...prevTour,
-					descriptions: characteristicsData,
-				};
-
-			});
-		} catch (error) {
-			console.error('Ошибка загрузки данных:', error);
-		} 
-    };
-
-	useEffect(() => {
-		const getData = async () => {
-            try {
-				const segments = location.pathname.split('/');
-    			const id = segments[segments.length - 1];
-
-				let response;
-				response = await axios.get(`https://localhost:7276/tour/tour_to_edit?tourId=${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-				const tourData = response.data;
-				await changeCharacteristics(tourData.tourTypeId);
-				setTour((prevTour) => ({
-					...prevTour, // Сохраняем предыдущие значения
-					id: tourData.id,
-					name: tourData.name,
-					hotelId: tourData.hotelId,
-					mainDescription: tourData.mainDescription,
-					nutritionTypeId: tourData.nutritionTypeId,
-					tourTypeId: tourData.tourTypeId,
-					routes: tourData.routes,
-					descriptions: tourData.descriptions,
-				}));
-				if(id === '0') await changeCharacteristics(tourData.tourTypeId);  
-				setPhotosUrls([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
-
-				if(tourData.hotelId !== null) {
-					response = await axios.get(
-						`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						}
-					);
-					const directionInfoData = response.data;
-					setDirectionInfo(directionInfoData);
-				}
-
-                response = await axios.get('https://localhost:7276/tour/tour_types', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-				const typesData = response.data;
-				setTourTypes(typesData);
-
-				response = await axios.get('https://localhost:7276/tour/nutrition_types', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-				const nutritionTypesData = response.data;
-				setNutritionTypes(nutritionTypesData);
-
-				response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-				const reviewsData = response.data;
-				setTour((prevTour) => ({
-					...prevTour, 
-					reviews: reviewsData
-				}));
-
-            } catch (error) {
-				console.error('Ошибка загрузки данных:', error);
-            } 
-        };
-
-        getData();
-	}, []);
-
-	useEffect(() => {
-		const getDirectionInfo = async () => {
-			if (direction.regionId != null && direction.countryId != null && direction.cityId != null && direction.hotelId != null) {
-				try {
-					const response = await axios.get(
-						`https://localhost:7276/direction/get?countryId=${direction.countryId}&cityId=${direction.cityId}&hotelId=${direction.hotelId}`,
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						}
-					);
-	
-					setDirectionInfo(response.data);
-				} catch (error) {
-					console.error("Ошибка загрузки данных:", error);
-				}
-			}
-		};
-	
-		getDirectionInfo();
-	}, [direction]);
+	const [indexOfTourTypePage, setIndexOfTourTypePage] = useState(0); 
+	const [isLoadHotelPhotos, setIsLoadHotelPhotos] = useState(false); 
 
 	const selectDirection = (directionId) => {
 		setDirection((prevDirection) => {
@@ -232,10 +99,10 @@ function TourEditor() {
 	const closeDirections = () => {
 		setDirectionsPageInndex(0);
 		setDirection({
-			hotel: null,
-			country: null,
-			city: null,
-			starsNumber: null
+			regionId: null,
+			countryId: null,
+			cityId: null,
+			hotelId: null,
 		});
 	}
 
@@ -246,6 +113,107 @@ function TourEditor() {
         <Cities countyId={direction.countryId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
         <Hotels cityId={direction.cityId} position={{left: '12%', top: '25%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1)} closeDirections={closeDirections}/>,
     ]
+
+	useEffect(() => {
+		const getData = async () => {
+            try {
+				const segments = location.pathname.split('/');
+    			const id = segments[segments.length - 1];
+
+				let response;
+
+				response = await axios.get(`https://localhost:7276/tour/tour_for_editor?tourId=${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const tourData = response.data;
+				setTour((prevTour) => ({
+					...prevTour, // Сохраняем предыдущие значения
+					id: tourData.id,
+					name: tourData.name,
+					hotelId: tourData.hotelId,
+					mainDescription: tourData.mainDescription,
+					tourTypeId: tourData.tourTypeId,
+					routes: tourData.routes,
+					characteristics: tourData.characteristics,
+				}));
+
+				// setPhotosUrls(tourData.photoUrl === null ? [] : tourData.photoUrl);
+				setPhotosUrls([]);
+				// setPhotosUrls([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
+
+				if(tourData.hotelId !== null) {
+					response = await axios.get(
+						`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+					const directionInfoData = response.data;
+					setDirectionInfo(directionInfoData);
+				}
+
+                response = await axios.get('https://localhost:7276/tour/tour_types', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const tourTypesData = response.data;
+				setTourTypes(tourTypesData);
+
+				response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const reviewsData = response.data;
+				setTour((prevTour) => ({
+					...prevTour, 
+					reviews: reviewsData
+				}));
+
+				response = await axios.get('https://localhost:7276/tour/characteristics', {
+					headers: {
+						'Authorization': 'Bearer ' + token,
+					}
+				});
+				const characteristicsData = response.data;
+				console.log('asaasdsd');
+				console.log(characteristicsData);
+				setCharacteristics(characteristicsData);
+            } catch (error) {
+				console.error('Ошибка загрузки данных:', error);
+            } 
+        };
+
+        getData();
+	}, []);
+
+	useEffect(() => {
+		const getDirectionInfo = async () => {
+			if (direction.regionId != null && direction.countryId != null && direction.cityId != null && direction.hotelId != null) {
+				try {
+					const response = await axios.get(
+						`https://localhost:7276/direction/get?countryId=${direction.countryId}&cityId=${direction.cityId}&hotelId=${direction.hotelId}`,
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+	
+					setDirectionInfo(response.data);
+				} catch (error) {
+					console.error("Ошибка загрузки данных:", error);
+				}
+			}
+		};
+	
+		getDirectionInfo();
+	}, [direction]);
 
     const deleteSelectedDirection = () => {
 		setDirectionInfo({
@@ -278,6 +246,26 @@ function TourEditor() {
 		setPhotosUrls(newImages); // Добавляем новые фото в массив  
 	};
 
+	const loadHotelPhotos = async () => {
+		if(direction.hotelId !== null) {
+			const response = await axios.get(
+				`https://localhost:7276/hotel/hotel_for_editor?hotelId=${direction.hotelId}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+
+			const hotelData = response.data;
+			setPhotosUrls(prevPhotos => [...prevPhotos, ...hotelData.photosUrls]);
+			console.log(hotelData);
+
+			setIsLoadHotelPhotos(true);
+		}
+	};
+
+
 	const changeTour = (e) => {
 		const { name, value } = e.target;
         setTour((prevTour) => ({
@@ -287,25 +275,29 @@ function TourEditor() {
 	}
     // Функция для открытия input по нажатию на изображение
     const setPhotoUropenFileDialogToSelectPhoto = () => {
-        tour.photoFile.current.click();
+        photosFiles.current.click();
     };
 
-	const changeDescription = (id) => {
-		setTour((prevTour) => ({
-			...prevTour,
-			descriptions: prevTour.descriptions.map((item) => 
-				item.characteristic.id === id ? {
-					...item,
-					description: {
-						...item.description,
-						value: !item.description.value, // Инвертируем значение
-					},
-				} : item
-			),
-		}));
+	const changeCharacteristics = (changedCharacteristic, value) => {
+		if(value) {
+			const newCharacteristics = [...tour.characteristics];
+			newCharacteristics.push(changedCharacteristic);
+			setTour((prevTour) => {
+				return {
+					...prevTour,
+					characteristics: newCharacteristics
+				}
+			})
+		}
+		else {
+			setTour((prevTour) => ({
+				...prevTour,
+				characteristics: prevTour.characteristics.filter((characteristic) => characteristic.id !== changedCharacteristic.id)
+			}));
+		}
 	};
 
-	const addRoute = (routes) => {
+	const setRoutes = (routes) => {
 		if(authUser.blockedStatus) {
 			alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
 			return;
@@ -316,6 +308,21 @@ function TourEditor() {
 			["routes"]: routes,
 		}));
 	}
+
+	//Вынести желательно(низ)
+	const createFileFromObjectUrl = async (objectUrl, fileName) => {
+		const response = await axios.get(objectUrl, { responseType: "blob" }); // Загружаем как Blob
+		const blob = response.data;
+		return new File([blob], fileName, { type: blob.type }); // Создаём новый File
+	};
+	
+	const convertObjectUrlsToFiles = async (objectUrls) => {
+		const filePromises = objectUrls.map((url, index) =>
+			createFileFromObjectUrl(url, `copied_image_${index}.jpg`)
+		);
+		return await Promise.all(filePromises);
+	};
+	//Вынести желательно(верх)
 
 	const saveTour = async () => {
 		if(authUser.blockedStatus) {
@@ -403,16 +410,23 @@ function TourEditor() {
         }
     };
 
+	const HasCharacteristic = (characteristic) => {	
+		return tour.characteristics.some((ch) => ch.id === characteristic.id);
+	}
+
 	return (
 		<div className="tour narrow-conteiner">
 			<Header />
 			<div className="line-under-header"></div>
 
-			<div className="tour-editor-images-and-name">
+			<div 
+				className="tour-editor-images-and-name"
+				style={photosUrls.length === 0 ? {height: 'auto'} : {}}
+			>
 				<div className="tour-editor-name-and-main-photo">
 					<div className="tour-editor-name">
 						<div>
-							<b>Название отеля</b>
+							<b>Название тура</b>
 						</div>
 						<TextField
 							className='tour-editor-name-input' 
@@ -424,29 +438,47 @@ function TourEditor() {
 							onChange={changeTour}
 						/>
 					</div>
-					<div className="main-tour-editor-photo">
+					{
+						photosUrls.length !== 0 &&
+						<div className="main-tour-editor-photo">
+							<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
+						</div>
+					}
+					{/* <div className="main-tour-editor-photo">
 						<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
 						<input type="file" multiple  
 						ref={ photosFiles} 
 						onChange={loadPhotos} 
 						style={{ display: 'none' }} accept="image/*"/>
-					</div>
+					</div> */}
 				</div>
 							
 				<div className='other-tour-photos-and-controller'>
 					<div className='tour-photos-controller'>
 						<button onClick={setPhotoUropenFileDialogToSelectPhoto}><b>Загрузить изображения</b></button>
+						{direction.hotelId !== null && !isLoadHotelPhotos && <button onClick={loadHotelPhotos}><b>Добавить фотографии отеля</b></button>}
+						<input
+							type="file" 
+							multiple  
+							ref={ photosFiles} 
+							onChange={loadPhotos} 
+							style={{ display: 'none' }} accept="image/*"
+						/>
 					</div>
-					<div className='other-tour-photos'>
-						<div>
-							{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
+					{
+						photosUrls.length !== 0 &&
+						<div className='other-tour-photos'>
+								<div>
+									{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
+								</div>
+								{photosUrls.length > 7 && <button className='more-tour-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
 						</div>
-						{photosUrls.length > 7 && <button className='more-tour-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
-					</div>
+					}
+					
 				</div>
 			</div>
 
-			<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={addRoute}/>
+			<RoutesMenu saveTour={saveTour} directionInfo={directionInfo} routes={tour.routes} setRoutes={setRoutes}/>
 
 			<div className="tour-editor-info-and-reservation">
 				<div className="tour-editor-info">
@@ -454,7 +486,10 @@ function TourEditor() {
 					{directionInfo.hotel !== null ? 
 					(<>
 						<div className="main-tour-editor-info">
-							<div className='hotel-editor-loaction-info'>{directionInfo.country}, {directionInfo.city} </div> 
+							<div className='tour-editor-loaction-info'>
+								<div><b>{directionInfo.hotel}</b></div>
+								<div>{directionInfo.country}, {directionInfo.city}</div>
+							</div> 
 							<DeleteIcon onClick={deleteSelectedDirection}/>
 						</div>
 
@@ -464,9 +499,6 @@ function TourEditor() {
 							defaultValue={directionInfo.starsNumber}
 							readOnly 
 						/>
-						{/* <div className="tour-editor-hotel-stars">
-							{Array(directionInfo.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
-						</div> */}
 					</>) :
 						<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
 							<b>Выбрать страну, город</b>
@@ -521,35 +553,53 @@ function TourEditor() {
 					</div> */}
 
 					<div className="select-tour-types">
+						<ArrowBackIosNewIcon 
+							className="arrow-navigation-tour-type" 
+							onClick = {()=>{
+								setIndexOfTourTypePage(indexOfTourTypePage !== 0 ? indexOfTourTypePage - 1 : indexOfTourTypePage) 
+							}}
+							style={{
+								visibility: indexOfTourTypePage === 0 ? 'hidden' : 'visible'
+							}}
+						/>
 						{/* <button className='tour-types-nav-page-button'>B</button> */}
 
 						<div className="tour-types-list">
-							{tourTypes.map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
+							{tourTypes.slice(indexOfTourTypePage, indexOfTourTypePage + 5).map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
 						</div>
-							
+						
+						<ArrowForwardIosIcon 
+							className="arrow-navigation-tour-type"
+							onClick = {()=>{
+								setIndexOfTourTypePage(indexOfTourTypePage + 5 <= tourTypes.length - 1 ? indexOfTourTypePage + 1 : indexOfTourTypePage) 
+							}}
+							style={{
+								visibility: indexOfTourTypePage + 5 >= tourTypes.length  ? 'hidden' : 'visible'
+							}}
+						/>
+
 						{/* <button className='tour-types-nav-page-button'>N</button> */}
         			</div>
-					
+
 					<div className="tour-editor-characteristics"> {/*комп*/}
-							{tour.descriptions.map((description) => (
-								<div className="tour-editor-characteristic">
+						{characteristics.map((characteristic) => (
+							<div className="tour-editor-characteristic">
+								<div>
+									<b>{characteristic.name}</b>
+								</div>
+								<div>
 									<div>
-										<b>{description.characteristic.name}</b>
-									</div>
-									<div>
-										<div>
 										<input
 											type="checkbox"
-											checked={description.description.value}
-											onChange={() => changeDescription(description.characteristic.id)}
+											checked={HasCharacteristic(characteristic)}
+											onChange={(e) =>{changeCharacteristics(characteristic, e.target.checked)}}
 										/>
-										</div>
 									</div>
 								</div>
-							))}
+							</div>
+						))}
 					</div>
 				</div>
-
 			</div>
 
 			<div className='tour-review'>

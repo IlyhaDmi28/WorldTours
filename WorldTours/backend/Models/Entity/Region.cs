@@ -9,8 +9,8 @@ namespace backend.Models.Entity
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
-        public byte[]? Image { get; set; }
-        public ICollection<Country> Countries { get; set; }
+		public string PathToImage { get; set; }
+		public ICollection<Country> Countries { get; set; }
 
 	}
 }

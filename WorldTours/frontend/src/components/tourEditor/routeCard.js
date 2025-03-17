@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import delete2 from '../../img/delete2.svg';
 
-function RouteCard({directionInfo, route, deleteRoute}) {
+function RouteCard({directionInfo, route, deleteRoute, openRouteEditor}) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
-        <div className="route-card" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+        <div className="route-card" onClick={openRouteEditor} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <div className="route-card-directions">
                 <div className="route-card-direction">
                     <div className="route-card-direction-type">Отправление</div>

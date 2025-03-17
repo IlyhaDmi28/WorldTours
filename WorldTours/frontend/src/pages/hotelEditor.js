@@ -91,10 +91,9 @@ function HotelEditor() {
 	const closeDirectionsModal = () => {
 		setDirectionsPageInndex(0);
 		setDirection({
-			hotel: null,
-			country: null,
-			city: null,
-			starsNumber: null
+			regionId: null,
+			countryId: null,
+			cityId: null,
 		});
 	}
 	
@@ -253,8 +252,6 @@ function HotelEditor() {
 				characteristics: prevHotel.characteristics.filter((characteristic) => characteristic.id !== changedCharacteristic.id)
 			}));
 		}
-
-
 	};
 
 	//Вынести желательно(низ)
