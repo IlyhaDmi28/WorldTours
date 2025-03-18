@@ -15,9 +15,11 @@ function TourCardForManager({ tour, deleteTour }) {
             </b></div>
 
             <div className="tour-for-editor-card-direction">
-                {tour.country}, {tour.city}
+                <b>Направление: </b> {tour.country}, {tour.city}
             </div>
-
+            <div className="tour-for-editor-card-hotel">
+                <b>Отель: </b>{tour.hotel}
+            </div>
             <Rating 
 				className="tour-for-editor-card-hotel-stars" 
 				name="starsNumber" 
@@ -25,6 +27,7 @@ function TourCardForManager({ tour, deleteTour }) {
 				precision={1}
                 readOnly 
 			/>
+            <img className='tour-for-editor-card-tour-type' src={tour.tourTypeImageUrl}/>
 
             {isHovered && 
                	<button className="tour-for-editor-card-delete-button" onClick={(e)=>{e.preventDefault(); deleteTour(tour)}}>

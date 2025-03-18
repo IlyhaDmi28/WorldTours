@@ -33,7 +33,7 @@ function TourEditor() {
 	});
 	
 	const [tourTypes, setTourTypes] = useState([]); 
-	const [photosUrls, setPhotosUrls] = useState([selectNewPhoto]); 
+	const [photosUrls, setPhotosUrls] = useState([]); 
 	const [photosFiles, setPhotosFiles] = useState([]); 
 	const [characteristics, setCharacteristics] = useState([]);
 
@@ -49,7 +49,6 @@ function TourEditor() {
 		name: null,
 		hotelId: null,
 		mainDescription: null,
-		nutritionTypeId: null,
 		tourTypeId: null,
 		routes: [],
 		characteristics: [],
@@ -122,39 +121,53 @@ function TourEditor() {
 
 				let response;
 
-				response = await axios.get(`https://localhost:7276/tour/tour_for_editor?tourId=${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-				const tourData = response.data;
-				setTour((prevTour) => ({
-					...prevTour, // Сохраняем предыдущие значения
-					id: tourData.id,
-					name: tourData.name,
-					hotelId: tourData.hotelId,
-					mainDescription: tourData.mainDescription,
-					tourTypeId: tourData.tourTypeId,
-					routes: tourData.routes,
-					characteristics: tourData.characteristics,
-				}));
-
-				// setPhotosUrls(tourData.photoUrl === null ? [] : tourData.photoUrl);
-				setPhotosUrls([]);
-				// setPhotosUrls([tourData.photoUrl === null ? selectNewPhoto : tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
-
-				if(tourData.hotelId !== null) {
-					response = await axios.get(
-						`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
+				if(id !== '0') {
+					response = await axios.get(`https://localhost:7276/tour/tour_for_editor?tourId=${id}`, {
+						headers: {
+							'Authorization': 'Bearer ' + token,
 						}
-					);
-					const directionInfoData = response.data;
-					setDirectionInfo(directionInfoData);
+					});
+					const tourData = response.data;
+					console.log('tourData');
+					console.log(tourData);
+					setTour((prevTour) => ({
+						...prevTour, // Сохраняем предыдущие значения
+						id: tourData.id,
+						name: tourData.name,
+						hotelId: tourData.hotelId,
+						mainDescription: tourData.mainDescription,
+						tourTypeId: tourData.tourTypeId,
+						routes: tourData.routes,
+						characteristics: tourData.characteristics,
+					}));
+
+					setPhotosUrls(tourData.photosUrls);
+
+					if(tourData.hotelId !== null) {
+						response = await axios.get(
+							`https://localhost:7276/direction/get?hotelId=${tourData.hotelId}`,
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							}
+						);
+						const directionInfoData = response.data;
+						setDirectionInfo(directionInfoData);
+					}
+
+					response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
+						headers: {
+							'Authorization': 'Bearer ' + token,
+						}
+					});
+					const reviewsData = response.data;
+					setTour((prevTour) => ({
+						...prevTour, 
+						reviews: reviewsData
+					}));
 				}
+
 
                 response = await axios.get('https://localhost:7276/tour/tour_types', {
                     headers: {
@@ -162,18 +175,8 @@ function TourEditor() {
                     }
                 });
 				const tourTypesData = response.data;
+				console.log(tourTypesData);
 				setTourTypes(tourTypesData);
-
-				response = await axios.get(`https://localhost:7276/review/reviews?tourId=${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-				const reviewsData = response.data;
-				setTour((prevTour) => ({
-					...prevTour, 
-					reviews: reviewsData
-				}));
 
 				response = await axios.get('https://localhost:7276/tour/characteristics', {
 					headers: {
@@ -231,19 +234,20 @@ function TourEditor() {
 		});
 
 		setTour((prevTour) => {
-
 			return {
 				...prevTour,
 				hotelId: null
 			}
 		});
+
+		setIsLoadHotelPhotos(false);
 	}
 
 	const loadPhotos = (e) => {
 		const files = Array.from(e.target.files); 
 	
 		const newImages = files.map(file => URL.createObjectURL(file)); // Создаём ссылки на изображения
-		setPhotosUrls(newImages); // Добавляем новые фото в массив  
+		setPhotosUrls((prevPhotosUrls) => [...prevPhotosUrls, ...newImages]); // Добавляем новые фото в массив  
 	};
 
 	const loadHotelPhotos = async () => {
@@ -325,6 +329,8 @@ function TourEditor() {
 	//Вынести желательно(верх)
 
 	const saveTour = async () => {
+		console.log(tour);
+		
 		if(authUser.blockedStatus) {
 			alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
 			return;
@@ -334,7 +340,6 @@ function TourEditor() {
 			(tour.name === "" || tour.name === null) ||
 			(tour.mainDescription === "" || tour.mainDescription === null) ||
 			(tour.hotelId === "" || tour.hotelId === null) ||
-			(tour.nutritionTypeId === "" || tour.nutritionTypeId === null) ||
 			(tour.tourTypeId === "" || tour.tourTypeId === null)
 		) {
 			alert("Вы не заполнили все поля!")
@@ -349,8 +354,42 @@ function TourEditor() {
 		const segments = location.pathname.split('/');
     	const id = segments[segments.length - 1];
 
+		const copiedphotosFiles = await convertObjectUrlsToFiles(photosUrls);
+
+		const formData = new FormData();
+			
+		formData.append("Id", tour.id);
+		formData.append("Name", tour.name);
+		formData.append("MainDescription", tour.mainDescription);
+		formData.append("HotelId", tour.hotelId);
+		formData.append("TourTypeId", tour.tourTypeId);
+		
+		// Отправка фотографий (каждый файл добавляется отдельно)
+		copiedphotosFiles.forEach((file) => {
+			formData.append("PhotosFiles", file); // Название должно совпадать с C#
+		});
+
+		// Отправка массивов в виде JSON
+		formData.append("Characteristics", JSON.stringify(tour.characteristics));
+
+		const routesForm = tour.routes.map(route => ({
+			landingDateOfDeparture: route.landingDateOfDeparture,
+			landingTimeOfDeparture: route.landingTimeOfDeparture,
+			arrivalDateOfDeparture: route.arrivalDateOfDeparture,
+			arrivalTimeOfDeparture: route.arrivalTimeOfDeparture,
+			landingDateOfReturn: route.landingDateOfReturn,
+			landingTimeOfReturn: route.landingTimeOfReturn,
+			arrivalDateOfReturn: route.arrivalDateOfReturn,
+			arrivalTimeOfReturn: route.arrivalTimeOfReturn,
+			departmentDepartureId: route.departmentDeparture.id,
+			price: route.price,
+			seatsNumber: route.seatsNumber,
+		}))
+
+		formData.append("Routes", JSON.stringify(routesForm));
+
 		if(id === '0') {
-			await axios.post('https://localhost:7276/tour/add', tour, {
+			await axios.post('https://localhost:7276/tour/add', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`,
@@ -360,7 +399,7 @@ function TourEditor() {
 			window.location.href = '/tours';
 		}
 		else {
-			await axios.put('https://localhost:7276/tour/edit', tour, {
+			await axios.put('https://localhost:7276/tour/edit', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`,
@@ -405,7 +444,7 @@ function TourEditor() {
 	}
 
 	const closeImagesGallery = (e) => {
-        if (e.target === e.currentTarget || e.key === "Escape") {
+		if (e === 'isEmpty' || e.target === e.currentTarget || e.key === "Escape") {
             showImages(-1);
         }
     };
@@ -444,13 +483,6 @@ function TourEditor() {
 							<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
 						</div>
 					}
-					{/* <div className="main-tour-editor-photo">
-						<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
-						<input type="file" multiple  
-						ref={ photosFiles} 
-						onChange={loadPhotos} 
-						style={{ display: 'none' }} accept="image/*"/>
-					</div> */}
 				</div>
 							
 				<div className='other-tour-photos-and-controller'>
@@ -468,10 +500,10 @@ function TourEditor() {
 					{
 						photosUrls.length !== 0 &&
 						<div className='other-tour-photos'>
-								<div>
-									{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
-								</div>
-								{photosUrls.length > 7 && <button className='more-tour-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
+							<div>
+								{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
+							</div>
+							{photosUrls.length > 7 && <button className='more-tour-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
 						</div>
 					}
 					
@@ -501,7 +533,7 @@ function TourEditor() {
 						/>
 					</>) :
 						<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
-							<b>Выбрать страну, город</b>
+							<b>Выбрать отель</b>
 						</button>
 					}
 
@@ -518,40 +550,6 @@ function TourEditor() {
 						/>
 					</div>
 
-					{/* <div className="tour-editor-desription">
-						<div><b>Описание</b></div>
-						<textarea name='mainDescription' value={tour.mainDescription} onChange={changeTour}/>
-					</div> */}
-
-					{/* <div className='nutrition-type'>
-						<div><b>Тип питание</b></div>
-						<select name='nutritionTypeId' value={tour.nutritionTypeId} onChange={changeTour}>
-                            {nutritionTypes.map((nutritionType) => (
-                                <option 
-                                    key={nutritionType.id}
-                                    value={nutritionType.id}
-                                >
-                                    {nutritionType.name}
-                                </option>
-                            ))}
-                        </select>
-					</div> */}
-
-					{/* <div className='nutrition-type'>
-						<div><b>Тип тура</b></div>
-						<select name='nutritionTypeId' value={tour.tourTypeId} onChange={changeTour}>
-                            {tourTypes.map((tourType) => (
-                                <option 
-                                    key={tourType.id}
-                                    value={tourType.id}
-                                >
-									
-                                    {tourType.name}
-                                </option>
-                            ))}
-                        </select>
-					</div> */}
-
 					<div className="select-tour-types">
 						<ArrowBackIosNewIcon 
 							className="arrow-navigation-tour-type" 
@@ -562,10 +560,16 @@ function TourEditor() {
 								visibility: indexOfTourTypePage === 0 ? 'hidden' : 'visible'
 							}}
 						/>
-						{/* <button className='tour-types-nav-page-button'>B</button> */}
 
 						<div className="tour-types-list">
-							{tourTypes.slice(indexOfTourTypePage, indexOfTourTypePage + 5).map((tourType) => (<TourType tourType={tourType} selectedTourType={tour.tourTypeId} setTourType={() => changeCharacteristics(tourType.id)}/>))}
+							{tourTypes.slice(indexOfTourTypePage, indexOfTourTypePage + 5).map((tourType) => (
+								<TourType 
+									tourType={tourType}
+									selectedTourType={tour.tourTypeId} 
+									setTourType={() => {
+										setTour((prevTour) => {return {...prevTour, tourTypeId: tourType.id}})
+									}}
+								/>))}
 						</div>
 						
 						<ArrowForwardIosIcon 
@@ -577,8 +581,6 @@ function TourEditor() {
 								visibility: indexOfTourTypePage + 5 >= tourTypes.length  ? 'hidden' : 'visible'
 							}}
 						/>
-
-						{/* <button className='tour-types-nav-page-button'>N</button> */}
         			</div>
 
 					<div className="tour-editor-characteristics"> {/*комп*/}

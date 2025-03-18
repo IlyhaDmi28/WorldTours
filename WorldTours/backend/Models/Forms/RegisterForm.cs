@@ -1,4 +1,4 @@
-﻿namespace backend.Models.DTOs
+﻿namespace backend.Models.Forms
 {
     public class RegisterForm
     {

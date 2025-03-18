@@ -18,14 +18,10 @@ namespace backend.Models.Entity
         public int? Price { get; set; }
         public int? SeatsNumber { get; set; }
         public int? DepartmentDepartureId { get; set; }
-        public int? TransportTypeId { get; set; }
         public int? TourId { get; set; }
 
         [ForeignKey(nameof(DepartmentDepartureId))]
         public DepartmentDeparture DepartmentDeparture { get; set; }
-
-        [ForeignKey(nameof(TransportTypeId))]
-        public TransportType TransportType { get; set; }
 
         [ForeignKey(nameof(TourId))]
         public Tour Tour { get; set; }

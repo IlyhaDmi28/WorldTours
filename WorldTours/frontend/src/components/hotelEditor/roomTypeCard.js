@@ -14,7 +14,7 @@ function RoomTypeCard({roomType, deleteRoomType, openRoomTypeEditor}) {
             </div>
 
             {isHovered && 
-                <button className="delete-room-type-card-button" onClick={deleteRoomType}>
+                <button className="delete-room-type-card-button" onClick={(e) => {e.stopPropagation(); deleteRoomType()}}>
                     <img src={delete2}/>
                 </button>
             }

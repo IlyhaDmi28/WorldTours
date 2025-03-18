@@ -43,18 +43,21 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
                     }
                 });
                 
-                const departmentDeparture = response.data;
-                setDepartmentDepartures(departmentDeparture);
+                const departmentDeparturesData = response.data;
+                setDepartmentDepartures(departmentDeparturesData);
 
-                setRoute((prevRoute) => ({
-                    ...prevRoute,
-                    departmentDeparture: {
-                        id: departmentDeparture[0].id,
-                        name: departmentDeparture[0].name,
-                        city: departmentDeparture[0].city,
-                        country: departmentDeparture[0].country,
-                    },
-                }));
+                if(indexOfSelectedRoute === -1) {
+                    setRoute((prevRoute) => ({
+                        ...prevRoute,
+                        departmentDeparture: {
+                            id: departmentDeparturesData[0].id,
+                            name: departmentDeparturesData[0].name,
+                            city: departmentDeparturesData[0].city,
+                            country: departmentDeparturesData[0].country,
+                        },
+                    }));
+                }
+                
 
                 const response2 = await axios.get('https://localhost:7276/route/transport_types', {
                     headers: {
@@ -64,14 +67,16 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
                 
                 const transportTypes = response2.data;
                 setTransportTypes(transportTypes);
-
-                setRoute((prevRoute) => ({
-                    ...prevRoute,
-                    transportType: {
-                        id: transportTypes[0].id,
-                        name: transportTypes[0].name,
-                    },
-                }));
+                
+                if(indexOfSelectedRoute === -1) {
+                    setRoute((prevRoute) => ({
+                        ...prevRoute,
+                        transportType: {
+                            id: departmentDeparturesData[0].transportTypeId,
+                            name: transportTypes.find((transportType) => transportType.id === departmentDeparturesData[0].transportTypeId).name
+                        }
+                    }));
+                }                
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -101,7 +106,8 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
                 country: selectedDepartmentDeparture.country,
             },
             transportType: {
-                id: selectedDepartmentDeparture.transportTypeId 
+                id: selectedDepartmentDeparture.transportTypeId,
+                name: transportTypes.find((transportType) => transportType.id === selectedDepartmentDeparture.transportTypeId).name
             }
         }));
     };

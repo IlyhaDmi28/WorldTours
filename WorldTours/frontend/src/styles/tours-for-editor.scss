@@ -125,16 +125,31 @@
 			position: absolute;
 			font-size: 16px;
 			left: $indent-from-left-on-card;
-			top: 82px;
+			top: 72px;
+			color: $dark-grey-color;
+		}
+
+		.tour-for-editor-card-hotel {
+			position: absolute;
+			font-size: 16px;
+			left: $indent-from-left-on-card;
+			top: 92px;
 			color: $dark-grey-color;
 		}
 
 		.tour-for-editor-card-hotel-stars {
 			position: absolute;
 			left: $indent-from-left-on-card - 3px;
-			top: 120px;
+			top: 115px;
             font-size: 20px;
         }
+
+		.tour-for-editor-card-tour-type {
+			position: absolute;
+			left: $indent-from-left-on-card;
+			bottom: 20px;
+			height: 40px;
+		}
 
 		.tour-for-editor-card-delete-button {
 			position: absolute;

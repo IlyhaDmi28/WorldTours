@@ -10,7 +10,6 @@ namespace backend.Models.Entity
         [MaxLength(255)]
         public string Name { get; set; }
 
-        public ICollection<Route> Routes { get; set; }
         public ICollection<DepartmentDeparture> DepartmentDepartures { get; set; }
 	}
 }

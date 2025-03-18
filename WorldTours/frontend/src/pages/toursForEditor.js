@@ -29,13 +29,13 @@ function ToursForEditor() {
 		const getData = async () => {
             try {
 				let response;
-				// response = await axios.get('https://localhost:7276/tour/tours_to_edit', {
-                //     headers: {
-                //         'Authorization': 'Bearer ' + token,
-                //     }
-                // });
-				// const toursData = response.data;
-				// setTours(toursData);
+				response = await axios.get('https://localhost:7276/tour/tours_for_editor', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+				const toursData = response.data;
+				setTours(toursData);
 
 				response = await axios.get('https://localhost:7276/tour/tour_types', {
                     headers: {

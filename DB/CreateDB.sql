@@ -111,13 +111,16 @@ CREATE TABLE RoomTypeDescriptions (
 	FOREIGN KEY (`RoomTypeID`) REFERENCES `RoomTypes`(`ID`)
 );
 
+DESCRIBE Tours;
+SELECT * FROM tours;
 CREATE TABLE Tours (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	Name VARCHAR(255) UNIQUE NOT NULL,
 	MainDescription VARCHAR(255),
 	TourTypeId INT,
-	NutritionTypeId INT,
-	HotelId INT
+	HotelId INT,
+	FOREIGN KEY (`TourTypeId`) REFERENCES `TourTypes`(`ID`),
+	FOREIGN KEY (`HotelId`) REFERENCES `Hotels`(`ID`)
 );
 
 CREATE TABLE TourCharacteristics (
@@ -142,6 +145,9 @@ CREATE TABLE Reviews (
   	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 );
 
+SELECT * FROM DepartmentDepartures;
+SELECT * FROM routes;
+SELECT * FROM TourDescriptions;
 CREATE TABLE Routes (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	LandingDateOfDeparture DATE,
@@ -155,10 +161,8 @@ CREATE TABLE Routes (
 	Price INT,
 	SeatsNumber INT,
 	DepartmentDepartureId INT,
-	TransportTypeId INT,
 	TourId INT,
 	FOREIGN KEY (`DepartmentDepartureId`) REFERENCES `DepartmentDepartures`(`ID`),
-  	FOREIGN KEY (`TransportTypeId`) REFERENCES `TransportTypes`(`ID`),
   	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 );
 

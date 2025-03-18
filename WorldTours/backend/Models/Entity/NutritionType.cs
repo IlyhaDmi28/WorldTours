@@ -9,8 +9,6 @@ namespace backend.Models.Entity
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
-
-        public ICollection<Tour> Tours { get; set; }
         public ICollection<Hotel> Hotels { get; set; }
 	}
 }

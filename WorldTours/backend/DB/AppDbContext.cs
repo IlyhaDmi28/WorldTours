@@ -81,7 +81,7 @@ namespace backend.DB
 					j => j
 						.HasOne<Tour>()
 						.WithMany()
-						.HasForeignKey("RoomTypeID")
+						.HasForeignKey("TourID")
 						.HasConstraintName("FK_TourDescriptions_Tours")
 				);
 
@@ -132,12 +132,6 @@ namespace backend.DB
 				.HasForeignKey(r => r.DepartmentDepartureId)
 				.OnDelete(DeleteBehavior.Restrict);
 
-			// Настройка TransportType
-			modelBuilder.Entity<TransportType>()
-				.HasMany(tt => tt.Routes)
-				.WithOne(r => r.TransportType)
-				.HasForeignKey(r => r.TransportTypeId)
-				.OnDelete(DeleteBehavior.Restrict);
 
 			modelBuilder.Entity<TransportType>()
 				.HasMany(tt => tt.DepartmentDepartures)
@@ -158,14 +152,6 @@ namespace backend.DB
 				.WithOne(rt => rt.Hotel)
 				.HasForeignKey(rt => rt.HotelId)
 				.OnDelete(DeleteBehavior.Cascade);
-
-
-			// Настройка NutritionType
-			modelBuilder.Entity<NutritionType>()
-				.HasMany(nt => nt.Tours)
-				.WithOne(t => t.NutritionType)
-				.HasForeignKey(t => t.NutritionTypeId)
-				.OnDelete(DeleteBehavior.SetNull);
 
 			// Настройка NutritionType
 			modelBuilder.Entity<NutritionType>()

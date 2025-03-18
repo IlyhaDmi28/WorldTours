@@ -1,4 +1,4 @@
-﻿namespace backend.Models.DTOs
+﻿namespace backend.Models.Forms
 {
 	public class TourForm
 	{
@@ -6,11 +6,9 @@
 		public string? Name { get; set; }
 		public string? MainDescription { get; set; }
 		public int? TourTypeId { get; set; }
-		public int? NutritionTypeId { get; set; }
 		public int? HotelId { get; set; }
-		public IFormFile? PhotoFile { get; set; }
-		public List<RouteDto> Routes { get; set; }
-		public List<DescriptionWithCharacteriscDto> Descriptions { get; set; }
-
+		public List<IFormFile> PhotosFiles { get; set; }
+		public string Characteristics { get; set; }
+		public string Routes { get; set; }
 	}
 }

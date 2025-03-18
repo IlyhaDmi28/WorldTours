@@ -31,7 +31,7 @@ function HotelEditor() {
 		address: null
 	});
 	
-	const [photosUrls, setPhotosUrls] = useState([selectNewPhoto]); 
+	const [photosUrls, setPhotosUrls] = useState([]); 
 	const [photosFiles, setPhotosFiles] = useState([]); 
 	const [nutritionTypes, setNutritionTypes] = useState([]);
 	const [characteristics, setCharacteristics] = useState([]);
@@ -132,7 +132,7 @@ function HotelEditor() {
 					characteristics: hotelData.characteristics,
 					roomTypes: hotelData.roomTypes
 				}));
-				setPhotosUrls(hotelData.photosUrls === null ? [selectNewPhoto] : hotelData.photosUrls);
+				setPhotosUrls(hotelData.photosUrls === null ? [] : hotelData.photosUrls);
 
 				if(hotelData.cityId !== null) {
 					response = await axios.get(
@@ -220,6 +220,7 @@ function HotelEditor() {
 		const files = Array.from(e.target.files); 
 
 		const newImages = files.map(file => URL.createObjectURL(file)); // Создаём ссылки на изображения
+		console.log(newImages);
 		setPhotosUrls(newImages); // Добавляем новые фото в массив  
     };
 
@@ -349,7 +350,7 @@ function HotelEditor() {
 	}
 
 	const closeImagesGallery = (e) => {
-        if (e.target === e.currentTarget || e.key === "Escape") {
+        if (e === 'isEmpty' || e.target === e.currentTarget || e.key === "Escape") {
             showImages(-1);
         }
     };
@@ -377,7 +378,10 @@ function HotelEditor() {
 			<div className="line-under-header"></div>
 
 			<RoomTypesMenu roomTypes={hotel.roomTypes} setRoomTypes={setRoomTypes} saveHotel={saveHotel}/>
-			<div className="hotel-editor-images-and-name">
+			<div 
+				className="hotel-editor-images-and-name"
+				style={photosUrls.length === 0 ? {height: 'auto'} : {}}
+			>
 				<div className="hotel-editor-name-and-main-photo">
 					<div className="hotel-editor-name">
 						<div>
@@ -393,22 +397,29 @@ function HotelEditor() {
 							onChange={changeHotel}
 						/>
 					</div>
-					<div className="main-hotel-editor-photo">
-						<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
-						<input type="file" multiple  ref={ photosFiles} onChange={loadPhotos} style={{ display: 'none' }} accept="image/*"/>
-					</div>
+					{
+						photosUrls.length !== 0 &&
+						<div className="main-hotel-editor-photo">
+							<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
+						</div>
+					}
 				</div>
 				
 				<div className='other-hotel-photos-and-controller'>
 					<div className='hotel-photos-controller'>
 						<button onClick={setPhotoUropenFileDialogToSelectPhoto}><b>Загрузить изображения</b></button>
+						<input type="file" multiple  ref={ photosFiles} onChange={loadPhotos} style={{ display: 'none' }} accept="image/*"/>
 					</div>
-					<div className='other-hotel-photos'>
-						<div>
-							{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
+					{
+						photosUrls.length !== 0 &&
+						<div className='other-hotel-photos'>
+							<div>
+								{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
+							</div>
+							{photosUrls.length > 7 && <button className='more-hotel-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
 						</div>
-						{photosUrls.length > 7 && <button className='more-hotel-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
-					</div>
+					}
+					
 				</div>
 			</div>
 

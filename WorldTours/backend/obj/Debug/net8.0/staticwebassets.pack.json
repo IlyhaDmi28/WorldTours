@@ -617,6 +617,18 @@
       "PackagePath": "staticwebassets\\uploads\\hotels\\sfsdfsdfds\\1.jpg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sfsfsdfs fdsdfsd\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\sfsfsdfs fdsdfsd\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sfsfsdfs fdsdfsd\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\sfsfsdfs fdsdfsd\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sfsfsdfs fdsdfsd\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\sfsfsdfs fdsdfsd\\2.jpg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sskkkllllllrrrrrrttttt\\0.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\sskkkllllllrrrrrrttttt\\0.jpg"
     },
@@ -683,6 +695,70 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Тестовый отель\\cdffff70-ffde-4870-98e9-d3ad812e3b24__51a5d589-71ef-4f48-a404-a079216bf26c.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\Тестовый отель\\cdffff70-ffde-4870-98e9-d3ad812e3b24__51a5d589-71ef-4f48-a404-a079216bf26c.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Туса с тайскими девочками (мальчиками)\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Туса с тайскими девочками (мальчиками)\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\2\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\2\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\2\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\2\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\2\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\2\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\2\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\2\\3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\7\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\7\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\7\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\7\\3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\4.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\7\\4.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\7\\5.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\8\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\8\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\8\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\8\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\8\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\8\\2.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.backend.Microsoft.AspNetCore.StaticWebAssets.props",

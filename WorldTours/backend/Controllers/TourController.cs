@@ -6,6 +6,7 @@ using backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -114,14 +115,15 @@ namespace backend.Controllers
 					if (tour == null) return NotFound();
 
 					List<Route> routes = await db.Routes
-						.Include(r => r.TransportType)
 						.Include(r => r.DepartmentDeparture)
 						.ThenInclude(d => d.City)
 						.ThenInclude(c => c.Country)
+						.Include(r => r.DepartmentDeparture)
+						.ThenInclude(d => d.TransportType)
 						.Where(r => r.TourId == tourId)
 						.ToListAsync();
 
-					string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotels", tour.Name);
+					string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "tours", tour.Id.ToString());
 
 					List<string> fileNames = new List<string>();
 					List<string> fileUrls = new List<string>();
@@ -131,7 +133,7 @@ namespace backend.Controllers
 					{
 						// Получаем все файлы из папки
 						string[] files = Directory.GetFiles(folderPath);
-						
+
 						// Создаём список только с названиями файлов
 						fileNames = files.Select(Path.GetFileName).ToList();
 					}
@@ -142,7 +144,7 @@ namespace backend.Controllers
 
 					foreach (string fileName in fileNames)
 					{
-						fileUrls.Add($"https://localhost:7276/uploads/hotels/{tour.Name}/{fileName}");
+						fileUrls.Add($"https://localhost:7276/uploads/tours/{tour.Id}/{fileName}");
 					}
 
 					tourForEditor = new TourForEditorDto()
@@ -153,6 +155,7 @@ namespace backend.Controllers
 						HotelId = tour.HotelId,
 						TourTypeId = tour.TourTypeId,
 						PhotosUrls = fileUrls,
+						Characteristics = tour.Characteristics.Select(c => new CharacteristicDto { Id = c.Id, Name = c.Name }).ToList(),
 						Routes = routes.Select(r => new RouteDto()
 						{
 							Id = r.Id,
@@ -168,8 +171,8 @@ namespace backend.Controllers
 							SeatsNumber = r.SeatsNumber,
 							TransportType = new TransportTypeDto
 							{
-								Id = r.TransportType?.Id ?? 0,
-								Name = r.TransportType?.Name
+								Id = r.DepartmentDeparture.TransportType?.Id ?? 0,
+								Name = r.DepartmentDeparture.TransportType?.Name
 							},
 							DepartmentDeparture = new DepartmentDepartureDto
 							{
@@ -422,55 +425,36 @@ namespace backend.Controllers
 		//	}
 		//}
 
-		//[Authorize(Roles = "Manager, Admin")]
-		//[HttpGet("tours_to_edit")]
-		//public async Task<IActionResult> GetToursToEdit([FromQuery] int? tourTypeId)
-		//{
-		//	try
-		//	{
-		//		if (tourTypeId == null || tourTypeId == 0)
-		//		{
-		//			List<Tour> tours = await db.Tours
-		//				.Include(t => t.Hotel) 
-		//				.ThenInclude(h => h.City) 
-		//				.ThenInclude(c => c.Country) 
-		//				.ToListAsync();
+		[Authorize(Roles = "Manager, Admin")]
+		[HttpGet("tours_for_editor")]
+		public async Task<IActionResult> GetToursForEditor()
+		{
+			try
+			{
+				List<Tour> tours = await db.Tours
+					.Include(t => t.TourType)
+					.Include(t => t.Hotel)
+					.ThenInclude(h => h.City)
+					.ThenInclude(c => c.Country)
+					.ToListAsync();
 
-		//			return Ok(tours.Select(t => new TourCardForEditor
-		//			{
-		//				Id = t.Id,
-		//				Name = t.Name,
-		//				Country = t.Hotel.City.Country.Name,
-		//				City = t.Hotel.City.Name,
-		//				PhotoUrl = PhotoService.ConvertToBase64(t.Photo, "jpeg"),
-		//				StarsNumber = t.Hotel.StarsNumber,
-		//			}));
-		//		}
-		//		else
-		//		{
-		//			List<Tour> tours = await db.Tours
-		//				.Include(t => t.Hotel) 
-		//				.ThenInclude(h => h.City) 
-		//				.ThenInclude(c => c.Country) 
-		//				.Where(t => t.TourTypeId == tourTypeId)
-		//				.ToListAsync();
-
-		//			return Ok(tours.Select(t => new TourCardForEditor
-		//			{
-		//				Id = t.Id,
-		//				Name = t.Name,
-		//				Country = t.Hotel.City.Country.Name,
-		//				City = t.Hotel.City.Name,
-		//				PhotoUrl = PhotoService.ConvertToBase64(t.Photo, "jpeg"),
-		//				StarsNumber = t.Hotel.StarsNumber,
-		//			}));
-		//		}
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return BadRequest(ex.Message);
-		//	}
-		//}
+				return Ok(tours.Select(t => new TourForEditorCardDto
+				{
+					Id = t.Id,
+					Name = t.Name,
+					Country = t.Hotel.City.Country.Name,
+					City = t.Hotel.City.Name,
+					Hotel = t.Hotel.Name,
+					TourTypeImageUrl = $"https://localhost:7276/{t.TourType.PathToImage}",
+					StarsNumber = t.Hotel.StarsNumber,
+					PhotoUrl = $"https://localhost:7276/uploads/tours/{t.Id}/0.jpg",
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 
 		[Authorize(Roles = "Manager, Admin")]
 		[HttpPost("add")]
@@ -484,20 +468,27 @@ namespace backend.Controllers
 					{
 						try
 						{
+							var characteristics = JsonConvert.DeserializeObject<List<CharacteristicForm>>(tour.Characteristics);
+							var routes = JsonConvert.DeserializeObject<List<RouteForm>>(tour.Routes);
+
+							List<int> characteristicIds = characteristics.Select(hc => hc.Id).ToList();
+							ICollection<TourCharacteristic> tourCharacteristics = await db.TourCharacteristics
+								   .Where(tc => characteristicIds.Contains(tc.Id))
+								   .ToListAsync();
+
 							Tour newTour = new Tour()
 							{
 								Name = tour.Name,
 								MainDescription = tour.MainDescription,
 								HotelId = tour.HotelId,
-								NutritionTypeId = tour.NutritionTypeId,
 								TourTypeId = tour.TourTypeId,
+								Characteristics = tourCharacteristics
 							};
-							//if (tour.PhotoFile != null) newTour.Photo = await PhotoService.ConvertToBytes(tour.PhotoFile);
 
 							await db.Tours.AddAsync(newTour);
 							await db.SaveChangesAsync();
 
-							await db.Routes.AddRangeAsync(tour.Routes.Select(r => new Models.Entity.Route()
+							var newRoutes = routes.Select(r => new Models.Entity.Route()
 							{
 								LandingDateOfDeparture = DateService.ConvertToDateFormat(r.LandingDateOfDeparture),
 								LandingTimeOfDeparture = TimeSpan.ParseExact(
@@ -525,19 +516,29 @@ namespace backend.Controllers
 								),
 								Price = r.Price,
 								SeatsNumber = r.SeatsNumber,
-								DepartmentDepartureId = r.DepartmentDeparture.Id,
-								TransportTypeId = r.TransportType.Id,
+								DepartmentDepartureId = r.DepartmentDepartureId,
 								TourId = newTour.Id,
-							}));
+							});
+
+							await db.Routes.AddRangeAsync(newRoutes);
 							await db.SaveChangesAsync();
 
-							//await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(d => new TourDescription()
-							//{
-							//	CharacteristicId = d.Characteristic.Id,
-							//	TourId = newTour.Id,
-							//	Value = d.Description.Value
-							//}));
-							await db.SaveChangesAsync();
+							if (tour.PhotosFiles?.Count > 0)
+							{
+								string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "tours", newTour.Id.ToString());
+								if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+								for (int i = 0; i < tour.PhotosFiles.Count; i++)
+								{
+									var file = tour.PhotosFiles[i];
+									if (file.Length > 0)
+									{
+										string filePath = Path.Combine(uploadsFolder, $"{i}.jpg");
+										using var fileStream = new FileStream(filePath, FileMode.Create);
+										await file.CopyToAsync(fileStream);
+									}
+								}
+							}
 
 							await transaction.CommitAsync();
 							return Ok();
@@ -558,107 +559,107 @@ namespace backend.Controllers
 			}
 		}
 
-		[Authorize(Roles = "Manager, Admin")]
-		[HttpPut("edit")]
-		public async Task<IActionResult> EditTour([FromForm] TourForm tour)
-		{
-			try
-			{
-				if (tour.Id != 0)
-				{
-					using (var transaction = await db.Database.BeginTransactionAsync())
-					{
-						try
-						{
-							Tour editedTour = await db.Tours.FirstOrDefaultAsync(t => t.Id == tour.Id);
+		//[Authorize(Roles = "Manager, Admin")]
+		//[HttpPut("edit")]
+		//public async Task<IActionResult> EditTour([FromForm] TourForm tour)
+		//{
+		//	try
+		//	{
+		//		if (tour.Id != 0)
+		//		{
+		//			using (var transaction = await db.Database.BeginTransactionAsync())
+		//			{
+		//				try
+		//				{
+		//					Tour editedTour = await db.Tours.FirstOrDefaultAsync(t => t.Id == tour.Id);
 
-							if (editedTour == null) return NotFound();
+		//					if (editedTour == null) return NotFound();
 
-							editedTour.Name = tour.Name;
-							editedTour.MainDescription = tour.MainDescription;
-							editedTour.HotelId = tour.HotelId;
-							editedTour.NutritionTypeId = tour.NutritionTypeId;
-							editedTour.TourTypeId = tour.TourTypeId;
-							//if (tour.PhotoFile != null) editedTour.Photo = await PhotoService.ConvertToBytes(tour.PhotoFile);
+		//					editedTour.Name = tour.Name;
+		//					editedTour.MainDescription = tour.MainDescription;
+		//					editedTour.HotelId = tour.HotelId;
+		//					editedTour.NutritionTypeId = tour.NutritionTypeId;
+		//					editedTour.TourTypeId = tour.TourTypeId;
+		//					//if (tour.PhotoFile != null) editedTour.Photo = await PhotoService.ConvertToBytes(tour.PhotoFile);
 
-							await db.SaveChangesAsync();
+		//					await db.SaveChangesAsync();
 
-							List<Route> removedRoutes = await db.Routes.Where(r => r.TourId == editedTour.Id).ToListAsync();
+		//					List<Route> removedRoutes = await db.Routes.Where(r => r.TourId == editedTour.Id).ToListAsync();
 
-							foreach (Route route in removedRoutes)
-							{
-								Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.RouteId == route.Id);
-								if (removedBooking != null) db.Bookings.Remove(removedBooking);
-							}
-							await db.SaveChangesAsync();
+		//					foreach (Route route in removedRoutes)
+		//					{
+		//						Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.RouteId == route.Id);
+		//						if (removedBooking != null) db.Bookings.Remove(removedBooking);
+		//					}
+		//					await db.SaveChangesAsync();
 
-							db.Routes.RemoveRange(removedRoutes);
-							await db.SaveChangesAsync();
+		//					db.Routes.RemoveRange(removedRoutes);
+		//					await db.SaveChangesAsync();
 
-							await db.Routes.AddRangeAsync(tour.Routes.Select(r => new Models.Entity.Route()
-							{
-								LandingDateOfDeparture = DateService.ConvertToDateFormat(r.LandingDateOfDeparture),
-								LandingTimeOfDeparture = TimeSpan.ParseExact(
-									r.LandingTimeOfDeparture,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-								ArrivalDateOfDeparture = DateService.ConvertToDateFormat(r.ArrivalDateOfDeparture),
-								ArrivalTimeOfDeparture = TimeSpan.ParseExact(
-									r.ArrivalTimeOfDeparture,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-								LandingDateOfReturn = DateService.ConvertToDateFormat(r.LandingDateOfReturn),
-								LandingTimeOfReturn = TimeSpan.ParseExact(
-									r.LandingTimeOfReturn,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-								ArrivalDateOfReturn = DateService.ConvertToDateFormat(r.ArrivalDateOfReturn),
-								ArrivalTimeOfReturn = TimeSpan.ParseExact(
-									r.ArrivalTimeOfReturn,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-								Price = r.Price,
-								SeatsNumber = r.SeatsNumber,
-								DepartmentDepartureId = r.DepartmentDeparture.Id,
-								TransportTypeId = r.TransportType.Id,
-								TourId = editedTour.Id,
-							}));
-							await db.SaveChangesAsync();
+		//					await db.Routes.AddRangeAsync(tour.Routes.Select(r => new Models.Entity.Route()
+		//					{
+		//						LandingDateOfDeparture = DateService.ConvertToDateFormat(r.LandingDateOfDeparture),
+		//						LandingTimeOfDeparture = TimeSpan.ParseExact(
+		//							r.LandingTimeOfDeparture,
+		//							@"hh\:mm",
+		//							CultureInfo.InvariantCulture
+		//						),
+		//						ArrivalDateOfDeparture = DateService.ConvertToDateFormat(r.ArrivalDateOfDeparture),
+		//						ArrivalTimeOfDeparture = TimeSpan.ParseExact(
+		//							r.ArrivalTimeOfDeparture,
+		//							@"hh\:mm",
+		//							CultureInfo.InvariantCulture
+		//						),
+		//						LandingDateOfReturn = DateService.ConvertToDateFormat(r.LandingDateOfReturn),
+		//						LandingTimeOfReturn = TimeSpan.ParseExact(
+		//							r.LandingTimeOfReturn,
+		//							@"hh\:mm",
+		//							CultureInfo.InvariantCulture
+		//						),
+		//						ArrivalDateOfReturn = DateService.ConvertToDateFormat(r.ArrivalDateOfReturn),
+		//						ArrivalTimeOfReturn = TimeSpan.ParseExact(
+		//							r.ArrivalTimeOfReturn,
+		//							@"hh\:mm",
+		//							CultureInfo.InvariantCulture
+		//						),
+		//						Price = r.Price,
+		//						SeatsNumber = r.SeatsNumber,
+		//						DepartmentDepartureId = r.DepartmentDeparture.Id,
+		//						TransportTypeId = r.TransportType.Id,
+		//						TourId = editedTour.Id,
+		//					}));
+		//					await db.SaveChangesAsync();
 
-							//List<TourDescription> removedDescriptions = await db.Descriptions.Where(d => d.TourId == editedTour.Id).ToListAsync();
-							//db.Descriptions.RemoveRange(removedDescriptions);
-							//await db.SaveChangesAsync();
+		//					//List<TourDescription> removedDescriptions = await db.Descriptions.Where(d => d.TourId == editedTour.Id).ToListAsync();
+		//					//db.Descriptions.RemoveRange(removedDescriptions);
+		//					//await db.SaveChangesAsync();
 
-							//await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(d => new TourDescription()
-							//{
-							//	CharacteristicId = d.Characteristic.Id,
-							//	TourId = editedTour.Id,
-							//	Value = d.Description.Value
-							//}));
-							//await db.SaveChangesAsync();
+		//					//await db.Descriptions.AddRangeAsync(tour.Descriptions.Select(d => new TourDescription()
+		//					//{
+		//					//	CharacteristicId = d.Characteristic.Id,
+		//					//	TourId = editedTour.Id,
+		//					//	Value = d.Description.Value
+		//					//}));
+		//					//await db.SaveChangesAsync();
 
-							await transaction.CommitAsync();
-							return Ok();
-						}
-						catch (Exception ex)
-						{
+		//					await transaction.CommitAsync();
+		//					return Ok();
+		//				}
+		//				catch (Exception ex)
+		//				{
 
-							await transaction.RollbackAsync();
-							return BadRequest();
-						}
-					}
-				}
-				return BadRequest();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
+		//					await transaction.RollbackAsync();
+		//					return BadRequest();
+		//				}
+		//			}
+		//		}
+		//		return BadRequest();
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return BadRequest(ex.Message);
+		//	}
+		//}
 
 		[Authorize(Roles = "Manager, Admin")]
 		[HttpDelete("delete")]

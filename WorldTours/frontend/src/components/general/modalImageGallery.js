@@ -71,7 +71,8 @@ function ModalImageGallery({ index, images, setImages, closeModal }) {
 							images.filter((_, i) => i !== indexOfSelectedImage)
 						)
 
-						if(images.length - 1 === 0) closeModal(e);
+						if(images.length - 1 === 0) closeModal('isEmpty');
+
 						if(indexOfSelectedImage === images.length - 1) setIndexOfSelectedImage(images.length - 2);
 					}}
 				/>

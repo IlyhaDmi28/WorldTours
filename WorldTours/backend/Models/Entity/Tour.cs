@@ -13,13 +13,10 @@ namespace backend.Models.Entity
         [MaxLength(255)]
         public string MainDescription { get; set; }
         public int? TourTypeId { get; set; }
-        public int? NutritionTypeId { get; set; }
         public int? HotelId { get; set; }
 
         [ForeignKey(nameof(TourTypeId))]
         public TourType TourType { get; set; }
-        [ForeignKey(nameof(NutritionTypeId))]
-        public NutritionType NutritionType { get; set; }
         [ForeignKey(nameof(HotelId))]
         public Hotel Hotel { get; set; }
 		public ICollection<TourCharacteristic> Characteristics { get; set; }

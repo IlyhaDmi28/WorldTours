@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using backend.Models.DTOs;
+using backend.Models.Forms;
 
 namespace backend.Models.Entity
 {

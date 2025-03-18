@@ -59,7 +59,7 @@ function RouteCard({directionInfo, route, deleteRoute, openRouteEditor}) {
             </div>
 
             {isHovered && 
-                <button className="delete-route-card-button" onClick={deleteRoute}>
+                <button className="delete-route-card-button"  onClick={(e) => {e.stopPropagation(); deleteRoute()}}>
                     <img src={delete2}/>
                 </button>
             }
