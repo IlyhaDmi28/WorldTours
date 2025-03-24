@@ -166,13 +166,29 @@ CREATE TABLE Routes (
   	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 );
 
+SELECT * FROM Bookings;
+DROP TABLE bookings;
 CREATE TABLE Bookings (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	OrderSeatsNumber INT,
 	UserId INT,
 	RouteId INT,
+	Price INT,
 	Status BOOLEAN DEFAULT 0,
+	Comment VARCHAR(255),
+	HasСhildren BOOLEAN DEFAULT 0,
+	PrioritySeatsInTransport BOOLEAN DEFAULT 0,
 	FOREIGN KEY (`UserId`) REFERENCES `Users`(`ID`),
   	FOREIGN KEY (`RouteId`) REFERENCES `Routes`(`ID`)
 );
 
+SELECT * FROM BookedRoomTypes;
+DROP TABLE BookedRoomTypes;
+CREATE TABLE BookedRoomTypes (
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	RoomTypeID INT,
+	BookingID INT,
+	OrderRoomsNumber INT,
+  	FOREIGN KEY (`RoomTypeID`) REFERENCES `RoomTypes`(`ID`),
+  	FOREIGN KEY (`BookingID`) REFERENCES `Bookings`(`ID`)
+);

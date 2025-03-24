@@ -26,20 +26,32 @@ namespace backend.Controllers
 		[HttpPost("add")]
 
 		[Authorize(Roles = "User")]
-		public async Task<IActionResult> AddBooking([FromBody] ApplicationForBookingForm applicationForBooking)
+		public async Task<IActionResult> AddBooking([FromBody] RequestForBookingForm requestForBooking)
 		{
 			try
 			{
-				Booking booking = await db.Bookings.FirstOrDefaultAsync(b => b.UserId == applicationForBooking.UserId && b.RouteId == applicationForBooking.RouteId);
+				Booking booking = await db.Bookings.FirstOrDefaultAsync(b => b.UserId == requestForBooking.UserId && b.RouteId == requestForBooking.RouteId);
 				if (booking != null) return Conflict(new { message = "Вы уже заказали данный тур." });
 
-				Route route = await db.Routes.FirstOrDefaultAsync(r => r.Id == applicationForBooking.RouteId);
+				Route route = await db.Routes.FirstOrDefaultAsync(r => r.Id == requestForBooking.RouteId);
 				if (route == null) return BadRequest();
 
-				User user = await db.Users.FirstOrDefaultAsync(r => r.Id == applicationForBooking.UserId);
+				User user = await db.Users.FirstOrDefaultAsync(r => r.Id == requestForBooking.UserId);
 				if (user == null) return Unauthorized();
 
-				int remainingSeatsNumber = (int)route.SeatsNumber - (int)applicationForBooking.OrderSeatsNumber;
+				//List<BookedRoomType> bookedRoomTypes = new List<BookedRoomType>();
+				//foreach (BookedRoomTypeForm bookedRoomType in requestForBooking.BookedRoomTypes)
+				//{
+				//	RoomType roomType = await db.RoomTypes.FirstOrDefaultAsync(rt => rt.Id == bookedRoomType.Id);
+				//	if (roomType == null) return BadRequest();
+
+				//	if()
+
+				//}
+
+				
+
+				int remainingSeatsNumber = (int)route.SeatsNumber - (int)requestForBooking.OrderSeatsNumber;
 
 				if (remainingSeatsNumber >= 0)
 				{
@@ -47,15 +59,33 @@ namespace backend.Controllers
 					{
 						try
 						{
-							route.SeatsNumber = remainingSeatsNumber;
+							Booking newBooking = new Booking()
+							{
+								UserId = requestForBooking.UserId,
+								RouteId = requestForBooking.RouteId,
+								OrderSeatsNumber = requestForBooking.OrderSeatsNumber,
+								Price = requestForBooking.Price,
+								Comment = requestForBooking.Comment,
+								PrioritySeatsInTransport = requestForBooking.PrioritySeatsInTransport,
+								HasСhildren = requestForBooking.HasСhildren,
+							};
+
+							await db.Bookings.AddAsync(newBooking);
 							await db.SaveChangesAsync();
 
-							await db.Bookings.AddAsync(new Booking()
+
+							List<BookedRoomType> newBookedRoomTypes = new List<BookedRoomType>(); ;
+
+							foreach (BookedRoomTypeForm bookedRoomType in requestForBooking.BookedRoomTypes)
 							{
-								UserId = applicationForBooking.UserId,
-								RouteId = applicationForBooking.RouteId,
-								OrderSeatsNumber = applicationForBooking.OrderSeatsNumber
-							});
+								if (bookedRoomType.OrderRoomsNumber != null && bookedRoomType.OrderRoomsNumber != 0) newBookedRoomTypes.Add(new BookedRoomType
+								{
+									RoomTypeID = bookedRoomType.Id,
+									BookingID = newBooking.Id,
+									OrderRoomsNumber = bookedRoomType.OrderRoomsNumber,
+								});
+							}
+							await db.BookedRoomTypes.AddRangeAsync(newBookedRoomTypes);
 							await db.SaveChangesAsync();
 
 							await transaction.CommitAsync();
@@ -105,7 +135,7 @@ namespace backend.Controllers
 					TourName = b.Route.Tour.Name,
 					TourId = b.Route.Tour.Id,
 					RouteId = b.Route.Id,
-					//TourPhotoUrl = PhotoService.ConvertToBase64(b.Route.Tour.Photo, "png"),
+					TourPhotoUrl = $"https://localhost:7276/uploads/tours/{b.Route.Tour.Id}/0.jpg",
 					LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
 					LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
 					LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
@@ -114,7 +144,7 @@ namespace backend.Controllers
 					ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
 					ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
 					ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
-					Price = b.Route.Price,
+					Price = b.Price,
 					OrderSeatsNumber = b.OrderSeatsNumber,
 					Status = b.Status,
 					Direction = new DirectionDto()
@@ -131,6 +161,110 @@ namespace backend.Controllers
 						Country = b.Route.DepartmentDeparture.City.Country.Name,
 					}
 				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpGet("get")]
+		public async Task<IActionResult> GetBooking([FromQuery] int? bookingId = null)
+		{
+			try
+			{
+				Booking booking = await db.Bookings
+					.Include(b => b.Route)
+					.ThenInclude(r => r.Tour)
+					.ThenInclude(t => t.Hotel)
+					.ThenInclude(h => h.City)
+					.ThenInclude(c => c.Country)
+					.Include(b => b.Route)
+					.ThenInclude(r => r.DepartmentDeparture)
+					.ThenInclude(dd =>dd.City)
+					.ThenInclude(c => c.Country)
+					.Include(b => b.Route)
+					.ThenInclude(r => r.DepartmentDeparture)
+					.ThenInclude(dd =>dd.TransportType)
+					.Include(tt => tt.BookedRoomTypes)
+					.ThenInclude(brt => brt.RoomType)
+					.ThenInclude(rt => rt.Characteristics)
+					.FirstOrDefaultAsync(b => b.Id == bookingId);
+
+				if (booking == null) return NotFound();
+
+
+				string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "tours", booking.Route.Tour.Id.ToString());
+
+				string? fileUrl = null;
+
+				// Проверяем, существует ли папка
+				if (Directory.Exists(folderPath))
+				{
+					fileUrl = $"https://localhost:7276/uploads/tours/{booking.Route.Tour.Id}/0.jpg";
+				}
+				else
+				{
+					Console.WriteLine("Папка не найдена.");
+				}
+
+				return Ok(new BookingDto
+				{
+					Id = booking.Id,
+					TourId = booking.Route.Tour.Id,
+					RouteId = booking.Route.Id,
+					TourName = booking.Route.Tour.Name,
+					TourPhotoUrl = fileUrl,
+					Price = booking.Price,
+					OrderSeatsNumber = booking.OrderSeatsNumber,
+					Status = booking.Status,
+					HasChildren = booking.HasСhildren,
+					PrioritySeatsInTransport = booking.PrioritySeatsInTransport,
+					Comment = booking.Comment,
+					Route = new RouteForBookingDto 
+					{
+						Id = booking.Route.Id,
+						LandingDateOfDeparture = booking.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
+						LandingDateOfReturn = booking.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
+						LandingTimeOfDeparture = booking.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
+						LandingTimeOfReturn = booking.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
+						ArrivalDateOfDeparture = booking.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
+						ArrivalDateOfReturn = booking.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
+						ArrivalTimeOfDeparture = booking.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
+						ArrivalTimeOfReturn = booking.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+						DepartmentDeparture = new DepartmentDepartureDto
+						{ 
+							Id = booking.Route.DepartmentDeparture.Id,
+							Name = booking.Route.DepartmentDeparture.Name,
+							Address = booking.Route.DepartmentDeparture.Address,
+							City = booking.Route.DepartmentDeparture.City.Name,
+							Country = booking.Route.DepartmentDeparture.City.Country.Name,
+						},
+						TranportTypeName = booking.Route.DepartmentDeparture.TransportType.Name
+					},
+					Hotel = new HotelForBookingDto
+					{
+						Id = booking.Route.Tour.Hotel.Id,
+						Name = booking.Route.Tour.Hotel.Name,
+						City = booking.Route.Tour.Hotel.City.Name,
+						Country = booking.Route.Tour.Hotel.City.Country.Name,
+						Address = booking.Route.Tour.Hotel.Address,
+						StarsNumber = booking.Route.Tour.Hotel.StarsNumber,
+						RoomTypes = booking.BookedRoomTypes.Select(brt => new RoomTypeForBookingDto
+						{
+							Id = brt.RoomType.Id,
+							Name = brt.RoomType.Name,
+							Price = brt.RoomType.Price,
+							SeatsNumber = brt.RoomType.SeatsNumber,
+							OrderRoomsNumber = brt.OrderRoomsNumber,
+							Characteristics = brt.RoomType.Characteristics.Select(c => new CharacteristicDto
+							{
+								Id = c.Id,
+								Name = c.Name,
+							}).ToList(),
+						}).ToList(),
+					} 
+				});
 			}
 			catch (Exception ex)
 			{
@@ -171,7 +305,7 @@ namespace backend.Controllers
 					TourName = b.Route.Tour.Name,
 					TourId = b.Route.Tour.Id,
 					RouteId = b.Route.Id,
-					//TourPhotoUrl = PhotoService.ConvertToBase64(b.Route.Tour.Photo, "png"),
+					TourPhotoUrl = $"https://localhost:7276/uploads/tours/{b.Route.Tour.Id}/0.jpg",
 					LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
 					LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
 					LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
@@ -180,7 +314,7 @@ namespace backend.Controllers
 					ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
 					ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
 					ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
-					Price = b.Route.Price,
+					Price = b.Price,
 					OrderSeatsNumber = b.OrderSeatsNumber,
 					Status = b.Status,
 					User = new UserDto()
@@ -212,6 +346,39 @@ namespace backend.Controllers
 			}
 		}
 
+		//[Authorize(Roles = "Manager, Admin")]
+		[HttpPatch("change_price")]
+		public async Task<IActionResult> ChangePrice([FromQuery]int price, [FromQuery] int? bookingId)
+		{
+			try
+			{
+				using (var transaction = await db.Database.BeginTransactionAsync())
+				{
+					try
+					{
+						Booking editedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
+
+						if (editedBooking == null) return NotFound();
+						editedBooking.Price = price;
+						
+						await db.SaveChangesAsync();
+
+						await transaction.CommitAsync();
+						return Ok();
+					}
+					catch (Exception ex)
+					{
+						await transaction.RollbackAsync();
+						return BadRequest();
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[Authorize]
 		[HttpDelete("delete")]
 		public async Task<IActionResult> DeleteBooking([FromQuery] int? bookingId)
@@ -222,21 +389,20 @@ namespace backend.Controllers
 				{
 					try
 					{
-						Booking removedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
+						Booking removedBooking = await db.Bookings.Include(b => b.BookedRoomTypes).FirstOrDefaultAsync(b => b.Id == bookingId);
 						if (removedBooking == null) return NotFound();
 
-						Route route = await db.Routes.FirstOrDefaultAsync(r => r.Id == removedBooking.RouteId);
-						if (route != null)
-						{
-							route.SeatsNumber += removedBooking.OrderSeatsNumber;
-						}
 
-						User user = await db.Users.FirstOrDefaultAsync(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
-						if (user == null) return StatusCode(403);
-						if (User.FindFirst(ClaimTypes.Role).Value == nameof(UserRole.User) && user.Id != removedBooking.UserId) return StatusCode(403);
-
-						db.Bookings.Remove(removedBooking);
+						
+						db.BookedRoomTypes.RemoveRange(removedBooking.BookedRoomTypes); // Сначала удаляем связанные записи
+						db.Bookings.Remove(removedBooking); // Потом удаляем саму бронь
 						await db.SaveChangesAsync();
+						//Route route = await db.Routes.FirstOrDefaultAsync(r => r.Id == removedBooking.RouteId);
+						//if (route != null)
+						//{
+						//	route.SeatsNumber += removedBooking.OrderSeatsNumber;
+						//}
+
 						await transaction.CommitAsync();
 						return Ok();
 					}
@@ -262,7 +428,7 @@ namespace backend.Controllers
 				Booking confirmedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
 				if (confirmedBooking == null) return NotFound();
 
-				confirmedBooking.Status = true;
+				confirmedBooking.Status = 1;
 				await db.SaveChangesAsync();
 				return Ok();
 			}

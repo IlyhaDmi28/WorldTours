@@ -1,21 +1,120 @@
 @import './variabels/colors.scss';
 
-.tour-name-and-mark {
+.tour-images-and-name {
+	height: 450px;
 	display: flex;
-	height: 70px;
+	width: 100%;
+	column-gap: 2%;
 
-	p {
-		font-size: 22px;
+	.tour-name-and-main-photo {
+		width: 47.5%;
+
+		.tour-name-and-mark {
+			display: flex;
+			height: 70px;
+		
+			p {
+				font-size: 22px;
+			}
+		
+			div {
+				font-size: 16px;
+				margin-left: auto;
+				margin-top: 1%;
+				padding: 10px 16px 8px 16px;
+				height: 30%;
+				color: white;
+				border-radius: 8px;
+			}
+		}
+	
+		.main-tour-photo {
+			width: 100%;
+			height: 84%;
+			border-radius: 12px;
+	
+			img {
+				width: 100%;
+				height: 100%;
+				border-radius: 12px;
+			}
+		}
 	}
 
-	div {
-		font-size: 16px;
-		margin-left: auto;
-		margin-top: 1%;
-		padding: 10px 16px 8px 16px;
-		height: 30%;
-		color: white;
-		border-radius: 8px;
+	.other-tour-photos-and-controller {
+		width: 50%;
+		margin-top: 33px;
+
+		.tour-photos-controller {
+			width: 100%;
+			display: flex;
+			column-gap: 1.5%;
+
+			>button:nth-child(1) {
+				height: 32px;
+				width: 32%;
+				border-radius: 8px;
+				border: none;
+				background-color: $blue-color;
+				margin-top: 2px;
+
+				b {
+					font-size: 13px;
+					color: white;
+				}
+			}
+
+			>button:nth-child(2) {
+				height: 32px;
+				width: 33%;
+				border-radius: 8px;
+				border: none;
+				background-color: $green-color;
+				margin-top: 2px;
+
+				b {
+					font-size: 13px;
+					color: white;
+				}
+			}
+		}
+		
+		.other-tour-photos {
+			width: 100%;
+			height: 75%;
+			margin-top: 15px;
+
+			div {
+				display: flex;
+				flex-wrap: wrap;
+				column-gap: 1%;
+				row-gap: 3%;
+				height: 88%;
+				align-items: stretch;
+
+				img {
+					width: 32.66%;
+					height: 150px;
+					border-radius: 8px;
+				}
+			}
+
+			.more-tour-photos-button {
+				height: 27px;
+				width: 260px;
+				margin-top: 52px;
+				border-radius: 10px;
+				margin-left: 27.5%;
+				border: 1px solid black;
+			}
+		}
+
+		.tour-map {
+			border: 1px solid black;
+			width: 100%;
+			height: 88%;
+			padding-top: 10px;
+		}
 	}
 }
 
@@ -100,6 +199,7 @@
 	width: 57%;
 
 	.main-tour-info {
+		padding-left: 3px;
 		div:nth-child(1) {
 			font-size: 22px;
 		}
@@ -111,10 +211,8 @@
 	}
 	
 	.tour-hotel-stars {
-		margin-top: 8px;
-		width: 100%;
-		display: flex;
-		column-gap: 10px;
+		margin-top: 2px;
+		font-size: 30px;
 	}
 
 	.tour-nutrition-type {
@@ -132,7 +230,7 @@
 		line-height: 25px;
 	}
 	
-	.tour-characteristic {
+	.tour-characteristic-group {
 		border-top: 1px solid $light-grey-color;
 		padding-top: 25px;
 		padding-bottom: 25px;
@@ -218,7 +316,7 @@
 	border: 1px solid black;
 	position: absolute;
 	margin-left: 47%;
-	margin-top: 400px;
+	margin-top: 30px;
 	border-radius: 10px;
 
 	.tour-price-and-seats-number {
@@ -307,7 +405,7 @@
 		width: 80%;
 		height: 45px;
 		margin-left: 40px;
-		margin-top: 15px;
+		margin-top: 45px;
 		border-radius: 10px;
 		font-size: 16px;
 		color: white;
@@ -366,6 +464,242 @@
 		}
 	}
 	
+}
+
+.sent-booking-form-modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.sent-booking-form {
+	//Вынести
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1002; // На всякий случай
+	width: 600px;
+	text-align: center;
+
+	.close-sent-booking-form-button {
+		margin-left: 97%;
+		width: 20px;
+		height: 20px;
+		border: none;
+		background-color: white;
+		padding: 0px;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	h2 {
+		margin: 0px;
+	}
+
+	h3 {
+		margin: 5px 0px 0px 10px;
+		text-align: left;
+		margin-bottom: 5px;
+	}
+
+	hr {
+		width: 100%;
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+
+	
+	
+	select {
+		font-size: 18px;
+		margin-top: 3px;
+		width: 100%;
+		height: 40px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+
+	.parameter-name {
+		text-align: left;
+		font-size: 16px;
+		margin-left: 10px;
+	}
+
+	.sent-booking-form-room-types {
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			border: none;
+		  }
+		  
+		  th, td {
+			border: none;
+			padding: 8px;
+			text-align: center;
+		  }
+		  
+		  th {
+			font-weight: bold;
+		  }
+
+
+		  
+		  td:first-child {
+			color: gray;
+			font-size: 20px;
+		  }
+
+		  td:nth-child(1), th:nth-child(1) {
+			width: 60px;
+		  }
+
+		  td:nth-child(2), th:nth-child(2) {
+			text-align: left;
+			padding-left: 0px;
+		  }
+
+		  td:nth-child(3), th:nth-child(3){
+			padding-left: 0px;
+			padding-right: 0px;
+			width: 170px;
+		  }
+
+		  td:nth-child(4), th:nth-child(4) {
+			padding-left: 0px;
+			padding-right: 0px;
+			width: 46px;
+		  }
+
+		
+		 .booking-form-room-types-number {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			button {
+				border: none;
+				background-color: red;
+				border-radius: 100%;
+				padding: 0px;
+				cursor: pointer;
+				color: white;
+				height: 20px;
+				width: 20px;
+				font-size: 20px;
+			}
+			
+			.add-room-type-button {
+				background-color: $green-color;
+			  }
+	
+			.remove-room-type-button {
+				background-color: $red-color;
+				margin-left: 5px;
+			}
+	
+			input {
+				margin-left: 10px;
+				width: 60px;
+				height: 25px;
+				text-align: center;
+				font-size: 14px;
+				border: none;
+				border-bottom: 1px solid black;
+			  }
+		  }
+		  
+		  .room-type-price {
+			font-weight: bold;
+		  }
+	}
+
+	.booking-form-seats {
+		padding-left: 15px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		display: flex;
+
+		div {
+			margin-top: 6px;
+		}
+
+		input {
+			margin-left: 10px;
+			width: 60px;
+			height: 25px;
+			text-align: center;
+			font-size: 16px;
+			border: none;
+			border-bottom: 1px solid black;
+		}
+	}
+
+	.booking-form-checkbox {
+		display: flex;
+		justify-content: flex-start;
+		margin-left: 6px;
+
+		& .MuiFormControlLabel-label {
+			font-size: 15px;
+		}
+	}
+
+	.booking-form-comment {
+		margin-top: 10px;
+		text-align: justify;
+		font-size: 16px;
+		line-height: 25px;
+		width: 100%;
+	
+		.booking-form-commentn-input {
+			font-size: 16px;
+			width: 100%;
+		}
+	}
+
+	.booking-form-disclaimer {
+		color: $grey-color;
+		text-align: left;
+		font-size: 14px;
+		margin-top: 7px;
+	}
+
+	.booking-form-final-price {
+		font-size: 16px;
+
+		b {
+			font-size: 18px;
+		}
+	}
+
+	.sent-booking-form-controller{
+		//Вынести
+		display: flex;
+		justify-content: space-between;
+		margin-top: 7px;
+
+		>button {
+			height: 45px;
+			font-size: 17px;
+		}
+
+		>button:nth-child(1) {
+			background-color: white;
+			border: none;
+		}
+
+		>button:nth-child(2) {
+			width: 240px;
+			color: white;
+			background-color: black;
+			border: none;
+			border-radius: 20px;
+		}
+	}
 }
 
 .tour-card-for-editor {

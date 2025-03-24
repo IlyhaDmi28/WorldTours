@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import star from '../../img/star.svg'
 import deleteButon from '../../img/delete.svg'
 
-function BookingCard({ booking, deleteBooking }) {
+function BookingCard({ booking, openBooking, deleteBooking }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
-	    <Link className="booking-card" to={`/tour/${booking.tourId}?routeId=${booking.routeId}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+	    <div className="booking-card" onClick={openBooking} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <img className="booking-card-img" src={booking.tourPhotoUrl}/>
             <div className='booking-card-name'>
                 <b>{booking.tourName}</b>
@@ -37,20 +36,23 @@ function BookingCard({ booking, deleteBooking }) {
                 {Array(booking.direction.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
             </div>
 
-            { !booking.status ?  (
-                    <div className="booking-card-status">
-                        Заявка отправлена
-                    </div>
-                ) : (
-                    <div className="booking-card-status" style={{backgroundColor: 'rgb(60, 80, 254)'}}>
-                        Подтвержденно
-                    </div>
-                )
+            {
+                (booking.status === 0 || booking.status === null) &&
+                <div className="booking-card-status">
+                    Заявка отправлена
+                </div>
             }
-            
+
+            {
+                booking.status === 1 &&
+                <div className="booking-card-status" style={{backgroundColor: 'rgb(60, 80, 254)'}}>
+                    Подтвержденно
+                </div>
+            }
+
             <div className="tour-card-price">
                 <b>
-                    {booking.price * booking.orderSeatsNumber}
+                    {booking.price}
                 </b>
                 <span>
                     &#8194;BYN
@@ -63,7 +65,7 @@ function BookingCard({ booking, deleteBooking }) {
                     <img src={deleteButon}/>
                 </button>
             }
-        </Link>
+        </div>
   	);
 }
 

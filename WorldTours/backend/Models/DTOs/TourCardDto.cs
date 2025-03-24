@@ -11,6 +11,7 @@
 		public string? PhotoUrl { get; set; }
 		public string? DateOfDeparture { get; set; }
 		public string? DateOfReturn { get; set; }
+		public string? TourTypeImageUrl { get; set; }
 
 		public int? Price { get; set; }	
 	}

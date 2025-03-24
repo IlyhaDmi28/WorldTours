@@ -15,6 +15,7 @@ import Bookings from './bookings';
 import BookingsForManager from './bookingsForManager';
 import HotelsForEditor from './hotelsForEditor';
 import DepartmentDepartures from './departmentDepartures';
+import GeographicObjects from './geographicObjects';
 import Payment from './payment';
 import Campany from './campany';
 import Error from './error';
@@ -111,6 +112,11 @@ function App() {
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 						<Route path="/hotel_editor/:id" element={authUser ? <HotelEditor /> : <Navigate to="/auth" replace />} />
+					</>
+				)}
+				{(authUser.role === 2 || authUser.role === 3) && (
+					<>
+						<Route path="/geographic_objects" element={authUser ? <GeographicObjects /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
 			</Routes>

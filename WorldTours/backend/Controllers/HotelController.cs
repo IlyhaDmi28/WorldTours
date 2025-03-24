@@ -691,7 +691,14 @@ namespace backend.Controllers
 						if (hotel.PhotosFiles?.Count > 0)
 						{
 							string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotels", hotel.Name);
-							if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+							if (Directory.Exists(uploadsFolder))
+							{
+								foreach (string file in Directory.GetFiles(uploadsFolder))
+								{
+									System.IO.File.Delete(file);
+								}
+							}
+							else Directory.CreateDirectory(uploadsFolder);
 
 							for (int i = 0; i < hotel.PhotosFiles.Count; i++)
 							{

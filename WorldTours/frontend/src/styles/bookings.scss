@@ -1,38 +1,110 @@
 @import './variabels/colors.scss'; 
 $indent-from-left-on-card: 200px;
 
-
-.change-show-bookings-list {
-	display: flex;
-	justify-content: center;
-	column-gap: 2%;
+.booking-list-filters-parameters {
+    display: flex;
 	height: 80px;
-	justify-self: center;
+    width: 100%;
 
-	button {
-		width: 160px;
-		height: 30px;
-		border-radius: 20px;
-		background-color: white;
-		border: none;
-		font-size: 14px;
-		margin-top: 2.5%;
+	.select-location {
+		width: 130px;
+        height: 55px;
+		font-size: 13px;
+		border: 1px solid black;
+		border-radius: 14px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+        padding-left: 12px;
+        text-align: left;
+        background-color: rgb(244, 244, 244);
+        margin-top: 1.5%;
+
+        div {
+            margin-top: 2px;
+            color: $dark-grey-color;
+		    font-size: 13px;
+
+        }
 	}
 
-	button:hover:nth-child(1)  {
-		background-color: $yellow-color; 
-		color: white;
+	.change-show-bookings-list {
+		display: flex;
+		justify-content: center;
+		column-gap: 1%;
+		height: 80px;
+		justify-self: center;
+		margin-left: 15px;
+		margin-right: 15px;
+		margin-top: 10px;
+	
+		button {
+			width: 150px;
+			height: 30px;
+			border-radius: 20px;
+			background-color: white;
+			border: none;
+			font-size: 14px;
+			margin-top: 2.5%;
+		}
+	
+		button:hover:nth-child(1)  {
+			background-color: $yellow-color; 
+			color: white;
+		}
+	
+		button:hover:nth-child(2)  {
+			background-color: $green-color; 
+			color: white;
+		}
+	
+		button:hover:nth-child(3)  {
+			background-color: $blue-color; 
+			color: white;
+		}
 	}
 
-	button:hover:nth-child(2)  {
-		background-color: $green-color; 
-		color: white;
-	}
+    
+    .filter-and-sort-buttons{
+        display: flex;
+        width: 190px;
+        justify-content: space-between;
+        margin-top: 2.2%;
+        margin-left: auto;
 
-	button:hover:nth-child(3)  {
-		background-color: $blue-color; 
-		color: white;
-	}
+        .filter-button {
+            height: 40px;
+            width: 140px;
+            display: flex;
+            border: 1px solid $grey-color;
+            border-radius: 12px;
+            background-color: white;
+    
+            img {
+                height: 45%;
+                margin: auto 0 auto 5%;
+            }
+    
+            div {
+                margin: auto 0 auto 10px;
+                font-size: 13px;
+            }
+        }
+    
+        .sort-button{
+            height: 40px;
+            width: 45px;
+            display: flex;
+            border: 1px solid $grey-color;
+            border-radius: 10px;
+            background-color: white;
+
+            img {
+                height: 50%;
+                margin: auto;
+            }
+        }
+    }
+    
 }
 
 .bookings-list {
@@ -146,11 +218,307 @@ $indent-from-left-on-card: 200px;
 			height: 35px;
 			background-color: white;
 			border: none;
-			z-index: 1001;
+			z-index: 1009;
 
 			img {
 				width: 100%;
 			}
+		}
+	}
+}
+
+.booking-modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.booking {
+	//Вынести
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1002; // На всякий случай
+	width: 600px;
+	text-align: center;
+
+	.close-modal-editor-button {
+		margin-left: 97%;
+		width: 20px;
+		height: 20px;
+		border: none;
+		background-color: white;
+		padding: 0px;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	h2 {
+		margin: 0px;
+	}
+
+	h3 {
+		margin: 5px 0px 0px 10px;
+		text-align: left;
+		margin-bottom: 5px;
+	}
+
+	hr {
+		width: 100%;
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+
+	input {
+		font-size: 16px;
+		margin-top: 3px;
+		width: 100%;
+		height: 35px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+	
+	select {
+		font-size: 18px;
+		margin-top: 3px;
+		width: 100%;
+		height: 40px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+
+	.parameter-name {
+		text-align: left;
+		font-size: 16px;
+		margin-left: 10px;
+	}
+
+	.tour-info-on-booking{
+		display: flex;
+		margin-top: 15px;
+
+		.tour-image-on-booking {
+			width: 220px;
+			height: 210px;
+			border-radius: 10px;
+		}
+
+		.tour-text-info-on-booking {
+			text-align: left;
+			margin-left: 20px;
+			margin-top: 20px;
+			width: 100%;
+
+
+			.location-on-booking {
+				color: $grey-color;
+			}
+
+			.tour-name-on-booking {
+				font-size: 20px;
+			}
+
+			.hotel-info-on-booking {
+				display: flex;
+				margin-top: 5px;
+
+				>img {
+					margin-left: auto;
+					margin-top: auto;
+					width: 40px;
+					height: 40px;
+				}
+			}
+
+			.department-departure-info-on-booking {
+				display: flex;
+				margin-top: 5px;
+
+				>img {
+					margin-left: auto;
+					margin-top: auto;
+					width: 40px;
+					height: 40px;
+				}
+			}
+		}
+	}
+
+	.dates-and-times-on-booking {
+		text-align: left;
+		margin-top: 20px;
+		
+		>div:nth-child(2) {
+			margin-top: 5px;
+		}
+	}
+
+	.room-types-on-booking {
+		margin-top: 10px;
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			border: none;
+		  }
+		  
+		  th, td {
+			border: none;
+			padding: 8px;
+			text-align: center;
+		  }
+		  
+		  th {
+			font-weight: bold;
+		  }
+
+
+		  
+		  td:first-child {
+			color: gray;
+			font-size: 20px;
+		  }
+
+		  td:nth-child(1), th:nth-child(1) {
+			width: 60px;
+			padding-left: 0px;
+		  }
+
+		  td:nth-child(2), th:nth-child(2) {
+			text-align: left;
+			padding-left: 0px;
+		  }
+
+		  td:nth-child(3), th:nth-child(3){
+			padding-left: 0px;
+			padding-right: 0px;
+			width: 170px;
+		  }
+
+		  td:nth-child(4), th:nth-child(4) {
+			padding-left: 0px;
+			padding-right: 0px;
+			width: 46px;
+		  }
+
+		
+		 .room-types-number-on-booking {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			button {
+				border: none;
+				background-color: red;
+				border-radius: 100%;
+				padding: 0px;
+				cursor: pointer;
+				color: white;
+				height: 20px;
+				width: 20px;
+				font-size: 20px;
+			}
+			
+			.add-room-type-button {
+				background-color: $green-color;
+			  }
+	
+			.remove-room-type-button {
+				background-color: $red-color;
+				margin-left: 5px;
+			}
+	
+			input {
+				margin-left: 10px;
+				width: 60px;
+				height: 25px;
+				text-align: center;
+				font-size: 14px;
+				border: none;
+				border-bottom: 1px solid black;
+			  }
+		  }
+		  
+		  .room-type-price {
+			font-weight: bold;
+		  }
+	}
+
+	.order-seat-on-booking {
+		text-align: left;
+		margin-top: 20px;
+		font-size: 18px;
+	}
+
+	.more-booking-info {
+		margin-top: 10px;
+		text-align: left;
+
+		.show-comment-button {
+			color: $grey-color;
+			margin-top: 5px;
+		}
+	}
+
+	.price-on-booking {
+		font-size: 16px;
+		b {
+			font-size: 18px;
+		}
+
+		.edit-price-button {
+			font-size: 18px;
+		}
+	}
+
+	.status-info {
+		margin-top: 10px;
+		color: $green-color;
+	}
+
+	.user-info-on-booking {
+		display: flex;
+		margin-top: 3px;
+		
+		.user-avatar-on-booking {
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+		}
+
+		
+		>div {
+			margin-top: 10px;
+			margin-left: 15px;
+			font-size: 17px;
+		}
+	}
+
+	.modal-editor-controller{
+		//Вынести
+		display: flex;
+		justify-content: space-between;
+		margin-top: 7px;
+
+		>button {
+			height: 45px;
+			font-size: 17px;
+		}
+
+		>button:nth-child(1) {
+			background-color: white;
+			border: none;
+		}
+
+		>button:nth-child(2) {
+			width: 240px;
+			color: white;
+			background-color: black;
+			border: none;
+			border-radius: 20px;
 		}
 	}
 }

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Rating  } from "@mui/material";
 import noPhoto from '../../img/noPhoto.png';
 import star from '../../img/star.svg'
 import all from '../../img/all.svg'
@@ -29,15 +30,22 @@ function TourCard({ tour }) {
                     {tour.country}, {tour.city}
                 </div>
                 
-                <img className="tour-card-type-img" src={all}/>
+                <img className="tour-card-type-img" src={tour.tourTypeImageUrl}/>
 
                 <div className="tour-card-dates">
                     {tour.dateOfDeparture} - {tour.dateOfReturn}
                 </div>
 
-                <div className="tour-card-hotel-stars">
+                <Rating 
+                    className="tour-card-hotel-stars" 
+                    defaultValue={tour.starsNumber} 
+                    precision={1}
+                    readOnly 
+                />
+
+                {/* <div className="tour-card-hotel-stars">
                     {Array(tour.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
-                </div>
+                </div> */}
 
                 <div className="tour-card-price">
                     <b>{tour.price}</b>

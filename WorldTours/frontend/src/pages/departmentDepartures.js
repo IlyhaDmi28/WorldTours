@@ -25,12 +25,7 @@ function DepartmentDepartures() {
 	const [indexOfSelectedDepartmentDeparture, setIndexOfSelectedDepartmentDeparture] = useState(-1);
 	const [isOpenDepartmentDepartureEditor, setIsOpenDepartmentDepartureEditor] = useState(false);
 	
-	const [departmentDepartures, setDepartmentDepartures] = useState([
-		{id: 2, transportTypeId: 2, name: 'Oooo', country: 'Украiна', city: 'Москва', cityId: 2, address: 'ул. Хуя, д. 43' },
-		{id: 1, transportTypeId: 1, name: 'Zzzz', country: 'Украiна', city: 'Москва', address: 'ул. Хуя, д. 43' },
-		{id: 3, transportTypeId: 3, name: 'Vvvv', country: 'Украiна', city: 'Москва', address: 'ул. Хуя, д. 43' },
-		{id: 4, transportTypeId: 1, name: 'Vvvv', country: 'Украiна', city: 'Москва', address: 'ул. Хуя, д. 43' },
-	]);
+	const [departmentDepartures, setDepartmentDepartures] = useState([]);
 
 	const openDepartmentDepartureEditor = (index) => {
         setIndexOfSelectedDepartmentDeparture(index);

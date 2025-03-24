@@ -24,6 +24,7 @@ namespace backend.DB
 		public DbSet<HotelCharacteristic> HotelCharacteristics { get; set; }
 		public DbSet<RoomType> RoomTypes { get; set; }
 		public DbSet<RoomTypeCharacteristic> RoomTypeCharacteristics { get; set; }
+		public DbSet<BookedRoomType> BookedRoomTypes { get; set; }
 
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -207,6 +208,18 @@ namespace backend.DB
 			modelBuilder.Entity<Models.Entity.Route>()
 				.Property(r => r.SeatsNumber)
 				.HasDefaultValue(0);
+
+			modelBuilder.Entity<Booking>()
+				.HasMany(b => b.BookedRoomTypes)
+				.WithOne(brt => brt.Booking)
+				.HasForeignKey(brt => brt.BookingID)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<RoomType>()
+				.HasMany(rt => rt.BookedRoomTypes)
+				.WithOne(brt => brt.RoomType)
+				.HasForeignKey(brt => brt.RoomTypeID)
+				.OnDelete(DeleteBehavior.Cascade);
 
 			// Индексы и уникальные ограничения
 			modelBuilder.Entity<Region>().HasIndex(r => r.Name).IsUnique();

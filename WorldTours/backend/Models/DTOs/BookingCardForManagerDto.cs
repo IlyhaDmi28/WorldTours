@@ -17,7 +17,7 @@
 		public string? ArrivalTimeOfReturn { get; set; }
 		public int? Price { get; set; }
 		public int? OrderSeatsNumber { get; set; }
-		public bool? Status { get; set; }
+		public int? Status { get; set; }
 
 		public UserDto User { get; set; }
 		public DirectionDto Direction { get; set; }

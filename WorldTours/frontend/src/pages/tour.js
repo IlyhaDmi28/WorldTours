@@ -2,22 +2,15 @@ import '../styles/tour.scss';
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Rating  } from "@mui/material";
 import Header from '../components/general/header';
 import BookingMenu from '../components/tour/bookingMenu';
 import ReviewCard from '../components/tour/reviewCard';
 import ImagesAndMap from '../components/tour/imagesAndMap';
 import ModalImageGallery from '../components/general/modalImageGallery';
 import noPhoto from '../img/noPhoto.png';
-import star from '../img/star.svg';
-import t1 from '../img/test_photos/t1.jpg';
-import t2 from '../img/test_photos/t2.jpg';
-import t3 from '../img/test_photos/t3.jpg';
-import t4 from '../img/test_photos/t4.jpg';
-import t5 from '../img/test_photos/t5.jpg';
-import t6 from '../img/test_photos/t6.png';
-import t7 from '../img/test_photos/t7.png';
-import t8 from '../img/test_photos/t8.png';
 const token = localStorage.getItem("token");
 
 function Tour() {
@@ -26,21 +19,24 @@ function Tour() {
 
 	const authUser = useSelector((state) => state.authUser.value);
 
-	const [photosUrl, setPhotosUrl] = useState([noPhoto]); 
+	const [photosUrls, setPhotosUrls] = useState([noPhoto]); 
+	const [roomTypesCharacteristics, setRoomTypesCharacteristics] = useState([]); 
+
 	const [review, setReview] = useState(""); 
 	const [tour, setTour] = useState({
 		id: 0,
 		name: null,
-		direction: {
-			hotel: null,
-			county: null,
+		hotel: {
+			name: null,
+			country: null,
 			city: null,
-			starsNumber: null
+			starsNumber: null,
+			nutritionType: null,
+			characteristics: [],
 		},
 		mainDescription: null,
-		nutritionType: null,
 		routes: [],
-		descriptions: [],
+		characteristics: [],
 		reviews: []
 	});
 
@@ -57,6 +53,7 @@ function Tour() {
             id: 1,
             name: null,
             city: null,
+			address: null,
             countrty: null
         },
         transportType: {
@@ -84,10 +81,26 @@ function Tour() {
                 });
 				const tourData = response.data;
 				
+				let allRoomTypesCharacteristics = []
+
+				tourData.hotel.roomTypes.forEach(roomType => {
+					console.log(roomType.characteristics);
+					allRoomTypesCharacteristics = [...allRoomTypesCharacteristics, ...roomType.characteristics]
+				});
+				console.log(allRoomTypesCharacteristics);
+				console.log('new Map(allRoomTypesCharacteristics.map(сharacteristic=> [сharacteristic.id, сharacteristic])).values()');
+				console.log(allRoomTypesCharacteristics.filter((characteristic, index, self) => 
+					index === self.findIndex(obj => obj.id === characteristic.id)
+				));
+
+				setRoomTypesCharacteristics(allRoomTypesCharacteristics.filter((characteristic, index, self) => 
+					index === self.findIndex(obj => obj.id === characteristic.id)
+				));
+
 				// setPhotosUrl((prevPhotos) => 
 				// 	prevPhotos.map((photo, i) => (i === 0 ? (tourData.photoUrl === "" ? noPhoto : tourData.photoUrl) : photo))
 				// );
-				setPhotosUrl([tourData.photoUrl, t1, t2, t3, t4, t5, t6, t7, t8]);
+				setPhotosUrls(tourData.photosUrls.length !== 0 ? tourData.photosUrls : [noPhoto]);
 
 				const route  = tourData.routes.find(route => route.id === +routeId)
 				if(route === undefined || route === null)  window.location.href = '/error/0';
@@ -99,16 +112,16 @@ function Tour() {
                     }
                 });
 				const reviewsData = response.data;
-				console.log(reviewsData);
+				console.log(tourData);
 				setTour((prevTour) => ({
 					...prevTour, 
 					id: tourData.id,
 					name: tourData.name,
-					direction: tourData.direction,
+					hotel: tourData.hotel,
 					mainDescription: tourData.mainDescription,
-					nutritionType: tourData.nutritionType,
 					routes: tourData.routes,
-					descriptions: tourData.descriptions,
+					routes: [],
+					characteristics: tourData.characteristics,
 					reviews:  reviewsData
 				}));
             } catch (error) {
@@ -118,6 +131,12 @@ function Tour() {
 
         getData();
 	}, []);
+
+	const closeImagesGallery = (e) => {
+		if (e === 'isEmpty' || e.target === e.currentTarget || e.key === "Escape") {
+            showImages(-1);
+        }
+    };
 
 	const sendApplicationForBooking = async (seatsNumber) => {
 		if(!authUser) {
@@ -237,49 +256,107 @@ function Tour() {
 			<Header />
 			<div className="line-under-header"></div>
 
-			<div className="tour-name-and-mark">
+			{/* <div className="tour-name-and-mark">
 				<p>
 					<b>{tour.name}</b>
 				</p>
-			</div>
+			</div> */}
 
-			<BookingMenu selectedRoute={selectedRoute} routes={tour.routes} direction={{country: tour.direction.country, city: tour.direction.city}} sendApplicationForBooking={sendApplicationForBooking}/>
-			<div className="tour-images">
+			{/* <div className="tour-images">
 				<img className="main-tour-img" src={photosUrl[0]} onClick={() => showImages(0)}/>
 				<ImagesAndMap images={photosUrl.slice(1)} showImages={showImages}/>
+			</div> */}
+
+			<div className="tour-images-and-name">
+				<div className="tour-name-and-main-photo">
+					<div className="tour-name-and-mark">
+						<p>
+							<b>{tour.name}</b>
+						</p>
+					</div>
+					{
+						photosUrls.length !== 0 &&
+						<div className="main-tour-photo">
+							<img src={photosUrls[0]} alt="click to change" onClick={() => showImages(0)}/>
+						</div>
+					}
+				</div>
+										
+				<div className='other-tour-photos-and-controller'>
+					<div className='tour-photos-controller'>
+						<button><b>Фото</b></button>
+						<button><b>Карта</b></button>
+						
+					</div>
+					{
+						photosUrls.length !== 0 &&
+						<div className='other-tour-photos'>
+							<div>
+								{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
+							</div>
+							{photosUrls.length > 7 && <button className='more-tour-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
+						</div>
+					}
+					
+				</div>
 			</div>
+
+			<BookingMenu selectedRoute={selectedRoute} routes={tour.routes} hotel={tour.hotel} sendApplicationForBooking={sendApplicationForBooking}/>
 
 			<div className="tour-info-and-reservation">
 				<div className="tour-info">
 					<div className="main-tour-info">
 						<div>
-							<b>{tour.direction.hotel}</b>
+							<b>Отель: </b><Link to='/tours'>{tour.hotel.name}</Link>
 						</div>
-						<div>{tour.direction.country}, {tour.direction.city}</div>
+						<div>{tour.hotel.country}, {tour.hotel.city}</div>
+						<div>{tour.hotel.address}</div>
 					</div>
 
-					<div className="tour-hotel-stars">
-						{Array(tour.direction.starsNumber).fill().map((_, i) => <img src={star} key={i}/>)}
-					</div>
+					<Rating 
+						className="tour-hotel-stars" 
+						defaultValue={tour.hotel.starsNumber}
+						value={tour.hotel.starsNumber}
+						readOnly 
+					/>
 
-					<div className="tour-nutrition-type"><b>Тип питания:</b> {tour.nutritionType}</div>
+					<div className="tour-nutrition-type"><b>Тип питания:</b> {tour.hotel.nutritionType}</div>
 					<div className="tour-desription">{tour.mainDescription}</div>
 
 					<div className="tour-characteristics">
-						{tour.descriptions.map((characteristicType) => 
-						<div className="tour-characteristic">
-							<div>
-								<b>{characteristicType.name}</b>
-							</div>
+						<div className="tour-characteristic-group">
+							<div><b>Тур: </b></div>
 							<div>
 								<ul>
-									{characteristicType.descriptions.map((description) =>
-										<li>{description.characteristic.name} {description.description.value}</li>
+									{tour.characteristics.map((characteristic) =>
+										<li>{characteristic.name}</li>
 									)}
 								</ul>
 							</div>
 						</div>
-						)}
+						<div className="tour-characteristic-group">
+							<div><b>В отеле: </b></div>
+							<div>
+								<ul>
+									{tour.hotel.characteristics.map((characteristic) =>
+										<li>{characteristic.name}</li>
+									)}
+								</ul>
+							</div>
+						</div>
+							
+						<div className="tour-characteristic-group">
+							 <div>
+								<b>В номерах: </b>
+							</div>
+							<div>
+								<ul>
+									{roomTypesCharacteristics.map((characteristic) =>
+										<li>{characteristic.name}</li>
+									)}
+								</ul>
+							</div> 
+						</div>
 					</div>
 				</div>
 			</div>
@@ -298,7 +375,7 @@ function Tour() {
 				</div>
 			</div>
 
-			{indexOfSelectedImage !== -1 && <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl} handleOverlayClick={handleOverlayClick} showImages={showImages}/>}
+			{indexOfSelectedImage !== -1 && <ModalImageGallery index={indexOfSelectedImage} setImages={setPhotosUrls} images={photosUrls} closeModal={closeImagesGallery} showImages={showImages}/>}
 			{/* <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl}/> */}
 		</div>
 	);

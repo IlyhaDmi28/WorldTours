@@ -73,6 +73,10 @@ function UserController({ right }) {
                     <MenuItem onClick={() => setAnchorEl(null)}><Link to='/users'>Пользователи</Link></MenuItem>
                 }
 
+                { (authUser.role === 2 || authUser.role === 3) && 
+                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/geographic_objects'>Редактор гео-объектов</Link></MenuItem>
+                }
+
                 <MenuItem onClick={() => setAnchorEl(null)}><Link to='/tours' style={{color: 'red'}} onClick={logout}>Выйти</Link></MenuItem>
             </Menu>
             {/* <div className='user-menu' style={{ right }}>

@@ -277,6 +277,7 @@ function TourEditor() {
             [name]: value,
         }));
 	}
+
     // Функция для открытия input по нажатию на изображение
     const setPhotoUropenFileDialogToSelectPhoto = () => {
         photosFiles.current.click();
@@ -396,7 +397,7 @@ function TourEditor() {
 				}
 		  	});
 
-			window.location.href = '/tours';
+			window.location.href = '/tours_for_editor';
 		}
 		else {
 			await axios.put('https://localhost:7276/tour/edit', formData, {
@@ -406,7 +407,7 @@ function TourEditor() {
 				}
 		  	});
 
-			window.location.href = '/tours';
+			window.location.href = '/tours_for_editor';
 		}
 	}
 
@@ -506,7 +507,6 @@ function TourEditor() {
 							{photosUrls.length > 7 && <button className='more-tour-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
 						</div>
 					}
-					
 				</div>
 			</div>
 
@@ -524,13 +524,14 @@ function TourEditor() {
 							</div> 
 							<DeleteIcon onClick={deleteSelectedDirection}/>
 						</div>
-
 						<Rating 
 							className="tour-editor-hotel-stars" 
 							name="starsNumber" 
 							defaultValue={directionInfo.starsNumber}
 							readOnly 
 						/>
+
+						
 					</>) :
 						<button className='select-tour-direction' onClick={() => setDirectionsPageInndex(directionsPageInndex === 0 ? 1 : 0)}>
 							<b>Выбрать отель</b>

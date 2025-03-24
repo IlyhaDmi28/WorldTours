@@ -51,9 +51,9 @@ function Tours() {
 			<BigHeader filter={filter} setFilter={setFilter} setTours={setTours}/>
 			<div className="line-under-header"></div>
 			<TourTypesNav filter={filter} setFilter={setFilter} setTours={setTours} selectedTourType={filter.tourTypeId}/>
-			{/* <div className="tours-list">
+			<div className="tours-list">
 				{tours.map((tour) => (<TourCard tour={tour} />))}
-			</div> */}
+			</div>
 		</div>
 	);
 }

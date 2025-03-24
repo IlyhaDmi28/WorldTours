@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import star from '../../img/star.svg'
 import deleteButon from '../../img/delete.svg'
 
-function BookingCardForManager({ booking, deleteBooking, confirmBooking }) {
+function BookingCardForManager({ booking, deleteBooking, openBooking, confirmBooking }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
-	    <Link className="booking-card" to={`/tour/${booking.tourId}?routeId=${booking.routeId}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+	    <div className="booking-card" onClick={openBooking} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <img className="booking-card-img" src={booking.tourPhotoUrl}/>
             <div className='booking-card-name'>
                 <b>{booking.tourName}</b>
@@ -40,8 +40,22 @@ function BookingCardForManager({ booking, deleteBooking, confirmBooking }) {
             <div className="booking-card-user-info">
                 <b>От пользователя:</b> {booking.user.name} {booking.user.surname}, {booking.user.email}, {booking.user.phoneNumber}
             </div>
-                { !booking.status ?  (
-                    <div className="booking-card-confirmation" onClick={(e)=>{e.preventDefault(); confirmBooking(booking.id)}}>
+
+            {
+                (booking.status === 0 || booking.status === null) &&
+                <div className="booking-card-confirmation" onClick={(e)=>{e.stopPropagation(); confirmBooking(booking.id)}}>
+                    Нажмите подтвердить
+                </div>
+            }
+
+            {
+                booking.status === 1 &&
+                <div className="booking-card-confirmation" style={{backgroundColor: 'rgb(60, 80, 254)'}}>
+                    Подтвержденно
+                </div>
+            }
+                {/* { !booking.status ?  (
+                    <div className="booking-card-confirmation" onClick={(e)=>{e.stopPropagation(); confirmBooking(booking.id)}}>
                         Нажмите подтвердить
                     </div>
                 ) : (
@@ -49,11 +63,11 @@ function BookingCardForManager({ booking, deleteBooking, confirmBooking }) {
                         Подтвержденно
                     </div>
                 )
-            }
+            } */}
             
             <div className="tour-card-price">
                 <b>
-                    {booking.price * booking.orderSeatsNumber}
+                    {booking.price}
                 </b>
                 <span>
                     &#8194;BYN
@@ -62,11 +76,11 @@ function BookingCardForManager({ booking, deleteBooking, confirmBooking }) {
 
 
             {isHovered && 
-                <button className='booking-card-delete-button' onClick={(e)=>{e.preventDefault(); deleteBooking(booking.id)}}>
+                <button className='booking-card-delete-button' onClick={(e)=>{e.stopPropagation(); deleteBooking(booking.id)}}>
                     <img src={deleteButon}/>
                 </button>
             }
-        </Link>
+        </div>
   	);
 }
 

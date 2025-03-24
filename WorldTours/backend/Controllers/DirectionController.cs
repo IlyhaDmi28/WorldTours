@@ -25,7 +25,7 @@ namespace backend.Controllers
 			{
 				List<Region> regions = await db.Regions.ToListAsync();
 
-				return Ok(regions.Select(r => new RegionDto
+				return Ok(regions.Select(r => new GeographicObjectDto
 				{
 					Id = r.Id,
 					Name = r.Name,
@@ -45,25 +45,25 @@ namespace backend.Controllers
 			{
 				if (regionId == null || regionId == 0)
 				{
-					List<Country> countries = await db.Countries.ToListAsync();
+                    List<Models.Entity.Country> countries = await db.Countries.ToListAsync();
 
-					return Ok(countries.Select(c => new CountryDto
+					return Ok(countries.Select(c => new GeographicObjectDto
 					{
 						Id = c.Id,
 						Name = c.Name,
-						FlagUrl = $"https://localhost:7276/{c.PathToFlag}",
+						ImageUrl = $"https://localhost:7276/{c.PathToFlag}",
 					}));
 				}
 
-				List<Country> filteredCountries = await db.Countries
+                List<Models.Entity.Country> filteredCountries = await db.Countries
 					.Where(c => c.RegionId == regionId)
 					.ToListAsync();
 
-				return Ok(filteredCountries.Select(c => new CountryDto
+				return Ok(filteredCountries.Select(c => new GeographicObjectDto
 				{
 					Id = c.Id,
 					Name = c.Name,
-					FlagUrl = $"https://localhost:7276/{c.PathToFlag}",
+					ImageUrl = $"https://localhost:7276/{c.PathToFlag}",
 				}));
 			}
 			catch (Exception ex)
@@ -155,7 +155,7 @@ namespace backend.Controllers
 				}
 				else if (countryId != null && countryId != 0)
 				{
-					Country country = await db.Countries
+                    Models.Entity.Country country = await db.Countries
 						.Include(c => c.Region)
 						.FirstOrDefaultAsync(c => c.Id == countryId);
 

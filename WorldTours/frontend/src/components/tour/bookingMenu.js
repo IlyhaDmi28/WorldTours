@@ -1,10 +1,14 @@
 import { useState } from "react";
+import Modal from '@mui/material/Modal';
+import SentBookingForm from "./sentBookingForm";
 import airplane from "../../img/airplane.svg"
 import bus from "../../img/bus.svg"
 import ship from "../../img/ship.svg"
+import { Hotel } from "@mui/icons-material";
 
-function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
+function BookingMenu({selectedRoute, hotel, sendApplicationForBooking}) {
     const[seatsNumber, setSeatsNumber] = useState(1);
+    const[isOpenSentBookingForm, setIsOpenSentBookingForm] = useState(false);
 
     console.log(selectedRoute);
     const convertDateToInputFormat = (dateString) => {
@@ -32,10 +36,6 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
                     <b>{selectedRoute.price * seatsNumber}</b>
                     <span>BYN</span>
                 </div>
-
-                <div className='tour-seats-number'>
-                    Осталось мест: <b>{selectedRoute.seatsNumber}</b>
-                </div>
             </div>
             
             <div class="main-booking-parametrs-container">
@@ -57,18 +57,13 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
                         </td>
                         <td style={{borderRadius: '0px 0px 10px 0px', borderLeft: '1px solid black', borderTop: '1px solid black'}}>
                             Прибытие<br/>
-                            <div className="destination">{direction.city}</div>
+                            <div className="destination">{hotel.city}</div>
                         </td>
                     </tr>
                 </table>
             </div>
 
-            <div className="people-count">
-                <div>Количество людей:</div>
-                <input type="number" min={1} max={selectedRoute.seatsNumber} value={seatsNumber} onChange={(e) => setSeatsNumber(e.target.value)}/>
-            </div>
-
-            <button className="tour-application-button" onClick={() => sendApplicationForBooking(seatsNumber)}>
+            <button className="tour-application-button" onClick={() => setIsOpenSentBookingForm(true)}>
                 <b>Заявка на тур</b>
             </button>
             
@@ -81,7 +76,7 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
                         <div>{selectedRoute.arrivalDateOfDeparture}</div>
                     </div>
                     <div className='route-city-and-duration'>
-                        <div>{selectedRoute.departmentDeparture.city} - {direction.city}</div>
+                        <div>{selectedRoute.departmentDeparture.city} - {hotel.city}</div>
                     </div>
                 </div>
                 {/* <hr></hr> */}
@@ -93,10 +88,14 @@ function BookingMenu({selectedRoute, direction, sendApplicationForBooking}) {
                         <div>{selectedRoute.arrivalDateOfReturn}</div>
                     </div>
                     <div className='route-city-and-duration'>
-                        <div>{direction.city} - {selectedRoute.departmentDeparture.city}</div>
+                        <div>{hotel.city} - {selectedRoute.departmentDeparture.city}</div>
                     </div>
                 </div>
             </div>
+
+            <Modal className='sent-booking-form-modal' open={isOpenSentBookingForm} onClose={() => setIsOpenSentBookingForm(false)} >
+				<SentBookingForm roomTypes={hotel.roomTypes} selectedRoute={selectedRoute} closeModal={() => setIsOpenSentBookingForm(false)}/>
+			</Modal>
         </div>
 	);
 }

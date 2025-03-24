@@ -1,0 +1,146 @@
+@import './variabels/colors.scss';
+
+.vertical-list-page {
+    padding-right: 8%;
+    padding-left: 8%;
+}
+
+.geographic-object-editor-parametrs {
+    display: flex;
+	height: 80px;
+    width: 100%;
+    
+    .back-to-regions-arrow {
+        width: 50px;
+        height: 50px;
+        margin-top: 18px;
+    }
+
+    .geographic-object-editor-image  {
+        width: 60px;
+        height: 60px;
+        margin-top: 15px;
+        margin-left: 15px;
+    }
+
+    .geographic-object-editor-name {
+        margin-left: 20px;
+        width: 400px;
+        margin-top: 15px;
+    }
+
+    .geographic-object-editor-map {
+        margin-left: 20px;
+        margin-top: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .save-region-button {
+        height: 30px;
+        background-color: $green-color;
+        color: white;
+        border: none;
+        width: 200px;
+        border-radius: 10px;
+        margin-top: 25px;
+        margin-left: 50px;
+    }
+
+    .sort-button{
+        height: 40px;
+        width: 45px;
+        display: flex;
+        border: 1px solid $grey-color;
+        border-radius: 10px;
+        background-color: white;
+        margin-top: 25px;
+        margin-left: auto;
+
+        img {
+            height: 50%;
+            margin: auto;
+        }
+    }
+    
+}
+
+.geographic-objects-list {
+	.geographic-object-card {
+		display: block;
+		position: relative;
+		height: 140px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+		border-bottom: 1px solid $light-grey-color;
+
+		.geographic-object-card-img {
+			position: absolute;
+			height: 140px;
+			width: 140px;
+			border-radius: 10px;
+		}
+
+		.geographic-object-card-name {
+			position: absolute;
+			font-size: 20px;
+			left: $indent-from-left-on-card - 40px;
+			top: 40px;
+		}
+
+		.geographic-object-card-delete-button {
+			position: absolute;
+			top: 10px;
+			right: 0px;
+			width: 35px;
+			height: 35px;
+			background-color: white;
+			border: none;
+			z-index: 1001;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+
+    .country-card {
+		display: block;
+		position: relative;
+		height: 90px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+		border-bottom: 1px solid $light-grey-color;
+
+		.country-card-img {
+			position: absolute;
+			height: 90px;
+			width: 140px;
+			border-radius: 10px;
+		}
+
+		.country-card-name {
+			position: absolute;
+			font-size: 20px;
+			left: $indent-from-left-on-card - 40px;
+			top: 40px;
+		}
+
+		.country-card-delete-button {
+			position: absolute;
+			top: 10px;
+			right: 0px;
+			width: 35px;
+			height: 35px;
+			background-color: white;
+			border: none;
+			z-index: 1001;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+}

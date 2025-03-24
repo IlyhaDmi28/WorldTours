@@ -35,6 +35,7 @@ function ToursForEditor() {
                     }
                 });
 				const toursData = response.data;
+				console.log(toursData);
 				setTours(toursData);
 
 				response = await axios.get('https://localhost:7276/tour/tour_types', {

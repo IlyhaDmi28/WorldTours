@@ -121,7 +121,8 @@
             .tour-card-country-and-city {
 				position: absolute;
                 font-size: 14px;
-                margin-top: 30px;
+                margin-top: 24px;
+				margin-left: 2px;
                 color: $dark-grey-color;
             }
 
@@ -135,20 +136,15 @@
 			.tour-card-dates {
 				position: absolute;
 				font-size: 13px;
-				margin-top: 48px;
+				margin-left: 2px;
+				margin-top: 42px;
                 color: $dark-grey-color;
 			}
     
             .tour-card-hotel-stars {
 				position: absolute;
 				bottom: 0px;
-                display: flex;
-                width: 40%;
-                column-gap: 8px;
-    
-                img {
-                     height: 18px;
-                }
+				font-size: 21px;
             }
     
             .tour-card-price {

@@ -19,5 +19,8 @@ namespace backend.Models.Entity
 		public Hotel Hotel { get; set; }
 
 		public ICollection<RoomTypeCharacteristic> Characteristics { get; set; }
+
+		public ICollection<BookedRoomType> BookedRoomTypes{ get; set; }
+
 	}
 }

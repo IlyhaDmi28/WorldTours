@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nbUnSTg0aiubZShdTu7rEF/yu8QbJf8hEQKg7tQfSgk=",
+  "Hash": "m6JTq6FOMaC9dcyIUcIOuV3wdbO4ayShXnLvOzUKBzM=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -3454,6 +3454,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\tours\\2\\3.jpg"
+    },
+    {
+      "Identity": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\2\\4.jpg",
+      "SourceId": "backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\",
+      "BasePath": "_content/backend",
+      "RelativePath": "uploads/tours/2/4.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\tours\\2\\4.jpg"
     },
     {
       "Identity": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\0.jpg",
