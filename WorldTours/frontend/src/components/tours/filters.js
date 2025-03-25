@@ -33,26 +33,6 @@ function Filters({filter, setFilter, setTours}) {
         getData();
 	}, []);
 
-
-    const [minNumberLightHotelStars, setMinNumberLightHotelStars] = useState(filter.minHotelStars);
-    const [maxNumberLightHotelStars, setMaxNumberLightHotelStars] = useState(filter.maxHotelStars);
-
-    const ClickMinHotelStars = (hotelStarButtonId) => {
-        setMinNumberLightHotelStars(hotelStarButtonId);
-        setFilter((prevfilter) => ({
-            ...prevfilter,
-            ["minHotelStars"]: hotelStarButtonId,
-        }));
-    }
-
-    const ClickMaxHotelStars = (hotelStarButtonId) => {
-        setMaxNumberLightHotelStars(hotelStarButtonId);
-        setFilter((prevfilter) => ({
-            ...prevfilter,
-            ["maxHotelStars"]: hotelStarButtonId,
-        }));
-    }
-
     const changeFilters = (e) => {
         const { name, value } = e.target;
         setFilter((prevfilter) => ({
@@ -92,8 +72,6 @@ function Filters({filter, setFilter, setTours}) {
             }
             
         });
-        setMinNumberLightHotelStars(1);
-        setMaxNumberLightHotelStars(5);
     };
 
     return (

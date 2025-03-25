@@ -63,7 +63,7 @@ function TypesTourNav({filter, setFilter, setTours, selectedTourType}) {
 				{/* <button className='tour-types-nav-page-button'>N</button> */}
 			</div>
 
-			<FilterButton text={"Фильтры"} openFilters={() => {console.log('sdfd'); setIsOpenFilter(true)}} />
+			<FilterButton text={"Фильтры"} openFilters={() => {setIsOpenFilter(true)}} />
 			<Modal className='modal-window' open={isOpenFilter} onClose={() => setIsOpenFilter(false)} >
 				<Filters filter={filter} setFilter={setFilter} setTours={setTours}/>
 			</Modal>

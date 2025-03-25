@@ -373,26 +373,22 @@ namespace backend.Controllers
 					.Include(r => r.DepartmentDeparture)
 					.Include(r => r.Tour)
 					.ThenInclude(t => t.Hotel)
+					.ThenInclude(h => h.RoomTypes)
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.Hotel)
 					.ThenInclude(h => h.City)
 					.ThenInclude(c => c.Country)
 					.Include(r => r.Tour)
 					.ThenInclude(t => t.Characteristics)
 					.Include(r => r.Tour)
 					.ThenInclude(t => t.TourType)
-					.Where(r => r.SeatsNumber > 0)
 					.OrderBy(r => r.SeatsNumber)
 					.ToListAsync();
 
-				//foreach (Tour tour in tours)
-				//{
-				//	foreach (Route route in routes)
-				//	{
-				//		if (route.TourId == tour.Id) route.Tour = tour;
-				//	}
-				//}
-
 
 				List<Route> filtredRoutes = new List<Route>();
+
+
 				if (filter != null)
 				{
 					if (filter.CityId != 0 && filter.CityId != null) routes = routes.Where(t => t.Tour.Hotel.CityId == filter.CityId).ToList();
@@ -436,6 +432,9 @@ namespace backend.Controllers
 							
 						}
 					}
+
+					if(filter.seatsNumber != 0 && filter.seatsNumber != null) filtredRoutes = filtredRoutes.Where(r => Math.Min((int)r.Tour.Hotel.RoomTypes.Sum(rt => rt.RoomsNumber * rt.SeatsNumber), (int)r.SeatsNumber) >= filter.seatsNumber).ToList();
+					if (filter.daysNumber != 0 && filter.daysNumber != null) filtredRoutes = filtredRoutes.Where(r => (r.ArrivalDateOfReturn - r.LandingDateOfDeparture )?.Days == filter.daysNumber).ToList();
 				}
 
 				return Ok(filtredRoutes.Select(t => new TourCardDto

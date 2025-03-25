@@ -437,5 +437,134 @@ namespace backend.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
+		[HttpPost("filtred_bookings")]
+		public async Task<IActionResult> GetFiltredBookings([FromBody] BookingFilterForm filter, [FromQuery] int userId)
+		{
+			try
+			{
+
+				//List<Tour> tours = await db.Tours.Include(t => t.Characteristics).ToListAsync();
+				List<Booking> bookings = await db.Bookings
+					.Include(b => b.Route)
+					.ThenInclude(r => r.Tour)
+					.ThenInclude(t => t.Hotel)
+					.ThenInclude(h => h.City)
+					.ThenInclude(c => c.Country)
+					.Include(b => b.Route)
+					.ThenInclude(r => r.DepartmentDeparture)
+					.ThenInclude(r => r.City)
+					.ThenInclude(r => r.Country)
+					.Include(b => b.User)
+					.ToListAsync();
+
+				if(userId != 0) bookings = bookings.Where(b => b.UserId == userId).ToList();
+
+				if (filter != null)
+				{
+					if (filter.CityId != 0 && filter.CityId != null) bookings = bookings.Where(b => b.Route.Tour.Hotel.CityId == filter.CityId).ToList();
+					if (filter.CountryId != 0 && filter.CountryId != null) bookings = bookings.Where(b => b.Route.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
+					if (filter.CountryId != 0 && filter.CountryId != null) bookings = bookings.Where(b => b.Route.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
+					if (filter.BookingStatus == 0) bookings = bookings.Where(b => b.Status == null).ToList();
+					else if (filter.BookingStatus != null) bookings = bookings.Where(b => b.Status == filter.BookingStatus).ToList();
+
+					if (filter.MinLandingDateOfDeparture != null && filter.MinLandingDateOfDeparture != "") bookings = bookings.Where(b => b.Route.LandingDateOfDeparture >= DateService.ConvertToDateFormat(filter.MinLandingDateOfDeparture)).ToList();
+					if (filter.MinArrivalDateOfDeparture != null && filter.MinArrivalDateOfDeparture != "") bookings = bookings.Where(b => b.Route.ArrivalDateOfDeparture >= DateService.ConvertToDateFormat(filter.MinArrivalDateOfDeparture)).ToList();
+					if (filter.MinLandingDateOfReturn != null && filter.MinLandingDateOfReturn != "") bookings = bookings.Where(b => b.Route.LandingDateOfReturn >= DateService.ConvertToDateFormat(filter.MinLandingDateOfReturn)).ToList();
+					if (filter.MinArrivalDateOfReturn != null && filter.MinArrivalDateOfReturn != "") bookings = bookings.Where(b => b.Route.ArrivalDateOfReturn >= DateService.ConvertToDateFormat(filter.MinArrivalDateOfReturn)).ToList();
+					
+					if (filter.MaxLandingDateOfDeparture != null && filter.MaxLandingDateOfDeparture != "") bookings = bookings.Where(b => b.Route.LandingDateOfDeparture <= DateService.ConvertToDateFormat(filter.MaxLandingDateOfDeparture)).ToList();
+					if (filter.MaxArrivalDateOfDeparture != null && filter.MaxArrivalDateOfDeparture != "") bookings = bookings.Where(b => b.Route.ArrivalDateOfDeparture <= DateService.ConvertToDateFormat(filter.MaxArrivalDateOfDeparture)).ToList();
+					if (filter.MaxLandingDateOfReturn != null && filter.MaxLandingDateOfReturn != "") bookings = bookings.Where(b => b.Route.LandingDateOfReturn <= DateService.ConvertToDateFormat(filter.MaxLandingDateOfReturn)).ToList();
+					if (filter.MaxArrivalDateOfReturn != null && filter.MaxArrivalDateOfReturn != "") bookings = bookings.Where(b => b.Route.ArrivalDateOfReturn <= DateService.ConvertToDateFormat(filter.MaxArrivalDateOfReturn)).ToList();
+					
+					if (filter.DepartmentDepartureId != 0 && filter.DepartmentDepartureId != null) bookings = bookings.Where(b => b.Route.DepartmentDepartureId == filter.DepartmentDepartureId).ToList();
+				}
+
+				if (userId != 0)
+				{
+					return Ok(bookings.Select(b => new BookingCardDto()
+					{
+						Id = b.Id,
+						TourName = b.Route.Tour.Name,
+						TourId = b.Route.Tour.Id,
+						RouteId = b.Route.Id,
+						TourPhotoUrl = $"https://localhost:7276/uploads/tours/{b.Route.Tour.Id}/0.jpg",
+						LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
+						LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
+						LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
+						LandingTimeOfReturn = b.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
+						ArrivalDateOfDeparture = b.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
+						ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
+						ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
+						ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+						Price = b.Price,
+						OrderSeatsNumber = b.OrderSeatsNumber,
+						Status = b.Status,
+						Direction = new DirectionDto()
+						{
+							Hotel = b.Route.Tour.Hotel.Name,
+							StarsNumber = b.Route.Tour.Hotel.StarsNumber,
+							City = b.Route.Tour.Hotel.City.Name,
+							Country = b.Route.Tour.Hotel.City.Country.Name,
+						},
+						DepartmentDeparture = new DepartmentDepartureDto()
+						{
+							Name = b.Route.DepartmentDeparture.Name,
+							City = b.Route.DepartmentDeparture.City.Name,
+							Country = b.Route.DepartmentDeparture.City.Country.Name,
+						}
+					}));
+				}
+				else
+				{
+					return Ok(bookings.Select(b => new BookingCardForManagerDto()
+					{
+						Id = b.Id,
+						TourName = b.Route.Tour.Name,
+						TourId = b.Route.Tour.Id,
+						RouteId = b.Route.Id,
+						TourPhotoUrl = $"https://localhost:7276/uploads/tours/{b.Route.Tour.Id}/0.jpg",
+						LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
+						LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
+						LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
+						LandingTimeOfReturn = b.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
+						ArrivalDateOfDeparture = b.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
+						ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
+						ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
+						ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+						Price = b.Price,
+						OrderSeatsNumber = b.OrderSeatsNumber,
+						Status = b.Status,
+						User = new UserDto()
+						{
+							Name = b.User.Name,
+							Surname = b.User.Surname,
+							Email = b.User.Email,
+							PhoneNumber = b.User.PhoneNumber,
+							PhotoUrl = PhotoService.ConvertToBase64(b.User.Photo, "png"),
+						},
+						Direction = new DirectionDto()
+						{
+							Hotel = b.Route.Tour.Hotel.Name,
+							StarsNumber = b.Route.Tour.Hotel.StarsNumber,
+							City = b.Route.Tour.Hotel.City.Name,
+							Country = b.Route.Tour.Hotel.City.Country.Name,
+						},
+						DepartmentDeparture = new DepartmentDepartureDto()
+						{
+							Name = b.Route.DepartmentDeparture.Name,
+							City = b.Route.DepartmentDeparture.City.Name,
+							Country = b.Route.DepartmentDeparture.City.Country.Name,
+						}
+					}));
+				}
+				
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 	}
 }

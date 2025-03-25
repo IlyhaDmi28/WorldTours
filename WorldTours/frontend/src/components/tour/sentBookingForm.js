@@ -299,13 +299,7 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
     //         price: 0,
     //         seatsNumber: 0,
     //     });
-    // };
 
-    const rooms = [
-        { id: 1, type: "Пример названия типа номера", price: "18$" },
-        { id: 2, type: "Пример названия типа номера", price: "18$" },
-        { id: 3, type: "Пример названия типа номера", price: "18$" },
-      ];
 
     return (
             <div className="sent-booking-form">
@@ -319,36 +313,6 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                 <div className='sent-booking-form-room-types'>
                     <h3>Типы номеров</h3>
                     <hr></hr>
-                    {/* <div className="overflow-x-auto p-4">
-                        <table className="w-full border-collapse border border-gray-300">
-                            <thead>
-                                <tr className="bg-gray-100">
-                                    <th className="border p-2">Хар-ки</th>
-                                    <th className="border p-2">Тип номера</th>
-                                    <th className="border p-2">Кол. брон. мест</th>
-                                    <th className="border p-2">Цена</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {rooms.map((room) => (
-                                <tr key={room.id} className="border">
-                                <td className="border p-2 text-center text-gray-500">▼</td>
-                                <td className="border p-2">{room.type}</td>
-                                <td className="border p-2 flex items-center justify-center space-x-2">
-                                    <button className="text-green-600 text-xl">➕</button>
-                                    <input
-                                        type="text"
-                                        className="w-12 border text-center"
-                                        defaultValue="0"
-                                    />
-                                    <button className="text-red-600 text-xl">➖</button>
-                                </td>
-                                <td className="border p-2 text-center">{room.price}</td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div> */}
                     <table>
                         <thead>
                             <tr>
