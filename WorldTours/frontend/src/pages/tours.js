@@ -18,12 +18,14 @@ function Tours() {
 		maxDateOfDeparture: "",
 		transportTypeId: 0,
 		tourTypeId: 0,
+		seatsNumber: 0,
+		daysNumber: 0,
 		minPrice: 0,
         maxPrice: 0,
         minHotelStars: 1,
         maxHotelStars: 5,
         nutritionTypeId: 0,
-        descriptions: [],
+        characteristics: [],
 	});
 
 	useEffect(() => {
@@ -37,6 +39,21 @@ function Tours() {
                 });
 				const toursData = response.data;
 				setTours(toursData);
+
+				response = await axios.get(`https://localhost:7276/tour/characteristics`, {
+					headers: {
+						'Authorization': 'Bearer ' + token,
+					}
+				});
+				
+				const characteristicsData = response.data;
+				setFilter((prevFilter) => {
+					return {
+						...prevFilter,
+						characteristics: characteristicsData.map((characteristic) => {return {...characteristic, value: 0}})
+					};
+				});
+				
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 

@@ -39,7 +39,7 @@ function Countries({regionId, selectDirection, goNextDirectionsPage, closeDirect
 					<div className="countries-list">
 						{countries.map((country) => (
 							<div className="counrty" onClick={() => {selectDirection(country.id); goNextDirectionsPage()}}>
-								<img src={country.ImageUrl}/>
+								<img src={country.imageUrl}/>
 								<div>{country.name}</div>
 							</div>
 						))}

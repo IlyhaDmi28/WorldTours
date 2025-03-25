@@ -3,12 +3,13 @@ import axios from 'axios';
 import TourType from './tourType'
 import FilterButton from './filterButton'
 import Filters from './filters'
+import Modal from '@mui/material/Modal';
 import all from '../../img/all.svg'
 const token = localStorage.getItem("token");
 
 function TypesTourNav({filter, setFilter, setTours, selectedTourType}) {
-	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 	const [tourTypes, setTourTypes] = useState([]); 
+	const [isOpenFilter, setIsOpenFilter] = useState(false);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -29,17 +30,6 @@ function TypesTourNav({filter, setFilter, setTours, selectedTourType}) {
         getData();
 	}, []);
 
-	// Функция для открытия модального окна
-	const openFilters = () => {
-		setIsFiltersOpen(true);
-		document.body.style.overflow = 'hidden'; // Отключаем прокрутку страницы
-	};
-
-	// Функция для закрытия модального окна
-	const closeFilters = () => {
-		setIsFiltersOpen(false);
-		document.body.style.overflow = 'auto'; // Включаем прокрутку страницы обратно
-	};
 
 	const changeTourType = async (id) => {
 		const updatedFilter = { ...filter, tourTypeId: id }; // Локально обновляем фильтр
@@ -53,22 +43,8 @@ function TypesTourNav({filter, setFilter, setTours, selectedTourType}) {
 				}
 			});
 			const toursData = response.data;
-			console.log('xxx');
 			console.log(toursData);
 			setTours(toursData);
-
-			response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?tourTypeId=${id}`, {
-				headers: {
-					'Authorization': 'Bearer ' + token,
-				}
-			});
-			const characteristicsData = response.data
-			setFilter((prevFilter) => {
-				return {
-					...prevFilter,
-					descriptions: characteristicsData
-				};
-			});
 		} catch (error) {
 			console.error('Ошибка загрузки данных:', error);
 		} 
@@ -87,8 +63,11 @@ function TypesTourNav({filter, setFilter, setTours, selectedTourType}) {
 				{/* <button className='tour-types-nav-page-button'>N</button> */}
 			</div>
 
-			<FilterButton text={"Фильтры"} openFilters={openFilters} />
-			<Filters filter={filter} setFilter={setFilter} isFiltersOpen={isFiltersOpen} closeFilters={closeFilters} setTours={setTours}/>
+			<FilterButton text={"Фильтры"} openFilters={() => {console.log('sdfd'); setIsOpenFilter(true)}} />
+			<Modal className='modal-window' open={isOpenFilter} onClose={() => setIsOpenFilter(false)} >
+				<Filters filter={filter} setFilter={setFilter} setTours={setTours}/>
+			</Modal>
+			
         </div>
   	);
 }

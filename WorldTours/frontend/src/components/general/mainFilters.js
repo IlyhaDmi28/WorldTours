@@ -181,11 +181,11 @@ function MainFilters({filter, setFilter, setTours}) {
             <div className="inputs-number-seats-and-days">
                 <div className='input-number-seats-or-days'>
                     <div>Кол. мест:</div>
-                    <input type="number"/>
+                    <input type="number" value={filter.seatsNumber} onChange={(e) => setFilter((prevFilter => {return {...prevFilter, seatsNumber: e.target.value}}))}/>
                 </div>
                 <div className='input-number-seats-or-days'>
                     <div>Кол. дней:</div>
-                    <input type="number"/>
+                    <input type="number" value={filter.seatsNumber} onChange={(e) => setFilter((prevFilter => {return {...prevFilter, seatsNumber: e.target.value}}))}/>
                 </div>
             </div>
 

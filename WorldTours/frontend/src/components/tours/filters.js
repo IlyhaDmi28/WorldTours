@@ -1,30 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
 import star from '../../img/star.svg'
 import darkStar from '../../img/dark-star.svg'
 import { Rating  } from "@mui/material";
 import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
-function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
+function Filters({filter, setFilter, setTours}) {
     const [nutritionTypes, setNutritionTypes] = useState([]);
 
     useEffect(() => {
 		const getData = async () => {
             try {
                 let response;
-				response = await axios.get(`https://localhost:7276/tour/characteristics_to_filter?tourTypeId=${0}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-                const characteristicsData = response.data
-                setFilter((prevFilter) => {
-                    return {
-                        ...prevFilter,
-                        descriptions: characteristicsData
-                    };
-                });
 
                 response = await axios.get('https://localhost:7276/tour/nutrition_types', {
                     headers: {
@@ -44,18 +36,6 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
 
     const [minNumberLightHotelStars, setMinNumberLightHotelStars] = useState(filter.minHotelStars);
     const [maxNumberLightHotelStars, setMaxNumberLightHotelStars] = useState(filter.maxHotelStars);
-   
-
-    if (!isFiltersOpen) {
-        return null; // Если модальное окно закрыто, возвращаем null, чтобы не рендерить его
-    }
-
-    const handleOverlayClick = (e) => {
-        if (e.target === e.currentTarget) {
-            closeFilters();
-        }
-    };
-
 
     const ClickMinHotelStars = (hotelStarButtonId) => {
         setMinNumberLightHotelStars(hotelStarButtonId);
@@ -81,11 +61,11 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
         }));
     };
 
-    const changeDescription = (e) => {
+    const changeСharacteristic = (e) => {
         const { name, value } = e.target;
         setFilter((prevfilter) => ({
             ...prevfilter,
-            descriptions: filter.descriptions.map(description => description.characteristicId === Number(name) ? {...description, value: Number(value)} : description),
+            characteristics: filter.characteristics.map(characteristic => characteristic.id === +name ? {...characteristic, value: +value} : characteristic),
         }));
     };
 
@@ -117,158 +97,78 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
     };
 
     return (
-        <div className="filters-overlay" onClick={handleOverlayClick}>
-            <div className="filters">
-                <button className="close-filters-button" onClick={closeFilters}>
+        <div className="filters">
+                <button className="close-filters-button">
                     <img src={close}/>
                 </button>
                 <h2>Фильтрация туров</h2>
                 <div className="tour-filters">
                     <div className="max-min-price-filter">
-                        <div>
-                            <div>Мин. цена</div>
-                            <input type="number" name="minPrice" value={filter.minPrice}  placeholder="От" onChange={changeFilters}/>
-                        </div>
-                        <div>
-                            <div>Макс. цена</div>
-                            <input type="number" name="maxPrice" value={filter.maxPrice} placeholder="До" onChange={changeFilters}/>
-                        </div>
+                            <TextField
+                                className="max-min-price-filter-input" 
+                                size='small' 
+                                label="Мин. цена" 
+                                variant="outlined" 
+                                name="minPrice" 
+                                value={filter.minPrice} 
+                                onChange={changeFilters}
+                            />
+                            <TextField
+                                className="max-min-price-filter-input" 
+                                size='small' 
+                                label="Мин. цена" 
+                                variant="outlined" 
+                                name="maxPrice" 
+                                value={filter.maxPrice} 
+                                onChange={changeFilters}
+                            />
                     </div>
 
                     <div className="hotel-stars-filter">
-                        {/* <div>
-                            <span>Мин. звёзды отеля:</span>
-                            <div className='hotel-stars-buttons'>
-                                <button
-                                    onMouseEnter={() => setMinNumberLightHotelStars(1)}
-                                    onMouseLeave={() => setMinNumberLightHotelStars(filter.minHotelStars)}
-                                    onClick={() => ClickMinHotelStars(1)}
-                                >
-                                    <img src={minNumberLightHotelStars >= 1 ? star : darkStar}/>
-                                </button>
-                                <button
-                                    onMouseEnter={() => setMinNumberLightHotelStars(2)}
-                                    onMouseLeave={() => setMinNumberLightHotelStars(filter.minHotelStars)}
-                                    onClick={() => ClickMinHotelStars(2)}
-                                >
-                                    <img src={minNumberLightHotelStars >= 2 ? star : darkStar}/>
-                                </button>
-                                <button
-                                    onMouseEnter={() => setMinNumberLightHotelStars(3)}
-                                    onMouseLeave={() => setMinNumberLightHotelStars(filter.minHotelStars)}
-                                    onClick={() => ClickMinHotelStars(3)}
-                                >
-                                    <img src={minNumberLightHotelStars >= 3 ? star : darkStar}/>
-                                </button>
-                                <button
-                                    onMouseEnter={() => setMinNumberLightHotelStars(4)}
-                                    onMouseLeave={() => setMinNumberLightHotelStars(filter.minHotelStars)}
-                                    onClick={() => ClickMinHotelStars(4)}
-                                >
-                                    <img src={minNumberLightHotelStars >= 4 ? star : darkStar}/>
-                                </button>
-                                <button
-                                    onMouseEnter={() => setMinNumberLightHotelStars(5)}
-                                    onMouseLeave={() => setMinNumberLightHotelStars(filter.minHotelStars)}
-                                    onClick={() => ClickMinHotelStars(5)}
-                                >
-                                    <img src={minNumberLightHotelStars >= 5 ? star : darkStar}/>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <span>Макс. звёзды отеля:</span>
-                            <div className='hotel-stars-buttons'>
-                               <button
-                                    onMouseEnter={() => setMaxNumberLightHotelStars(1)}
-                                    onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
-                                    onClick={() => ClickMaxHotelStars(1)}
-                                >
-                                    <img src={maxNumberLightHotelStars >= 1 ? star : darkStar}/>
-                                </button>
-                                <button
-                                    onMouseEnter={() => setMaxNumberLightHotelStars(2)}
-                                    onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
-                                    onClick={() => ClickMaxHotelStars(2)}
-                                >
-                                    <img src={maxNumberLightHotelStars >= 2 ? star : darkStar}/>
-                                </button>
-                                <button
-                                    onMouseEnter={() => setMaxNumberLightHotelStars(3)}
-                                    onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
-                                    onClick={() => ClickMaxHotelStars(3)}
-                                >
-                                    <img src={maxNumberLightHotelStars >= 3 ? star : darkStar}/>
-                                </button>
-                                <button
-                                    onMouseEnter={() => setMaxNumberLightHotelStars(4)}
-                                    onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
-                                    onClick={() => ClickMaxHotelStars(4)}
-                                >
-                                    <img src={maxNumberLightHotelStars >= 4 ? star : darkStar}/>
-                                </button>
-                                <button
-                                    onMouseEnter={() => setMaxNumberLightHotelStars(5)}
-                                    onMouseLeave={() => setMaxNumberLightHotelStars(filter.maxHotelStars)}
-                                    onClick={() => ClickMaxHotelStars(5)}
-                                >
-                                    <img src={maxNumberLightHotelStars >= 5 ? star : darkStar}/>
-                                </button>
-                            </div>
-                        </div> */}
                         <div>
                             <label>Мин. звёзд:</label>
-							<Rating name="min-hotel-stars" defaultValue={1} precision={1} size="large"/>
+							<Rating name="min-hotel-stars" defaultValue={1} precision={1} sx={{fontSize: '28px', marginTop: '2px'}} />
                         </div>
 
                         <div>
                             <label>Макс. звёзд:</label>
-							<Rating name="max-hotel-stars" defaultValue={5} precision={1} size="large"/>
+							<Rating name="max-hotel-stars" defaultValue={5} precision={1} sx={{fontSize: '28px', marginTop: '2px'}}/>
                         </div>
                     </div>
 
                     <div className="nutrition-filter">
-                        <div>Питание: </div>
-                        <select name='nutritionTypeId' value={filter.nutritionTypeId} onChange={changeFilters}>
-                            <option key={0} value={0}>Не важно</option>
+                        <div className='nutrition-filter-header'>Питание: </div>
+                        <Select
+                            className='nutrition-filter-select'
+                            value={filter.nutritionTypeId}
+                            name='nutritionTypeId'
+                            onChange={changeFilters}
+                            size='small'
+                        >
+                            <MenuItem value={0}>Не важно</MenuItem>
                             {nutritionTypes.map((nutritionType) => (
-                                <option 
-                                    key={nutritionType.id}
-                                    value={nutritionType.id}
-                                >
-                                    {nutritionType.name}
-                                </option>
+                                <MenuItem value={nutritionType.id}>{nutritionType.name}</MenuItem>
                             ))}
-                        </select>
+                        </Select>
                     </div>
                 </div>
-                
+                <Divider sx={{fontSize: '17px'}} textAlign="left">Характеристики</Divider>
 
-                <hr></hr>
-
-                <div className="hotel-filters">
-                    {filter.descriptions.length === 0 ? 
-                        <>
-                            <div></div>
-                            <div style={{width: '100%'}}>Для отображения дополнительных фильтров, выберите вид тура</div>
-                        </> :
-                        <>
+                <div className="characteristics-filters">
+               
                             <div></div>
                             <div className="heading-filters">Не важно</div>
                             <div className="heading-filters">Да</div>
                             <div className="heading-filters">Нет</div>
 
-                            {filter.descriptions.map((description) => (
+                            {filter.characteristics.map((characteristic) => (
                                 <>
-                                    <div className="characteristic-filter">{description.characteristicName}</div>
-                                    <div><input type="radio" name={description.characteristicId} value="0" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 0}  onChange={changeDescription}/></div>
-                                    <div><input type="radio" name={description.characteristicId} value="1" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 1}  onChange={changeDescription}/></div>
-                                    <div><input type="radio" name={description.characteristicId} value="2" checked={filter.descriptions.find(des => des.characteristicId === description.characteristicId).value === 2}  onChange={changeDescription}/></div>
+                                    <div className="characteristic-filter">{characteristic.name}</div>
+                                    <div><input type="radio" name={characteristic.id} value="0" checked={filter.characteristics.find(char => char.id === characteristic.id).value === 0}  onChange={changeСharacteristic}/></div>
+                                    <div><input type="radio" name={characteristic.id} value="1" checked={filter.characteristics.find(char => char.id === characteristic.id).value === 1}  onChange={changeСharacteristic}/></div>
+                                    <div><input type="radio" name={characteristic.id} value="2" checked={filter.characteristics.find(char => char.id === characteristic.id).value === 2}  onChange={changeСharacteristic}/></div>
                                 </>
                             ))}
-                        </>
-                    }
                     
                 </div>
 
@@ -277,7 +177,6 @@ function Filters({filter, setFilter, isFiltersOpen, closeFilters, setTours}) {
                     <button onClick={clearAllFilters}>Очистить всё</button>
                     <button onClick={getFiltredTours}>Показать</button>
                 </div>
-            </div>
         </div>
     );
 }

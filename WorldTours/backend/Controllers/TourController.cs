@@ -362,103 +362,102 @@ namespace backend.Controllers
 			}
 		}
 
-		//[HttpPost("filtred_tours")]
-		//public async Task<IActionResult> GetFiltredTours([FromBody] FilterForm filter)
-		//{
-		//	try
-		//	{
-		//		List<Tour> tours = await db.Tours.Include(t => t.Descriptions).ToListAsync();
+		[HttpPost("filtred_tours")]
+		public async Task<IActionResult> GetFiltredTours([FromBody] FilterForm filter)
+		{
+			try
+			{
+				//List<Tour> tours = await db.Tours.Include(t => t.Characteristics).ToListAsync();
 
-		//		List<Route> routes = await db.Routes
-		//			.Include(r => r.DepartmentDeparture)
-		//			.Include(r => r.Tour)
-		//			.ThenInclude(t => t.Hotel) 
-		//			.ThenInclude(h => h.City) 
-		//			.ThenInclude(c => c.Country)
-		//			.Where(r => r.SeatsNumber > 0)
-		//			.OrderBy(r => r.SeatsNumber)
-		//			.ToListAsync();
+				List<Route> routes = await db.Routes
+					.Include(r => r.DepartmentDeparture)
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.Hotel)
+					.ThenInclude(h => h.City)
+					.ThenInclude(c => c.Country)
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.Characteristics)
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.TourType)
+					.Where(r => r.SeatsNumber > 0)
+					.OrderBy(r => r.SeatsNumber)
+					.ToListAsync();
 
-		//		foreach (Tour tour in tours)
-		//		{
-		//			foreach (Route route in routes)
-		//			{
-		//				if (route.TourId == tour.Id) route.Tour = tour;
-		//			}
-		//		}
+				//foreach (Tour tour in tours)
+				//{
+				//	foreach (Route route in routes)
+				//	{
+				//		if (route.TourId == tour.Id) route.Tour = tour;
+				//	}
+				//}
 
 
-		//		List<Route> filtredRoutes = new List<Route>();
-		//		if (filter != null)
-		//		{
-		//			if (filter.CityId != 0 && filter.CityId != null) routes = routes.Where(t => t.Tour.Hotel.CityId == filter.CityId).ToList();
-		//			if (filter.CountryId != 0 && filter.CountryId != null) routes = routes.Where(t => t.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
-		//			if (filter.DepartureCityId != 0 && filter.DepartureCityId != null) routes = routes.Where(t => t.DepartmentDeparture.CityId == filter.DepartureCityId).ToList();
-		//			if (filter.MinDateOfDeparture != null && filter.MinDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture >= DateService.ConvertToDateFormat(filter.MinDateOfDeparture)).ToList();
-		//			if (filter.MaxDateOfDeparture != null && filter.MaxDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture <= DateService.ConvertToDateFormat(filter.MaxDateOfDeparture)).ToList();
-		//			if (filter.TransportTypeId != 0 && filter.TransportTypeId != null) routes = routes.Where(t => t.TransportTypeId == filter.TransportTypeId).ToList();
-		//			if (filter.TourTypeId != 0 && filter.TourTypeId != null) routes = routes.Where(t => t.Tour.TourTypeId == filter.TourTypeId).ToList();
-		//			if (filter.MinPrice != 0 && filter.MinPrice != null) routes = routes.Where(t => t.Price >= filter.MinPrice).ToList();
-		//			if (filter.MaxPrice != 0 && filter.MaxPrice != null) routes = routes.Where(t => t.Price <= filter.MaxPrice).ToList();
-		//			if (filter.MinHotelStars != 0 && filter.MinHotelStars != null) routes = routes.Where(t => t.Tour.Hotel.StarsNumber >= filter.MinHotelStars).ToList();
-		//			if (filter.MaxHotelStars != 0 && filter.MaxHotelStars != null) routes = routes.Where(t => t.Tour.Hotel.StarsNumber <= filter.MaxHotelStars).ToList();
-		//			if (filter.NutritionTypeId != 0 && filter.NutritionTypeId != null) routes = routes.Where(t => t.Tour.NutritionTypeId == filter.NutritionTypeId).ToList();
+				List<Route> filtredRoutes = new List<Route>();
+				if (filter != null)
+				{
+					if (filter.CityId != 0 && filter.CityId != null) routes = routes.Where(t => t.Tour.Hotel.CityId == filter.CityId).ToList();
+					if (filter.CountryId != 0 && filter.CountryId != null) routes = routes.Where(t => t.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
+					if (filter.DepartureCityId != 0 && filter.DepartureCityId != null) routes = routes.Where(t => t.DepartmentDeparture.CityId == filter.DepartureCityId).ToList();
+					if (filter.MinDateOfDeparture != null && filter.MinDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture >= DateService.ConvertToDateFormat(filter.MinDateOfDeparture)).ToList();
+					if (filter.MaxDateOfDeparture != null && filter.MaxDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture <= DateService.ConvertToDateFormat(filter.MaxDateOfDeparture)).ToList();
+					if (filter.TransportTypeId != 0 && filter.TransportTypeId != null) routes = routes.Where(t => t.DepartmentDeparture.TransportTypeId == filter.TransportTypeId).ToList();
+					if (filter.TourTypeId != 0 && filter.TourTypeId != null) routes = routes.Where(t => t.Tour.TourTypeId == filter.TourTypeId).ToList();
+					if (filter.MinPrice != 0 && filter.MinPrice != null) routes = routes.Where(t => t.Price >= filter.MinPrice).ToList();
+					if (filter.MaxPrice != 0 && filter.MaxPrice != null) routes = routes.Where(t => t.Price <= filter.MaxPrice).ToList();
+					if (filter.MinHotelStars != 0 && filter.MinHotelStars != null) routes = routes.Where(t => t.Tour.Hotel.StarsNumber >= filter.MinHotelStars).ToList();
+					if (filter.MaxHotelStars != 0 && filter.MaxHotelStars != null) routes = routes.Where(t => t.Tour.Hotel.StarsNumber <= filter.MaxHotelStars).ToList();
+					if (filter.NutritionTypeId != 0 && filter.NutritionTypeId != null) routes = routes.Where(t => t.Tour.Hotel.NutritionTypeId == filter.NutritionTypeId).ToList();
 
-		//			filtredRoutes = routes.ToList();
-		//			if (filter.Descriptions != null)
-		//			{
-		//				foreach (Route route in routes)
-		//				{
-		//					foreach (TourDescription description in route.Tour.Descriptions)
-		//					{
-		//						foreach (DescriptionForFilterDto descriptionForFilter in filter.Descriptions)
-		//						{
-		//							switch ((int)descriptionForFilter.Value)
-		//							{
-		//								case 0:
-		//									{
-		//										continue;
-		//									}
-		//								case 1:
-		//									{
-		//										if (descriptionForFilter.CharacteristicId == description.CharacteristicId && !description.Value) filtredRoutes.Remove(route);
-		//										break;
-		//									}
-		//								case 2:
-		//									{
-		//										if (descriptionForFilter.CharacteristicId == description.CharacteristicId && description.Value) filtredRoutes.Remove(route);
-		//										break;
-		//									}
-		//								default:
-		//									{
-		//										continue;
-		//									}
-		//							}
-		//						}
-		//					}
-		//				}
-		//			}
-		//		}
+					filtredRoutes = routes.ToList();
+					if (filter.Characteristics != null)
+					{
+						foreach (Route route in routes)
+						{
+							foreach (CharacteristicFromFilterForm characteristicFromFilter in filter.Characteristics)
+							{
+								bool hasThisCharacteristic = false;
+								foreach (TourCharacteristic characteristic in route.Tour.Characteristics)
+								{
+									if (characteristicFromFilter.Id == characteristic.Id)
+									{
+										hasThisCharacteristic = true;
+										break;
+									}
+								}
 
-		//		return Ok(filtredRoutes.Select(t => new TourCardDto
-		//		{
-		//			Id = t.Tour.Id,
-		//			RouteId = t.Id,
-		//			Name = t.Tour.Name,
-		//			Country = t.Tour.Hotel.City.Country.Name,
-		//			City = t.Tour.Hotel.City.Name,
-		//			PhotoUrl = PhotoService.ConvertToBase64(t.Tour.Photo, "jpeg"),
-		//			DateOfDeparture = ((DateTime)t.LandingDateOfDeparture).ToString("dd.MM.yyyy"),
-		//			DateOfReturn = ((DateTime)t.ArrivalDateOfReturn).ToString("dd.MM.yyyy"),
-		//			StarsNumber = t.Tour.Hotel.StarsNumber,
-		//			Price = t.Price,
-		//		}));
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return BadRequest(ex.Message);
-		//	}
-		//}
+								switch (characteristicFromFilter.Value)
+								{
+									case 1: if(!hasThisCharacteristic) filtredRoutes.Remove(route); break;
+									case 2: if(hasThisCharacteristic) filtredRoutes.Remove(route); break;
+									default:
+										break;
+								}
+							}
+							
+						}
+					}
+				}
+
+				return Ok(filtredRoutes.Select(t => new TourCardDto
+				{
+					Id = t.Tour.Id,
+					RouteId = t.Id,
+					Name = t.Tour.Name,
+					Country = t.Tour.Hotel.City.Country.Name,
+					City = t.Tour.Hotel.City.Name,
+					PhotoUrl = $"https://localhost:7276/uploads/tours/{t.Tour.Id}/0.jpg",
+					TourTypeImageUrl = $"https://localhost:7276/{t.Tour.TourType.PathToImage}",
+					DateOfDeparture = ((DateTime)t.LandingDateOfDeparture).ToString("dd.MM.yyyy"),
+					DateOfReturn = ((DateTime)t.ArrivalDateOfReturn).ToString("dd.MM.yyyy"),
+					StarsNumber = t.Tour.Hotel.StarsNumber,
+					Price = t.Price,
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 
 		[Authorize(Roles = "Manager, Admin")]
 		[HttpGet("tours_for_editor")]

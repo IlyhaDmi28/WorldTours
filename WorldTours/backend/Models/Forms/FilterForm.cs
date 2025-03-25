@@ -17,7 +17,7 @@ namespace backend.Models.Forms
 		public int? MinHotelStars { get; set; }
 		public int? MaxHotelStars { get; set; }
 		public int? NutritionTypeId { get; set; }
-		public List<DescriptionForFilterDto> Descriptions { get; set; }
+		public List<CharacteristicFromFilterForm> Characteristics { get; set; }
 		
 	}
 }

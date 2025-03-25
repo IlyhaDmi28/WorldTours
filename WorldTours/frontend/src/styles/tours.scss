@@ -166,18 +166,6 @@
 	}
 }
 
-.filters-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5); // Затемнение фона
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 1000; // Модальное окно впереди всех элементов
-}
 
 .filters {
 	background-color: white;
@@ -212,74 +200,26 @@
 	}
 
 	.tour-filters {
-		margin-top: 30px;
-		margin-bottom: 20px;
+		margin-top: 20px;
+		margin-bottom: 15px;
+		font-size: 16px;
+
 		.max-min-price-filter {
 			display: flex;
 			width: 100%;
 			justify-content: center;
 			gap: 5%;
-			
-			>div {
-				width: 100%;
-				>div {
-					text-align: left;
-					padding-left: 10px;
-					
-				}
-		
-				input {
-					font-size: 18px;
-					width: 100%;
-					height: 30px;
-					border: 1px solid $grey-color;
-					border-radius: 5px;
-				}
+
+			.max-min-price-filter-input {
+				width: 50%;
 			}
 		}
-		
-		// .hotel-stars-filter {
-		// 	margin-top: 20px;
-		// 	text-align: left;
-		// 	font-size: 18px;
-			
-		// 	>div {
-		// 		display: flex;
-		// 		padding-left: 5px;
-				
-		// 		span {
-		// 			margin-top: 4px;
-		// 			width: 30%;
-		// 		}
-				
 	
-		// 		.hotel-stars-buttons {
-		// 			display: flex;
-				
-		// 			button {
-		// 				background-color: white;
-		// 				border: none;
-		// 				width: 27px;
-		// 				height: 27px;
-		// 				padding: 0;
-	
-		// 				img {
-		// 					width: 90%;
-		// 					height: 90%;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-	
-		// 	>div:nth-child(2) {
-		// 		margin-top: 10px;
-		// 	}
-		// }
 
 		.hotel-stars-filter {
-			margin-top: 20px;
+			margin-top: 15px;
 			text-align: left;
-			font-size: 18px;
+			font-size: 17px;
 			
 			>div {
 				display: flex;
@@ -287,7 +227,7 @@
 				height: 30px;
 				
 				>label {
-					width: 20%;
+					width: 18%;
 					margin-top: 5px;
 				}
 			}
@@ -296,31 +236,36 @@
 				margin-top: 4px;
 			}
 		}
-		
-		.nutrition-filter {
-			text-align: left;
-			margin-top: 20px;	
-			padding-left: 5px;
+	}
 
-		
-			select {
-				height: 30px;
-				width: 48%;
-				margin-top: 3px;
-				border: 1px solid black;
-				border-radius: 5px;
-				font-size: 16px;
-			}
+	.nutrition-filter {
+		text-align: left;
+		margin-top: 8px;	
+		padding-left: 5px;
+		font-size: 17px;
+
+		.nutrition-filter-header {
+			margin-left: 8px;
+		}
+
+		.nutrition-filter-select {
+			width: 100%;
+			margin-top: 2px;
 		}
 	}
 
-	.hotel-filters {
+	.characteristics-filters {
 		display: grid;
 		grid-template-columns: 1fr repeat(3, 100px);
 		gap: 10px;
 		max-width: 600px;
+		max-height: 300px;
 		background: white;
 		padding: 10px 20px 10px 20px;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: $light-grey-color transparent;
+		font-size: 17px;
 
 		div {
 			display: flex;
@@ -330,6 +275,7 @@
 
 		.characteristic-filter {
 			justify-content: start;
+			text-align: left;
 			font-weight: 500;
 		}
 
