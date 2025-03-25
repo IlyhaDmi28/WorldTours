@@ -324,7 +324,7 @@ CREATE TABLE Routes (
 SELECT * FROM routes;
 
 DROP TABLE bookings;
-
+DROP TABLE Bookings;
 CREATE TABLE Bookings (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
 	OrderSeatsNumber INT,

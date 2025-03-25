@@ -30,7 +30,7 @@ namespace backend.Controllers
 				editUser.Name = user.Name;
 				editUser.Surname = user.Surname;
 				editUser.PhoneNumber = user.PhoneNumber;
-				if (user.PhotoFile != null) editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);
+				if (user.PhotoFile != null) /*editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);*/
 
 				await db.SaveChangesAsync();
 				return Ok();
@@ -109,7 +109,7 @@ namespace backend.Controllers
 					Id = u.Id,
 					Name = u.Name,
 					Surname = u.Surname,
-					PhotoUrl = PhotoService.ConvertToBase64(u.Photo, "png"),
+					PhotoUrl = $"https://localhost:7276/uploads/users/{u.Id}/0.png",
 					Email = u.Email,
 					PhoneNumber = u.PhoneNumber,
 					Role = u.Role,

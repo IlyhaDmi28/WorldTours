@@ -33,7 +33,7 @@ namespace backend.Controllers
                     Name = user.Name,
                     Surname = user.Surname,
                     PhoneNumber = user.PhoneNumber,
-                    PhotoUrl = PhotoService.ConvertToBase64(user.Photo, "png"),
+                    PhotoUrl = $"https://localhost:7276/uploads/users/{u.Id}/0.png",
                     BlockedStatus = user.BlockedStatus,
                     Role = user.Role
                 }) : Unauthorized();

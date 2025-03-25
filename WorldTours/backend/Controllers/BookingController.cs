@@ -323,7 +323,7 @@ namespace backend.Controllers
 						Surname = b.User.Surname,
 						Email = b.User.Email,
 						PhoneNumber = b.User.PhoneNumber,
-						PhotoUrl = PhotoService.ConvertToBase64(b.User.Photo, "png"),
+						PhotoUrl = $"https://localhost:7276/uploads/users/{b.User.Id}/0.png",
 					},
 					Direction = new DirectionDto()
 					{
@@ -542,7 +542,7 @@ namespace backend.Controllers
 							Surname = b.User.Surname,
 							Email = b.User.Email,
 							PhoneNumber = b.User.PhoneNumber,
-							PhotoUrl = PhotoService.ConvertToBase64(b.User.Photo, "png"),
+							PhotoUrl = $"https://localhost:7276/uploads/users/{b.User.Id}/0.png",
 						},
 						Direction = new DirectionDto()
 						{

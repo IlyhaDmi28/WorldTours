@@ -285,6 +285,43 @@ namespace backend.Controllers
 			}
 		}
 
+		[HttpPost("filtred_hotels")]
+		public async Task<IActionResult> GetFiltredHotels([FromBody] HotelFilterForm filter)
+		{
+			try
+			{
+				List<Hotel> hotels = await db.Hotels
+					.Include(h => h.City)
+					.ThenInclude(c => c.Country)
+					.ToListAsync();
+
+
+				if (filter != null)
+				{
+					if (filter.CityId != 0 && filter.CityId != null) hotels = hotels.Where(h => h.CityId == filter.CityId).ToList();
+					if (filter.CountryId != 0 && filter.CountryId != null) hotels = hotels.Where(h => h.City.CountryId == filter.CountryId).ToList();
+					if (filter.MinStarsNumber != 0 && filter.MinStarsNumber != null) hotels = hotels.Where(h => h.StarsNumber >= filter.MinStarsNumber).ToList();
+					if (filter.MaxStarsNumber != 0 && filter.MaxStarsNumber != null) hotels = hotels.Where(h => h.StarsNumber <= filter.MaxStarsNumber).ToList();
+
+				}
+
+				return Ok(hotels.Select(h => new HotelForEditCardDto()
+				{
+					Id = h.Id,
+					Name = h.Name,
+					City = h.City.Name,
+					Country = h.City.Country.Name,
+					Address = h.Address,
+					StarsNumber = h.StarsNumber,
+					PhotoUrl = $"https://localhost:7276/uploads/hotels/{h.Name}/0.jpg"
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		//[Authorize(Roles = "Manager, Admin")]
 		//[HttpPut("edit")]
 		//public async Task<IActionResult> EditHotel([FromForm] HotelForm hotel)

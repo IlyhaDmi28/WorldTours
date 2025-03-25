@@ -32,14 +32,21 @@
         }
 	}
 
-	.tour-types-filter{
+	.select-tour-types {
 		display: flex;
 		justify-content: left;
+		padding-bottom: 20px;
+
+		.arrow-navigation-tour-type {
+			color: $dark-grey-color;
+			margin-top: 5%;
+		}
 
 		.tour-types-list {
 			display: flex;
 			justify-content: left;
 			width: 100%;
+			column-gap: 50px;
 
 			.tour-type {
 				@include tour-type(75px, 10px, 1px);
@@ -50,9 +57,29 @@
 				}
 			}
 		}
+	}
+
+	// .tour-types-filter{
+	// 	display: flex;
+	// 	justify-content: left;
+
+	// 	.tour-types-list {
+	// 		display: flex;
+	// 		justify-content: left;
+	// 		width: 100%;
+
+	// 		.tour-type {
+	// 			@include tour-type(75px, 10px, 1px);
+	// 			margin-top: 10px;
+			
+	// 			&:hover {
+	// 				border-bottom: 2px solid black;
+	// 			}
+	// 		}
+	// 	}
 
 		
-	}
+	// }
 
     .filter-and-sort-buttons{
         display: flex;

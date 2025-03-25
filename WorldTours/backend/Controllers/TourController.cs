@@ -458,6 +458,45 @@ namespace backend.Controllers
 			}
 		}
 
+		[HttpPost("filtred_tours_to_editor")]
+		public async Task<IActionResult> GetFiltredToursForEditor([FromBody] TourForEditorFilterForm filter)
+		{
+
+			try
+			{
+				List<Tour> tours = await db.Tours
+					.Include(t => t.TourType)
+					.Include(t => t.Hotel)
+					.ThenInclude(h => h.City)
+					.ThenInclude(c => c.Country)
+					.ToListAsync();
+
+				if (filter != null)
+				{
+					if (filter.CityId != 0 && filter.CityId != null) tours = tours.Where(t => t.Hotel.CityId == filter.CityId).ToList();
+					if (filter.CountryId != 0 && filter.CountryId != null) tours = tours.Where(t => t.Hotel.City.CountryId == filter.CountryId).ToList();
+					if (filter.TourTypeId != 0 && filter.TourTypeId != null) tours = tours.Where(t => t.TourTypeId == filter.TourTypeId).ToList();
+					
+				}
+
+				return Ok(tours.Select(t => new TourForEditorCardDto
+				{
+					Id = t.Id,
+					Name = t.Name,
+					Country = t.Hotel.City.Country.Name,
+					City = t.Hotel.City.Name,
+					Hotel = t.Hotel.Name,
+					TourTypeImageUrl = $"https://localhost:7276/{t.TourType.PathToImage}",
+					StarsNumber = t.Hotel.StarsNumber,
+					PhotoUrl = $"https://localhost:7276/uploads/tours/{t.Id}/0.jpg",
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[Authorize(Roles = "Manager, Admin")]
 		[HttpGet("tours_for_editor")]
 		public async Task<IActionResult> GetToursForEditor()

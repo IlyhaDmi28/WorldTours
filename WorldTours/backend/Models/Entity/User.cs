@@ -28,7 +28,6 @@ namespace backend.Models.Entity
         [MaxLength(255)]
         public string PhoneNumber { get; set; }
 
-        public byte[]? Photo { get; set; }
 
 		public ICollection<Booking> Bookings { get; set; }
 		public ICollection<Review> Reviews { get; set; }

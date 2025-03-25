@@ -47,6 +47,42 @@ namespace backend.Controllers
 			}
 		}
 
+		[HttpPost("filtred_department_departures")]
+		public async Task<IActionResult> GetFiltredDepartmentDeparturess([FromBody] DepartmentDepartureFilterForm filter)
+		{
+			try
+			{
+				List<DepartmentDeparture> departmentDepartures = await db.DepartmentDepartures
+					.Include(dd => dd.TransportType)
+					.Include(dd => dd.City)
+					.ThenInclude(c => c.Country)
+					.OrderBy(dd => dd.Id)
+					.ToListAsync();
+
+				if (filter != null)
+				{
+					if (filter.CityId != 0 && filter.CityId != null) departmentDepartures = departmentDepartures.Where(dd => dd.CityId == filter.CityId).ToList();
+					if (filter.CountryId != 0 && filter.CountryId != null) departmentDepartures = departmentDepartures.Where(dd => dd.City.CountryId == filter.CountryId).ToList();
+					if (filter.TransportTypeId != 0 && filter.TransportTypeId != null) departmentDepartures = departmentDepartures.Where(dd => dd.TransportTypeId == filter.TransportTypeId).ToList();
+				}
+
+				return Ok(departmentDepartures.Select(dd => new DepartmentDepartureDto
+				{
+					Id = dd.Id,
+					Name = dd.Name,
+					Address = dd.Address,
+					City = dd.City.Name,
+					Country = dd.City.Country.Name,
+					CityId = dd.City.Id,
+					TransportTypeId = dd.TransportType.Id,
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[Authorize(Roles = "Manager, Admin")]
 		[HttpPost("add")]
 		public async Task<IActionResult> AddDepartmentDeparture([FromForm] DepartmentDepartureForm departmentDeparture)
