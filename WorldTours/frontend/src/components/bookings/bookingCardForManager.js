@@ -72,6 +72,13 @@ function BookingCardForManager({ booking, deleteBooking, openBooking, confirmBoo
                     Подтвержденно
                 </div>
             }
+
+            {
+                booking.status === 2 &&
+                <div className="booking-card-confirmation" style={{backgroundColor: 'rgb(224, 190, 39)'}}>
+                    Оалачено
+                </div>
+            }
                 {/* { !booking.status ?  (
                     <div className="booking-card-confirmation" onClick={(e)=>{e.stopPropagation(); confirmBooking(booking.id)}}>
                         Нажмите подтвердить

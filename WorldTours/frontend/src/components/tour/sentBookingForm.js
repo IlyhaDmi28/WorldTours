@@ -104,7 +104,6 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
             })
         }));
         // changeFinalPrice();
-
     };
 
     const addBookedRoomType = (id) => {
@@ -141,8 +140,10 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
     };
 
     const getAvailableNumberOfSeats = () => {
-        const allSeatsNumberOfRoomTypes = roomTypes.map((roomType) => roomType.roomsNumber * roomType.seatsNumber);
-        return Math.min(Math.max(...allSeatsNumberOfRoomTypes), selectedRoute.seatsNumber);
+
+        let allSeatsNumberOfRoomTypes = 0;
+        roomTypes.forEach((roomType) => { allSeatsNumberOfRoomTypes += roomType.roomsNumber * roomType.seatsNumber});
+        return Math.min(allSeatsNumberOfRoomTypes, selectedRoute.seatsNumber);
     }
 
     const sendRequestForBooking = async () => {
@@ -161,15 +162,23 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
 			return;
 		}
 
-		// if(seatsNumber <= 0) {
-		// 	alert("Вы ввели некоретное количество мест!")
-		// 	return;
-		// }
+		if(requestForBooking.orderSeatsNumber <= 0) {
+			alert("Вы ввели некоретное количество мест!")
+			return;
+		}
 
-		// if(selectedRoute.seatsNumber - seatsNumber < 0) {
-		// 	alert("К сожалению, в туре не хватает мест!")
-		// 	return;
-		// }
+		if(getAvailableNumberOfSeats() - requestForBooking.orderSeatsNumber < 0) {
+			alert("К сожалению, в туре не хватает мест!")
+			return;
+		}
+
+        let sumOfOrderSeatsInRooms = 0;
+        requestForBooking.bookedRoomTypes.forEach((bookedRoomType) => {sumOfOrderSeatsInRooms += bookedRoomType.orderRoomsNumber * roomTypes.find(roomType => roomType.id === bookedRoomType.id).seatsNumber})
+
+        if(sumOfOrderSeatsInRooms > requestForBooking.orderSeatsNumber) {
+            alert("Вы заказали недостаточно номеров! Вы указали больше людей, чем вместяться в номера")
+			return;
+        }
 
         console.log(requestForBooking);
 
@@ -376,14 +385,14 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                     control = {
                         <Checkbox name='hasСhildren' checked={requestForBooking.hasСhildren} onChange={changeChecboxRequestForbooking} sx={{ transform: "scale(0.9)" }}/>
                     } 
-                    label="Есть дети (менджер уточнит о возможных скидказ и вам сообщит)"
+                    label="Есть дети (менджер уточнит о возможных скидках и вам сообщит)"
                  />
                 <FormControlLabel 
                     className="booking-form-checkbox" 
                     control = {
                         <Switch name='prioritySeatsInTransport'  checked={requestForBooking.prioritySeatsInTransport} onChange={changeChecboxRequestForbooking} sx={{ transform: "scale(0.9)" }}/>
                     }
-                    label="Места в транспорте рядом/возле окна" 
+                    label="Места в приоритете в транспорте рядом/возле окна" 
                 />
                 {/* <div className="booking-form-checkbox">
                     <input

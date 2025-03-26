@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Rating  } from "@mui/material";
+import TextField from '@mui/material/TextField';
 import FilterButton from "../components/tours/filterButton";
 import SortButton from "../components/general/sortButton";
 import Header from '../components/general/header';
@@ -151,9 +152,9 @@ function HotelsForEditor() {
 
 	const directions = [
         null,
-        <Regions selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Countries regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Cities countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Regions position={{left: '18%', top: '27%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Countries position={{left: '18%', top: '27%'}} regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Cities position={{left: '18%', top: '27%'}} countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
     ]
 
 	const changeStars = async (e) => {
@@ -189,10 +190,32 @@ function HotelsForEditor() {
 		window.location.href = '/hotels_for_editor';
 	}
 
+	const getSearchedItems = async(e) => {
+		const response = await axios.post(`https://localhost:7276/hotel/filtred_hotels`, filter, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+		const hotelsData = response.data.filter(item => item.name.startsWith(e.target.value));;
+
+		setHotels(hotelsData);
+	}
+
 	
 	return (
 		<div className="hotels-for-editor narrow-conteiner">
-			<Header SearchInputComponent={<input  type='text' placeholder='Поиск'/>} AddButtonComponent={<button><Link to='/hotel_editor/0'><b>Добавить отель</b></Link></button>}/>
+			<Header 
+				SearchInputComponent={
+					<TextField
+						className='search-input'
+						label="Поиск"
+						type="search"
+						variant="standard"
+						onChange={getSearchedItems}
+					/>
+				} 
+				AddButtonComponent={<button><Link to='/hotel_editor/0'><b>Добавить отель</b></Link></button>}
+			/>
 			<div className="line-under-header"></div>
 			<main className='vertical-list-page'>
 				<div className='hotels-filters-parametrs'>
@@ -253,10 +276,10 @@ function HotelsForEditor() {
 						</div>
 					</div> */}
 					{/* <Button className="editor-list-more-filters" variant="outlined"></Button> */}
-					<div className='filter-and-sort-buttons'>
+					{/* <div className='filter-and-sort-buttons'>
 						<FilterButton text={"Ещё фильтры"}/>
 						<SortButton/>
-					</div>
+					</div> */}
 				</div>
 				<div className="hotels-for-editor-list">
 					{hotels.map((hotel) => (<HotelCardForEditor hotel={hotel} deleteHotel={deleteHotel}/>))}

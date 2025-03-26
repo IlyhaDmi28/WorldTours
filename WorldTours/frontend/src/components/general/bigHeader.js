@@ -17,11 +17,7 @@ function BigHeader({filter, setFilter, setTours}) {
                 <img src={logo} alt="logo" />
             </Link>
             <div className="info-and-main-filters">
-                <div className="info-href">
-                    <Link to="/campany">Туры</Link>
-                    <Link to="/payment">Экскурсии</Link>
-                    <Link to="/travel_info">Круизы</Link>
-                </div>
+                
                
                 <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>
 

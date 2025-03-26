@@ -16,7 +16,7 @@ const token = localStorage.getItem("token");
 
 function BookingsForManager() {
 	const authUser = useSelector((state) => state.authUser.value);
-	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false]);
+	const [isChangeBookingListButtonsActive, setIsAllButtonActive] = useState([true, false, false, false]);
 	const [isOpenFilter, setIsOpenFilter] = useState(false);
 	const [bookings, setBookings] = useState([]);
 	const [indexOfSelectedBooking, setIndexOfSelectedBooking] = useState(-1);
@@ -165,9 +165,9 @@ function BookingsForManager() {
 	
 	const directions = [
         null,
-        <Regions selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Countries regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Cities countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Regions position={{left: '18%', top: '27%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Countries position={{left: '10%', top: '27%'}} regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Cities position={{left: '18%', top: '27%'}} countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
     ]
 
     const handlClickChangeBookingListButton = async (buttonId) => {
@@ -283,8 +283,8 @@ function BookingsForManager() {
 						</button>
 
 						<button
-							onClick={() => handlClickChangeBookingListButton(2)}
-							style={isChangeBookingListButtonsActive[2]  ? {backgroundColor: 'rgb(224, 190, 39)', color: 'white'} : {}}
+							onClick={() => handlClickChangeBookingListButton(3)}
+							style={isChangeBookingListButtonsActive[3]  ? {backgroundColor: 'rgb(224, 190, 39)', color: 'white'} : {}}
 						>
 							Оплаченые
 						</button>

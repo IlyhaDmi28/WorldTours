@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Modal from '@mui/material/Modal';
@@ -168,9 +169,9 @@ function ToursForEditor() {
 
 	const directions = [
         null,
-        <Regions selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Countries regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Cities countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Regions position={{left: '18%', top: '27%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Countries position={{left: '10%', top: '27%'}} regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Cities position={{left: '18%', top: '27%'}} countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
     ]
 
 	const changeTourType = async (id) => {
@@ -210,9 +211,33 @@ function ToursForEditor() {
 		setTours(tours.filter(tour => tour !== deletedTour))
 	}
 
+	const getSearchedItems = async(e) => {
+		const response = await axios.post(`https://localhost:7276/tour/filtred_tours_to_editor`, filter, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+		const toursData = response.data.filter(item => item.name.startsWith(e.target.value));;
+
+		setTours(toursData);
+	}
+
 	return (
 		<div className="tours-for-editor narrow-conteiner">
-			<Header SearchInputComponent={<input  type='text' placeholder='Поиск'/>} AddButtonComponent={<button><Link to='/tour_editor/0'><b>Добавить тур</b></Link></button>}/>
+			<Header 
+				SearchInputComponent={
+					<TextField
+						className='search-input'
+						label="Поиск"
+						type="search"
+						variant="standard"
+						onChange={getSearchedItems}
+					/>
+					// <input  type='text' placeholder='Поиск'/>
+				} 
+				AddButtonComponent={<button><Link to='/tour_editor/0'><b>Добавить тур</b></Link>
+				</button>}
+			/>
 			<div className="line-under-header"></div>
 			<main className='vertical-list-page'>
 				<div className='tours-filters-parametrs'>

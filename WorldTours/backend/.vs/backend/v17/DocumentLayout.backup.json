@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\bookingcardformanagerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\bookingcardformanagerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\entity\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\entity\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\departmentdeparturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\departmentdeparturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,10 +65,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\hotelforbookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\hotelforbookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\controllers\\departmentdeparturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:controllers\\departmentdeparturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\hotelfortourdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -170,10 +174,6 @@
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\geographicobjectdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\bookingcardformanagerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\bookingcardformanagerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|d:\\univer\\\u043A\u0443\u0440\u0441\u0430\u0447\\worldtours\\backend\\models\\dtos\\bookingcarddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C77F715-27BD-4F0D-BAB8-D5BF9FB7F37C}|backend.csproj|solutionrelative:models\\dtos\\bookingcarddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -229,7 +229,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 529,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -237,33 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PaymentService.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\PaymentService.cs",
-              "RelativeDocumentMoniker": "Services\\PaymentService.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\PaymentService.cs",
-              "RelativeToolTip": "Services\\PaymentService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAACMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T16:21:18.023Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "PaymentResponse.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\PaymentResponse.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\PaymentResponse.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\PaymentResponse.cs",
-              "RelativeToolTip": "Models\\DTOs\\PaymentResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T16:20:31.639Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -271,31 +245,29 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T16:19:28.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T16:19:28.279Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "BookingController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\BookingController.cs",
               "RelativeDocumentMoniker": "Controllers\\BookingController.cs",
               "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\BookingController.cs",
               "RelativeToolTip": "Controllers\\BookingController.cs",
-              "ViewState": "AgIAAA8BAAAAAAAAAAApwBoBAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAMQAAAAAAAAAAAApwBoBAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T09:25:19.374Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T09:25:19.374Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "BookingDto.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\BookingDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\BookingDto.cs",
               "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\BookingDto.cs",
               "RelativeToolTip": "Models\\DTOs\\BookingDto.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAA7wBEAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-26T07:59:50.274Z",
               "EditorCaption": ""
@@ -308,14 +280,14 @@
               "RelativeDocumentMoniker": "Models\\Entity\\Booking.cs",
               "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\Booking.cs",
               "RelativeToolTip": "Models\\Entity\\Booking.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwA0AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-23T16:04:47.059Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\DB\\AppDbContext.cs",
               "RelativeDocumentMoniker": "DB\\AppDbContext.cs",
@@ -323,77 +295,11 @@
               "RelativeToolTip": "DB\\AppDbContext.cs",
               "ViewState": "AgIAAMgAAAAAAAAAAAAgwA0AAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T21:28:07.605Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T21:28:07.605Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "PaymentIntentRequest.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\PaymentIntentRequest.cs",
-              "RelativeDocumentMoniker": "Models\\Forms\\PaymentIntentRequest.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\PaymentIntentRequest.cs",
-              "RelativeToolTip": "Models\\Forms\\PaymentIntentRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T16:33:13.32Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PhotoService.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\PhotoService.cs",
-              "RelativeDocumentMoniker": "Services\\PhotoService.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\PhotoService.cs",
-              "RelativeToolTip": "Services\\PhotoService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T16:44:39.186Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "backend",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\backend.csproj",
-              "RelativeDocumentMoniker": "backend.csproj",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\backend.csproj",
-              "RelativeToolTip": "backend.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-26T16:08:09.254Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PaymentsController.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\PaymentsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PaymentsController.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\PaymentsController.cs",
-              "RelativeToolTip": "Controllers\\PaymentsController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAhwA8AAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T16:07:29.042Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "HotelForBookingDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelForBookingDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\HotelForBookingDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelForBookingDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\HotelForBookingDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T14:42:19.229Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 3,
               "Title": "DepartmentDepartureController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DepartmentDepartureController.cs",
               "RelativeDocumentMoniker": "Controllers\\DepartmentDepartureController.cs",
@@ -406,7 +312,104 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 1,
+              "Title": "BookingCardForManagerDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\BookingCardForManagerDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\BookingCardForManagerDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\BookingCardForManagerDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\BookingCardForManagerDto.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAcwBMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-23T15:31:45.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PaymentResponse.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\PaymentResponse.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\PaymentResponse.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\PaymentResponse.cs",
+              "RelativeToolTip": "Models\\DTOs\\PaymentResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T16:20:31.639Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PaymentService.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\PaymentService.cs",
+              "RelativeDocumentMoniker": "Services\\PaymentService.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\PaymentService.cs",
+              "RelativeToolTip": "Services\\PaymentService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAACMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T16:21:18.023Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PaymentIntentRequest.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\PaymentIntentRequest.cs",
+              "RelativeDocumentMoniker": "Models\\Forms\\PaymentIntentRequest.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\PaymentIntentRequest.cs",
+              "RelativeToolTip": "Models\\Forms\\PaymentIntentRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T16:33:13.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PhotoService.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\PhotoService.cs",
+              "RelativeDocumentMoniker": "Services\\PhotoService.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Services\\PhotoService.cs",
+              "RelativeToolTip": "Services\\PhotoService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T16:44:39.186Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "backend.csproj",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\backend.csproj",
+              "RelativeDocumentMoniker": "backend.csproj",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\backend.csproj",
+              "RelativeToolTip": "backend.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-26T16:08:09.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PaymentsController.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\PaymentsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PaymentsController.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\PaymentsController.cs",
+              "RelativeToolTip": "Controllers\\PaymentsController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAhwA8AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T16:07:29.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "HotelForBookingDto.cs",
+              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelForBookingDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTOs\\HotelForBookingDto.cs",
+              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelForBookingDto.cs",
+              "RelativeToolTip": "Models\\DTOs\\HotelForBookingDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T14:42:19.229Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "TourController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\TourController.cs",
               "RelativeDocumentMoniker": "Controllers\\TourController.cs",
@@ -414,12 +417,11 @@
               "RelativeToolTip": "Controllers\\TourController.cs",
               "ViewState": "AgIAAOwCAAAAAAAAAAAtwPoCAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-02T09:59:38.948Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-02T09:59:38.948Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
@@ -427,12 +429,11 @@
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T20:50:43.364Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T20:50:43.364Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "HotelForEditorDto.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelForEditorDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\HotelForEditorDto.cs",
@@ -440,12 +441,11 @@
               "RelativeToolTip": "Models\\DTOs\\HotelForEditorDto.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T15:31:31.32Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T15:31:31.32Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "HotelForTourDto.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\HotelForTourDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\HotelForTourDto.cs",
@@ -453,12 +453,11 @@
               "RelativeToolTip": "Models\\DTOs\\HotelForTourDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T13:49:17.554Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T13:49:17.554Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "HotelController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\HotelController.cs",
               "RelativeDocumentMoniker": "Controllers\\HotelController.cs",
@@ -466,12 +465,11 @@
               "RelativeToolTip": "Controllers\\HotelController.cs",
               "ViewState": "AgIAAEAAAAAAAAAAAIAwwFEAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T07:45:12.624Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T07:45:12.624Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "DepartmentDepartureForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\DepartmentDepartureForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\DepartmentDepartureForm.cs",
@@ -479,12 +477,11 @@
               "RelativeToolTip": "Models\\Forms\\DepartmentDepartureForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T12:56:25.824Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T12:56:25.824Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "HotelForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\HotelForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\HotelForm.cs",
@@ -492,12 +489,11 @@
               "RelativeToolTip": "Models\\Forms\\HotelForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T11:40:46.864Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T11:40:46.864Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "DepartmentDeparture.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\DepartmentDeparture.cs",
               "RelativeDocumentMoniker": "Models\\Entity\\DepartmentDeparture.cs",
@@ -505,12 +501,11 @@
               "RelativeToolTip": "Models\\Entity\\DepartmentDeparture.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABUAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T12:40:47.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T12:40:47.099Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "DepartmentDepartureFilterForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\DepartmentDepartureFilterForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\DepartmentDepartureFilterForm.cs",
@@ -518,12 +513,11 @@
               "RelativeToolTip": "Models\\Forms\\DepartmentDepartureFilterForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T20:37:07.247Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T20:37:07.247Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "Country.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\Country.cs",
               "RelativeDocumentMoniker": "Models\\Entity\\Country.cs",
@@ -531,12 +525,11 @@
               "RelativeToolTip": "Models\\Entity\\Country.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T12:42:11.763Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T12:42:11.763Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "Hotel.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\Hotel.cs",
               "RelativeDocumentMoniker": "Models\\Entity\\Hotel.cs",
@@ -544,12 +537,11 @@
               "RelativeToolTip": "Models\\Entity\\Hotel.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAxwBAAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T11:39:02.731Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T11:39:02.731Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "HotelFilterForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\HotelFilterForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\HotelFilterForm.cs",
@@ -557,12 +549,11 @@
               "RelativeToolTip": "Models\\Forms\\HotelFilterForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T20:15:24.599Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T20:15:24.599Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\User.cs",
               "RelativeDocumentMoniker": "Models\\Entity\\User.cs",
@@ -570,12 +561,11 @@
               "RelativeToolTip": "Models\\Entity\\User.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAA3wB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T20:50:27.726Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T20:50:27.726Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
@@ -583,23 +573,21 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAzwCsAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T20:59:32.25Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T20:59:32.25Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "ExecutionContext.cs",
               "DocumentMoniker": "C:\\Users\\Ilya\\AppData\\Local\\Temp\\.vsdbgsrc\\4dcf567db33b8407e8e7e85491df71d46c06985d33f5ad8d904e52c3b325c6c5\\ExecutionContext.cs",
               "ToolTip": "C:\\Users\\Ilya\\AppData\\Local\\Temp\\.vsdbgsrc\\4dcf567db33b8407e8e7e85491df71d46c06985d33f5ad8d904e52c3b325c6c5\\ExecutionContext.cs",
               "ViewState": "AgIAAHoAAAAAAAAAAAApwIkAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T06:44:51.377Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T06:44:51.377Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "TourForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\TourForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\TourForm.cs",
@@ -607,12 +595,11 @@
               "RelativeToolTip": "Models\\Forms\\TourForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T07:31:04.093Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T07:31:04.093Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "TourForEditorFilterForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\TourForEditorFilterForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\TourForEditorFilterForm.cs",
@@ -620,12 +607,11 @@
               "RelativeToolTip": "Models\\Forms\\TourForEditorFilterForm.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAAwAoAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T19:48:24.406Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T19:48:24.406Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "FilterForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\FilterForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\FilterForm.cs",
@@ -633,12 +619,11 @@
               "RelativeToolTip": "Models\\Forms\\FilterForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T08:57:22.042Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T08:57:22.042Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "Tour.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\Tour.cs",
               "RelativeDocumentMoniker": "Models\\Entity\\Tour.cs",
@@ -646,12 +631,11 @@
               "RelativeToolTip": "Models\\Entity\\Tour.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T20:16:21.026Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T20:16:21.026Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "RouteForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\RouteForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\RouteForm.cs",
@@ -659,12 +643,11 @@
               "RelativeToolTip": "Models\\Forms\\RouteForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T15:18:55.589Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T15:18:55.589Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "Region.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\Region.cs",
               "RelativeDocumentMoniker": "Models\\Entity\\Region.cs",
@@ -672,12 +655,11 @@
               "RelativeToolTip": "Models\\Entity\\Region.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T10:35:27.675Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T10:35:27.675Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "CharacteristicForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\CharacteristicForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\CharacteristicForm.cs",
@@ -685,12 +667,11 @@
               "RelativeToolTip": "Models\\Forms\\CharacteristicForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T08:57:34.218Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T08:57:34.218Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "Route.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\Route.cs",
               "RelativeDocumentMoniker": "Models\\Entity\\Route.cs",
@@ -698,12 +679,11 @@
               "RelativeToolTip": "Models\\Entity\\Route.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T13:29:59.157Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T13:29:59.157Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "DirectionController.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Controllers\\DirectionController.cs",
               "RelativeDocumentMoniker": "Controllers\\DirectionController.cs",
@@ -711,12 +691,11 @@
               "RelativeToolTip": "Controllers\\DirectionController.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAYwDAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T10:09:37.97Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T10:09:37.97Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "CharacteristicFromFilterForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\CharacteristicFromFilterForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\CharacteristicFromFilterForm.cs",
@@ -724,12 +703,11 @@
               "RelativeToolTip": "Models\\Forms\\CharacteristicFromFilterForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T08:58:21.031Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T08:58:21.031Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "City.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Entity\\City.cs",
               "RelativeDocumentMoniker": "Models\\Entity\\City.cs",
@@ -737,12 +715,11 @@
               "RelativeToolTip": "Models\\Entity\\City.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T10:35:40.12Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T10:35:40.12Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "DirectionDto.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\DirectionDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\DirectionDto.cs",
@@ -750,12 +727,11 @@
               "RelativeToolTip": "Models\\DTOs\\DirectionDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T15:26:33.855Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T15:26:33.855Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "GeographicObjectDto.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\GeographicObjectDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\GeographicObjectDto.cs",
@@ -763,21 +739,7 @@
               "RelativeToolTip": "Models\\DTOs\\GeographicObjectDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T10:31:37.476Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "BookingCardForManagerDto.cs",
-              "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\BookingCardForManagerDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTOs\\BookingCardForManagerDto.cs",
-              "ToolTip": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\DTOs\\BookingCardForManagerDto.cs",
-              "RelativeToolTip": "Models\\DTOs\\BookingCardForManagerDto.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAA5wBMAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T15:31:45.968Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T10:31:37.476Z"
             },
             {
               "$type": "Document",
@@ -789,8 +751,7 @@
               "RelativeToolTip": "Models\\DTOs\\BookingCardDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAIBQwBMAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T15:24:19.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T15:24:19.443Z"
             },
             {
               "$type": "Document",
@@ -802,8 +763,7 @@
               "RelativeToolTip": "Models\\Forms\\RequestForBookingForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T09:26:29.42Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T09:26:29.42Z"
             },
             {
               "$type": "Document",
@@ -815,8 +775,7 @@
               "RelativeToolTip": "Models\\DTOs\\TourDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T16:30:19.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T16:30:19.394Z"
             },
             {
               "$type": "Document",
@@ -828,8 +787,7 @@
               "RelativeToolTip": "Models\\DTOs\\TourCardDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T20:30:01.384Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T20:30:01.384Z"
             },
             {
               "$type": "Document",
@@ -841,8 +799,7 @@
               "RelativeToolTip": "Models\\DTOs\\RoomTypeDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-22T15:49:41.105Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-22T15:49:41.105Z"
             },
             {
               "$type": "Document",
@@ -854,8 +811,7 @@
               "RelativeToolTip": "Models\\DTOs\\RouteDto.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAxwBIAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T20:38:04.381Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T20:38:04.381Z"
             },
             {
               "$type": "Document",
@@ -867,8 +823,7 @@
               "RelativeToolTip": "Models\\DTOs\\HotelDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T08:35:44.94Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-20T08:35:44.94Z"
             },
             {
               "$type": "Document",
@@ -880,8 +835,7 @@
               "RelativeToolTip": "Models\\Forms\\BookedRoomTypeForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T09:59:31.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T09:59:31.417Z"
             },
             {
               "$type": "Document",
@@ -893,8 +847,7 @@
               "RelativeToolTip": "Models\\Forms\\RoomTypeForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T09:59:38.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T09:59:38.382Z"
             },
             {
               "$type": "Document",
@@ -906,8 +859,7 @@
               "RelativeToolTip": "Controllers\\RouteController.cs",
               "ViewState": "AgIAAFQAAAAAAAAAAIBJwFcAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T20:14:33.643Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T20:14:33.643Z"
             },
             {
               "$type": "Document",
@@ -919,8 +871,7 @@
               "RelativeToolTip": "Models\\DTOs\\TourForEditorCardDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T20:37:52.181Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T20:37:52.181Z"
             },
             {
               "$type": "Document",
@@ -932,8 +883,7 @@
               "RelativeToolTip": "Models\\DTOs\\TourForEditorDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T11:36:36.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T11:36:36.003Z"
             }
           ]
         },
@@ -943,7 +893,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "BookingFilterForm.cs",
               "DocumentMoniker": "D:\\Univer\\\u041A\u0443\u0440\u0441\u0430\u0447\\WorldTours\\backend\\Models\\Forms\\BookingFilterForm.cs",
               "RelativeDocumentMoniker": "Models\\Forms\\BookingFilterForm.cs",

@@ -417,7 +417,7 @@ function Tour() {
 				</div>
 			</div>
 
-			{indexOfSelectedImage !== -1 && <ModalImageGallery index={indexOfSelectedImage} setImages={setPhotosUrls} images={photosUrls} closeModal={closeImagesGallery} showImages={showImages}/>}
+			{indexOfSelectedImage !== -1 && <ModalImageGallery index={indexOfSelectedImage} images={photosUrls} closeModal={closeImagesGallery} showImages={showImages}/>}
 			{/* <ModalImageGallery indexOfSelectedImage={indexOfSelectedImage} images={photosUrl}/> */}
 		</div>
 	);

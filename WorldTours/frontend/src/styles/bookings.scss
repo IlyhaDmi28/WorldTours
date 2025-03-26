@@ -7,13 +7,16 @@ $indent-from-left-on-card: 200px;
     width: 100%;
 
 	.select-location {
-		width: 130px;
+		width: 180px;
         height: 55px;
 		font-size: 13px;
+		border: none;
+		border-radius: 14px;
 		padding-top: 4px;
 		padding-bottom: 4px;
         padding-left: 12px;
         text-align: left;
+        background-color: rgb(244, 244, 244);
         margin-top: 1.5%;
 
         div {
@@ -63,7 +66,6 @@ $indent-from-left-on-card: 200px;
     
     .filter-and-sort-buttons{
         display: flex;
-        width: 190px;
         justify-content: space-between;
         margin-top: 2.2%;
         margin-left: auto;
@@ -520,7 +522,7 @@ $indent-from-left-on-card: 200px;
 	}
 }
 
-.filters {
+.booking-filters {
 	background-color: white;
 	padding: 20px;
 	border-radius: 8px;

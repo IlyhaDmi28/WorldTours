@@ -276,26 +276,26 @@ function HotelEditor() {
 
 	const saveHotel = async () => {
 		console.log(hotel);
-		// if(authUser.blockedStatus) {
-		// 	alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
-		// 	return;
-		// }
+		if(authUser.blockedStatus) {
+			alert("Вы не можете сохранить тур, так как ваш профиль был заблокирован!");
+			return;
+		}
 
-		// if(
-		// 	(hotel.name === "" || hotel.name === null) ||
-		// 	(hotel.mainDescription === "" || hotel.mainDescription === null) ||
-		// 	(hotel.hotelId === "" || hotel.hotelId === null) ||
-		// 	(hotel.nutritionTypeId === "" || hotel.nutritionTypeId === null) ||
-		// 	(hotel.tourTypeId === "" || hotel.tourTypeId === null)
-		// ) {
-		// 	alert("Вы не заполнили все поля!")
-		// 	return;
-		// }
+		if(
+			(hotel.name === "" || hotel.name === null) ||
+			(hotel.cityId === "" || hotel.hotelId === null) ||
+			(hotel.address === "" || hotel.address === null) ||
+			(hotel.starsNumber === "" || hotel.starsNumber === null) ||
+			(hotel.nutritionTypeId === "" || hotel.nutritionTypeId === null)
+		) {
+			alert("Вы не заполнили все поля!")
+			return;
+		}
 
-		// if(tour.routes ===  null || tour.routes.length === 0) {
-		// 	alert("Вы не добавили ни одного маршрута!")
-		// 	return;
-		// }
+		if(hotel.roomTypes ===  null || hotel.roomTypes.length === 0) {
+			alert("Вы не добавили ни одного типа номера!")
+			return;
+		}
 
 		const segments = location.pathname.split('/');
     	const id = segments[segments.length - 1];

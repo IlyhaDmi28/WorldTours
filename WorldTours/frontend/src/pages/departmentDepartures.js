@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
 import FilterButton from "../components/tours/filterButton";
 import SortButton from "../components/general/sortButton";
 import Header from '../components/general/header';
@@ -167,9 +168,9 @@ function DepartmentDepartures() {
 
 	const directions = [
         null,
-        <Regions selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Countries regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
-        <Cities countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Regions position={{left: '18%', top: '27%'}} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Countries position={{left: '18%', top: '27%'}} regionId={filter.regionId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
+        <Cities position={{left: '18%', top: '27%'}} countyId={filter.countryId} selectDirection={selectDirection} goNextDirectionsPage={() => setDirectionsPageInndex(directionsPageInndex + 1 > directions.length ? 0 : directionsPageInndex + 1)} closeDirections={() => setDirectionsPageInndex(0)}/>,
     ]
 
 	const changeTransportType = async (id) => {
@@ -203,10 +204,31 @@ function DepartmentDepartures() {
 		window.location.href = '/department_departures';
 	}
 
+	const getSearchedItems = async(e) => {
+		const response = await axios.post(`https://localhost:7276/department_departure/filtred_department_departures`, filter, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
+			}
+		});
+		const departmentDeparturesData = response.data.filter(item => item.name.startsWith(e.target.value));;
+
+		setDepartmentDepartures(departmentDeparturesData);
+	}
 	
 	return (
 		<div className="department-departures narrow-conteiner">
-			<Header SearchInputComponent={<input  type='text' placeholder='Поиск'/>} AddButtonComponent={<button onClick={() => openDepartmentDepartureEditor(-1)}><b>Добавить пункт отправления</b></button>}/>
+			<Header 
+				SearchInputComponent={
+					<TextField
+						className='search-input'
+						label="Поиск"
+						type="search"
+						variant="standard"
+						onChange={getSearchedItems}
+					/>
+				} 
+				AddButtonComponent={<button onClick={() => openDepartmentDepartureEditor(-1)}><b>Добавить пункт отправления</b></button>}
+			/>
 			<div className="line-under-header"></div>
 			<main className='vertical-list-page'>
 				<div className='vertical-list-filters-parameters'>

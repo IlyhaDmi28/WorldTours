@@ -50,6 +50,13 @@ function BookingCard({ booking, openBooking, deleteBooking }) {
                 </div>
             }
 
+            {
+                booking.status === 2 &&
+                <div className="booking-card-status" style={{backgroundColor: 'rgb(224, 190, 39)'}}>
+                    Оплачено
+                </div>
+            }
+
             <div className="tour-card-price">
                 <b>
                     {booking.price}

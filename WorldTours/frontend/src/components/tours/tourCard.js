@@ -24,7 +24,7 @@ function TourCard({ tour }) {
             <img className="tour-card-img" src={tour.photoUrl === "" ? noPhoto : tour.photoUrl}/>
             <div className="tour-card-info">
                     <div className='tour-card-name'><b>{tour.name}</b></div>
-                    <div className='tour-card-mark' style={{ backgroundColor: getBackgroundColorMark(tour.mark) }}><b>{3.2}</b></div>
+                    {/* <div className='tour-card-mark' style={{ backgroundColor: getBackgroundColorMark(tour.mark) }}><b>{3.2}</b></div> */}
 
                 <div className="tour-card-country-and-city">
                     {tour.country}, {tour.city}

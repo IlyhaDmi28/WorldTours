@@ -17,7 +17,11 @@ const token = localStorage.getItem("token");
 
 function DepartmentDepartureEditor({indexOfSelectedDepartmentDeparture, departmentDepartures, setDepartmentDepartures, closeModal}) {    
     const [isOpenMap, setIsOpenMap] = useState(false);
-    const [location, setLocation] = useState({
+    const [location, setLocation] = useState(indexOfSelectedDepartmentDeparture === -1 ? {
+        lat: 53.89196,
+        lng: 27.55760,
+        address: null,
+    } : {
         lat: departmentDepartures[indexOfSelectedDepartmentDeparture].lat,
         lng: departmentDepartures[indexOfSelectedDepartmentDeparture].lng,
         address: departmentDepartures[indexOfSelectedDepartmentDeparture].address,
@@ -187,6 +191,16 @@ function DepartmentDepartureEditor({indexOfSelectedDepartmentDeparture, departme
         //         ); // Создаём новый массив с обновлённым элементом
         //     }
         // });
+
+        if(
+			(departmentDeparture.name === "" || departmentDeparture.name === null) ||
+			(departmentDeparture.cityId === "" || departmentDeparture.cityId === null) ||
+			(departmentDeparture.transportTypeId === "" || departmentDeparture.transportTypeId === null) ||
+			(location.address === "" || location.address === null)
+		) {
+			alert("Вы не заполнили все поля!")
+			return;
+		}
 
         const formData = new FormData();
                     

@@ -117,6 +117,18 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
         let newRoomTypes;
         console.log(indexOfSelectedRoomType);
         
+
+        if(
+			(roomType.name === "" || roomType.name === null) ||
+			(roomType.seatsNumber === "" || roomType.seatsNumber === null) ||
+			(roomType.roomsNumber === "" || roomType.roomsNumber === null) ||
+			(roomType.price === "" || roomType.price === null) 
+			
+		) {
+			alert("Вы не заполнили все поля!")
+			return;
+		}
+
         if(indexOfSelectedRoomType === -1) {
             newRoomTypes = roomTypes;
             newRoomTypes.push(roomType);
@@ -166,15 +178,15 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
                     <div>
                         <div>
                             <div className='parameter-name'>Кол. мест</div>
-                            <input name='seatsNumber' type='number' value={roomType.seatsNumber} onChange={changeRoomType}/>
+                            <input name='seatsNumber' type='number' min={0} value={roomType.seatsNumber} onChange={changeRoomType}/>
                         </div>
                         <div>
                             <div className='parameter-name'>Кол. номеров</div>
-                            <input name='roomsNumber' type='number' value={roomType.roomsNumber} onChange={changeRoomType}/>
+                            <input name='roomsNumber' type='number' min={0} value={roomType.roomsNumber} onChange={changeRoomType}/>
                         </div>
                         <div>
                             <div className='parameter-name'>Цена</div>
-                            <input name='price' type='number' value={roomType.price} onChange={changeRoomType}/>
+                            <input name='price' type='number' min={0} value={roomType.price} onChange={changeRoomType}/>
                         </div>
                     </div>
                 </div>

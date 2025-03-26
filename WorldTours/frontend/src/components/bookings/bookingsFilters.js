@@ -69,7 +69,7 @@ function BookingsFilters({filter, setFilter, setTours, setBookings}) {
     };
 
     return (
-        <div className="filters">
+        <div className="booking-filters">
                 <button className="close-filters-button">
                     <img src={close}/>
                 </button>

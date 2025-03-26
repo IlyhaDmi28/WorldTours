@@ -170,7 +170,7 @@ CREATE TABLE `Bookings` (
   `UserId` INT,
   `RouteId` INT,
   `Price` INT,
-  `Status` BOOLEAN DEFAULT 0,
+  `Status` TINYINT DEFAULT 0,
   `Comment` VARCHAR(255),
   `HasСhildren` BOOLEAN DEFAULT 0,
   `PrioritySeatsInTransport` BOOLEAN DEFAULT 0,
