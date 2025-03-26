@@ -30,7 +30,18 @@ namespace backend.Controllers
 				editUser.Name = user.Name;
 				editUser.Surname = user.Surname;
 				editUser.PhoneNumber = user.PhoneNumber;
-				if (user.PhotoFile != null) /*editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);*/
+				if (user.PhotoFile != null) 
+				{
+					string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "users");
+					if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+					if (user.PhotoFile.Length > 0)
+					{
+						string filePath = Path.Combine(uploadsFolder, $"{user.Id}.png");
+						using var fileStream = new FileStream(filePath, FileMode.Create);
+						await user.PhotoFile.CopyToAsync(fileStream);
+					}
+				} /*editUser.Photo = await PhotoService.ConvertToBytes(user.PhotoFile);*/
 
 				await db.SaveChangesAsync();
 				return Ok();
@@ -68,6 +79,10 @@ namespace backend.Controllers
 			{
 				User removedUser = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
 				if (removedUser == null) return NotFound();
+
+				string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "users");
+				if (System.IO.File.Exists(uploadsFolder + $"\\{userId}.png")) System.IO.File.Delete(uploadsFolder + $"\\{userId}.png");
+	
 
 				db.Users.Remove(removedUser);
 				await db.SaveChangesAsync();
@@ -109,7 +124,7 @@ namespace backend.Controllers
 					Id = u.Id,
 					Name = u.Name,
 					Surname = u.Surname,
-					PhotoUrl = $"https://localhost:7276/uploads/users/{u.Id}/0.png",
+					PhotoUrl = $"https://localhost:7276/uploads/users/{u.Id}.png",
 					Email = u.Email,
 					PhoneNumber = u.PhoneNumber,
 					Role = u.Role,

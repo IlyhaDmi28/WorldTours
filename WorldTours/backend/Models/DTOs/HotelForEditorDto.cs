@@ -11,6 +11,9 @@ namespace backend.Models.DTOs
 		public int? CityId { get; set; }
 
 		public string? Address { get; set; }
+
+		public double? Lat { get; set; }
+		public double? Lng { get; set; }
 		public int? StarsNumber { get; set; }
 
 		public string? MainDescription { get; set; }

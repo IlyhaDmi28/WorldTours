@@ -1,9 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import deleteButon from '../../img/delete.svg'
+import account from '../../img/account.svg';
 
 function UserCard({ user, deleteUser, blockUser, changeRole }) {
     const [isHovered, setIsHovered] = useState(false);
     const [isChangeRoleMode, setIsChangeRoleMode] = useState(false);
+    const [userHasAva, setUserHasAva] = useState(false);
+
+    useEffect(() => {
+            const isAuthenticated = async () => {
+                try {
+                    const response = await axios.head(user.photoUrl); // HEAD-запрос получает только заголовки, без загрузки файла
+                    if(response.status === 200) setUserHasAva(true); // Проверяем, вернул ли сервер код 200
+                    
+                } catch (error) {
+                    setUserHasAva(false);
+                } 
+            };
+    
+            isAuthenticated();
+        }, []);
 
     const getRoleName = (role) => {
         switch(role) {
@@ -16,7 +33,7 @@ function UserCard({ user, deleteUser, blockUser, changeRole }) {
 
 	return (
 	    <div className="user-card" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <img className="user-card-img" src={user.photoUrl}/>
+            <img className="user-card-img" src={userHasAva ? user.photoUrl : account}/>
             <div className='user-card-name'>
                 <b>{user.name} {user.surname}</b>
             </div>

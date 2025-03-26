@@ -17,6 +17,7 @@ import HotelsForEditor from './hotelsForEditor';
 import DepartmentDepartures from './departmentDepartures';
 import GeographicObjects from './geographicObjects';
 import Payment from './payment';
+import PaymentBooking from './paymentBooking';
 import Campany from './campany';
 import Error from './error';
 import { useSelector, useDispatch } from 'react-redux';
@@ -37,7 +38,7 @@ function App() {
                         'Authorization': 'Bearer ' + token
                     }
                 });
-				console.log(response.data);
+				console.log(response.data.photoUrl);
                 dispatch(setAuthUser(response.data));
 				console.log(authUser);
             } catch (error) {
@@ -63,6 +64,7 @@ function App() {
 		<Router>
 			<Routes>
 				<Route path="/tours" element={<Tours/>} />
+				<Route path="/payment_booking/:id" element={<PaymentBooking/>} />
 				<Route path="/auth" element={<Auth />} />
 				<Route path="/tour/:id" element={<Tour />} />
 				<Route path="/travel_info" element={<TravelInfo />} />

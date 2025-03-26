@@ -9,9 +9,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Modal from '@mui/material/Modal';
 import ClearIcon from '@mui/icons-material/Clear';
 import { TextField   } from "@mui/material";
-import Modal from '@mui/material/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Regions from '../general/regions';
 import Countries from '../general/countries';
@@ -25,6 +25,10 @@ function Booking({indexOfSelectedBooking, deleteBooking, bookings, closeModal}) 
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpenCharacteristicsMenu = Boolean(anchorEl);
     const [open, setOpen] = useState(false);
+
+    const [isOpenHotelMap, setIsOpenHotelMap] = useState(false);
+    const [isOpenDepartmentDepartureMap, setIsOpenDepartmentDepartureMap] = useState(false);
+
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -63,6 +67,8 @@ function Booking({indexOfSelectedBooking, deleteBooking, bookings, closeModal}) 
                 address: null,
                 city: null,
                 country: null,
+                lat: 53.89196,
+		        lng: 27.55760,
             },
             tranportTypeName: null
         },
@@ -73,6 +79,8 @@ function Booking({indexOfSelectedBooking, deleteBooking, bookings, closeModal}) 
             country: null,
             address: null,
             starsNumber: null,
+            lat: 53.89196,
+		    lng: 27.55760,
             roomTypes: [
                 {
                     id: null,
@@ -134,14 +142,26 @@ function Booking({indexOfSelectedBooking, deleteBooking, bookings, closeModal}) 
                             <div><b>Транспорт: </b> {booking.route.tranportTypeName}</div>
                             <div className='location-on-booking'>{booking.route.departmentDeparture.country}, {booking.route.departmentDeparture.city}, {booking.route.departmentDeparture.address}</div>
                         </div>
-                        <img className='map-on-booking' src={map}/>
+                        <img className='map-on-booking' src={map} onClick={() => setIsOpenDepartmentDepartureMap(true)}/>
+                        <Modal open={isOpenDepartmentDepartureMap} onClose={() => setIsOpenDepartmentDepartureMap(false)} className='hotel-map-on-modal'>
+                            <ClickableMap 
+                                lat={booking.route.departmentDeparture.lat} 
+                                lng={booking.route.departmentDeparture.lng}
+                            />
+                        </Modal>
                     </div>
                     <div className='hotel-info-on-booking'>
                         <div>
                             <div><b>Отель: </b>{booking.hotel.name}</div>
                             <div className='location-on-booking'>{booking.hotel.country}, {booking.hotel.city}, {booking.hotel.address}</div>
                         </div>
-                        <img className='map-on-booking' src={map}/>
+                        <img className='map-on-booking' src={map} onClick={() => setIsOpenHotelMap(true)}/>
+                        <Modal open={isOpenHotelMap} onClose={() => setIsOpenHotelMap(false)} className='hotel-map-on-modal'>
+                            <ClickableMap 
+                                lat={booking.hotel.lat} 
+                                lng={booking.hotel.lng}
+                            />
+                        </Modal>
                     </div>
                 </div>
             </div>
@@ -237,15 +257,19 @@ function Booking({indexOfSelectedBooking, deleteBooking, bookings, closeModal}) 
                 (booking.status === 1) && <div className='status-info' style={{color: 'rgb(60, 80, 254'}}>Необходимо оплатить тур</div>
             }
 
+            {
+                (booking.status === 2) && <div className='status-info' style={{color: 'rgb(224, 190, 39)'}}>Тур забронирован!</div>
+            }
+
             <Divider className='price-on-booking' textAlign="right">Цена: <b>{booking.price}</b> <span>BYN</span></Divider>
 
 
             <div className='modal-editor-controller'>
                 <button onClick={() => {deleteBooking(booking.id)}}>Отменить</button>
                 <button 
-                    style={booking.status === 0 || booking.status === null ? {backgroundColor: 'grey'} : {}} 
-                    disabled={booking.status === 0 || booking.status === null}
-                    onClick={() => {alert('Оплата выполнена(фишечка Андрея!)')}}
+                    style={booking.status !== 1 ? {backgroundColor: 'grey'} : {}} 
+                    disabled={booking.status !== 1}
+                    onClick={() => {window.location.href = `/payment_booking/${booking.id}`;}}
                 >
                     Оплатить
                 </button>

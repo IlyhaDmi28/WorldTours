@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,8 +11,23 @@ function UserController({ right }) {
     const authUser = useSelector((state) => state.authUser.value);
  	const dispatch = useDispatch();
 
+    const [userHasAva, setUserHasAva] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpenUserMenu = Boolean(anchorEl);
+
+    useEffect(() => {
+		const isAuthenticated = async () => {
+            try {
+                const response = await axios.head(authUser.photoUrl); // HEAD-запрос получает только заголовки, без загрузки файла
+   			    if(response.status === 200) setUserHasAva(true); // Проверяем, вернул ли сервер код 200
+				
+            } catch (error) {
+				setUserHasAva(false);
+            } 
+        };
+
+        isAuthenticated();
+	}, []);
 
     const logout = () => {
         dispatch(setAuthUser(false));
@@ -21,7 +37,7 @@ function UserController({ right }) {
 	return (
 	    <div className='user-controller'> 
             {authUser ? (<button className="user-button" onClick={(e) => {setAnchorEl(e.currentTarget)}}>
-                <img src={authUser.photoUrl === null ? account : authUser.photoUrl}/>
+                <img src={userHasAva ? authUser.photoUrl : account}/>
             </button>) : 
             (<button className="user-button" style={{marginTop: '3px'}}>
                 <Link to="/auth">

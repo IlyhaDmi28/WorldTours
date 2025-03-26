@@ -1,4 +1,7 @@
 import '../styles/tour.scss';
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css"; // Обязательно подключи стили
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation, useSearchParams } from 'react-router-dom';
@@ -16,9 +19,18 @@ const token = localStorage.getItem("token");
 function Tour() {
     const [searchParams] = useSearchParams(); // Получение query-параметров
 	const location = useLocation();
+	const [mode, setMode] = useState('images');
 
+    const switchToImages = () => {
+        setMode('images');
+    };
+    
+    const switchToMap = () => {
+        setMode('map');
+    };
+	
 	const authUser = useSelector((state) => state.authUser.value);
-
+	const [center, setCenter] = useState(null);
 	const [photosUrls, setPhotosUrls] = useState([noPhoto]); 
 	const [roomTypesCharacteristics, setRoomTypesCharacteristics] = useState([]); 
 
@@ -31,6 +43,9 @@ function Tour() {
 			country: null,
 			city: null,
 			starsNumber: null,
+			nutritionType: null,
+			lat: 53.89196,
+			lng: 27.55760,
 			nutritionType: null,
 			characteristics: [],
 		},
@@ -101,7 +116,7 @@ function Tour() {
 				// 	prevPhotos.map((photo, i) => (i === 0 ? (tourData.photoUrl === "" ? noPhoto : tourData.photoUrl) : photo))
 				// );
 				setPhotosUrls(tourData.photosUrls.length !== 0 ? tourData.photosUrls : [noPhoto]);
-
+				setMode(tourData.photosUrls.length > 1 ? 'images' : 'map')
 				const route  = tourData.routes.find(route => route.id === +routeId)
 				if(route === undefined || route === null)  window.location.href = '/error/0';
 				setSelectedRoute(tourData.routes.find(route => route.id === +routeId));
@@ -131,6 +146,12 @@ function Tour() {
 
         getData();
 	}, []);
+	
+	useEffect(() => {
+		if (tour?.hotel?.lat && tour?.hotel?.lng) {
+		  setCenter([tour.hotel.lat, tour.hotel.lng]);
+		}
+	  }, [tour]);
 
 	const closeImagesGallery = (e) => {
 		if (e === 'isEmpty' || e.target === e.currentTarget || e.key === "Escape") {
@@ -284,12 +305,11 @@ function Tour() {
 										
 				<div className='other-tour-photos-and-controller'>
 					<div className='tour-photos-controller'>
-						<button><b>Фото</b></button>
-						<button><b>Карта</b></button>
-						
+						{photosUrls.length > 1 && <button style={{backgroundColor: mode === 'images' ? 'rgb(236, 236, 236)' : 'transparent'}} onClick={switchToImages}>Фото</button>}
+						<button style={{backgroundColor: mode === 'map' ? 'rgb(236, 236, 236)' : 'transparent'}} onClick={switchToMap}>Карта</button>
 					</div>
 					{
-						photosUrls.length !== 0 &&
+						mode === 'images' &&
 						<div className='other-tour-photos'>
 							<div>
 								{photosUrls.slice(1, 7).map((photoUrl, i) => (<img src={photoUrl} onClick={() => showImages(i + 1)}/>))}
@@ -297,6 +317,28 @@ function Tour() {
 							{photosUrls.length > 7 && <button className='more-tour-photos-button' onClick={() => showImages(0)}>Показать больше ...</button>}
 						</div>
 					}
+
+					{mode === 'map' && 
+						<>
+							 {center ? (
+								<MapContainer className='tour-map' center={center} zoom={10} key={center.join(",")}>
+									<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+									<Marker 
+									position={center} 
+									icon={ new L.Icon({
+										iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+										iconSize: [25, 41],
+										iconAnchor: [12, 41],
+										popupAnchor: [1, -34], 
+										shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
+										shadowSize: [41, 41], 
+									})}
+									/>
+								</MapContainer>
+							) : <p>Загрузка карты...</p>}
+							</>
+					}
+
 					
 				</div>
 			</div>

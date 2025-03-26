@@ -8,7 +8,7 @@ INSERT INTO Roles (`Name`) VALUES ('Пользователь');
 INSERT INTO Roles (`Name`) VALUES ('Менеджер');
 INSERT INTO Roles (`Name`) VALUES ('Администратор');
 
-INSERT INTO Users (`Email`, `Password`, `Role`, `Name`, `Surname`, `PhoneNumber`, `Photo`) VALUES ('admin@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3, 'Admin', 'Admin', '+375336461866','D:/Univer/Курсач/Аватарки/i.png');
+INSERT INTO Users (`Email`, `Password`, `Role`, `Name`, `Surname`, `PhoneNumber`) VALUES ('admin@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3, 'Admin', 'Admin', '+375336461866');
 
 INSERT INTO TourTypes (Name, PathToImage) VALUES ('Отдых на море', '/img/tourTypes/sea.svg');
 INSERT INTO TourTypes (Name, PathToImage) VALUES ('Горнолыжный курорт', '/img/tourTypes/ski.svg');
@@ -212,21 +212,20 @@ INSERT INTO Cities (NAME, CountryId) VALUES ('Москва', 33);
 
 INSERT INTO Cities (NAME, CountryId) VALUES ('Варшава', 34);
 
-SELECT * FROM DepartmentDepartures;
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Автовокзал «Центральный»', 1, 'xxxx', 2);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Национальный аэропорт «Минск»', 1, 'aaaa', 1);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал «Центральный»', 1, 'xxxx', 2, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Национальный аэропорт «Минск»', 1, 'aaaa', 1, 53, 27);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Автовокзал г. Брест', 2, 'zzzz', 2);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Автовокзал г. Гродно', 4, 'xxxxxx', 2);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал г. Брест', 2, 'zzzz', 2, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал г. Гродно', 4, 'xxxxxx', 2, 53, 27);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Аэропорт «Шереметьево»', 88, 'vvvv', 1);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Аэропорт «Внуково »', 88, 'ffff', 1);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Аэропорт «Домодедово »', 88, 'aaassd', 1);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Аэропорт «Жуковский»', 88, 'ffgfdssd', 1);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Шереметьево»', 88, 'vvvv', 1, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Внуково »', 88, 'ffff', 1, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Домодедово »', 88, 'aaassd', 1, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Жуковский»', 88, 'ffgfdssd', 1, 53, 27);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Варшавский аэропорт имени Фридерика Шопена', 89, 'fsdfsdsfd', 1);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Варшавский аэропорт имени Фридерика Шопена', 89, 'fsdfsdsfd', 1, 53, 27);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId) VALUES ('Порт Майами', 78, 'fsdfsdfs', 3);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Порт Майами', 78, 'fsdfsdfs', 3, 53, 27);
 
 
 INSERT INTO HotelCharacteristics (NAME) VALUES ('Бассейн');

@@ -1,5 +1,5 @@
 import '../styles/user.scss';
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../components/general/header';
 import account from '../img/account.svg';
@@ -9,6 +9,9 @@ const token = localStorage.getItem("token");
 function User() {
 	const authUser = useSelector((state) => state.authUser.value);
     const [errorText, setErrorText] = useState('');
+    const [userHasAva, setUserHasAva] = useState(false);
+    const [isChangeAva, setIsChangeAva] = useState(false);
+
     const [user, setUser] = useState({
         id: authUser.id,
         name: authUser.name,
@@ -18,26 +21,39 @@ function User() {
     })
     const [photoUrl, setPhotoUrl] = useState(authUser.photoUrl);
 
+    useEffect(() => {
+        const checkPhoto = async () => {
+            try {
+                const response = await axios.head(authUser.photoUrl); // HEAD-запрос получает только заголовки, без загрузки файла
+                if(response.status === 200) setUserHasAva(true); // Проверяем, вернул ли сервер код 200
+                    
+            } catch (error) {
+                 setUserHasAva(false);
+            } 
+        };
+    
+        checkPhoto();
+    }, []);
+
     // Функция для открытия input по нажатию на изображение
     const openFileDialogToSelectAva = () => {
         user.photoFile.current.click();
     };
     
     const changePhoto = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setPhotoUrl(e.target.result);
-            };
-            reader.readAsDataURL(e.target.files[0]);
+        const file = e.target.files[0]; // Берем первый файл из input
+
+        if (file) {
+            setPhotoUrl(URL.createObjectURL(file));
         }
 
-		const file = e.target.files[0]; // Получаем выбранный файл
 		if (file) {
 			setUser((prevUser) => ({
                 ...prevUser,
                 photoFile: file, // Сохраняем файл в состоянии
 			}));
+
+            setIsChangeAva(true);
 		}
     };
 
@@ -49,6 +65,21 @@ function User() {
             [name]: value,
         }));
 	}
+
+    //Вынести желательно(низ)
+	const createFileFromObjectUrl = async (objectUrl, fileName) => {
+		const response = await axios.get(objectUrl, { responseType: "blob" }); // Загружаем как Blob
+		const blob = response.data;
+		return new File([blob], fileName, { type: blob.type }); // Создаём новый File
+	};
+	
+	const convertObjectUrlsToFiles = async (objectUrls) => {
+		const filePromises = objectUrls.map((url, index) =>
+			createFileFromObjectUrl(url, `copied_image_${index}.jpg`)
+		);
+		return await Promise.all(filePromises);
+	};
+	//Вынести желательно(верх)
 
     const saveUser = async () => {
         if(user.name === '' || user.surname === '' || user.phoneNumber === '') {
@@ -62,7 +93,21 @@ function User() {
         //     return;
         // }
         try {     
-            await axios.put('https://localhost:7276/user/edit', user, {
+            const formData = new FormData();
+                
+            formData.append("Id", user.id);
+            formData.append("Name", user.name);
+            formData.append("Surname", user.surname);
+            formData.append("PhoneNumber", user.phoneNumber);
+            
+            if(isChangeAva) {
+                console.log(photoUrl);
+                const copiedphotosFiles = await convertObjectUrlsToFiles([photoUrl]);
+                console.log(copiedphotosFiles[0]);
+                formData.append("PhotoFile", copiedphotosFiles[0]); // Название должно совпадать с C#
+            }
+
+            await axios.put('https://localhost:7276/user/edit', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
@@ -85,7 +130,7 @@ function User() {
                     <div className='ava-controller'>
                         {/* Там с фотками какая-то хуета, чекни усебя на гитхабе в RentalPremise */}
                         <img
-                            src={photoUrl === null ? account : photoUrl}
+                            src={userHasAva || isChangeAva ? photoUrl : account}
                             alt="click to change"
                             onClick={openFileDialogToSelectAva} // Обработчик клика по изображению
                         />

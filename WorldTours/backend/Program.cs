@@ -1,7 +1,9 @@
 using backend;
 using backend.Configurations;
+using backend.Controllers;
 using backend.DB;
 using backend.Models.Entity;
+using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Http.Features;
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         new MySqlServerVersion(new Version(11, 5, 2)) //Используемая версия MariaDB
     )
 );
+
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 // Add services to the container.
 builder.Services.AddCors(options =>

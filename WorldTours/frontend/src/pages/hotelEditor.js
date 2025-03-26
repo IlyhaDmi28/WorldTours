@@ -47,6 +47,8 @@ function HotelEditor() {
 		name: null,
 		cityId: null,
 		address: null,
+		lat: 53.89196,
+		lng: 27.55760,
 		starsNumber: 1,
 		mainDescription: null,
 		nutritionTypeId: 1,
@@ -130,7 +132,9 @@ function HotelEditor() {
 					mainDescription: hotelData.mainDescription,
 					nutritionTypeId:  hotelData.nutritionTypeId,
 					characteristics: hotelData.characteristics,
-					roomTypes: hotelData.roomTypes
+					roomTypes: hotelData.roomTypes,
+					lat: hotelData.lat,
+					lng: hotelData.lng,
 				}));
 				setPhotosUrls(hotelData.photosUrls === null ? [] : hotelData.photosUrls);
 
@@ -297,13 +301,15 @@ function HotelEditor() {
     	const id = segments[segments.length - 1];
 
 		const copiedphotosFiles = await convertObjectUrlsToFiles(photosUrls);
-
+		console.log(hotel);
 		const formData = new FormData();
 			
 		formData.append("Id", hotel.id);
 		formData.append("Name", hotel.name);
 		formData.append("CityId", hotel.cityId);
 		formData.append("Address", hotel.address);
+		formData.append("Lat",  hotel.lat.toString().replace(".", ","));
+		formData.append("Lng", hotel.lng.toString().replace(".", ","));
 		formData.append("StarsNumber", hotel.starsNumber);
 		formData.append("MainDescription", hotel.mainDescription);
 		formData.append("NutritionTypeId", hotel.nutritionTypeId);
@@ -526,9 +532,8 @@ function HotelEditor() {
 			
 			<Modal open={isOpenMap} onClose={() => setIsOpenMap(false)} className='hotel-map-on-modal'>
 				{/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d588.0220734032202!2d27.616216344539804!3d53.876858255031635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbce18581d62a7%3A0xfbca977ea03db2c7!2z0J_QsNGA0YLQuNC30LDQvdGB0LrQuNC5INC_0YDQvtGB0L8uIDMyLzEsINCc0LjQvdGB0LosINCc0LjQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMIDIyMDEwNw!5e0!3m2!1sru!2sby!4v1739876954826!5m2!1sru!2sby" width="600" height="450" style={{border: '0px'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
-				<ClickableMap/>
+				<ClickableMap lat={hotel.lat} lng={hotel.lng} setLocation={setHotel}/>
 			</Modal>
-				<ClickableMap/>
 
 		</div>
 	);

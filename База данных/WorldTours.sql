@@ -337,3 +337,7 @@ DELETE from bookings WHERE ID = 2;
 ALTER TABLE Bookings ADD `Status` BOOLEAN DEFAULT 0;
 
 SELECT * FROM bookings;
+SELECT * FROM hotels;
+
+
+DELETE from hotels WHERE Lat = NULL;

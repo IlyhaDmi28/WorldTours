@@ -78,6 +78,8 @@ namespace backend.Controllers
 								MainDescription = hotel.MainDescription,
 								CityId = hotel.CityId,
 								Address = hotel.Address,
+								Lat = (double)hotel.Lat,
+								Lng = (double)hotel.Lng,
 								StarsNumber = hotel.StarsNumber,
 								NutritionTypeId = hotel.NutritionTypeId,
 								//PhotosDirectory = hotel.Name,
@@ -214,6 +216,8 @@ namespace backend.Controllers
 						CityId = null,
 						NutritionTypeId = 1,
 						StarsNumber = 1,
+						Lat = 53.89196,
+						Lng = 27.55760,
 						Address = string.Empty,
 						PhotosUrls = null,
 						Characteristics = new List<CharacteristicDto>(),
@@ -261,6 +265,8 @@ namespace backend.Controllers
 						MainDescription = hotel.MainDescription,
 						CityId = hotel.CityId,
 						Address = hotel.Address,
+						Lat = hotel.Lat,
+						Lng = hotel.Lng,
 						NutritionTypeId = hotel.NutritionTypeId,
 						StarsNumber = hotel.StarsNumber,
 						Characteristics = hotel.Characteristics.Select(c => new CharacteristicDto { Id = c.Id, Name = c.Name }).ToList(),
@@ -513,6 +519,8 @@ namespace backend.Controllers
 						editedHotel.MainDescription = hotel.MainDescription;
 						editedHotel.CityId = hotel.CityId;
 						editedHotel.Address = hotel.Address;
+						editedHotel.Lat = (double)hotel.Lat;
+						editedHotel.Lng = (double)hotel.Lng;
 						editedHotel.StarsNumber = hotel.StarsNumber;
 						editedHotel.NutritionTypeId = hotel.NutritionTypeId;
 						//editedHotel.PhotosDirectory = hotel.Name;

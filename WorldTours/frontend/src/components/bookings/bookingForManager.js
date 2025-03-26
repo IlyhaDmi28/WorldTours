@@ -20,6 +20,7 @@ import Cities from '../general/cities';
 import ClickableMap from '../general/clickableMap'
 import close from '../../img/close.svg'
 import map from '../../img/map.png'
+import account from '../../img/account.svg';
 const token = localStorage.getItem("token");
 
 function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBooking, bookings, closeModal}) {   
@@ -28,6 +29,10 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
     const [isOpenComment, setIsOpenComment] = useState(false);
     const [isOpenPriceEditor, setIsOpenPriceEditor] = useState(false);
     const [indexOfSelectedRoomType, setIndexOfSelectedRoomType] = useState(0);
+    const [userHasAva, setUserHasAva] = useState(false);
+
+    const [isOpenHotelMap, setIsOpenHotelMap] = useState(false);
+    const [isOpenDepartmentDepartureMap, setIsOpenDepartmentDepartureMap] = useState(false);
 
     const [booking, setBooking] = useState({
         id: null,
@@ -58,6 +63,13 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
                 country: null,
             },
             tranportTypeName: null
+        },
+        user: {
+            id: null,
+            name: null,
+            surname: null,
+            phoneNumber: null,
+            email: null,
         },
         hotel: {
             id: 1,
@@ -104,7 +116,15 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
 
                 const bookingData = response.data;
                 setBooking(bookingData);
-                setChangedPrice(bookingData.price)
+                setChangedPrice(bookingData.price);
+
+                try {
+                    response = await axios.head(bookingData.user.photoUrl); // HEAD-запрос получает только заголовки, без загрузки файла
+                    if(response.status === 200) setUserHasAva(true); // Проверяем, вернул ли сервер код 200
+                } catch (error) {
+                    setUserHasAva(false);
+                } 
+
             } catch (error) {
                 console.error('Ошибка загрузки данных:', error);
             } 
@@ -112,6 +132,7 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
 
         getData();
     }, []);
+
 
     return (
         <div className="booking">
@@ -131,14 +152,27 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
                             <div><b>Транспорт: </b> {booking.route.tranportTypeName}</div>
                             <div className='location-on-booking'>{booking.route.departmentDeparture.country}, {booking.route.departmentDeparture.city}, {booking.route.departmentDeparture.address}</div>
                         </div>
-                        <img className='map-on-booking' src={map}/>
+                        <img className='map-on-booking' src={map} onClick={() => setIsOpenDepartmentDepartureMap(true)}/>
+                        <Modal open={isOpenDepartmentDepartureMap} onClose={() => setIsOpenDepartmentDepartureMap(false)} className='hotel-map-on-modal'>
+                            <ClickableMap 
+                                lat={booking.route.departmentDeparture.lat} 
+                                lng={booking.route.departmentDeparture.lng}
+                            />
+                        </Modal>
+                        
                     </div>
                     <div className='hotel-info-on-booking'>
                         <div>
                             <div><b>Отель: </b>{booking.hotel.name}</div>
                             <div className='location-on-booking'>{booking.hotel.country}, {booking.hotel.city}, {booking.hotel.address}</div>
                         </div>
-                        <img className='map-on-booking' src={map}/>
+                        <img className='map-on-booking' src={map} onClick={() => setIsOpenHotelMap(true)}/>
+                        <Modal open={isOpenHotelMap} onClose={() => setIsOpenHotelMap(false)} className='hotel-map-on-modal'>
+                            <ClickableMap 
+                                lat={booking.hotel.lat} 
+                                lng={booking.hotel.lng}
+                            />
+                        </Modal>
                     </div>
                 </div>
             </div>
@@ -276,11 +310,12 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
             </div>
             
             <div className='user-info-on-booking'>
-                <img className='user-avatar-on-booking' src={booking.tourPhotoUrl}/>
+                <img 
+                    className='user-avatar-on-booking'
+                    src={userHasAva ? booking.user.photoUrl : account}
+                />
                 <div>
-                    Логин,
-                    qwer@gmail.com,
-                    +375336461866
+                    {booking.user.name} {booking.user.surname}, {booking.user.email}, {booking.user.phoneNumber},
                 </div>
             </div>
 

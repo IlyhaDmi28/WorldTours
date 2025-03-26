@@ -10,7 +10,7 @@ function BigHeader({filter, setFilter, setTours}) {
 	const authUser = useSelector((state) => state.authUser.value);
 
 	return (
-	    <header style={(authUser && authUser.role !== 1) ? {height: '100px'} : {}}>
+	    <header>
 			<MainNavMenu/>
 
             <Link className='logo-href' to="/tours">
@@ -22,9 +22,8 @@ function BigHeader({filter, setFilter, setTours}) {
                     <Link to="/payment">Экскурсии</Link>
                     <Link to="/travel_info">Круизы</Link>
                 </div>
-                {
-                    (!authUser || authUser.role === 1) && <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>
-                }
+               
+                <MainFilters filter={filter} setFilter={setFilter} setTours={setTours}/>
 
             </div>
             <UserConroller right={'0px'}/>

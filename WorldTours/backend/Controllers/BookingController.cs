@@ -42,7 +42,7 @@ namespace backend.Controllers
 				//List<BookedRoomType> bookedRoomTypes = new List<BookedRoomType>();
 				//foreach (BookedRoomTypeForm bookedRoomType in requestForBooking.BookedRoomTypes)
 				//{
-				//	RoomType roomType = await db.RoomTypes.FirstOrDefaultAsync(rt => rt.Id == bookedRoomType.Id);
+				//	RoomType roomType = await db.RoomTypes.FirstOrDefaultAsync(rt => rt.Id == bookedRoomType.Id);f
 				//	if (roomType == null) return BadRequest();
 
 				//	if()
@@ -189,6 +189,7 @@ namespace backend.Controllers
 					.Include(tt => tt.BookedRoomTypes)
 					.ThenInclude(brt => brt.RoomType)
 					.ThenInclude(rt => rt.Characteristics)
+					.Include(b => b.User)
 					.FirstOrDefaultAsync(b => b.Id == bookingId);
 
 				if (booking == null) return NotFound();
@@ -221,6 +222,14 @@ namespace backend.Controllers
 					HasChildren = booking.HasСhildren,
 					PrioritySeatsInTransport = booking.PrioritySeatsInTransport,
 					Comment = booking.Comment,
+					User = new UserDto()
+					{
+						Name = booking.User.Name,
+						Surname = booking.User.Surname,
+						Email = booking.User.Email,
+						PhoneNumber = booking.User.PhoneNumber,
+						PhotoUrl = $"https://localhost:7276/uploads/users/{booking.User.Id}.png",
+					},
 					Route = new RouteForBookingDto 
 					{
 						Id = booking.Route.Id,
@@ -239,6 +248,8 @@ namespace backend.Controllers
 							Address = booking.Route.DepartmentDeparture.Address,
 							City = booking.Route.DepartmentDeparture.City.Name,
 							Country = booking.Route.DepartmentDeparture.City.Country.Name,
+							Lat = booking.Route.DepartmentDeparture.Lat,
+							Lng = booking.Route.DepartmentDeparture.Lng,
 						},
 						TranportTypeName = booking.Route.DepartmentDeparture.TransportType.Name
 					},
@@ -250,6 +261,9 @@ namespace backend.Controllers
 						Country = booking.Route.Tour.Hotel.City.Country.Name,
 						Address = booking.Route.Tour.Hotel.Address,
 						StarsNumber = booking.Route.Tour.Hotel.StarsNumber,
+						Lat = booking.Route.Tour.Hotel.Lat,
+						Lng = booking.Route.Tour.Hotel.Lng,
+
 						RoomTypes = booking.BookedRoomTypes.Select(brt => new RoomTypeForBookingDto
 						{
 							Id = brt.RoomType.Id,
@@ -323,7 +337,7 @@ namespace backend.Controllers
 						Surname = b.User.Surname,
 						Email = b.User.Email,
 						PhoneNumber = b.User.PhoneNumber,
-						PhotoUrl = $"https://localhost:7276/uploads/users/{b.User.Id}/0.png",
+						PhotoUrl = $"https://localhost:7276/uploads/users/{b.User.Id}.png",
 					},
 					Direction = new DirectionDto()
 					{
@@ -438,6 +452,24 @@ namespace backend.Controllers
 			}
 		}
 
+		[HttpPatch("confirm_payment")]
+		public async Task<IActionResult> ConfirmPaymant([FromQuery] int? bookingId)
+		{
+			try
+			{
+				Booking confirmedBooking = await db.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
+				if (confirmedBooking == null) return NotFound();
+
+				confirmedBooking.Status = 2;
+				await db.SaveChangesAsync();
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[HttpPost("filtred_bookings")]
 		public async Task<IActionResult> GetFiltredBookings([FromBody] BookingFilterForm filter, [FromQuery] int userId)
 		{
@@ -542,7 +574,7 @@ namespace backend.Controllers
 							Surname = b.User.Surname,
 							Email = b.User.Email,
 							PhoneNumber = b.User.PhoneNumber,
-							PhotoUrl = $"https://localhost:7276/uploads/users/{b.User.Id}/0.png",
+							PhotoUrl = $"https://localhost:7276/uploads/users/{b.User.Id}.png",
 						},
 						Direction = new DirectionDto()
 						{

@@ -12,8 +12,7 @@
 	  `Name` VARCHAR(255),
 	  `Surname` VARCHAR(255),
 	  `PhoneNumber` VARCHAR(255),
-	  `Photo` BLOB,
-	  FOREIGN KEY (`Role`) REFERENCES `Roles`(`ID`)
+	  	FOREIGN KEY (`Role`) REFERENCES `Roles`(`ID`)
 	);
 	
 	CREATE TABLE TourTypes (
@@ -38,13 +37,13 @@
 	CREATE TABLE Regions (
 	  ID INT PRIMARY KEY AUTO_INCREMENT,
 	  Name VARCHAR(255) UNIQUE NOT NULL,
-	  Image BLOB,
+	  `PathToImage` VARCHAR(255)
 	);
 	
 	CREATE TABLE Countries (
 	  ID INT PRIMARY KEY AUTO_INCREMENT,
 	  Name VARCHAR(255) UNIQUE NOT NULL,
-	  Flag BLOB,
+	  `PathToFlag` VARCHAR(255),
 	  RegionId INT,
 	  FOREIGN KEY (`RegionId`) REFERENCES `Regions`(`ID`)
 	);

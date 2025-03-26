@@ -41,3 +41,6 @@ D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\Microsoft.AspNetCore.
 D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\MySqlConnector.dll
 D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
 D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\Stripe.net.dll
+D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Univer\Курсач\WorldTours\backend\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll

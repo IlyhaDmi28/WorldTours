@@ -1,10 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import star from '../../img/star.svg'
 import deleteButon from '../../img/delete.svg'
+import account from '../../img/account.svg';
+
 
 function BookingCardForManager({ booking, deleteBooking, openBooking, confirmBooking }) {
     const [isHovered, setIsHovered] = useState(false);
+    const [userHasAva, setUserHasAva] = useState(false);
+
+     useEffect(() => {
+            const checkPhoto = async () => {
+                try {
+                    const response = await axios.head(booking.user.photoUrl); // HEAD-запрос получает только заголовки, без загрузки файла
+                    if(response.status === 200) setUserHasAva(true); // Проверяем, вернул ли сервер код 200
+                        
+                } catch (error) {
+                     setUserHasAva(false);
+                } 
+            };
+        
+            checkPhoto();
+        }, []);
 
 	return (
 	    <div className="booking-card" onClick={openBooking} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>

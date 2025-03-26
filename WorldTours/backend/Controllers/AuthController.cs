@@ -33,7 +33,7 @@ namespace backend.Controllers
                     Name = user.Name,
                     Surname = user.Surname,
                     PhoneNumber = user.PhoneNumber,
-                    PhotoUrl = $"https://localhost:7276/uploads/users/{u.Id}/0.png",
+                    PhotoUrl = $"https://localhost:7276/uploads/users/{user.Id}.png",
                     BlockedStatus = user.BlockedStatus,
                     Role = user.Role
                 }) : Unauthorized();
@@ -52,7 +52,8 @@ namespace backend.Controllers
 				if (await db.Users.FirstOrDefaultAsync(u => u.Email == register.Email) != null) return Conflict(new { message = "Этот email уже используется." });
 
                 register.Password = HashService.ComputeHash(register.Password);
-                await db.Users.AddAsync(new User(register));
+
+				await db.Users.AddAsync(new User(register));
 			    await db.SaveChangesAsync();
 
                 return Ok(new { token = TokenSevice.GenerateToken(register.Email, UserRole.User) });

@@ -269,6 +269,8 @@ namespace backend.Controllers
 						Country = tour.Hotel.City.Country?.Name,
 						City = tour.Hotel.City?.Name,
 						Address = tour.Hotel.Address,
+						Lat = tour.Hotel.Lat,
+						Lng = tour.Hotel.Lng,
 						NutritionType = tour.Hotel.NutritionType.Name,
 						Characteristics = tour.Hotel.Characteristics.Select(c => new CharacteristicDto
 						{

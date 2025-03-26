@@ -13,6 +13,7 @@
 		public bool? HasChildren { get; set; }
 		public bool? PrioritySeatsInTransport { get; set; }
 		public string? Comment { get; set; }
+		public UserDto User { get; set; }
 		public RouteForBookingDto Route { get; set; }
 		public HotelForBookingDto Hotel { get; set; }
 

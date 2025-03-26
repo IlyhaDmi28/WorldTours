@@ -237,9 +237,9 @@ function DepartmentDepartures() {
 				</div>
 				<Modal className='department-departure-editor-modal' open={isOpenDepartmentDepartureEditor} onClose={closeDepartmentDepartureEditor} >
 					<DepartmentDepartureEditor indexOfSelectedDepartmentDeparture={indexOfSelectedDepartmentDeparture} departmentDepartures={departmentDepartures} setDepartmentDepartures={setDepartmentDepartures} closeModal={closeDepartmentDepartureEditor}/>
-				</Modal>
+				</Modal>			
 			</main>
-			
+
 		</div>
 	);
 }

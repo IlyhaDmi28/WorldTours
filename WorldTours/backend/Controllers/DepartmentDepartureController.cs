@@ -38,6 +38,8 @@ namespace backend.Controllers
 					City = dd.City.Name,
 					Country = dd.City.Country.Name,
 					CityId = dd.City.Id,
+					Lat = dd.Lat,
+					Lng = dd.Lng,
 					TransportTypeId = dd.TransportType.Id,
 				}));
 			}
@@ -74,6 +76,8 @@ namespace backend.Controllers
 					City = dd.City.Name,
 					Country = dd.City.Country.Name,
 					CityId = dd.City.Id,
+					Lat = dd.Lat,
+					Lng = dd.Lng,
 					TransportTypeId = dd.TransportType.Id,
 				}));
 			}
@@ -101,6 +105,8 @@ namespace backend.Controllers
 							TransportTypeId = departmentDeparture.TransportTypeId,
 							CityId = departmentDeparture.CityId,
 							Address = departmentDeparture.Address,
+							Lat = (double)departmentDeparture.Lat,
+							Lng = (double)departmentDeparture.Lng,
 						};
 
 
@@ -116,7 +122,6 @@ namespace backend.Controllers
 						return BadRequest();
 					}
 				}
-				return BadRequest();
 			}
 			catch (Exception ex)
 			{
@@ -143,6 +148,8 @@ namespace backend.Controllers
 						editedDepartmentDeparture.CityId = departmentDeparture.CityId;
 						editedDepartmentDeparture.Address = departmentDeparture.Address;
 						editedDepartmentDeparture.TransportTypeId = departmentDeparture.TransportTypeId;
+						editedDepartmentDeparture.Lat = (double)departmentDeparture.Lat;
+						editedDepartmentDeparture.Lng = (double)departmentDeparture.Lng;
 
 						await db.SaveChangesAsync();
 						await transaction.CommitAsync();

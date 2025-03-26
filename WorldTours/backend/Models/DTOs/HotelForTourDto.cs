@@ -8,6 +8,9 @@
 		public string? Country { get; set; }
 
 		public string? Address { get; set; }
+
+		public double? Lat { get; set; }
+		public double? Lng { get; set; }
 		public int? StarsNumber { get; set; }
 
 		public string? NutritionType { get; set; }
