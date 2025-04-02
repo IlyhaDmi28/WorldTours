@@ -67,7 +67,7 @@ namespace backend.Controllers
 								Price = requestForBooking.Price,
 								Comment = requestForBooking.Comment,
 								PrioritySeatsInTransport = requestForBooking.PrioritySeatsInTransport,
-								HasСhildren = requestForBooking.HasСhildren,
+								HasChildren = requestForBooking.HasChildren,
 							};
 
 							await db.Bookings.AddAsync(newBooking);
@@ -219,7 +219,7 @@ namespace backend.Controllers
 					Price = booking.Price,
 					OrderSeatsNumber = booking.OrderSeatsNumber,
 					Status = booking.Status,
-					HasChildren = booking.HasСhildren,
+					HasChildren = booking.HasChildren,
 					PrioritySeatsInTransport = booking.PrioritySeatsInTransport,
 					Comment = booking.Comment,
 					User = new UserDto()

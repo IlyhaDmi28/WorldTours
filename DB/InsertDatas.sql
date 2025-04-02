@@ -22,15 +22,6 @@ INSERT INTO TourCharacteristics (NAME) VALUES ('Лес рядом');
 INSERT INTO TourCharacteristics (NAME) VALUES ('Горы рядом');
 INSERT INTO TourCharacteristics (NAME) VALUES ('Зимняя природа');
 INSERT INTO TourCharacteristics (NAME) VALUES ('Исторический центр рядом');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Наличие Wi-fi');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Раздельные кровати');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Раздельный санузел');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Бассейн');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Джакузи');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Дискотеки');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Бильярд');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Тенис');
-INSERT INTO TourCharacteristics (NAME) VALUES ('Различные развлечения');
 
 INSERT INTO NutritionTypes (NAME) VALUES ('RO (Room only) — без питания');
 INSERT INTO NutritionTypes (NAME) VALUES ('BB (Bed & breakfast) — завтрак');
@@ -212,20 +203,20 @@ INSERT INTO Cities (NAME, CountryId) VALUES ('Москва', 33);
 
 INSERT INTO Cities (NAME, CountryId) VALUES ('Варшава', 34);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал «Центральный»', 1, 'xxxx', 2, 53, 27);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Национальный аэропорт «Минск»', 1, 'aaaa', 1, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал «Центральный»', 1, 'Минск, Минская область', 2, 53.890370, 27.554445);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Национальный аэропорт «Минск»', 1, 'Минск, Минская область', 1, 53.889426, 28.033325);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал г. Брест', 2, 'zzzz', 2, 53, 27);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал г. Гродно', 4, 'xxxxxx', 2, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал г. Брест', 2, 'ул. Орджоникидзе 12, Брест, Брестская область', 2, 52.098857, 23.681265);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Автовокзал г. Гродно', 4, 'ул. Красноармейская, Гродно, Гродненская область', 2, 53.677419, 23.843227);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Шереметьево»', 88, 'vvvv', 1, 53, 27);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Внуково »', 88, 'ffff', 1, 53, 27);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Домодедово »', 88, 'aaassd', 1, 53, 27);
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Жуковский»', 88, 'ffgfdssd', 1, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Шереметьево»', 88, 'Химки, Московская обл., Россия, 141400', 1, 55.977307, 37.403271);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Внуково»', 88, 'Москва, Россия', 1, 55.599156, 37.268516);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Домодедово»', 88, 'Московская обл., Россия', 1, 55.411721, 37.900495);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Аэропорт «Жуковский»', 88, 'ул. Наркомвод, 3, Жуковский, Московская обл., Россия, 140185', 1, 55.561802, 38.117672);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Варшавский аэропорт имени Фридерика Шопена', 89, 'fsdfsdsfd', 1, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Варшавский аэропорт имени Фридерика Шопена', 89, 'Żwirki i Wigury 1, 02-143 Warszawa, Польша', 1, 52.173467, 20.970140);
 
-INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Порт Майами', 78, 'fsdfsdfs', 3, 53, 27);
+INSERT INTO DepartmentDepartures (NAME, CityId, Address, TransportTypeId, Lat, Lng) VALUES ('Порт Майами', 84, 'Shengsi County, Чжоушань, Китай, 202461', 3, 30.608046, 122.086732);
 
 
 INSERT INTO HotelCharacteristics (NAME) VALUES ('Бассейн');
@@ -233,268 +224,49 @@ INSERT INTO HotelCharacteristics (NAME) VALUES ('Джакузи');
 INSERT INTO HotelCharacteristics (NAME) VALUES ('Дискотеки');
 INSERT INTO HotelCharacteristics (NAME) VALUES ('Бильярд');
 INSERT INTO HotelCharacteristics (NAME) VALUES ('Тенис');
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Парковка рядом');
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Магазины');
+INSERT INTO HotelCharacteristics (NAME) VALUES ('Бар');
 INSERT INTO HotelCharacteristics (NAME) VALUES ('Различные развлечения');
 
 
 INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Наличие Wi-fi');
-INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Раздельные кровати');
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Телевизор');
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Холодильник');
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Балкон');
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Вид на море');
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Вид на горы');
+INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Мини холодильник');
 INSERT INTO RoomTypeCharacteristics (NAME) VALUES ('Раздельный санузел');
 
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hotel Tango', 4, 5);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Plaza del Sol', 3, 5);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Palermo Grand', 5, 5);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sierra Vista Hotel', 3, 6);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Pampas Lodge', 4, 6);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Andes Grand Hotel', 4, 7);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Vineyard Retreat', 4, 7);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Opera Harbour Hotel', 5, 8);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Darling Bay Resort', 4, 8);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Yarra View Hotel', 4, 9);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('City Garden Inn', 4, 9);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Crown Tower Hotel', 5, 9);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sunshine Stay', 4, 10);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Riverfront Palace', 4, 10);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('The Cavenagh Hotel', 4, 11);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hilton Darwin', 5, 11);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Copacabana Palace', 5, 12);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sugarloaf View Hotel', 4, 12);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Paulista Garden', 4, 13);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Skyline Inn', 3, 13);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Bahian Dreams Hotel', 4, 14);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Balkan Jewel Hotel', 4, 15);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sofia City Inn', 3, 15);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Golden Sands Resort', 5, 16);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Black Sea Breeze', 4, 16);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Old Town Inn', 3, 17);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Maple Leaf Hotel', 4, 18);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('CN Tower Suites', 5, 18);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Pacific Breeze Hotel', 5, 19);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Waterfront Lodge', 5, 19);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Fleur de Lys Inn', 4, 20);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Mount Royal Retreat', 4, 20);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Congo River Hotel', 2, 21);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('African Heart Inn', 3, 21);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Katanga Grand', 1, 22);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Nile View Hotel', 4, 23);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Pyramid Horizon Inn', 3, 23);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Coral Reef Resort', 4, 24);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Red Sea Paradise', 5, 24);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Nubian Oasis Hotel', 3, 25);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Champs Élysées Grand', 5, 26);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Montmartre Charm Hotel', 4, 26);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Eiffel Elegance Inn', 5, 26);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Côte d\'Azur Hotel', 5, 27);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Old Port Suites', 4, 27);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Rhône Boutique Hotel', 5, 28);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Silk Road Inn', 4, 28);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Eternal City Hotel', 5, 29);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Colosseum Inn', 4, 29);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Grand Canal Palace', 5, 30);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Lagoon View Hotel', 4, 30);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Renaissance Villa Hotel', 4, 31);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Arno River Retreat', 4, 31);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Holiday Inn Naples, an IHG Hotel', 4, 32);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hotel Palazzo Argenta', 4, 32);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Lotus Palace Hotel', 3, 33);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Red Fort Inn', 3, 33);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Arabian Sea View Hotel', 2, 34);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Gateway Suites', 3, 34);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Marina Beach Inn', 3, 35);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Four Seasons Jakarta', 4, 36);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hilton Garden Inn Jakarta Taman Palem', 5, 36);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('JW Marriott Hotel Surabaya', 3, 37);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Grand Inna Tunjungan', 5, 37);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hyatt Regency Bali', 5, 35);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Ganga Hotel & Apartment,Denpasar-Bali', 4, 38);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Holy City Inn', 4, 39);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('David''s Citadel Hotel', 5, 39);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Mediterranean Breeze Hotel', 5, 40);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sea Tower Inn', 5, 40);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Mount Carmel View', 4, 41);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sakura Tower Hotel', 5, 42);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Shibuya Sky Inn', 4, 42);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Golden Pavilion Inn', 5, 43);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Bamboo Forest Retreat', 4, 43);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Osaka Bay Stay', 3, 44);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Kansai Elegance Inn', 4, 44);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Desert Rose Hotel', 4, 45);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Citadel View Inn', 3, 45);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Ancient Wonders Inn', 3, 46);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Steppe Glory Hotel', 4, 47);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Nomad Palace', 3, 47);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Tien Shan Resort', 4, 48);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Mountain View Inn', 4, 48);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Savannah Breeze Hotel', 3, 49);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Wildlife Lodge', 1, 49);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Indian Ocean Retreat', 3, 50);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Diani Beach Resort', 2, 50);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Ala-Too Plaza Hotel', 4, 51);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Silk Road Hostel', 3, 51);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Issyk-Kul Shore Resort', 2, 52);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Aztec Gold Hotel', 4, 53);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Zocalo Grand Inn', 3, 53);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Riviera Maya Grand', 4, 54);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Caribbean Pearl Resort', 5, 54);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Mariachi Plaza Hotel', 3, 55);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sky Harbor Inn', 4, 56);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Pacific View Suites', 5, 56);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Downtown Escape Hotel', 3, 56);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Windy City Hotel', 4, 57);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Harbour Lights Inn', 4, 57);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Southern Alps Resort', 5, 58);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Lake Wakatipu Lodge', 4, 58);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Viking Shore Hotel', 5, 59);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Nordic Elegance Inn', 5, 59);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Aurora Sky Suites', 4, 59);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Fjord View Hotel', 5, 60);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Bryggen Inn', 4, 60);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Aurora Lights Inn', 4, 61);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Arctic Dream Resort', 5, 61);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('K-Pop Palace Hotel', 4, 62);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Han River Suites', 5, 62);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Gyeongbok Palace Inn', 3, 62);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Ocean Breeze Hotel', 5, 63);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Diamond Bridge Inn', 4, 63);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Beachside Comfort', 4, 63);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Alpine Elegance Hotel', 5, 64);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Lake Zurich View', 4, 64);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Lake Léman Grand', 5, 64);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Old Town Retreat', 4, 65);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Swiss Charm Inn', 5, 65);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Golden Temple Inn', 4, 66);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Royal Siam Hotel', 5, 66);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('City Blossom Inn', 3, 66);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Andaman Pearl Resort', 4, 67);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Coral Bay Retreat', 5, 67);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Northern Lights Hotel', 3, 68);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Elephant Path Inn', 4, 68);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Carthage Grand Hotel', 4, 69);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Medina Charm Inn', 3, 69);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Mediterranean Dreams', 3, 70);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Pearl of the Sea', 4, 70);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Bosphorus View Hotel', 5, 71);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hagia Sophia Suites', 4, 71);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sultanahmet Charm Inn', 3, 71);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Anatolia Palace', 4, 72);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Central Osman', 3, 72);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Turkish Riviera Resort', 3, 73);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Mediterranean Pearl Inn', 5, 73);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Burj Grand Palace', 5, 74);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Desert Oasis Resort', 5, 74);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Marina Bay Inn', 4, 74);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Emirates Elegance', 4, 75);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sheikh Zayed View Hotel', 5, 75);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Empire State Grand', 5, 76);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Times Square Retreat', 4, 76);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Central Park Inn', 4, 76);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Sunset Boulevard Inn', 4, 77);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hollywood Dreams Hotel', 5, 77);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Pacific Coast Inn', 4, 77);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Ocean Drive Hotel', 4, 78);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('South Beach Paradise', 4, 78);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Atlantic Breeze Resort', 5, 78);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Hayot Hotel', 4, 79);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('House De Moon', 3, 79);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Aisha hotel', 4, 80);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Gur Emir Palace', 3, 80);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Red River Grand', 4, 81);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Old Quarter Inn', 3, 81);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('West Lake Retreat', 5, 81);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Saigon Pearl Hotel', 4, 82);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Mekong Breeze Inn', 4, 82);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Notre Dame Plaza', 3, 82);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Forbidden City Inn', 4, 83);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Great Wall Grand Hotel', 5, 83);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Tiananmen View Suites', 3, 83);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Bund River View', 5, 84);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Lujiazui Harbor Inn', 4, 84);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Old Town Charm Inn', 3, 84);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Pearl River Hotel', 3, 85);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Canton Elegance Inn', 4, 85);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Malecón Grand Hotel', 4, 86);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Capitolio Charm Inn', 3, 86);
-
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('Caribbean Sands Resort', 4, 87);
-INSERT INTO Hotels (NAME, StarsNumber, CityId) VALUES ('White Sand Retreat', 3, 87);
+SELECT * FROM Cities;
+INSERT INTO `Hotels` (`Name`, `CityId`, `Address`, `StarsNumber`, `MainDescription`, `NutritionTypeId`, `Lat`, `Lng`)
+VALUES
+('Hotel Grand', 26, '123 Champs Elysees', 5, 'Luxury hotel in the city center', 1, 48.8566, 2.3522),
+('Sunset Resort', 67, '456 Ocean Drive', 4, 'Beautiful beachside resort', 2, 25.7617, -80.1918),
+('Mountain Lodge', 61, '789 Rocky Road', 3, 'Cozy lodge in the mountains', 3, 63.421231, 10.540638);
+
+-- Вставка данных в таблицу HotelDescriptions
+INSERT INTO `HotelDescriptions` (`CharacteristicID`, `HotelID`)
+VALUES
+(1, 1), (3, 1), (5, 1), (7, 1),
+(2, 2), (4, 2), (6, 2), (8, 2),
+(3, 3), (5, 3), (7, 3), (9, 3);
+
+-- Вставка данных в таблицу RoomTypes
+INSERT INTO `RoomTypes` (`NAME`, `Price`, `SeatsNumber`, `RoomsNumber`, `HotelId`)
+VALUES
+('Luxury Suite', 500, 2, 10, 1),
+('Deluxe Room', 300, 2, 20, 1),
+('Apartment', 400, 4, 5, 2),
+('Standard Room', 150, 2, 30, 2),
+('Family Room', 250, 4, 15, 3);
+
+-- Вставка данных в таблицу RoomTypeDescriptions
+INSERT INTO `RoomTypeDescriptions` (`CharacteristicID`, `RoomTypeID`)
+VALUES
+(1, 1), (3, 1), (5, 1), (7, 1),
+(2, 2), (4, 2), (6, 2), (8, 2),
+(3, 3), (5, 3), (7, 3),
+(1, 4), (2, 4), (4, 4), (6, 4),
+(2, 5), (3, 5), (5, 5), (8, 5);

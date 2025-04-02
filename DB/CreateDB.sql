@@ -172,7 +172,7 @@ CREATE TABLE `Bookings` (
   `Price` INT,
   `Status` TINYINT DEFAULT 0,
   `Comment` VARCHAR(255),
-  `HasСhildren` BOOLEAN DEFAULT 0,
+  `HasChildren` BOOLEAN DEFAULT 0,
   `PrioritySeatsInTransport` BOOLEAN DEFAULT 0,
   FOREIGN KEY (`UserId`) REFERENCES `Users`(`ID`) ON DELETE CASCADE,
   FOREIGN KEY (`RouteId`) REFERENCES `Routes`(`ID`) ON DELETE CASCADE

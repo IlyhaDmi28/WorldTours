@@ -15,7 +15,7 @@ namespace backend.Models.Entity
 		public string? Comment { get; set; }
 
 		public bool? PrioritySeatsInTransport { get; set; }
-		public bool? HasСhildren { get; set; }
+		public bool? HasChildren { get; set; }
 
 		[ForeignKey(nameof(RouteId))]
 		public Route Route { get; set; }

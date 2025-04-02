@@ -175,7 +175,7 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
         let sumOfOrderSeatsInRooms = 0;
         requestForBooking.bookedRoomTypes.forEach((bookedRoomType) => {sumOfOrderSeatsInRooms += bookedRoomType.orderRoomsNumber * roomTypes.find(roomType => roomType.id === bookedRoomType.id).seatsNumber})
 
-        if(sumOfOrderSeatsInRooms > requestForBooking.orderSeatsNumber) {
+        if(sumOfOrderSeatsInRooms <= requestForBooking.orderSeatsNumber) {
             alert("Вы заказали недостаточно номеров! Вы указали больше людей, чем вместяться в номера")
 			return;
         }

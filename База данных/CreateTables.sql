@@ -33,7 +33,8 @@
 		FOREIGN KEY (`CharacteristicID`) REFERENCES `Characteristics`(`ID`),
 		FOREIGN KEY (`TourID`) REFERENCES `Tours`(`ID`)
 	);
-	
+	SELECT * FROM RoomTypeCharacteristics;
+		SELECT * FROM HotelCharacteristics;
 	CREATE TABLE Regions (
 	  ID INT PRIMARY KEY AUTO_INCREMENT,
 	  Name VARCHAR(255) UNIQUE NOT NULL,

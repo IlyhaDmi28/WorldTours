@@ -31,7 +31,7 @@
       MYSQL_PASSWORD: bkmz28012004
       MYSQL_ROOT_PASSWORD: bkmz28012004
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
 
