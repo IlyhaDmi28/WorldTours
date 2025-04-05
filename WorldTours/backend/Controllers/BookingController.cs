@@ -136,14 +136,11 @@ namespace backend.Controllers
 					TourId = b.Route.Tour.Id,
 					RouteId = b.Route.Id,
 					TourPhotoUrl = $"https://localhost:7276/uploads/tours/{b.Route.Tour.Id}/0.jpg",
-					LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
-					LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
-					LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
-					LandingTimeOfReturn = b.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
-					ArrivalDateOfDeparture = b.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
-					ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
-					ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
-					ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+					LandingDateAndTimeOfDeparture = b.Route.LandingDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+					ArrivalDateAndTimeOfDeparture = b.Route.ArrivalDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+					LandingDateAndTimeOfReturn = b.Route.LandingDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
+					ArrivalDateAndTimeOfReturn = b.Route.ArrivalDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
+	
 					Price = b.Price,
 					OrderSeatsNumber = b.OrderSeatsNumber,
 					Status = b.Status,
@@ -233,14 +230,10 @@ namespace backend.Controllers
 					Route = new RouteForBookingDto 
 					{
 						Id = booking.Route.Id,
-						LandingDateOfDeparture = booking.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
-						LandingDateOfReturn = booking.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
-						LandingTimeOfDeparture = booking.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
-						LandingTimeOfReturn = booking.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
-						ArrivalDateOfDeparture = booking.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
-						ArrivalDateOfReturn = booking.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
-						ArrivalTimeOfDeparture = booking.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
-						ArrivalTimeOfReturn = booking.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+						LandingDateAndTimeOfDeparture = booking.Route.LandingDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+						ArrivalDateAndTimeOfDeparture = booking.Route.ArrivalDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+						LandingDateAndTimeOfReturn = booking.Route.LandingDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
+						ArrivalDateAndTimeOfReturn = booking.Route.ArrivalDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
 						DepartmentDeparture = new DepartmentDepartureDto
 						{ 
 							Id = booking.Route.DepartmentDeparture.Id,
@@ -320,14 +313,10 @@ namespace backend.Controllers
 					TourId = b.Route.Tour.Id,
 					RouteId = b.Route.Id,
 					TourPhotoUrl = $"https://localhost:7276/uploads/tours/{b.Route.Tour.Id}/0.jpg",
-					LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
-					LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
-					LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
-					LandingTimeOfReturn = b.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
-					ArrivalDateOfDeparture = b.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
-					ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
-					ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
-					ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+					LandingDateAndTimeOfDeparture = b.Route.LandingDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+					ArrivalDateAndTimeOfDeparture = b.Route.ArrivalDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+					LandingDateAndTimeOfReturn = b.Route.LandingDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
+					ArrivalDateAndTimeOfReturn = b.Route.ArrivalDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
 					Price = b.Price,
 					OrderSeatsNumber = b.OrderSeatsNumber,
 					Status = b.Status,
@@ -500,15 +489,14 @@ namespace backend.Controllers
 					if (filter.BookingStatus == 0) bookings = bookings.Where(b => b.Status == null).ToList();
 					else if (filter.BookingStatus != null) bookings = bookings.Where(b => b.Status == filter.BookingStatus).ToList();
 
-					if (filter.MinLandingDateOfDeparture != null && filter.MinLandingDateOfDeparture != "") bookings = bookings.Where(b => b.Route.LandingDateOfDeparture >= DateService.ConvertToDateFormat(filter.MinLandingDateOfDeparture)).ToList();
-					if (filter.MinArrivalDateOfDeparture != null && filter.MinArrivalDateOfDeparture != "") bookings = bookings.Where(b => b.Route.ArrivalDateOfDeparture >= DateService.ConvertToDateFormat(filter.MinArrivalDateOfDeparture)).ToList();
-					if (filter.MinLandingDateOfReturn != null && filter.MinLandingDateOfReturn != "") bookings = bookings.Where(b => b.Route.LandingDateOfReturn >= DateService.ConvertToDateFormat(filter.MinLandingDateOfReturn)).ToList();
-					if (filter.MinArrivalDateOfReturn != null && filter.MinArrivalDateOfReturn != "") bookings = bookings.Where(b => b.Route.ArrivalDateOfReturn >= DateService.ConvertToDateFormat(filter.MinArrivalDateOfReturn)).ToList();
-					
-					if (filter.MaxLandingDateOfDeparture != null && filter.MaxLandingDateOfDeparture != "") bookings = bookings.Where(b => b.Route.LandingDateOfDeparture <= DateService.ConvertToDateFormat(filter.MaxLandingDateOfDeparture)).ToList();
-					if (filter.MaxArrivalDateOfDeparture != null && filter.MaxArrivalDateOfDeparture != "") bookings = bookings.Where(b => b.Route.ArrivalDateOfDeparture <= DateService.ConvertToDateFormat(filter.MaxArrivalDateOfDeparture)).ToList();
-					if (filter.MaxLandingDateOfReturn != null && filter.MaxLandingDateOfReturn != "") bookings = bookings.Where(b => b.Route.LandingDateOfReturn <= DateService.ConvertToDateFormat(filter.MaxLandingDateOfReturn)).ToList();
-					if (filter.MaxArrivalDateOfReturn != null && filter.MaxArrivalDateOfReturn != "") bookings = bookings.Where(b => b.Route.ArrivalDateOfReturn <= DateService.ConvertToDateFormat(filter.MaxArrivalDateOfReturn)).ToList();
+					if (filter.MinLandingDateOfDeparture != null && filter.MinLandingDateOfDeparture != "") bookings = bookings.Where(b => DateTime.ParseExact(b.Route.LandingDateAndTimeOfDeparture?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) >= DateTime.ParseExact(filter.MinLandingDateOfDeparture, "yyyy-MM-dd", null)).ToList();
+					if (filter.MaxLandingDateOfDeparture != null && filter.MaxLandingDateOfDeparture != "") bookings = bookings.Where(b => DateTime.ParseExact(b.Route.LandingDateAndTimeOfDeparture?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) <= DateTime.ParseExact(filter.MaxLandingDateOfDeparture, "yyyy-MM-dd", null)).ToList();
+					if (filter.MinArrivalDateOfDeparture != null && filter.MinArrivalDateOfDeparture != "") bookings = bookings.Where(b => DateTime.ParseExact(b.Route.ArrivalDateAndTimeOfDeparture?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) >= DateTime.ParseExact(filter.MinArrivalDateOfDeparture, "yyyy-MM-dd", null)).ToList();
+					if (filter.MaxArrivalDateOfDeparture != null && filter.MaxArrivalDateOfDeparture != "") bookings = bookings.Where(b => DateTime.ParseExact(b.Route.ArrivalDateAndTimeOfDeparture?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) <= DateTime.ParseExact(filter.MaxArrivalDateOfDeparture, "yyyy-MM-dd", null)).ToList();
+					if (filter.MinLandingDateOfReturn != null && filter.MinLandingDateOfReturn != "") bookings = bookings.Where(b => DateTime.ParseExact(b.Route.LandingDateAndTimeOfReturn?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) >= DateTime.ParseExact(filter.MinLandingDateOfReturn, "yyyy-MM-dd", null)).ToList();
+					if (filter.MaxLandingDateOfReturn != null && filter.MaxLandingDateOfReturn != "") bookings = bookings.Where(b => DateTime.ParseExact(b.Route.LandingDateAndTimeOfReturn?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) <= DateTime.ParseExact(filter.MaxLandingDateOfReturn, "yyyy-MM-dd", null)).ToList();
+					if (filter.MinArrivalDateOfReturn != null && filter.MinArrivalDateOfReturn != "") bookings = bookings.Where(b => DateTime.ParseExact(b.Route.ArrivalDateAndTimeOfReturn?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) >= DateTime.ParseExact(filter.MinArrivalDateOfReturn, "yyyy-MM-dd", null)).ToList();
+					if (filter.MaxArrivalDateOfReturn != null && filter.MaxArrivalDateOfReturn != "") bookings = bookings.Where(b => DateTime.ParseExact(b.Route.ArrivalDateAndTimeOfReturn?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) <= DateTime.ParseExact(filter.MaxArrivalDateOfReturn, "yyyy-MM-dd", null)).ToList();
 					
 					if (filter.DepartmentDepartureId != 0 && filter.DepartmentDepartureId != null) bookings = bookings.Where(b => b.Route.DepartmentDepartureId == filter.DepartmentDepartureId).ToList();
 				}
@@ -522,14 +510,10 @@ namespace backend.Controllers
 						TourId = b.Route.Tour.Id,
 						RouteId = b.Route.Id,
 						TourPhotoUrl = $"https://localhost:7276/uploads/tours/{b.Route.Tour.Id}/0.jpg",
-						LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
-						LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
-						LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
-						LandingTimeOfReturn = b.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
-						ArrivalDateOfDeparture = b.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
-						ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
-						ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
-						ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+						LandingDateAndTimeOfDeparture = b.Route.LandingDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+						ArrivalDateAndTimeOfDeparture = b.Route.ArrivalDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+						LandingDateAndTimeOfReturn = b.Route.LandingDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
+						ArrivalDateAndTimeOfReturn = b.Route.ArrivalDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
 						Price = b.Price,
 						OrderSeatsNumber = b.OrderSeatsNumber,
 						Status = b.Status,
@@ -557,14 +541,10 @@ namespace backend.Controllers
 						TourId = b.Route.Tour.Id,
 						RouteId = b.Route.Id,
 						TourPhotoUrl = $"https://localhost:7276/uploads/tours/{b.Route.Tour.Id}/0.jpg",
-						LandingDateOfDeparture = b.Route.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
-						LandingDateOfReturn = b.Route.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
-						LandingTimeOfDeparture = b.Route.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
-						LandingTimeOfReturn = b.Route.LandingTimeOfReturn?.ToString(@"hh\:mm"),
-						ArrivalDateOfDeparture = b.Route.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
-						ArrivalDateOfReturn = b.Route.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
-						ArrivalTimeOfDeparture = b.Route.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
-						ArrivalTimeOfReturn = b.Route.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+						LandingDateAndTimeOfDeparture = b.Route.LandingDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+						ArrivalDateAndTimeOfDeparture = b.Route.ArrivalDateAndTimeOfDeparture?.ToString("dd.MM.yyyy, HH:mm"),
+						LandingDateAndTimeOfReturn = b.Route.LandingDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
+						ArrivalDateAndTimeOfReturn = b.Route.ArrivalDateAndTimeOfReturn?.ToString("dd.MM.yyyy, HH:mm"),
 						Price = b.Price,
 						OrderSeatsNumber = b.OrderSeatsNumber,
 						Status = b.Status,

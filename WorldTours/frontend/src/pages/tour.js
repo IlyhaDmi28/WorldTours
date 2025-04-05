@@ -351,8 +351,8 @@ function Tour() {
 						<div>
 							<b>Отель: </b><Link to='/tours'>{tour.hotel.name}</Link>
 						</div>
-						<div>{tour.hotel.country}, {tour.hotel.city}</div>
-						<div>{tour.hotel.address}</div>
+						<div><b>Направление: </b>{tour.hotel.country}, {tour.hotel.city}</div>
+						<div><b>Адресс: </b>{tour.hotel.address}</div>
 					</div>
 
 					<Rating 

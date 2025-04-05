@@ -374,14 +374,10 @@ function TourEditor() {
 		formData.append("Characteristics", JSON.stringify(tour.characteristics));
 
 		const routesForm = tour.routes.map(route => ({
-			landingDateOfDeparture: route.landingDateOfDeparture,
-			landingTimeOfDeparture: route.landingTimeOfDeparture,
-			arrivalDateOfDeparture: route.arrivalDateOfDeparture,
-			arrivalTimeOfDeparture: route.arrivalTimeOfDeparture,
-			landingDateOfReturn: route.landingDateOfReturn,
-			landingTimeOfReturn: route.landingTimeOfReturn,
-			arrivalDateOfReturn: route.arrivalDateOfReturn,
-			arrivalTimeOfReturn: route.arrivalTimeOfReturn,
+			landingDateAndTimeOfDeparture: route.landingDateAndTimeOfDeparture,
+			arrivalDateAndTimeOfDeparture: route.arrivalDateAndTimeOfDeparture,
+			landingDateAndTimeOfReturn: route.landingDateAndTimeOfReturn,
+			arrivalDateAndTimeOfReturn: route.arrivalDateAndTimeOfReturn,
 			departmentDepartureId: route.departmentDeparture.id,
 			price: route.price,
 			seatsNumber: route.seatsNumber,

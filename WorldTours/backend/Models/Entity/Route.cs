@@ -7,14 +7,10 @@ namespace backend.Models.Entity
     {
         [Key]
         public int Id { get; set; }
-        public DateTime? LandingDateOfDeparture { get; set; }
-        public TimeSpan? LandingTimeOfDeparture { get; set; }
-        public DateTime? ArrivalDateOfDeparture { get; set; }
-        public TimeSpan? ArrivalTimeOfDeparture { get; set; }
-        public DateTime? LandingDateOfReturn { get; set; }
-        public TimeSpan? LandingTimeOfReturn { get; set; }
-        public DateTime? ArrivalDateOfReturn { get; set; }
-        public TimeSpan? ArrivalTimeOfReturn { get; set; }
+        public DateTime? LandingDateAndTimeOfDeparture { get; set; }
+        public DateTime? ArrivalDateAndTimeOfDeparture { get; set; }
+        public DateTime? LandingDateAndTimeOfReturn { get; set; }
+        public DateTime? ArrivalDateAndTimeOfReturn { get; set; }
         public int? Price { get; set; }
         public int? SeatsNumber { get; set; }
         public int? DepartmentDepartureId { get; set; }

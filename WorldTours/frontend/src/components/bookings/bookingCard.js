@@ -13,14 +13,12 @@ function BookingCard({ booking, openBooking, deleteBooking }) {
             </div>
             <div className="booking-card-route">
                 <div className="booking-card-country-and-city">
-                    {booking.departmentDeparture.country}, {booking.departmentDeparture.city}, {booking.landingDateOfDeparture} 
-                    , {booking.landingTimeOfDeparture} &#8594; {booking.direction.country}, {booking.direction.city}
-                    , {booking.arrivalDateOfDeparture}, {booking.arrivalTimeOfDeparture}
+                    {booking.departmentDeparture.country}, {booking.departmentDeparture.city}, {booking.landingDateAndTimeOfDeparture} &#8594; {booking.direction.country},
+                    {booking.direction.city}, {booking.arrivalDateAndTimeOfDeparture}
                 </div>
                 <div className="booking-card-country-and-city">
-                    {booking.departmentDeparture.country}, {booking.departmentDeparture.city}, {booking.arrivalDateOfReturn} 
-                    , {booking.arrivalTimeOfReturn} &#8592; {booking.direction.country}, {booking.direction.city}
-                    , {booking.landingDateOfReturn}, {booking.landingTimeOfReturn}
+                    {booking.departmentDeparture.country}, {booking.departmentDeparture.city}, {booking.arrivalDateAndTimeOfReturn} &#8592; {booking.direction.country}, 
+                    {booking.direction.city}, {booking.landingDateAndTimeOfReturn}
                 </div>
             </div>
             <div className="booking-card-department-departure-and-hotle">

@@ -16,6 +16,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Route = backend.Models.Entity.Route;
+using Microsoft.AspNetCore.Routing;
 
 namespace backend.Controllers
 {
@@ -162,14 +163,10 @@ namespace backend.Controllers
 						Routes = routes.Select(r => new RouteDto()
 						{
 							Id = r.Id,
-							LandingDateOfDeparture = r.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
-							LandingDateOfReturn = r.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
-							LandingTimeOfDeparture = r.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
-							LandingTimeOfReturn = r.LandingTimeOfReturn?.ToString(@"hh\:mm"),
-							ArrivalDateOfDeparture = r.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
-							ArrivalDateOfReturn = r.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
-							ArrivalTimeOfDeparture = r.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
-							ArrivalTimeOfReturn = r.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+							LandingDateAndTimeOfDeparture = r.LandingDateAndTimeOfDeparture?.ToString("yyyy-MM-ddTHH:mm"),
+							ArrivalDateAndTimeOfDeparture = r.ArrivalDateAndTimeOfDeparture?.ToString("yyyy-MM-ddTHH:mm"),
+							LandingDateAndTimeOfReturn = r.LandingDateAndTimeOfReturn?.ToString("yyyy-MM-ddTHH:mm"),
+							ArrivalDateAndTimeOfReturn = r.ArrivalDateAndTimeOfReturn?.ToString("yyyy-MM-ddTHH:mm"),
 							Price = r.Price,
 							SeatsNumber = r.SeatsNumber,
 							TransportType = new TransportTypeDto
@@ -296,14 +293,10 @@ namespace backend.Controllers
 					Routes = routes.Select(r => new RouteDto
 					{
 						Id = r.Id,
-						LandingDateOfDeparture = r.LandingDateOfDeparture?.ToString("dd.MM.yyyy"),
-						LandingDateOfReturn = r.LandingDateOfReturn?.ToString("dd.MM.yyyy"),
-						LandingTimeOfDeparture = r.LandingTimeOfDeparture?.ToString(@"hh\:mm"),
-						LandingTimeOfReturn = r.LandingTimeOfReturn?.ToString(@"hh\:mm"),
-						ArrivalDateOfDeparture = r.ArrivalDateOfDeparture?.ToString("dd.MM.yyyy"),
-						ArrivalDateOfReturn = r.ArrivalDateOfReturn?.ToString("dd.MM.yyyy"),
-						ArrivalTimeOfDeparture = r.ArrivalTimeOfDeparture?.ToString(@"hh\:mm"),
-						ArrivalTimeOfReturn = r.ArrivalTimeOfReturn?.ToString(@"hh\:mm"),
+						LandingDateAndTimeOfDeparture = r.LandingDateAndTimeOfDeparture?.ToString("yyyy-MM-ddTHH:mm"),
+						ArrivalDateAndTimeOfDeparture = r.ArrivalDateAndTimeOfDeparture?.ToString("yyyy-MM-ddTHH:mm"),
+						LandingDateAndTimeOfReturn = r.LandingDateAndTimeOfReturn?.ToString("yyyy-MM-ddTHH:mm"),
+						ArrivalDateAndTimeOfReturn = r.ArrivalDateAndTimeOfReturn?.ToString("yyyy-MM-ddTHH:mm"),
 						Price = r.Price,
 						SeatsNumber = r.SeatsNumber,
 						TransportType = new TransportTypeDto
@@ -352,8 +345,8 @@ namespace backend.Controllers
 					City = t.Tour.Hotel.City.Name,
 					PhotoUrl = $"https://localhost:7276/uploads/tours/{t.Tour.Id}/0.jpg",
 					TourTypeImageUrl = $"https://localhost:7276/{t.Tour.TourType.PathToImage}",
-					DateOfDeparture = ((DateTime)t.LandingDateOfDeparture).ToString("dd.MM.yyyy"),
-					DateOfReturn = ((DateTime)t.ArrivalDateOfReturn).ToString("dd.MM.yyyy"),
+					DateOfDeparture = ((DateTime)t.LandingDateAndTimeOfDeparture).ToString("dd.MM.yyyy"),
+					DateOfReturn = ((DateTime)t.ArrivalDateAndTimeOfReturn).ToString("dd.MM.yyyy"),
 					StarsNumber = t.Tour.Hotel.StarsNumber,
 					Price = t.Price,
 				}));
@@ -396,8 +389,8 @@ namespace backend.Controllers
 					if (filter.CityId != 0 && filter.CityId != null) routes = routes.Where(t => t.Tour.Hotel.CityId == filter.CityId).ToList();
 					if (filter.CountryId != 0 && filter.CountryId != null) routes = routes.Where(t => t.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
 					if (filter.DepartureCityId != 0 && filter.DepartureCityId != null) routes = routes.Where(t => t.DepartmentDeparture.CityId == filter.DepartureCityId).ToList();
-					if (filter.MinDateOfDeparture != null && filter.MinDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture >= DateService.ConvertToDateFormat(filter.MinDateOfDeparture)).ToList();
-					if (filter.MaxDateOfDeparture != null && filter.MaxDateOfDeparture != "") routes = routes.Where(t => t.LandingDateOfDeparture <= DateService.ConvertToDateFormat(filter.MaxDateOfDeparture)).ToList();
+					if (filter.MinDateOfDeparture != null && filter.MinDateOfDeparture != "") routes = routes.Where(t => DateTime.ParseExact(t.LandingDateAndTimeOfDeparture?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) >= DateTime.ParseExact(filter.MinDateOfDeparture, "yyyy-MM-dd", null)).ToList();
+					if (filter.MaxDateOfDeparture != null && filter.MaxDateOfDeparture != "") routes = routes.Where(t => DateTime.ParseExact(t.LandingDateAndTimeOfDeparture?.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null) <= DateTime.ParseExact(filter.MaxDateOfDeparture, "yyyy-MM-dd", null)).ToList();
 					if (filter.TransportTypeId != 0 && filter.TransportTypeId != null) routes = routes.Where(t => t.DepartmentDeparture.TransportTypeId == filter.TransportTypeId).ToList();
 					if (filter.TourTypeId != 0 && filter.TourTypeId != null) routes = routes.Where(t => t.Tour.TourTypeId == filter.TourTypeId).ToList();
 					if (filter.MinPrice != 0 && filter.MinPrice != null) routes = routes.Where(t => t.Price >= filter.MinPrice).ToList();
@@ -436,7 +429,7 @@ namespace backend.Controllers
 					}
 
 					if(filter.seatsNumber != 0 && filter.seatsNumber != null) filtredRoutes = filtredRoutes.Where(r => Math.Min((int)r.Tour.Hotel.RoomTypes.Sum(rt => rt.RoomsNumber * rt.SeatsNumber), (int)r.SeatsNumber) >= filter.seatsNumber).ToList();
-					if (filter.daysNumber != 0 && filter.daysNumber != null) filtredRoutes = filtredRoutes.Where(r => (r.ArrivalDateOfReturn - r.LandingDateOfDeparture )?.Days == filter.daysNumber).ToList();
+					if (filter.daysNumber != 0 && filter.daysNumber != null) filtredRoutes = filtredRoutes.Where(r => (r.ArrivalDateAndTimeOfReturn - r.LandingDateAndTimeOfDeparture )?.Days == filter.daysNumber).ToList();
 				}
 
 				return Ok(filtredRoutes.Select(t => new TourCardDto
@@ -448,8 +441,8 @@ namespace backend.Controllers
 					City = t.Tour.Hotel.City.Name,
 					PhotoUrl = $"https://localhost:7276/uploads/tours/{t.Tour.Id}/0.jpg",
 					TourTypeImageUrl = $"https://localhost:7276/{t.Tour.TourType.PathToImage}",
-					DateOfDeparture = ((DateTime)t.LandingDateOfDeparture).ToString("dd.MM.yyyy"),
-					DateOfReturn = ((DateTime)t.ArrivalDateOfReturn).ToString("dd.MM.yyyy"),
+					DateOfDeparture = ((DateTime)t.LandingDateAndTimeOfDeparture).ToString("dd.MM.yyyy"),
+					DateOfReturn = ((DateTime)t.ArrivalDateAndTimeOfReturn).ToString("dd.MM.yyyy"),
 					StarsNumber = t.Tour.Hotel.StarsNumber,
 					Price = t.Price,
 				}));
@@ -564,30 +557,10 @@ namespace backend.Controllers
 
 							var newRoutes = routes.Select(r => new Models.Entity.Route()
 							{
-								LandingDateOfDeparture = DateService.ConvertToDateFormat(r.LandingDateOfDeparture),
-								LandingTimeOfDeparture = TimeSpan.ParseExact(
-									r.LandingTimeOfDeparture,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-								ArrivalDateOfDeparture = DateService.ConvertToDateFormat(r.ArrivalDateOfDeparture),
-								ArrivalTimeOfDeparture = TimeSpan.ParseExact(
-									r.ArrivalTimeOfDeparture,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-								LandingDateOfReturn = DateService.ConvertToDateFormat(r.LandingDateOfReturn),
-								LandingTimeOfReturn = TimeSpan.ParseExact(
-									r.LandingTimeOfReturn,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-								ArrivalDateOfReturn = DateService.ConvertToDateFormat(r.ArrivalDateOfReturn),
-								ArrivalTimeOfReturn = TimeSpan.ParseExact(
-									r.ArrivalTimeOfReturn,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
+								LandingDateAndTimeOfDeparture = DateTime.ParseExact(r.LandingDateAndTimeOfDeparture, "yyyy-MM-ddTHH:mm", null),
+								ArrivalDateAndTimeOfDeparture = DateTime.ParseExact(r.ArrivalDateAndTimeOfDeparture, "yyyy-MM-ddTHH:mm", null),
+								LandingDateAndTimeOfReturn = DateTime.ParseExact(r.LandingDateAndTimeOfReturn, "yyyy-MM-ddTHH:mm", null),
+								ArrivalDateAndTimeOfReturn = DateTime.ParseExact(r.ArrivalDateAndTimeOfReturn, "yyyy-MM-ddTHH:mm", null),
 								Price = r.Price,
 								SeatsNumber = r.SeatsNumber,
 								DepartmentDepartureId = r.DepartmentDepartureId,
@@ -678,30 +651,10 @@ namespace backend.Controllers
 						{
 							var route = routes.First(r => r.Id == editedRoute.Id);
 
-							editedRoute.LandingDateOfDeparture = DateService.ConvertToDateFormat(route.LandingDateOfDeparture);
-							editedRoute.LandingTimeOfDeparture = TimeSpan.ParseExact(
-								route.LandingTimeOfDeparture,
-								@"hh\:mm",
-								CultureInfo.InvariantCulture
-							);
-							editedRoute.ArrivalDateOfDeparture = DateService.ConvertToDateFormat(route.ArrivalDateOfDeparture);
-							editedRoute.ArrivalTimeOfDeparture = TimeSpan.ParseExact(
-								route.ArrivalTimeOfDeparture,
-								@"hh\:mm",
-								CultureInfo.InvariantCulture
-							);
-							editedRoute.LandingDateOfReturn = DateService.ConvertToDateFormat(route.LandingDateOfReturn);
-							editedRoute.LandingTimeOfReturn = TimeSpan.ParseExact(
-								route.LandingTimeOfReturn,
-								@"hh\:mm",
-								CultureInfo.InvariantCulture
-							);
-							editedRoute.ArrivalDateOfReturn = DateService.ConvertToDateFormat(route.ArrivalDateOfReturn);
-							editedRoute.ArrivalTimeOfReturn = TimeSpan.ParseExact(
-								route.ArrivalTimeOfReturn,
-								@"hh\:mm",
-								CultureInfo.InvariantCulture
-							);
+							editedRoute.LandingDateAndTimeOfReturn = DateService.ConvertToDateFormat(route.LandingDateAndTimeOfDeparture);
+							editedRoute.ArrivalDateAndTimeOfDeparture = DateService.ConvertToDateFormat(route.ArrivalDateAndTimeOfDeparture);
+							editedRoute.LandingDateAndTimeOfReturn = DateService.ConvertToDateFormat(route.LandingDateAndTimeOfReturn);
+							editedRoute.ArrivalDateAndTimeOfReturn = DateService.ConvertToDateFormat(route.ArrivalDateAndTimeOfReturn);
 							editedRoute.Price = route.Price;
 							editedRoute.SeatsNumber = route.SeatsNumber;
 							editedRoute.DepartmentDepartureId = route.DepartmentDepartureId;
@@ -714,30 +667,10 @@ namespace backend.Controllers
 							var newRoutes = routes.Where(r => r.Id == 0)
 								.Select(r => new Route()
 								{
-									LandingDateOfDeparture = DateService.ConvertToDateFormat(r.LandingDateOfDeparture),
-									LandingTimeOfDeparture = TimeSpan.ParseExact(
-									r.LandingTimeOfDeparture,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-									ArrivalDateOfDeparture = DateService.ConvertToDateFormat(r.ArrivalDateOfDeparture),
-									ArrivalTimeOfDeparture = TimeSpan.ParseExact(
-									r.ArrivalTimeOfDeparture,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-									LandingDateOfReturn = DateService.ConvertToDateFormat(r.LandingDateOfReturn),
-									LandingTimeOfReturn = TimeSpan.ParseExact(
-									r.LandingTimeOfReturn,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
-									ArrivalDateOfReturn = DateService.ConvertToDateFormat(r.ArrivalDateOfReturn),
-									ArrivalTimeOfReturn = TimeSpan.ParseExact(
-									r.ArrivalTimeOfReturn,
-									@"hh\:mm",
-									CultureInfo.InvariantCulture
-								),
+									LandingDateAndTimeOfDeparture = DateService.ConvertToDateFormat(r.LandingDateAndTimeOfDeparture),
+									ArrivalDateAndTimeOfDeparture = DateService.ConvertToDateFormat(r.ArrivalDateAndTimeOfDeparture),
+									LandingDateAndTimeOfReturn = DateService.ConvertToDateFormat(r.LandingDateAndTimeOfReturn),
+									ArrivalDateAndTimeOfReturn = DateService.ConvertToDateFormat(r.ArrivalDateAndTimeOfReturn),
 									Price = r.Price,
 									SeatsNumber = r.SeatsNumber,
 									DepartmentDepartureId = r.DepartmentDepartureId,

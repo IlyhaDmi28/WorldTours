@@ -320,7 +320,7 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                
 
                 <div className='sent-booking-form-room-types'>
-                    <h3>Типы номеров</h3>
+                    <h3>Выберите типы номеров</h3>
                     <hr></hr>
                     <table>
                         <thead>
@@ -378,7 +378,7 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                 <div className='booking-form-seats'>
                     <div>Всего бронируемых мест:</div>
                     <input name='orderSeatsNumber' placeholder={getAvailableNumberOfSeats()} value={ requestForBooking.orderSeatsNumber} onChange={changeRequestForbooking}/>
-                    <div style={{marginLeft: '10px'}}><b>Осталось: {getAvailableNumberOfSeats()}</b></div>
+                    <div style={{marginLeft: 'auto', color: '#9d9d9d'}}>Осталось: {getAvailableNumberOfSeats()}</div>
                 </div>
                 <FormControlLabel 
                     className="booking-form-checkbox" 

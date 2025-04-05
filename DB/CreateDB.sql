@@ -148,14 +148,10 @@ CREATE TABLE `Reviews` (
 
 CREATE TABLE `Routes` (
   `ID` INT PRIMARY KEY AUTO_INCREMENT,
-  `LandingDateOfDeparture` DATE,
-  `LandingTimeOfDeparture` TIME,
-  `ArrivalDateOfDeparture` DATE,
-  `ArrivalTimeOfDeparture` TIME,
-  `LandingDateOfReturn` DATE,
-  `LandingTimeOfReturn` TIME,
-  `ArrivalDateOfReturn` DATE,
-  `ArrivalTimeOfReturn` TIME,
+  `LandingDateAndTimeOfDeparture` DATETIME,
+  `ArrivalDateAndTimeOfDeparture` DATETIME,
+  `LandingDateAndTimeOfReturn` DATETIME,
+  `ArrivalDateAndTimeOfReturn` DATETIME,
   `Price` INT,
   `SeatsNumber` INT,
   `DepartmentDepartureId` INT,

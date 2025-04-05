@@ -34,13 +34,13 @@ function BookingsForManager() {
 		cityId: null,
 		bookingStatus: null,
 		minLandingDateOfDeparture: "",
-		minArrivalDateOfDeparture: "",
-		minLandingDateOfReturn: "",
-		minArrivalDateOfReturn: "",
+        minArrivalDateOfDeparture: "",
+        minLandingDateOfReturn: "",
+        minArrivalDateOfReturn: "",
 		maxLandingDateOfDeparture: "",
-		maxArrivalDateOfDeparture: "",
-		maxLandingDateOfReturn: "",
-		maxArrivalDateOfReturn: "",
+        maxArrivalDateOfDeparture: "",
+        maxLandingDateOfReturn: "",
+        maxArrivalDateOfReturn: "",
 		departmentDepartureId: 0
 	});
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import delete2 from '../../img/delete2.svg';
+import dayjs from 'dayjs';
 
 function RouteCard({directionInfo, route, deleteRoute, openRouteEditor}) {
     const [isHovered, setIsHovered] = useState(false);
@@ -13,13 +14,13 @@ function RouteCard({directionInfo, route, deleteRoute, openRouteEditor}) {
                         <div className="route-card-direction-info">
                             <div>
                                 <div>{route.departmentDeparture.country}, {route.departmentDeparture.city}</div>
-                                <div>{route.landingDateOfDeparture}, {route.landingTimeOfDeparture}</div>
+                                <div>{ dayjs(route.landingDateAndTimeOfDeparture).format("DD.MM.YYYY, HH:mm")}</div>
                             </div>
                             &#8594;
                             <div>
                                 
                                 <div>{directionInfo.country !== null ? directionInfo.country : "Страна не выбрана"}, {directionInfo.city !== null ? directionInfo.city : "Город не выбран"}</div>
-                                <div>{route.arrivalDateOfDeparture}, {route.arrivalTimeOfDeparture}</div>
+                                <div>{ dayjs(route.arrivalDateAndTimeOfDeparture).format("DD.MM.YYYY, HH:mm")}</div>
                             </div>
                         </div>
                     </div>
@@ -31,12 +32,12 @@ function RouteCard({directionInfo, route, deleteRoute, openRouteEditor}) {
                         <div className="route-card-direction-info">
                             <div>
                                 <div>{route.departmentDeparture.country}, {route.departmentDeparture.city}</div>
-                                <div>{route.arrivalDateOfReturn}, {route.arrivalTimeOfReturn}</div>
+                                <div>{ dayjs(route.arrivalDateAndTimeOfReturn).format("DD.MM.YYYY, HH:mm")}</div>
                             </div>
                             &#8592;
                             <div>
                                 <div>{directionInfo.country !== null ? directionInfo.country : "Страна не выбрана"}, {directionInfo.city !== null ? directionInfo.city : "Город не выбран"}</div>
-                                <div>{route.landingDateOfReturn}, {route.landingTimeOfReturn}</div>
+                                <div>{dayjs(route.landingDateAndTimeOfReturn).format("DD.MM.YYYY, HH:mm")}</div>
                             </div>
                         </div>
                     </div>

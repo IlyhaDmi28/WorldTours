@@ -3,6 +3,9 @@ import axios from 'axios';
 import star from '../../img/star.svg'
 import darkStar from '../../img/dark-star.svg'
 import close from '../../img/close.svg'
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 const token = localStorage.getItem("token");
 
 function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
@@ -12,14 +15,10 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
     
     console.log(indexOfSelectedRoute);
     const [route, setRoute] = useState(indexOfSelectedRoute !== -1 ? routes[indexOfSelectedRoute] :{
-        landingDateOfDeparture: "",
-        landingTimeOfDeparture: "",
-        arrivalDateOfDeparture: "",
-        arrivalTimeOfDeparture: "",
-        landingDateOfReturn: "",
-        landingTimeOfReturn: "",
-        arrivalDateOfReturn: "",
-        arrivalTimeOfReturn: "",
+        landingDateAndTimeOfDeparture: "",
+        arrivalDateAndTimeOfDeparture: "",
+        landingDateAndTimeOfReturn: "",
+        arrivalDateAndTimeOfReturn: "",
         departmentDeparture: {
             id: 1,
             name: null,
@@ -128,14 +127,10 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
 
     const saveRoute = () => {
         if(
-            (route.landingDateOfDeparture === "" || route.landingDateOfDeparture === null) ||
-            (route.landingTimeOfDeparture === "" || route.landingTimeOfDeparture === null) ||
-            (route.arrivalDateOfDeparture === "" || route.arrivalDateOfDeparture === null) ||
-            (route.arrivalTimeOfDeparture === "" || route.arrivalTimeOfDeparture === null) ||
-            (route.landingDateOfReturn === "" || route.landingDateOfReturn === null) ||
-            (route.landingTimeOfReturn === "" || route.landingTimeOfReturn === null) ||
-            (route.arrivalDateOfReturn === "" || route.arrivalDateOfReturn === null) ||
-            (route.arrivalTimeOfReturn === "" || route.arrivalTimeOfReturn === null) ||
+            (route.landingDateAndTimeOfDeparture === "" || route.landingDateAndTimeOfDeparture === null) ||
+            (route.arrivalDateAndTimeOfDeparture === "" || route.arrivalDateAndTimeOfDeparture === null) ||
+            (route.landingDateAndTimeOfReturn === "" || route.landingDateAndTimeOfReturn === null) ||
+            (route.arrivalDateAndTimeOfReturn === "" || route.arrivalDateAndTimeOfReturn === null) ||
             (route.departmentDeparture === "" || route.departmentDeparture === null) ||
             (route.transportType === "" || route.transportType === null) ||
             (route.departmentDeparture === "" || route.departmentDeparture === null) ||
@@ -147,7 +142,7 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
         }
         
         let newRoutes;
-        console.log(indexOfSelectedRoute);
+        console.log(route);
         if(indexOfSelectedRoute === -1) {
             newRoutes = routes;
             newRoutes.push(route);
@@ -161,14 +156,10 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
 
     const clearRoute = () => {
         setRoute({
-            landingDateOfDeparture: "",
-            landingTimeOfDeparture: "",
-            arrivalDateOfDeparture: "",
-            arrivalTimeOfDeparture: "",
-            landingDateOfReturn: "",
-            landingTimeOfReturn: "",
-            arrivalDateOfReturn: "",
-            arrivalTimeOfReturn: "",
+            landingDateAndTimeOfDeparture: "",
+            arrivalDateAndTimeOfDeparture: "",
+            landingDateAndTimeOfReturn: "",
+            arrivalDateAndTimeOfReturn: "",
             departmentDeparture: {
                 id: 1,
                 name: null,
@@ -195,29 +186,31 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
                     <h3>Отправление</h3>
                     <hr></hr>
                     <div className='route-direction-dates-and-times'>
-                        <div className='route-direction-date-and-time'>
-                            <div>
-                                <div className='parameter-name'>Дата посадки</div>
-                                <input type='date' name="landingDateOfDeparture" value={route.landingDateOfDeparture} onChange={changeRoute}/>
-                            </div>
+                        <TextField
+                            name="landingDateAndTimeOfDeparture"
+                            type="datetime-local"
+                            label="Дата и время посадки"
+                            value={route.landingDateAndTimeOfDeparture}
+                            defaultValue="2017-05-24T10:30"
+                            onChange={changeRoute}
+                            size="small"
+                            InputLabelProps={{
+                                shrink: true, // <== вот этот ключевой момент
+                            }}
+                        />
 
-                            <div>
-                                <div className='parameter-name'>Время посадки</div>
-                                <input type='time' name="landingTimeOfDeparture" value={route.landingTimeOfDeparture} onChange={changeRoute}/>
-                            </div>
-                        </div>
-
-                        <div className='route-direction-date-and-time'>
-                            <div>
-                                <div className='parameter-name'>Дата прибытия</div>
-                                <input type='date' name="arrivalDateOfDeparture" value={route.arrivalDateOfDeparture} onChange={changeRoute}/>
-                            </div>
-
-                            <div>
-                                <div className='parameter-name'>Время прибытия</div>
-                                <input type='time' name="arrivalTimeOfDeparture" value={route.arrivalTimeOfDeparture} onChange={changeRoute}/>
-                            </div>
-                        </div>
+                        <TextField
+                            name="arrivalDateAndTimeOfDeparture"
+                            type="datetime-local"
+                            label="Дата и время прибытия"
+                            value={route.arrivalDateAndTimeOfDeparture}
+                            defaultValue="2017-05-24T10:30"
+                            onChange={changeRoute}
+                            size="small"
+                            InputLabelProps={{
+                                shrink: true, // <== вот этот ключевой момент
+                            }}
+                        />
                     </div>
                 </div>
                 
@@ -225,29 +218,32 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
                     <h3>Возвращение</h3>
                     <hr></hr>
                     <div className='route-direction-dates-and-times'>
-                        <div className='route-direction-date-and-time'>
-                            <div>
-                                <div className='parameter-name'> Дата посадки</div>
-                                <input type='date' name="landingDateOfReturn" value={route.landingDateOfReturn} onChange={changeRoute}/>
-                            </div>
+                        <TextField
+                            name="landingDateAndTimeOfReturn"
+                            type="datetime-local"
+                            label="Дата и время посадки"
+                            style={{height: '20px'}}
+                            value={route.landingDateAndTimeOfReturn}
+                            defaultValue="2017-05-24T10:30"
+                            onChange={changeRoute}
+                            size="small"
+                            InputLabelProps={{
+                                shrink: true, // <== вот этот ключевой момент
+                            }}
+                        />
 
-                            <div>
-                                <div className='parameter-name'>Время посадки</div>
-                                <input type='time' name="landingTimeOfReturn" value={route.landingTimeOfReturn} onChange={changeRoute}/>
-                            </div>
-                        </div>
-
-                        <div className='route-direction-date-and-time'>
-                            <div>
-                                <div className='parameter-name'>Дата прибытия</div>
-                                <input type='date' name="arrivalDateOfReturn" value={route.arrivalDateOfReturn} onChange={changeRoute}/>
-                            </div>
-
-                            <div>
-                                <div className='parameter-name'>Время прибытия</div>
-                                <input type='time' name="arrivalTimeOfReturn" value={route.arrivalTimeOfReturn} onChange={changeRoute}/>
-                            </div>
-                        </div>
+                        <TextField
+                            name="arrivalDateAndTimeOfReturn"
+                            type="datetime-local"
+                            label="Дата и время прибытия"
+                            value={route.arrivalDateAndTimeOfReturn}
+                            defaultValue="2017-05-24T10:30"
+                            onChange={changeRoute}
+                            size="small"
+                            InputLabelProps={{
+                                shrink: true, // <== вот этот ключевой момент
+                            }}
+                        />
                     </div>
                 </div>
 
@@ -257,7 +253,14 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
 
                     <div className='route-editor-other-parameter'>
                         <div className='parameter-name'>Пункт отправления</div>
-                        <select name="departmentDeparture" value={route.departmentDeparture.id} onChange={changeDepartmentDeparture}>
+                        <Select className='department-departure-select' name="departmentDeparture" value={route.departmentDeparture.id} onChange={changeDepartmentDeparture} size='small'>
+                            {departmentDepartures.map((departmentDeparture) => (
+                                <MenuItem value={departmentDeparture.id}>
+                                    {departmentDeparture.name}, {departmentDeparture.country}, {departmentDeparture.city}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        {/* <select name="departmentDeparture" value={route.departmentDeparture.id} onChange={changeDepartmentDeparture}>
                             {departmentDepartures.map((departmentDeparture) => (
                                 <option 
                                     key={departmentDeparture.id}
@@ -266,11 +269,18 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
                                     {departmentDeparture.name}, {departmentDeparture.country}, {departmentDeparture.city}
                                 </option>
                             ))}
-                        </select>
+                        </select> */}
                     </div>
                     <div className='route-editor-other-parameter'>
                         <div className='parameter-name'>Тип транспорта</div>
-                            <select name="transportType" value={route.transportType.id} onChange={changeTransportType} disabled>
+                            <Select className='department-departure-select' name="transportType" value={route.transportType.id} onChange={changeTransportType} size='small' disabled>
+                                {transportTypes.map((transportType) => (
+                                    <MenuItem value={transportType.id}>
+                                         {transportType.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                            {/* <select name="transportType" value={route.transportType.id} onChange={changeTransportType} disabled>
                                 {transportTypes.map((transportType) => (
                                     <option 
                                         key={transportType.id}
@@ -279,18 +289,36 @@ function RouteEditor({indexOfSelectedRoute, routes, setRoutes, closeModal}) {
                                         {transportType.name}
                                     </option>
                                 ))}
-                            </select>
+                            </select> */}
                         </div>
 
                     <div className='route-editor-price-and-place'>
                         <div className='route-editor-price-or-place'>
                             <div className='parameter-name'><b>Цена:</b></div>
-                            <input type='number' name="price" value={route.price} onChange={changeRoute}/>
+                            {/* <input type='number' name="price" value={route.price} onChange={changeRoute}/> */}
+                            <TextField
+                                className='price-or-place-input'
+                                name="price"
+                                sx={{height: '10px'}}
+                                type="number"
+                                value={route.price}
+                                onChange={changeRoute}
+                                size='small'
+                            />
                         </div>
+                       
 
                         <div className='route-editor-price-or-place'>
                             <div className='parameter-name'><b>Кол. мест: </b></div>
-                            <input type='number' name="seatsNumber" value={route.seatsNumber} onChange={changeRoute}/>
+                            {/* <input type='number' name="seatsNumber" value={route.seatsNumber} onChange={changeRoute}/> */}
+                            <TextField
+                                className='price-or-place-input'
+                                name="seatsNumber"
+                                type="number"
+                                value={route.seatsNumber}
+                                onChange={changeRoute}
+                                size='small'
+                            />
                         </div>
                     </div>
                 </div>

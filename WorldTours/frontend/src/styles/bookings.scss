@@ -40,7 +40,7 @@ $indent-from-left-on-card: 200px;
 		button {
 			width: 150px;
 			height: 30px;
-			border-radius: 20px;
+			border-radius: 16px;
 			background-color: white;
 			border: none;
 			font-size: 14px;
@@ -59,6 +59,11 @@ $indent-from-left-on-card: 200px;
 	
 		button:hover:nth-child(3)  {
 			background-color: $blue-color; 
+			color: white;
+		}
+
+		button:hover:nth-child(4)  {
+			background-color: $orange-color; 
 			color: white;
 		}
 	}
@@ -309,7 +314,7 @@ $indent-from-left-on-card: 200px;
 		.tour-text-info-on-booking {
 			text-align: left;
 			margin-left: 20px;
-			margin-top: 20px;
+			margin-top: 10px;
 			width: 100%;
 
 
@@ -323,7 +328,9 @@ $indent-from-left-on-card: 200px;
 
 			.hotel-info-on-booking {
 				display: flex;
-				margin-top: 5px;
+				margin-top: 10px;
+				font-size: 15px;
+
 
 				>img {
 					margin-left: auto;
@@ -335,7 +342,8 @@ $indent-from-left-on-card: 200px;
 
 			.department-departure-info-on-booking {
 				display: flex;
-				margin-top: 5px;
+				margin-top: 10px;
+				font-size: 14px;
 
 				>img {
 					margin-left: auto;
@@ -349,7 +357,9 @@ $indent-from-left-on-card: 200px;
 
 	.dates-and-times-on-booking {
 		text-align: left;
-		margin-top: 20px;
+		margin-top: 15px;
+		font-size: 15px;
+
 		
 		>div:nth-child(2) {
 			margin-top: 5px;
@@ -357,7 +367,9 @@ $indent-from-left-on-card: 200px;
 	}
 
 	.room-types-on-booking {
-		margin-top: 10px;
+		margin-top: 15px;
+		font-size: 15px;
+
 		table {
 			width: 100%;
 			border-collapse: collapse;
@@ -366,7 +378,7 @@ $indent-from-left-on-card: 200px;
 		  
 		  th, td {
 			border: none;
-			padding: 8px;
+			padding: 5px;
 			text-align: center;
 		  }
 		  
@@ -378,7 +390,7 @@ $indent-from-left-on-card: 200px;
 		  
 		  td:first-child {
 			color: gray;
-			font-size: 20px;
+			font-size: 16px;
 		  }
 
 		  td:nth-child(1), th:nth-child(1) {
@@ -388,7 +400,7 @@ $indent-from-left-on-card: 200px;
 
 		  td:nth-child(2), th:nth-child(2) {
 			text-align: left;
-			padding-left: 0px;
+			padding-left: 5px;
 		  }
 
 		  td:nth-child(3), th:nth-child(3){
@@ -448,17 +460,18 @@ $indent-from-left-on-card: 200px;
 
 	.order-seat-on-booking {
 		text-align: left;
-		margin-top: 20px;
-		font-size: 18px;
+		margin-top: 15px;
+		font-size: 16px;
 	}
 
 	.more-booking-info {
-		margin-top: 10px;
+		font-size: 16px;
 		text-align: left;
 
 		.show-comment-button {
+			margin-top: 3px;
+
 			color: $grey-color;
-			margin-top: 5px;
 		}
 	}
 
@@ -480,7 +493,7 @@ $indent-from-left-on-card: 200px;
 
 	.user-info-on-booking {
 		display: flex;
-		margin-top: 3px;
+		margin-top: 10px;
 		
 		.user-avatar-on-booking {
 			width: 40px;
@@ -490,9 +503,10 @@ $indent-from-left-on-card: 200px;
 
 		
 		>div {
-			margin-top: 10px;
-			margin-left: 15px;
-			font-size: 17px;
+			margin-top: 12px;
+			margin-left: 10px;
+			font-size: 16px;
+
 		}
 	}
 
@@ -500,7 +514,7 @@ $indent-from-left-on-card: 200px;
 		//Вынести
 		display: flex;
 		justify-content: space-between;
-		margin-top: 7px;
+		margin-top: 10px;
 
 		>button {
 			height: 45px;
@@ -562,24 +576,6 @@ $indent-from-left-on-card: 200px;
 		margin-top: 0px;
 	}
 
-	input {
-		font-size: 16px;
-		margin-top: 3px;
-		width: 100%;
-		height: 35px;
-		border: 1px solid $grey-color;
-		border-radius: 5px;
-	}
-	
-	select {
-		font-size: 18px;
-		margin-top: 3px;
-		width: 100%;
-		height: 40px;
-		border: 1px solid $grey-color;
-		border-radius: 5px;
-	}
-
 	.parameter-name {
 		text-align: left;
 		font-size: 16px;
@@ -592,12 +588,9 @@ $indent-from-left-on-card: 200px;
 			justify-content: space-between;
 			margin-top: 10px;
 
-			>div:nth-child(1) {
-				width: 45%;
-			}
-
-			>div:nth-child(2) {
-				width: 45%;
+			>div {
+				width: 48%;
+				margin-top: 10px;
 			}
 		}
 	}
@@ -657,45 +650,12 @@ $indent-from-left-on-card: 200px;
 		}
 	}
 
-	.characteristics-filters {
-		display: grid;
-		grid-template-columns: 1fr repeat(3, 100px);
-		gap: 10px;
-		max-width: 600px;
-		max-height: 300px;
-		background: white;
-		padding: 10px 20px 10px 20px;
-		overflow-y: auto;
-		scrollbar-width: thin;
-		scrollbar-color: $light-grey-color transparent;
-		font-size: 17px;
-
-		div {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.characteristic-filter {
-			justify-content: start;
-			text-align: left;
-			font-weight: 500;
-		}
-
-		.heading-filters {
-			font-weight: bold;
-			text-align: center;
-		}
-
-		input[type="radio"] {
-			accent-color: blue; /* Цвет для активного радио-кнопки */
-		}
-	}
 
 	.filter-controllers {
 		display: flex;
 		justify-content: space-between;
-
+		padding-top: 10px;
+		
 		>button {
 			height: 45px;
 			font-size: 17px;

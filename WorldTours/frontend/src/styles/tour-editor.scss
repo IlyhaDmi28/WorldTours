@@ -550,14 +550,14 @@
 		margin-top: 0px;
 	}
 
-	input {
-		font-size: 16px;
-		margin-top: 3px;
-		width: 100%;
-		height: 35px;
-		border: 1px solid $grey-color;
-		border-radius: 5px;
-	}
+	// input {
+	// 	font-size: 16px;
+	// 	margin-top: 3px;
+	// 	width: 100%;
+	// 	height: 35px;
+	// 	border: 1px solid $grey-color;
+	// 	border-radius: 5px;
+	// }
 	
 	select {
 		font-size: 18px;
@@ -575,32 +575,37 @@
 	}
 
 	.route-direction-dates-and-times {
-		.route-direction-date-and-time {
-			display: flex;
-			justify-content: space-between;
+		display: flex;
+		justify-content: space-between;
+		margin-top: 10px;
+
+		>div {
+			width: 48%;
 			margin-top: 10px;
-
-			>div:nth-child(1) {
-				width: 60%;
-			}
-
-			>div:nth-child(2) {
-				width: 30%;
-			}
 		}
+
+		
 	}
 
 	.route-editor-other-parameters {
-		margin-top: 30px;
+		margin-top: 20px;
 		margin-bottom: 15px;
 
 		.route-editor-other-parameter {
-			margin-top: 10px;
+			margin-top: 15px;
+
+			.department-departure-select {
+				width: 100%;
+				text-align: left;
+			}
 		}
 
 		.route-editor-price-and-place {
 			display: flex;
+			justify-content: space-between;
 			margin-top: 15px;
+			padding-left: 20px;
+			padding-right: 20px;
 
 			.route-editor-price-or-place {
 				display: flex;
@@ -609,17 +614,17 @@
 				.parameter-name {
 					margin-left: 0px;
 					text-align: right;
-					padding-top: 10px;
+					margin-top: 11px;
 				}
 
-				input {
+				.price-or-place-input {
+					font-size: 16px;
 					margin-top: 0px;
-					width: 50%;
 					margin-left: 10px;
+					width: 120px;
+
 				}
 			}
-
-
 		}
 	}
 

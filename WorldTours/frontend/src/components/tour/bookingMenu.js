@@ -4,17 +4,13 @@ import SentBookingForm from "./sentBookingForm";
 import airplane from "../../img/airplane.svg"
 import bus from "../../img/bus.svg"
 import ship from "../../img/ship.svg"
-import { Hotel } from "@mui/icons-material";
+import dayjs from 'dayjs';
 
 function BookingMenu({selectedRoute, hotel, sendApplicationForBooking}) {
     const[seatsNumber, setSeatsNumber] = useState(1);
     const[isOpenSentBookingForm, setIsOpenSentBookingForm] = useState(false);
 
     console.log(selectedRoute);
-    const convertDateToInputFormat = (dateString) => {
-        const [day, month, year] = dateString.split('.');
-        return `${year}-${month}-${day}`;
-    };
 
     const getTransportImage = (id) => {
         switch (id) {
@@ -43,11 +39,11 @@ function BookingMenu({selectedRoute, hotel, sendApplicationForBooking}) {
                     <tr>
                         <td style={{borderRadius: '10px 0px 0px 0px', borderRight: '1px solid black', borderBottom: '1px solid black'}}>
                             Дата отправления<br/>
-                            <input disabled  type="date" value={convertDateToInputFormat(selectedRoute.landingDateOfDeparture)}/>
+                            <input disabled  type="date" value={dayjs(selectedRoute.landingDateAndTimeOfReturn).format("YYYY-MM-DD")}/>
                         </td>
                         <td style={{borderRadius: '0px 10px 0px 0px'}}>
                             Дата возвращение<br/>
-                            <input disabled  type="date" value={convertDateToInputFormat(selectedRoute.arrivalDateOfReturn)}/>
+                            <input disabled  type="date" value={dayjs(selectedRoute.arrivalDateAndTimeOfReturn).format("YYYY-MM-DD")}/>
                         </td>
                     </tr>
                     <tr>
@@ -71,9 +67,9 @@ function BookingMenu({selectedRoute, hotel, sendApplicationForBooking}) {
                 <div>
                     <img src={getTransportImage(selectedRoute.transportType.id)}/>
                     <div className='route-date-and-time'>
-                        <div>{selectedRoute.arrivalTimeOfDeparture} - {selectedRoute.landingTimeOfDeparture}</div>
-                        <div>{selectedRoute.landingDateOfDeparture}</div>
-                        <div>{selectedRoute.arrivalDateOfDeparture}</div>
+                        <div>{dayjs(selectedRoute.arrivalDateAndTimeOfDeparture).format("HH:mm")} - {dayjs(selectedRoute.landingDateAndTimeOfDeparture).format("HH:mm")}</div>
+                        <div>{dayjs(selectedRoute.landingDateAndTimeOfDeparture).format("DD.MM.YYYY")}</div>
+                        <div>{dayjs(selectedRoute.arrivalDateAndTimeOfDeparture).format("DD.MM.YYYY") }</div>
                     </div>
                     <div className='route-city-and-duration'>
                         <div>{selectedRoute.departmentDeparture.city} - {hotel.city}</div>
@@ -83,9 +79,9 @@ function BookingMenu({selectedRoute, hotel, sendApplicationForBooking}) {
                 <div>
                     <img src={getTransportImage(selectedRoute.transportType.id)}/>
                     <div className='route-date-and-time'>
-                        <div>{selectedRoute.arrivalTimeOfReturn} - {selectedRoute.landingTimeOfReturn}</div>
-                        <div>{selectedRoute.landingDateOfReturn}</div>
-                        <div>{selectedRoute.arrivalDateOfReturn}</div>
+                        <div>{dayjs(selectedRoute.arrivalDateAndTimeOfReturn).format("HH:mm")} - {dayjs(selectedRoute.landingDateAndTimeOfReturn).format("HH:mm")}</div>
+                        <div>{dayjs(selectedRoute.landingDateAndTimeOfDeparture).format("DD.MM.YYYY")}</div>
+                        <div>{dayjs(selectedRoute.arrivalDateAndTimeOfReturn).format("DD.MM.YYYY")}</div>
                     </div>
                     <div className='route-city-and-duration'>
                         <div>{hotel.city} - {selectedRoute.departmentDeparture.city}</div>

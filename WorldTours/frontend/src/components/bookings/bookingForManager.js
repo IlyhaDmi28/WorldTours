@@ -48,14 +48,10 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
         comment: null,
         route: {
             id: null,
-            landingDateOfDeparture: null,
-            landingTimeOfDeparture: null,
-            arrivalDateOfDeparture: null,
-            arrivalTimeOfDeparture: null,
-            landingDateOfReturn: null,
-            landingTimeOfReturn: null,
-            arrivalDateOfReturn: null,
-            arrivalTimeOfReturn: null,
+            landingDateAndTimeOfDeparture: "",
+            arrivalDateAndTimeOfDeparture: "",
+            landingDateAndTimeOfReturn: "",
+            arrivalDateAndTimeOfReturn: "",
             departmentDeparture: {
                 name: null,
                 address: null,
@@ -178,8 +174,8 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
             </div>
 
             <div className='dates-and-times-on-booking'>
-                <div><b>Путь до отеля: </b> {booking.route.landingDateOfDeparture}, {booking.route.landingTimeOfDeparture} --) {booking.route.arrivalDateOfDeparture}, {booking.route.arrivalTimeOfDeparture}</div>
-                <div><b>Путь обратно: </b> {booking.route.landingDateOfReturn}, {booking.route.landingTimeOfReturn} --) {booking.route.arrivalDateOfReturn}, {booking.route.arrivalTimeOfReturn}</div>
+                <div><b>Путь до отеля: </b> {booking.route.landingDateAndTimeOfDeparture} --) {booking.route.arrivalDateAndTimeOfDeparture}</div>
+                <div><b>Путь обратно: </b> {booking.route.landingDateAndTimeOfReturn} --) {booking.route.arrivalDateAndTimeOfReturn}</div>
             </div>
 
             <div className='room-types-on-booking'>
@@ -254,7 +250,7 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => {setIsOpenComment(false)}} autoFocus>
-                            Зарыть
+                            Закрыть
                         </Button>
                     </DialogActions>
                 </Dialog>

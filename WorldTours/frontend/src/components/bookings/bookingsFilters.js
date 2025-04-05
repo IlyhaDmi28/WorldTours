@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
-import star from '../../img/star.svg'
-import darkStar from '../../img/dark-star.svg'
-import { Rating  } from "@mui/material";
+import TextField from '@mui/material/TextField';
 import close from '../../img/close.svg'
 const token = localStorage.getItem("token");
 
-function BookingsFilters({filter, setFilter, setTours, setBookings}) {
+function BookingsFilters({filter, setFilter, setBookings}) {
     const authUser = useSelector((state) => state.authUser.value);
     const [departmentDepartures, setDepartmentDepartures] = useState([]);
 
@@ -80,27 +76,56 @@ function BookingsFilters({filter, setFilter, setTours, setBookings}) {
                     <hr></hr>
                     <div className='route-direction-dates-and-times'>
                         <div className='route-direction-date-and-time'>
-                            <div>
-                                <div className='parameter-name'>Дата посадки c</div>
-                                <input type='date' name="minLandingDateOfDeparture" value={filter.minLandingDateOfDeparture} onChange={changeFilters}/>
-                            </div>
+                            <TextField
+                                name="minLandingDateOfDeparture"
+                                type="date"
+                                label="Мин. дата посадки"
+                                value={filter.minLandingDateOfDeparture}
+                                onChange={changeFilters}
+                                size="small"
+                                InputLabelProps={{
+                                    shrink: true, 
+                                }}
+                            />
 
-                            <div>
-                                <div className='parameter-name'>Дата посадки до</div>
-                                <input type='date' name="maxLandingDateOfDeparture" value={filter.maxLandingDateOfDeparture} onChange={changeFilters}/>
-                            </div>                       
+                            <TextField
+                                name="maxLandingDateOfDeparture"
+                                type="date"
+                                label="Макc. дата посадки"
+                                value={filter.maxLandingDateOfDeparture}
+                                onChange={changeFilters}
+                                size="small"
+                                InputLabelProps={{
+                                    shrink: true, 
+                                }}
+                            />
                         </div>
                     </div>
                     <div className='route-direction-dates-and-times'>
                         <div className='route-direction-date-and-time'>   
-                            <div>
-                                <div className='parameter-name'>Дата прибытия c</div>
-                                <input type='date' name="minArrivalDateOfDeparture" value={filter.minArrivalDateOfDeparture} onChange={changeFilters}/>
-                            </div>                    
-                            <div>
-                                <div className='parameter-name'>Дата прибытия до</div>
-                                <input type='date' name="maxArrivalDateOfDeparture" value={filter.maxArrivalDateOfDeparture} onChange={changeFilters}/>
-                            </div>
+                            <TextField
+                                name="minArrivalDateOfDeparture"
+                                type="date"
+                                label="Мин. дата прибытия"
+                                value={filter.minArrivalDateOfDeparture}
+                                onChange={changeFilters}
+                                size="small"
+                                InputLabelProps={{
+                                    shrink: true, 
+                                }}
+                            />
+
+                            <TextField
+                                name="maxArrivalDateOfDeparture"
+                                type="date"
+                                label="Макc. дата прибытия"
+                                value={filter.maxArrivalDateOfDeparture}
+                                onChange={changeFilters}
+                                size="small"
+                                InputLabelProps={{
+                                    shrink: true, 
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
@@ -110,26 +135,54 @@ function BookingsFilters({filter, setFilter, setTours, setBookings}) {
                     <hr></hr>
                     <div className='route-direction-dates-and-times'>
                         <div className='route-direction-date-and-time'>
-                            <div>
-                                <div className='parameter-name'>Дата посадки с</div>
-                                <input type='date' name="minLandingDateOfReturn" value={filter.minLandingDateOfReturn} onChange={changeFilters}/>
-                            </div>
+                            <TextField
+                                name="minLandingDateOfReturn"
+                                type="date"
+                                label="Мин. дата посадки"
+                                value={filter.minLandingDateOfReturn}
+                                onChange={changeFilters}
+                                size="small"
+                                InputLabelProps={{
+                                    shrink: true, 
+                                }}
+                            />
 
-                            <div>
-                                <div className='parameter-name'>Дата посадки до</div>
-                                <input type='date' name="maxlandingDateOfReturn" value={filter.maxlandingDateOfReturn} onChange={changeFilters}/>
-                            </div>
+                            <TextField
+                                name="maxLandingDateOfReturn"
+                                type="date"
+                                label="Макc. дата посадки"
+                                value={filter.maxLandingDateOfReturn}
+                                onChange={changeFilters}
+                                size="small"
+                                InputLabelProps={{
+                                    shrink: true, 
+                                }}
+                            />
                         </div> 
                         <div className='route-direction-date-and-time'>
-                            <div>
-                                <div className='parameter-name'>Дата прибытия с</div>
-                                <input type='date' name="minArrivalDateOfReturn" value={filter.minArrivalDateOfReturn} onChange={changeFilters}/>
-                            </div>
+                            <TextField
+                                name="minArrivalDateOfReturn"
+                                type="date"
+                                label="Мин. дата прибытия"
+                                value={filter.minArrivalDateOfReturn}
+                                onChange={changeFilters}
+                                size="small"
+                                InputLabelProps={{
+                                    shrink: true, 
+                                }}
+                            />
 
-                            <div>
-                                <div className='parameter-name'>Дата прибытия до</div>
-                                <input type='date' name="maxArrivalDateOfReturn" value={filter.maxArrivalDateOfReturn} onChange={changeFilters}/>
-                            </div>
+                            <TextField
+                                name="maxArrivalDateOfReturn"
+                                type="date"
+                                label="Макc. дата прибытия"
+                                value={filter.maxArrivalDateOfReturn}
+                                onChange={changeFilters}
+                                size="small"
+                                InputLabelProps={{
+                                    shrink: true, 
+                                }}
+                            />
                         </div> 
                     </div>
                 </div>

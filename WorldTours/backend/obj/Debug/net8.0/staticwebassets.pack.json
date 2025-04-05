@@ -481,16 +481,16 @@
       "PackagePath": "staticwebassets\\static\\css\\main.7bad6d84.css.map"
     },
     {
-      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\static\\js\\main.361411dc.js",
-      "PackagePath": "staticwebassets\\static\\js\\main.361411dc.js"
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\static\\js\\main.2056b0ac.js",
+      "PackagePath": "staticwebassets\\static\\js\\main.2056b0ac.js"
     },
     {
-      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\static\\js\\main.361411dc.js.LICENSE.txt",
-      "PackagePath": "staticwebassets\\static\\js\\main.361411dc.js.LICENSE.txt"
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\static\\js\\main.2056b0ac.js.LICENSE.txt",
+      "PackagePath": "staticwebassets\\static\\js\\main.2056b0ac.js.LICENSE.txt"
     },
     {
-      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\static\\js\\main.361411dc.js.map",
-      "PackagePath": "staticwebassets\\static\\js\\main.361411dc.js.map"
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\static\\js\\main.2056b0ac.js.map",
+      "PackagePath": "staticwebassets\\static\\js\\main.2056b0ac.js.map"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\static\\media\\account.1688d641a814a9b7dfd71c62394ee828.svg",
@@ -643,6 +643,14 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sdfsdfsdf\\0",
       "PackagePath": "staticwebassets\\uploads\\hotels\\sdfsdfsdf"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sdsdfsdfs\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\sdsdfsdfs\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sdsdfsdfs\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\sdsdfsdfs\\1.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\sdsssssss\\0",
@@ -831,6 +839,34 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\3\\5.jpg",
       "PackagePath": "staticwebassets\\uploads\\tours\\3\\5.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\4\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\4\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\4\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\4\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\4\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\4\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\5\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\5\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\5\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\5\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\5\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\5\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\5\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\5\\3.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\0.jpg",
