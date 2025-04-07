@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import { TextField   } from "@mui/material";
-import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Switch from '@mui/material/Switch';
 import Divider from '@mui/material/Divider';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import star from '../../img/star.svg'
-import darkStar from '../../img/dark-star.svg'
+import TextField from '@mui/material/TextField';
 import close from '../../img/close.svg'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle  } from '@mui/material';
+import useAlert from '../../hooks/useAlert';
 const token = localStorage.getItem("token");
 
 function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
-    const [searchParams] = useSearchParams(); // Получение query-параметров
-    const location = useLocation();
-
     const authUser = useSelector((state) => state.authUser.value);
+    const showAlert = useAlert();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpenCharacteristicsMenu = Boolean(anchorEl);
@@ -31,7 +27,7 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
             orderRoomsNumber: null,
             price: roomType.price
         })),
-        hasСhildren: false,
+        hasChildren: false,
         prioritySeatsInTransport: false,
         comment: '',
         orderSeatsNumber: 1,
@@ -40,17 +36,15 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
     });
 
     const [finalPrice, setFinalPrice] = useState();
+    const [isSuccessfullBooking, setIsSuccessfullBooking] = useState(false);
 
     useEffect(() => {
 		const changeFinalPrice = async () => {
             let sumAllPrices = selectedRoute.price * requestForBooking.orderSeatsNumber;
-            console.log('ssssffff');
 
             requestForBooking.bookedRoomTypes.forEach((bookedRoomType) => { 
                 sumAllPrices += bookedRoomType.orderRoomsNumber * bookedRoomType.price;
-                
             });
-            console.log(sumAllPrices);
 
             setFinalPrice(sumAllPrices);
 		};
@@ -58,30 +52,12 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
 		changeFinalPrice();
 	}, [requestForBooking]);
     
-    // useEffect(() => {
-	// 	const setFinalPrice = async () => {
-    //         let finalPrice = selectedRoute.price * requestForBooking.orderSeatsNumber;
-    //         console.log('ssssffff');
-    //         requestForBooking.bookedRoomTypes.forEach((bookedRoomType) => 
-    //             finalPrice += bookedRoomType.roomTypes * bookedRoomType.price
-    //         );
-
-    //         setRequestForBooking((prevRequestForBooking) => ({
-    //             ...prevRequestForBooking,
-    //             price: finalPrice,
-    //         }));
-	// 	};
-	
-	// 	setFinalPrice();
-	// }, [requestForBooking]);
-
     const changeRequestForbooking = (e) => {
         const { name, value } = e.target;
         setRequestForBooking((RequestForBooking) => ({
             ...RequestForBooking,
             [name]: value,
         }));
-        // changeFinalPrice();
     };
 
     const changeChecboxRequestForbooking = (e) => {
@@ -92,18 +68,20 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
         }));
     };
 
-    const changeBookedRoomTypes = (id, value) => {
+    const changeBookedRoomTypes = (id, value, roomsNumber) => {
+        if (value > roomsNumber) value = roomsNumber;
+        if (value <= 0) value = '';
+
         setRequestForBooking((RequestForBooking) => ({
             ...RequestForBooking,
             bookedRoomTypes: requestForBooking.bookedRoomTypes.map((bookedRoomType)=> {
                 return bookedRoomType.id === id ? {
                     id: id, 
                     price: bookedRoomType.price,
-                    orderRoomsNumber: value !== 0 ? value : null  
+                    orderRoomsNumber: value  
                 } : bookedRoomType
             })
         }));
-        // changeFinalPrice();
     };
 
     const addBookedRoomType = (id) => {
@@ -119,7 +97,6 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                 } : bookedRoomType
             })
         }));
-        // changeFinalPrice();
 
     };
 
@@ -140,7 +117,6 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
     };
 
     const getAvailableNumberOfSeats = () => {
-
         let allSeatsNumberOfRoomTypes = 0;
         roomTypes.forEach((roomType) => { allSeatsNumberOfRoomTypes += roomType.roomsNumber * roomType.seatsNumber});
         return Math.min(allSeatsNumberOfRoomTypes, selectedRoute.seatsNumber);
@@ -148,39 +124,37 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
 
     const sendRequestForBooking = async () => {
 		if(!authUser) {
-			alert("Что бы забронировать тур, вам необходимо войти в аккаунт");
+            showAlert("Что бы забронировать тур, вам необходимо войти в аккаунт", 'error');
 			return;
 		}
 
 		if(authUser.role !== 1) {
-			alert("Только обычные пользователи могут бронировать туры!")
+            showAlert("Только обычные пользователи могут бронировать туры!", 'error');
 			return;
 		}
 
 		if(authUser.blockedStatus) {
-			alert("Вы не можете забронировать тур, так как ваш профиль был заблокирован!");
+            showAlert("Вы не можете забронировать тур, так как ваш профиль был заблокирован!", 'error');
 			return;
 		}
 
 		if(requestForBooking.orderSeatsNumber <= 0) {
-			alert("Вы ввели некоретное количество мест!")
+            showAlert("Вы ввели некоретное количество мест!", 'error');
 			return;
 		}
 
 		if(getAvailableNumberOfSeats() - requestForBooking.orderSeatsNumber < 0) {
-			alert("К сожалению, в туре не хватает мест!")
+            showAlert("К сожалению, в туре не хватает мест!", 'error');
 			return;
 		}
 
         let sumOfOrderSeatsInRooms = 0;
         requestForBooking.bookedRoomTypes.forEach((bookedRoomType) => {sumOfOrderSeatsInRooms += bookedRoomType.orderRoomsNumber * roomTypes.find(roomType => roomType.id === bookedRoomType.id).seatsNumber})
 
-        if(sumOfOrderSeatsInRooms <= requestForBooking.orderSeatsNumber) {
-            alert("Вы заказали недостаточно номеров! Вы указали больше людей, чем вместяться в номера")
+        if(sumOfOrderSeatsInRooms < requestForBooking.orderSeatsNumber) {
+            showAlert("Вы заказали недостаточно номеров! Вы указали больше людей, чем вместяться в номера", 'error');
 			return;
         }
-
-        console.log(requestForBooking);
 
         const requestData = {
             ...requestForBooking,
@@ -188,22 +162,23 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
         }
 
 		try {
-			// const routeId = searchParams.get('routeId');
 			await axios.post('https://localhost:7276/booking/add', requestData, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				}
 			});
 
-			alert("Тур успешно забронирован!"); 
+			// alert("Тур успешно забронирован!"); 
+            showAlert("Заявка на тур успешно отправлена!", 'success');
 		} catch (error) {
 			if(error.response != undefined) {
 				if(error.response.status === 409) {
-					alert("Вы уже забронировали этот тур!"); 
+                    showAlert("Вы уже отправили заявку на этот тур!", 'error');
 					return;
 				}
 				if(error.response.status === 401) {
-					alert("Что бы забронировать тур, вам необходимо войти в аккаунт"); 
+                    // setError("Что бы забронировать тур, вам необходимо войти в аккаунт")
+                    showAlert('Что бы забронировать тур, вам необходимо войти в аккаун!', 'error');
 					return;
 				}
 			}
@@ -211,104 +186,6 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
 			console.log('Ошибка бронировании тура: ', error);
 		} 
 	}
-    // const changeRoute = (e) => {
-    //     const { name, value } = e.target;
-    //     setRoute((prevRoute) => ({
-    //         ...prevRoute,
-    //         [name]: value,
-    //     }));
-    // };
-
-    // const changeDepartmentDeparture = (e) => {
-    //     const selectedId = parseInt(e.target.value, 10); // Получаем id выбранного элемента
-    //     const selectedDepartmentDeparture = departmentDepartures.find((departmentDeparture) => departmentDeparture.id === selectedId); // Ищем объект по id
-
-    //     setRoute((prevRoute) => ({
-    //         ...prevRoute,
-    //         departmentDeparture: {
-    //             id: selectedDepartmentDeparture.id,
-    //             name: selectedDepartmentDeparture.name,
-    //             city: selectedDepartmentDeparture.city,
-    //             country: selectedDepartmentDeparture.country,
-    //         },
-    //         transportType: {
-    //             id: selectedDepartmentDeparture.transportTypeId,
-    //             name: transportTypes.find((transportType) => transportType.id === selectedDepartmentDeparture.transportTypeId).name
-    //         }
-    //     }));
-    // };
-
-    // const changeTransportType = (e) => {
-    //     const selectedId = parseInt(e.target.value, 10); // Получаем id выбранного элемента
-    //     const selectedTransportType = transportTypes.find((transportType) => transportType.id === selectedId); // Ищем объект по id
-    //     if (selectedTransportType) {
-    //         setRoute((prevRoute) => ({
-    //             ...prevRoute,
-    //             transportType: {
-    //                 id: selectedTransportType.id,
-    //                 name: selectedTransportType.name,
-    //             },
-    //         }));
-    //     }
-    // };
-
-    // const saveRoute = () => {
-    //     if(
-    //         (route.landingDateOfDeparture === "" || route.landingDateOfDeparture === null) ||
-    //         (route.landingTimeOfDeparture === "" || route.landingTimeOfDeparture === null) ||
-    //         (route.arrivalDateOfDeparture === "" || route.arrivalDateOfDeparture === null) ||
-    //         (route.arrivalTimeOfDeparture === "" || route.arrivalTimeOfDeparture === null) ||
-    //         (route.landingDateOfReturn === "" || route.landingDateOfReturn === null) ||
-    //         (route.landingTimeOfReturn === "" || route.landingTimeOfReturn === null) ||
-    //         (route.arrivalDateOfReturn === "" || route.arrivalDateOfReturn === null) ||
-    //         (route.arrivalTimeOfReturn === "" || route.arrivalTimeOfReturn === null) ||
-    //         (route.departmentDeparture === "" || route.departmentDeparture === null) ||
-    //         (route.transportType === "" || route.transportType === null) ||
-    //         (route.departmentDeparture === "" || route.departmentDeparture === null) ||
-    //         (route.price === "" ||route.price === null) ||
-    //         (route.seatsNumber === "" || route.seatsNumber === null)
-    //     ) {
-    //         alert("Вы не заполнили все поля!");
-    //         return;
-    //     }
-        
-    //     let newRoutes;
-    //     console.log(indexOfSelectedRoute);
-    //     if(indexOfSelectedRoute === -1) {
-    //         newRoutes = routes;
-    //         newRoutes.push(route);
-    //         setRoutes(newRoutes);
-    //     }
-    //     else {
-    //         newRoutes = routes.map((r, index) => index === indexOfSelectedRoute ? route : r);
-    //         setRoutes(newRoutes);
-    //     }
-    // };
-
-    // const clearRoute = () => {
-    //     setRoute({
-    //         landingDateOfDeparture: "",
-    //         landingTimeOfDeparture: "",
-    //         arrivalDateOfDeparture: "",
-    //         arrivalTimeOfDeparture: "",
-    //         landingDateOfReturn: "",
-    //         landingTimeOfReturn: "",
-    //         arrivalDateOfReturn: "",
-    //         arrivalTimeOfReturn: "",
-    //         departmentDeparture: {
-    //             id: 1,
-    //             name: null,
-    //             city: null,
-    //             countrty: null
-    //         },
-    //         transportType: {
-    //             id: 1,
-    //             name: null,
-    //         },
-    //         price: 0,
-    //         seatsNumber: 0,
-    //     });
-
 
     return (
             <div className="sent-booking-form">
@@ -322,38 +199,53 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                 <div className='sent-booking-form-room-types'>
                     <h3>Выберите типы номеров</h3>
                     <hr></hr>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Хар-ки</th>
-                                <th>Тип номера</th>
-                                <th>Кол. брон. номеров</th>
-                                <th>Цена</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {roomTypes.map((roomType, index) => (
+                    <div className="table-wrapper">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td onClick={(e) => {setAnchorEl(e.currentTarget); setIndexOfSelectedRoomType(index)}}>▼</td>
-                                    <td>{roomType.name}</td>
-                                    <td className="booking-form-room-types-number">
-                                        <button className="add-room-type-button" onClick={() => addBookedRoomType(roomType.id)}>+</button>
-                                        <button className="remove-room-type-button" onClick={() => removeBookedRoomType(roomType.id)}>-</button>
-                                        <input
-                                            type='number'
-                                            placeholder={roomType.roomsNumber} 
-                                            value={
-                                                requestForBooking.bookedRoomTypes.find((bookedRoomType) => bookedRoomType.id === roomType.id).orderRoomsNumber
-                                            }
-                                            onChange={(e) => changeBookedRoomTypes(roomType.id, +e.target.value)}
-                                        />
-                                        {/* <input type="text" value="0"/> */}
-                                    </td>
-                                    <td className="room-type-price">+{roomType.price}</td>
+                                    <th>Хар-ки</th>
+                                    <th>Тип номера</th>
+                                    <th>Кол. брон. номеров</th>
+                                    <th>Цена</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {roomTypes.map((roomType, index) => (
+                                    <tr>
+                                        <td onClick={(e) => {setAnchorEl(e.currentTarget); setIndexOfSelectedRoomType(index)}}>▼</td>
+                                        <td>{roomType.name}</td>
+                                        <td className="booking-form-room-types-number">
+                                            <button className="add-room-type-button" onClick={() => addBookedRoomType(roomType.id)}>+</button>
+                                            <button className="remove-room-type-button" onClick={() => removeBookedRoomType(roomType.id)}>-</button>
+                                            <TextField
+                                                className='booking-form-room-types-number-input'
+                                                name='orderSeatsNumber' 
+                                                value={ 
+                                                    requestForBooking.bookedRoomTypes.find((bookedRoomType) => bookedRoomType.id === roomType.id).orderRoomsNumber
+                                                } 
+                                                onChange={(e) => changeBookedRoomTypes(roomType.id, +e.target.value, roomType.roomsNumber)}
+                                                size='small'
+                                                variant="standard"
+                                                type='number'
+                                                placeholder={roomType.roomsNumber} 
+                                                InputProps={{
+                                                    min: 0,
+                                                    max: roomType.roomsNumber,
+                                                    sx: {
+                                                        '& input': {
+                                                            textAlign: 'center'
+                                                        }
+                                                    }
+                                                }}
+                                            />
+                                        </td>
+                                        <td className="room-type-price">+{roomType.price}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    
                     <Menu
                         anchorEl={anchorEl}
                         open={isOpenCharacteristicsMenu}
@@ -377,16 +269,34 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
 
                 <div className='booking-form-seats'>
                     <div>Всего бронируемых мест:</div>
-                    <input name='orderSeatsNumber' placeholder={getAvailableNumberOfSeats()} value={ requestForBooking.orderSeatsNumber} onChange={changeRequestForbooking}/>
+                    <TextField
+                        className='booking-form-seats-input'
+                        name='orderSeatsNumber' 
+                        value={ requestForBooking.orderSeatsNumber} 
+                        onChange={changeRequestForbooking}
+                        size='small'
+                        variant="standard"
+                        type='number'
+                        inputProps={{ min: 1, max: getAvailableNumberOfSeats() }}
+                        InputProps={{
+                            min: 0,
+                            max: 8,
+                            sx: {
+                                '& input': {
+                                    textAlign: 'center'
+                                }
+                            }
+                        }}
+                    />
                     <div style={{marginLeft: 'auto', color: '#9d9d9d'}}>Осталось: {getAvailableNumberOfSeats()}</div>
                 </div>
                 <FormControlLabel 
                     className="booking-form-checkbox" 
                     control = {
-                        <Checkbox name='hasСhildren' checked={requestForBooking.hasСhildren} onChange={changeChecboxRequestForbooking} sx={{ transform: "scale(0.9)" }}/>
+                        <Checkbox name='hasChildren' checked={requestForBooking.hasChildren} onChange={changeChecboxRequestForbooking} sx={{ transform: "scale(0.9)" }}/>
                     } 
                     label="Есть дети (менджер уточнит о возможных скидках и вам сообщит)"
-                 />
+                />
                 <FormControlLabel 
                     className="booking-form-checkbox" 
                     control = {
@@ -394,14 +304,6 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                     }
                     label="Места в приоритете в транспорте рядом/возле окна" 
                 />
-                {/* <div className="booking-form-checkbox">
-                    <input
-                        type="checkbox"
-					/>
-					<div>
-						Есть дети (менджер уточнит о возможных скидказ и вам сообщит)
-					</div>
-                </div> */}
                 
                 <div className="booking-form-comment">
                     <div><b>Оставте коментарий</b></div>
@@ -425,6 +327,29 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                     <button>Отменить</button>
                     <button onClick={sendRequestForBooking}>Отправить заявку</button>
                 </div>
+
+                <Dialog
+                    open={isSuccessfullBooking}
+                    onClose={() => setIsSuccessfullBooking(false)}
+                >
+                    <DialogTitle >
+                        {"Заявка на бронь тура успешно отправлена!"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Данную бронь вы можете посмотреть в своём списке броней
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={() => {window.location.href = '/bookings'; setIsSuccessfullBooking(false)}}>Просмотреть бронь</Button>
+                    <Button onClick={() => {window.location.href = '/tours'; setIsSuccessfullBooking(false)}} autoFocus>
+                        Ок
+                    </Button>
+                    </DialogActions>
+                </Dialog>
+
+                
+
             </div>
     );
 }

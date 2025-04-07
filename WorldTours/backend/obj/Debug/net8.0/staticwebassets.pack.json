@@ -573,6 +573,22 @@
       "PackagePath": "staticwebassets\\static\\media\\world.45a182d8688f77baddb6.jpg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Artic Hotel\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Artic Hotel\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Artic Hotel\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Artic Hotel\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Artic Hotel\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Artic Hotel\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Artic Hotel\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Artic Hotel\\3.jpg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Hotel Grand\\0.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\Hotel Grand\\0.jpg"
     },
@@ -777,6 +793,34 @@
       "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\1.jpg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\4.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\4.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\5.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\6.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\6.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\7.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\7.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Чёрный дельфин\\8.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Чёрный дельфин\\8.jpg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\1\\0.jpg",
       "PackagePath": "staticwebassets\\uploads\\tours\\1\\0.jpg"
     },
@@ -851,6 +895,10 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\4\\2.jpg",
       "PackagePath": "staticwebassets\\uploads\\tours\\4\\2.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\4\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\4\\3.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\5\\0.jpg",

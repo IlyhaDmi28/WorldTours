@@ -1,8 +1,13 @@
 import axios from 'axios';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import useAlert from '../../hooks/useAlert';
 import { useState } from 'react';
 
 
 function LoginForm() {
+    const showAlert = useAlert();
     const [errorText, setErrorText] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -11,7 +16,7 @@ function LoginForm() {
         e.preventDefault();
         
         if(email === '' || password === '') {
-            setErrorText("Вы не заполнили все поля!"); 
+            showAlert("Вы не заполнили все поля!", 'error');
             return;
         }
 
@@ -27,7 +32,7 @@ function LoginForm() {
         } catch (error) {
             if(error.response != undefined) {
                 if(error.response.status === 401) {
-                    setErrorText("Неверный логин или пароль!"); 
+                    showAlert("Неверный логин или пароль!", 'error');
                     return;
                 }
             }
@@ -37,11 +42,36 @@ function LoginForm() {
     };
 
 	return (
-	    <form onSubmit={handleSubmit} className="auth-form">
-            <input type="text" name="email" style={{marginTop: '40px'}} placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input type="password" name="password" style={{marginTop: '40px'}} placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <p id="errorMessage" style={{marginTop: '15px'}}>{errorText} </p>
-            <button type="submit" >Войти</button>
+	    <form onSubmit={handleSubmit} className="login-form">
+        
+            <TextField 
+                className='auth-form-input'
+                name='email' 
+                type='email'
+                placeholder='E-mail'
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
+                size='small'
+            />
+            <TextField 
+                className='auth-form-input'
+                name="password"
+                type='password'
+                placeholder='Пароль'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                size='small'
+
+            />
+            {/* <p id="errorMessage" style={{marginTop: '15px'}}>{errorText} </p> */}
+            <div className='forget-password'>
+                <Link to='/auth'>Забыли пароль?</Link>
+            </div>
+            <Button type='submit' size='small'>
+                Войти
+			</Button>
+
+            {/* <button type="submit" >Войти</button> */}
         </form>
   	);
 }

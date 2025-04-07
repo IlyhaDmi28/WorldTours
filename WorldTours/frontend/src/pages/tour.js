@@ -12,8 +12,10 @@ import Header from '../components/general/header';
 import BookingMenu from '../components/tour/bookingMenu';
 import ReviewCard from '../components/tour/reviewCard';
 import ImagesAndMap from '../components/tour/imagesAndMap';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ModalImageGallery from '../components/general/modalImageGallery';
 import noPhoto from '../img/noPhoto.png';
+import { grey } from '@mui/material/colors';
 const token = localStorage.getItem("token");
 
 function Tour() {
@@ -351,8 +353,13 @@ function Tour() {
 						<div>
 							<b>Отель: </b><Link to='/tours'>{tour.hotel.name}</Link>
 						</div>
-						<div><b>Направление: </b>{tour.hotel.country}, {tour.hotel.city}</div>
-						<div><b>Адресс: </b>{tour.hotel.address}</div>
+						<div className='tour-direction'>
+							<div>
+								<div><b>Направление: </b>{tour.hotel.country}, {tour.hotel.city}</div>
+								<div><b>Адресс: </b>{tour.hotel.address}</div>
+							</div>
+							<img src={tour.hotel.countryFlagUrl}/>
+						</div>
 					</div>
 
 					<Rating 
@@ -362,7 +369,7 @@ function Tour() {
 						readOnly 
 					/>
 
-					<div className="tour-nutrition-type"><b>Тип питания:</b> {tour.hotel.nutritionType}</div>
+					<div className="tour-nutrition-type"><RestaurantIcon sx={{fontSize: '36px', color: 'grey'}}/> <div className="tour-nutrition-type-text" >{tour.hotel.nutritionType}</div></div>
 					<div className="tour-desription">{tour.mainDescription}</div>
 
 					<div className="tour-characteristics">

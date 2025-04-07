@@ -20,6 +20,7 @@ import Payment from './payment';
 import PaymentBooking from './paymentBooking';
 import Campany from './campany';
 import Error from './error';
+import GlobalAlert from '../components/general/globalAlert ';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuthUser } from '../store/slices/authUserSlice';
 const token = localStorage.getItem("token");
@@ -122,6 +123,8 @@ function App() {
 					</>
 				)}
 			</Routes>
+            <GlobalAlert/>
+
 		</Router>
 	);
 }

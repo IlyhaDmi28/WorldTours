@@ -179,29 +179,31 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
             </div>
 
             <div className='room-types-on-booking'>
-                <hr></hr>     
-                <table>
-                    <thead>
-                       <tr>
-                         <th>Хар-ки</th>
-                            <th>Тип номера</th>
-                            <th>Кол. брон. номеров</th>
-                            <th>Цена</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {booking.hotel.roomTypes.map((roomType, index) => (
-                            <tr>
-                                <td onClick={(e) => {setAnchorEl(e.currentTarget); setIndexOfSelectedRoomType(index)}}>▼</td>
-                                <td>{roomType.name}</td>
-                                <td className="room-types-number-on-booking">
-                                    {roomType.orderRoomsNumber}
-                                </td>
-                                <td className="room-type-price">{roomType.price}</td>
+                <hr></hr>  
+                <div className="table-wrapper">    
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Хар-ки</th>
+                                <th>Тип номера</th>
+                                <th>Кол. брон. номеров</th>
+                                <th>Цена</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {booking.hotel.roomTypes.map((roomType, index) => (
+                                <tr>
+                                    <td onClick={(e) => {setAnchorEl(e.currentTarget); setIndexOfSelectedRoomType(index)}}>▼</td>
+                                    <td>{roomType.name}</td>
+                                    <td className="room-types-number-on-booking">
+                                        {roomType.orderRoomsNumber}
+                                    </td>
+                                    <td className="room-type-price">{roomType.price}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div> 
                 <hr></hr>     
                 <Menu
                     anchorEl={anchorEl}

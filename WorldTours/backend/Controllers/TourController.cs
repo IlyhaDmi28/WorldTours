@@ -264,6 +264,7 @@ namespace backend.Controllers
 					{
 						Name = tour.Hotel?.Name,
 						Country = tour.Hotel.City.Country?.Name,
+						CountryFlagUrl = $"https://localhost:7276/{tour.Hotel.City.Country?.PathToFlag}",
 						City = tour.Hotel.City?.Name,
 						Address = tour.Hotel.Address,
 						Lat = tour.Hotel.Lat,
@@ -651,10 +652,10 @@ namespace backend.Controllers
 						{
 							var route = routes.First(r => r.Id == editedRoute.Id);
 
-							editedRoute.LandingDateAndTimeOfReturn = DateService.ConvertToDateFormat(route.LandingDateAndTimeOfDeparture);
-							editedRoute.ArrivalDateAndTimeOfDeparture = DateService.ConvertToDateFormat(route.ArrivalDateAndTimeOfDeparture);
-							editedRoute.LandingDateAndTimeOfReturn = DateService.ConvertToDateFormat(route.LandingDateAndTimeOfReturn);
-							editedRoute.ArrivalDateAndTimeOfReturn = DateService.ConvertToDateFormat(route.ArrivalDateAndTimeOfReturn);
+							editedRoute.LandingDateAndTimeOfReturn = DateTime.ParseExact(route.LandingDateAndTimeOfDeparture, "yyyy-MM-ddTHH:mm", null);
+							editedRoute.ArrivalDateAndTimeOfDeparture = DateTime.ParseExact(route.ArrivalDateAndTimeOfDeparture, "yyyy-MM-ddTHH:mm", null);
+							editedRoute.LandingDateAndTimeOfReturn = DateTime.ParseExact(route.LandingDateAndTimeOfReturn, "yyyy-MM-ddTHH:mm", null);
+							editedRoute.ArrivalDateAndTimeOfReturn = DateTime.ParseExact(route.ArrivalDateAndTimeOfReturn, "yyyy-MM-ddTHH:mm", null);
 							editedRoute.Price = route.Price;
 							editedRoute.SeatsNumber = route.SeatsNumber;
 							editedRoute.DepartmentDepartureId = route.DepartmentDepartureId;
@@ -667,10 +668,10 @@ namespace backend.Controllers
 							var newRoutes = routes.Where(r => r.Id == 0)
 								.Select(r => new Route()
 								{
-									LandingDateAndTimeOfDeparture = DateService.ConvertToDateFormat(r.LandingDateAndTimeOfDeparture),
-									ArrivalDateAndTimeOfDeparture = DateService.ConvertToDateFormat(r.ArrivalDateAndTimeOfDeparture),
-									LandingDateAndTimeOfReturn = DateService.ConvertToDateFormat(r.LandingDateAndTimeOfReturn),
-									ArrivalDateAndTimeOfReturn = DateService.ConvertToDateFormat(r.ArrivalDateAndTimeOfReturn),
+									LandingDateAndTimeOfDeparture = DateTime.ParseExact(r.LandingDateAndTimeOfDeparture, "yyyy-MM-ddTHH:mm", null),
+									ArrivalDateAndTimeOfDeparture = DateTime.ParseExact(r.ArrivalDateAndTimeOfDeparture, "yyyy-MM-ddTHH:mm", null),
+									LandingDateAndTimeOfReturn = DateTime.ParseExact(r.LandingDateAndTimeOfReturn, "yyyy-MM-ddTHH:mm", null),
+									ArrivalDateAndTimeOfReturn = DateTime.ParseExact(r.ArrivalDateAndTimeOfReturn, "yyyy-MM-ddTHH:mm", null),
 									Price = r.Price,
 									SeatsNumber = r.SeatsNumber,
 									DepartmentDepartureId = r.DepartmentDepartureId,

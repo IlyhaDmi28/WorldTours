@@ -3,13 +3,24 @@ import React, { useState, useEffect } from 'react';
 import LoginForm from '../components/auth/loginForm';
 import RegisterForm from '../components/auth/registerForm';
 import AuthLogo from '../components/auth/authLogo';
+import Button from '@mui/material/Button';
+import background from '../img/background.gif'
+
+
 
 function Auth() {
 	useEffect(() => {
-		document.body.style.backgroundColor = 'lightblue';
-	
+		document.body.style.backgroundImage = `url('${background}')`;
+		document.body.style.backgroundSize = "cover";
+		document.body.style.backgroundPosition = "center";
+		document.body.style.backgroundRepeat = "no-repeat";
+
+		// очистка при выходе со страницы
 		return () => {
-		  	document.body.style.backgroundColor = '';
+			document.body.style.backgroundImage = '';
+			document.body.style.backgroundSize = '';
+			document.body.style.backgroundPosition = '';
+			document.body.style.backgroundRepeat = '';
 		};
 	}, []);
 
@@ -26,30 +37,24 @@ function Auth() {
 	const activeLoginModeStyle = {
 		backgroundColor: mode === 'login' ? 'rgb(60, 80, 254)' : 'transparent',
 		color: mode === 'login' ? 'white' : 'black',
-		border: 'none',
-		borderRadius: '8px',
-		cursor: 'pointer',
 	};
 
 	const activeRegisterModeStyle = {
 		backgroundColor: mode === 'register' ? 'rgb(60, 80, 254)' : 'transparent',
 		color: mode === 'register' ? 'white' : 'black',
-		border: 'none', 
-		borderRadius: '8px',
-		cursor: 'pointer',
 	};
 
 	return (
-		<div>
-			<div className="auth">
+		<div className='pizs'>
+			<div className="auth" style={mode === 'register' ? {marginTop: '4%'} : {}}>
 				<AuthLogo />
 				<div className="reg-log">
-					<button style={activeLoginModeStyle} onClick={switchToLogin}>
+					<Button style={activeLoginModeStyle} onClick={switchToLogin} size='small'>
 						Вход
-					</button>
-					<button style={activeRegisterModeStyle} onClick={switchToRegister}>
+					</Button>
+					<Button style={activeRegisterModeStyle} onClick={switchToRegister} size='small' variant="text">
 						Регистрация
-					</button>
+					</Button>
 				</div>
 				{mode === 'login' && <LoginForm />}
 				{mode === 'register' && <RegisterForm/>}

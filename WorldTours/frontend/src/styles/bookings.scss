@@ -370,92 +370,99 @@ $indent-from-left-on-card: 200px;
 		margin-top: 15px;
 		font-size: 15px;
 
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			border: none;
-		  }
-		  
-		  th, td {
-			border: none;
-			padding: 5px;
-			text-align: center;
-		  }
-		  
-		  th {
-			font-weight: bold;
-		  }
+		.table-wrapper {
+			max-height: 113px;
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: $light-grey-color transparent;
 
-
-		  
-		  td:first-child {
-			color: gray;
-			font-size: 16px;
-		  }
-
-		  td:nth-child(1), th:nth-child(1) {
-			width: 60px;
-			padding-left: 0px;
-		  }
-
-		  td:nth-child(2), th:nth-child(2) {
-			text-align: left;
-			padding-left: 5px;
-		  }
-
-		  td:nth-child(3), th:nth-child(3){
-			padding-left: 0px;
-			padding-right: 0px;
-			width: 170px;
-		  }
-
-		  td:nth-child(4), th:nth-child(4) {
-			padding-left: 0px;
-			padding-right: 0px;
-			width: 46px;
-		  }
-
-		
-		 .room-types-number-on-booking {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-
-			button {
+			table {
+				width: 100%;
+				border-collapse: collapse;
 				border: none;
-				background-color: red;
-				border-radius: 100%;
-				padding: 0px;
-				cursor: pointer;
-				color: white;
-				height: 20px;
-				width: 20px;
-				font-size: 20px;
 			}
 			
-			.add-room-type-button {
-				background-color: $green-color;
-			  }
-	
-			.remove-room-type-button {
-				background-color: $red-color;
-				margin-left: 5px;
-			}
-	
-			input {
-				margin-left: 10px;
-				width: 60px;
-				height: 25px;
-				text-align: center;
-				font-size: 14px;
+			th, td {
 				border: none;
-				border-bottom: 1px solid black;
-			  }
-		  }
-		  
-		  .room-type-price {
-			font-weight: bold;
-		  }
+				padding: 5px;
+				text-align: center;
+			}
+			
+			th {
+				font-weight: bold;
+			}
+
+
+			
+			td:first-child {
+				color: gray;
+				font-size: 16px;
+			}
+
+			td:nth-child(1), th:nth-child(1) {
+				width: 60px;
+				padding-left: 0px;
+			}
+
+			td:nth-child(2), th:nth-child(2) {
+				text-align: left;
+				padding-left: 5px;
+			}
+
+			td:nth-child(3), th:nth-child(3){
+				padding-left: 0px;
+				padding-right: 0px;
+				width: 170px;
+			}
+
+			td:nth-child(4), th:nth-child(4) {
+				padding-left: 0px;
+				padding-right: 0px;
+				width: 46px;
+			}
+
+			
+			.room-types-number-on-booking {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				button {
+					border: none;
+					background-color: red;
+					border-radius: 100%;
+					padding: 0px;
+					cursor: pointer;
+					color: white;
+					height: 20px;
+					width: 20px;
+					font-size: 20px;
+				}
+				
+				.add-room-type-button {
+					background-color: $green-color;
+				}
+		
+				.remove-room-type-button {
+					background-color: $red-color;
+					margin-left: 5px;
+				}
+		
+				input {
+					margin-left: 10px;
+					width: 60px;
+					height: 25px;
+					text-align: center;
+					font-size: 14px;
+					border: none;
+					border-bottom: 1px solid black;
+				}
+			}
+			
+			.room-type-price {
+				font-weight: bold;
+			}
+		}
 	}
 
 	.order-seat-on-booking {

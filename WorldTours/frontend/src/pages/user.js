@@ -1,6 +1,11 @@
 import '../styles/user.scss';
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import InputAdornment from '@mui/material/InputAdornment';
+import useAlert from '../hooks/useAlert';
 import Header from '../components/general/header';
 import account from '../img/account.svg';
 import axios from 'axios';
@@ -8,6 +13,7 @@ const token = localStorage.getItem("token");
 
 function User() {
 	const authUser = useSelector((state) => state.authUser.value);
+    
     const [errorText, setErrorText] = useState('');
     const [userHasAva, setUserHasAva] = useState(false);
     const [isChangeAva, setIsChangeAva] = useState(false);
@@ -20,6 +26,7 @@ function User() {
         photoFile: useRef(null)
     })
     const [photoUrl, setPhotoUrl] = useState(authUser.photoUrl);
+    const showAlert = useAlert();
 
     useEffect(() => {
         const checkPhoto = async () => {
@@ -82,8 +89,15 @@ function User() {
 	//Вынести желательно(верх)
 
     const saveUser = async () => {
-        if(user.name === '' || user.surname === '' || user.phoneNumber === '') {
-            setErrorText("Вы не заполнили все поля!"); 
+        if(user.name === '' || user.surname === '') {
+            showAlert("Вы не заполнили все поля!", 'error');
+            // setErrorText("Вы не заполнили все поля!"); 
+            return;
+        }
+
+        if(user.phoneNumber.length !== 9) {
+            showAlert("Номер телефона введён некорректно!", 'error');
+            // setErrorText("Вы не заполнили все поля!"); 
             return;
         }
 
@@ -113,7 +127,7 @@ function User() {
                     'Authorization': `Bearer ${token}`
                 }
             });
-
+            
             window.location.href = '/tours';
         } catch (error) {
             console.error('Ошибка при изменении данных пользователя:', error);
@@ -128,31 +142,56 @@ function User() {
             <div className='user-editor'>
                 <div className='user-parametrs'>
                     <div className='ava-controller'>
-                        {/* Там с фотками какая-то хуета, чекни усебя на гитхабе в RentalPremise */}
-                        <img
+                        <Avatar 
+                            alt="click to change" 
+                            className='ava-img'
+                            src={userHasAva || isChangeAva ? photoUrl : account}
+                            onClick={openFileDialogToSelectAva}
+                        />
+                        {/* <img
                             src={userHasAva || isChangeAva ? photoUrl : account}
                             alt="click to change"
-                            onClick={openFileDialogToSelectAva} // Обработчик клика по изображению
-                        />
+                            onClick={openFileDialogToSelectAva}
+                        /> */}
                         <input
                             type="file"
                             ref={user.photoFile}
-                            onChange={changePhoto} // Обработчик изменения файла
-                            style={{ display: 'none' }} // Скрываем input
+                            onChange={changePhoto}
+                            style={{ display: 'none' }}
                             accept="image/*"
                         />
                     </div>
 
                     <form className="user-form">
-                        <input name='name' placeholder='Имя' value={user.name} onChange={changeUser}/>
-                        <input name='surname' placeholder='Фамилия' value={user.surname} onChange={changeUser}/>
-                        <input name='phoneNumber' placeholder='Номер телефона' value={user.phoneNumber} onChange={changeUser}/>
+                        <TextField className='user-form-input' name='name' label='Имя' value={user.name} onChange={changeUser} variant="standard"/>
+                        <TextField className='user-form-input' name='surname' label='Фамилия' value={user.surname} onChange={changeUser} variant="standard"/>
+                        <TextField 
+                            className='user-form-input' 
+                            name='phoneNumber' 
+                            label='Номер телефона' 
+                            value={user.phoneNumber} 
+                            onChange={changeUser}
+                            variant="standard"
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment
+                                        position="start"
+                                        sx={{
+                                            alignSelf: 'center', // выравнивание по центру поля
+                                            marginBottom: '2px', // можно поиграть с этим значением
+                                        }}
+                                    >
+                                       +375
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />                  
                     </form>
                 </div>
 
                 <div className='under-user-params'>
                     <div id="errorMessage">{errorText} </div>
-                    <button className='save-button' onClick={saveUser}>Сохранить измения</button>
+                    <Button className='save-button' onClick={saveUser} variant="contained"  >Сохранить измения</Button>
                 </div>
             </div>
         </div>

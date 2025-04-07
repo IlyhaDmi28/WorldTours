@@ -66,7 +66,7 @@ function BookingCard({ booking, openBooking, deleteBooking }) {
 
 
             {isHovered && 
-                <button className='booking-card-delete-button' onClick={(e)=>{e.preventDefault(); deleteBooking(booking.id)}}>
+                <button className='booking-card-delete-button' onClick={(e)=>{e.stopPropagation(); deleteBooking(booking.id)}}>
                     <img src={deleteButon}/>
                 </button>
             }

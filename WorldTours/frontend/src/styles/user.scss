@@ -11,9 +11,9 @@
 			padding-top: 50px;
 			padding-left: 50px;
 
-			img {
-				border: 2px solid black;
-				border-radius: 120px;
+			.ava-img {
+				border: 1px solid black;
+				// border-radius: 120px;
 				width: 220px;
 				height: 220px;
 				margin-top: 15px;
@@ -33,17 +33,16 @@
 			width: 65%;
 			margin-left: auto;
 
-			input {
+			.user-form-input {
 				width: 100%;
 				height: 30px;
 				margin-top: 60px;
-				border-color: transparent transparent black transparent;
 				font-size: 16px;
 			}
 
-			input:focus {
-				outline: none;
-			}
+			// input:focus {
+			// 	outline: none;
+			// }
 
 			button {
 				display: block;
@@ -69,10 +68,10 @@
 			margin-right: auto;
 			margin-bottom: 40px;
 			background-color: rgb(88, 169, 114);
-			color: white;
-			border: 1px solid black;
-			border-radius: 18px;
-			font-size: 16px;
+			// color: white;
+			// border: 1px solid black;
+			// border-radius: 18px;
+			// font-size: 16px;
 		}
 
 		#errorMessage {

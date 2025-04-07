@@ -200,13 +200,20 @@
 
 	.main-tour-info {
 		padding-left: 3px;
-		div:nth-child(1) {
+		>div:nth-child(1) {
 			font-size: 22px;
 		}
 	
-		div:nth-child(2) {
+		.tour-direction {
 			font-size: 16px;
 			margin-top: 6px;
+			display: flex;
+			
+			>img {
+				height: 36px;
+				margin-left: 24px;
+				border-radius: 4px;
+			}
 		}
 	}
 	
@@ -218,9 +225,15 @@
 	.tour-nutrition-type {
 		margin-top: 15px;
 		text-align: justify;
-		line-height: 25px;
 		padding-bottom: 30px;
 		border-bottom: 1px solid $light-grey-color;
+		display: flex;
+
+		.tour-nutrition-type-text {
+			margin-top: 8px;
+			margin-left: 8px;
+			font-size: 18px;
+		}
 	}
 
 	.tour-desription {
@@ -539,92 +552,96 @@
 
 	.sent-booking-form-room-types {
 		margin-top: 15px;
-
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			border: none;
-		  }
-		  
-		  th, td {
-			border: none;
-			padding: 8px;
-			text-align: center;
-		  }
-		  
-		  th {
-			font-weight: bold;
-		  }
-
-
-		  
-		  td:first-child {
-			color: gray;
-			font-size: 20px;
-		  }
-
-		  td:nth-child(1), th:nth-child(1) {
-			width: 60px;
-		  }
-
-		  td:nth-child(2), th:nth-child(2) {
-			text-align: left;
-			padding-left: 0px;
-		  }
-
-		  td:nth-child(3), th:nth-child(3){
-			padding-left: 0px;
-			padding-right: 0px;
-			width: 170px;
-		  }
-
-		  td:nth-child(4), th:nth-child(4) {
-			padding-left: 0px;
-			padding-right: 0px;
-			width: 46px;
-		  }
-
 		
-		 .booking-form-room-types-number {
-			display: flex;
-			align-items: center;
-			justify-content: center;
+		.table-wrapper {
+			max-height: 170px;
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: $light-grey-color transparent;
 
-			button {
+			table {
+				width: 100%;
+				border-collapse: collapse;
 				border: none;
-				background-color: red;
-				border-radius: 100%;
-				padding: 0px;
-				cursor: pointer;
-				color: white;
-				height: 20px;
-				width: 20px;
-				font-size: 20px;
-			}
-			
-			.add-room-type-button {
-				background-color: $green-color;
+				
 			  }
-	
-			.remove-room-type-button {
-				background-color: $red-color;
-				margin-left: 5px;
-			}
-	
-			input {
-				margin-left: 10px;
-				width: 60px;
-				height: 25px;
+			  
+			  th, td {
+				border: none;
+				padding: 8px;
 				text-align: center;
-				font-size: 14px;
-				border: none;
-				border-bottom: 1px solid black;
 			  }
-		  }
-		  
-		  .room-type-price {
-			font-weight: bold;
-		  }
+			  
+			  th {
+				font-weight: bold;
+			  }
+	
+	
+			  
+			  td:first-child {
+				color: gray;
+				font-size: 20px;
+			  }
+	
+			  td:nth-child(1), th:nth-child(1) {
+				width: 60px;
+			  }
+	
+			  td:nth-child(2), th:nth-child(2) {
+				text-align: left;
+				padding-left: 0px;
+			  }
+	
+			  td:nth-child(3), th:nth-child(3){
+				padding-left: 0px;
+				padding-right: 0px;
+				width: 170px;
+			  }
+	
+			  td:nth-child(4), th:nth-child(4) {
+				padding-left: 0px;
+				padding-right: 0px;
+				width: 46px;
+			  }
+	
+			
+			 .booking-form-room-types-number {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+	
+				button {
+					border: none;
+					background-color: red;
+					border-radius: 100%;
+					padding: 0px;
+					cursor: pointer;
+					color: white;
+					height: 20px;
+					width: 20px;
+					font-size: 20px;
+				}
+				
+				.add-room-type-button {
+					background-color: $green-color;
+				  }
+		
+				.remove-room-type-button {
+					background-color: $red-color;
+					margin-left: 5px;
+				}
+		
+				.booking-form-room-types-number-input {
+					margin-left: 10px;
+					width: 60px;
+				  }
+			  }
+			  
+			  .room-type-price {
+				font-weight: bold;
+			  }
+	
+		}
 	}
 
 	.booking-form-seats {
@@ -633,18 +650,15 @@
 		margin-bottom: 10px;
 		display: flex;
 
-		div {
-			margin-top: 6px;
+		>div:nth-child(1) {
+			margin-top: 4px;
 		}
 
-		input {
+		.booking-form-seats-input {
 			margin-left: 10px;
 			width: 60px;
-			height: 25px;
 			text-align: center;
-			font-size: 16px;
-			border: none;
-			border-bottom: 1px solid black;
+			// height: 25px;
 		}
 	}
 

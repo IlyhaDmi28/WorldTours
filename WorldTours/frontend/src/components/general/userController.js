@@ -54,6 +54,14 @@ function UserController({ right }) {
                 anchorEl={anchorEl}
                 open={isOpenUserMenu}
                 onClose={() => setAnchorEl(null)}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
                 slotProps={{
                     paper: {
                       style: {
@@ -63,37 +71,37 @@ function UserController({ right }) {
                     },
                 }}
             >
-                <MenuItem onClick={() => setAnchorEl(null)}><Link to='/user'>Редактировать профиль</Link></MenuItem>
+                <MenuItem component={Link} to='/user' onClick={() => setAnchorEl(null)}>Редактировать профиль</MenuItem>
 
                 { authUser.role === 1 && 
-                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/bookings'>Мои брони</Link></MenuItem>
+                    <MenuItem component={Link} to='/bookings' onClick={() => setAnchorEl(null)}>Мои брони</MenuItem>
                 }
 
                 { (authUser.role === 2 || authUser.role === 3) && 
-                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/bookings'>Заявки на брони</Link></MenuItem>
+                    <MenuItem component={Link} to='/bookings' onClick={() => setAnchorEl(null)}>Заявки на брони</MenuItem>
                 }
 
                 { (authUser.role === 2 || authUser.role === 3) && 
-                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/tours_for_editor'>Редактор туров</Link></MenuItem>
+                    <MenuItem component={Link} to='/tours_for_editor' onClick={() => setAnchorEl(null)}>Редактор туров</MenuItem>
                 }
 
                 { (authUser.role === 2 || authUser.role === 3) && 
-                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/hotels_for_editor'>Редактор отелей</Link></MenuItem>
+                    <MenuItem component={Link} to='/hotels_for_editor' onClick={() => setAnchorEl(null)}>Редактор отелей</MenuItem>
                 }
 
                 { (authUser.role === 2 || authUser.role === 3) && 
-                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/department_departures'>Редактор транспорта</Link></MenuItem>
+                    <MenuItem component={Link} to='/department_departures' onClick={() => setAnchorEl(null)}>Редактор транспорта</MenuItem>
                 }
 
                 { authUser.role === 3 && 
-                    <MenuItem onClick={() => setAnchorEl(null)}><Link to='/users'>Пользователи</Link></MenuItem>
+                    <MenuItem component={Link} to='/users' onClick={() => setAnchorEl(null)}>Пользователи</MenuItem>
                 }
 
                 {/* { (authUser.role === 2 || authUser.role === 3) && 
                     <MenuItem onClick={() => setAnchorEl(null)}><Link to='/geographic_objects'>Редактор гео-объектов</Link></MenuItem>
                 } */}
 
-                <MenuItem onClick={() => setAnchorEl(null)}><Link to='/tours' style={{color: 'red'}} onClick={logout}>Выйти</Link></MenuItem>
+                <MenuItem component={Link} style={{color: 'red'}}  to='/tours' onClick={() => {logout(); setAnchorEl(null)}}>Выйти</MenuItem>
             </Menu>
             {/* <div className='user-menu' style={{ right }}>
                 <ul>
