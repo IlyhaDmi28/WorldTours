@@ -72,6 +72,62 @@ namespace backend.Controllers
 			}
 		}
 
+		[HttpGet("country_for_editor")]
+		public async Task<IActionResult> GetCountryForEditor([FromQuery] int? countryId)
+		{
+			try
+			{
+				Country country = await db.Countries
+						.Include(c => c.Cities)
+						.FirstOrDefaultAsync(c => c.Id == countryId);
+
+				if (country == null) return NotFound();
+
+				CountryForEditorDto countryForEditor = new CountryForEditorDto()
+				{
+					Id = country.Id,
+					Name = country.Name,
+					FlagUrl = $"https://localhost:7276/{country.PathToFlag}",
+					Lat = 50,
+					Lng = 50,
+					MainDescription = "fdgdfg",
+					Cities = country.Cities.Select(c => new CityDto { Id = c.Id, Name = c.Name }).ToList()
+				};
+
+				return Ok(countryForEditor);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpGet("	")]
+		public async Task<IActionResult> GetCityForEditor([FromQuery] int? cityId)
+		{
+			try
+			{
+				City city = await db.Cities.FirstOrDefaultAsync(c => c.Id == cityId);
+
+				if (city == null) return NotFound();
+
+				CityForEditorDto cityForEditor = new CityForEditorDto()
+				{
+					Id = city.Id,
+					Name = city.Name,
+					Lat = 50,
+					Lng = 50,
+					MainDescription = "fdgdfg",
+				};
+
+				return Ok(cityForEditor);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[HttpGet("cities")]
 		public async Task<IActionResult> GetCities([FromQuery] int? countryId)
 		{

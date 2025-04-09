@@ -3,8 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import TextField from '@mui/material/TextField';
-import FilterButton from "../components/tours/filterButton";
+import Modal from '@mui/material/Modal';
 import SortButton from "../components/general/sortButton";
 import Header from '../components/general/header';
 import HotelCardForEditor from '../components/hotelsForEditor/hotelCardForEditor';
@@ -12,6 +11,7 @@ import all from '../img/all.svg';
 import map from '../img/map.png';
 import RegionCard from '../components/geographicObjects/regionCard';
 import CountryCard from '../components/geographicObjects/countryCard';
+import CountryEditor from '../components/geographicObjects/countryEditor';
 const token = localStorage.getItem("token");
 
 function GeographicObjects() {
@@ -31,6 +31,8 @@ function GeographicObjects() {
 		name: null,
 		imageUrl: null
 	});
+	const [indexOfSelectedCountry, setIndexOfSelectedCountry] = useState(-1);
+	const [isOpenCountry, setIsOpenCountry] = useState(false);
 
 	const regionImageFile = useRef(null);;
 
@@ -55,24 +57,6 @@ function GeographicObjects() {
         getData();
 	}, []);
 	
-	const loadPhotos = (e) => {
-		if (!e.target.files) return; // Проверяем, что файлы есть
-
-    const file = e.target.files[0]; // Берем первый файл
-
-    if (!file) return; // Проверяем, что файл существует
-
-    const newImageUrl = URL.createObjectURL(file); // Создаём ссылку на изображение
-    setSelectedRegion((prevRegion) => ({
-        ...prevRegion,
-        imageUrl: newImageUrl
-    }));
-	};
-    // Функция для открытия input по нажатию на изображение
-    const setPhotoUropenFileDialogToSelectPhoto = () => {
-        regionImageFile.current.click();
-    };
-
     const selectRegion = async (region) => {
 		setSelectedRegion(region)
 
@@ -85,6 +69,16 @@ function GeographicObjects() {
 		const countriesData = response.data;
 		setCountries(countriesData);
 	}
+
+	// const openCountry = (index) => {
+    //     setIndexOfSelectedCountry(index);
+    //     setIsOpenCountry(true);
+    // }
+
+	// const closeCountry = () => {
+    //     setIndexOfSelectedCountry(-1);
+    //     setIsOpenCountry(false);
+    // }
 
 	const deleteHotel = async (id) => {
         await axios.delete(`https://localhost:7276/hotel/delete?hotelId=${id}`, {
@@ -103,40 +97,37 @@ function GeographicObjects() {
 			<div className="line-under-header"></div>
 			<main className='vertical-list-page'>
 				<div className='geographic-object-editor-parametrs'>
-					{(selectedRegion.id !== null && selectedRegion.id !== 0 && selectedRegion.id !== undefined) && 
+					{(selectedRegion.id !== null && selectedRegion.id !== 0 && selectedRegion.id !== undefined && indexOfSelectedCountry === -1) && 
 						<>
 							<ArrowBackIcon className='back-to-regions-arrow' onClick={() => setSelectedRegion({id: null, imageUrl: null, name: null})}/>
-							<img src={selectedRegion.imageUrl} onClick={setPhotoUropenFileDialogToSelectPhoto} className='geographic-object-editor-image'/>
-							<input
-								type="file" 
-								multiple  
-								ref={ regionImageFile } 
-								onChange={loadPhotos} 
-								style={{ display: 'none' }} accept="image/*"
-							/>
-							<TextField
-								className='geographic-object-editor-name'
-								label="Название"
-								type="search"
-								variant="standard"
-								value={selectedRegion.name}
-								onChange={(e) =>{setSelectedRegion((prevRegion) => { return {...prevRegion, name: e.target.value}})}}
-							/>	
-							<img src={map} className='geographic-object-editor-map'/>
-							<button className='save-region-button'>Сохранить регион</button>
+							<img src={selectedRegion.imageUrl}  className='geographic-object-editor-image'/>
+							
+							<b className='geographic-object-editor-name'>{selectedRegion.name}</b>
+							
 						</>
+					}
+					{indexOfSelectedCountry !== -1 && 
+						<ArrowBackIcon className='back-to-regions-arrow' onClick={() => setIndexOfSelectedCountry(-1)}/>
 					}
 					<SortButton/>
 				</div>
-				<div className="geographic-objects-list">
-					{(selectedRegion.id === null || selectedRegion.id === 0 || selectedRegion.id === undefined) &&
-						regions.map((region) => (<RegionCard region={region} selectRegion={() => selectRegion(region)} deleteRegion={deleteHotel}/>))
-					}
+				{
+					indexOfSelectedCountry === -1 ?  
+					<div className="geographic-objects-list">
+						{((selectedRegion.id === null || selectedRegion.id === 0 || selectedRegion.id === undefined) && indexOfSelectedCountry === -1) &&
+							regions.map((region) => (<RegionCard region={region} selectRegion={() => selectRegion(region)} deleteRegion={deleteHotel}/>))
+						}
 
-					{(selectedRegion.id !== null && selectedRegion.id !== 0 && selectedRegion.id !== undefined) &&
-						countries.map((counrty) => (<CountryCard country={counrty}/>))
-					}
-				</div>
+						{(selectedRegion.id !== null && selectedRegion.id !== 0 && selectedRegion.id !== undefined && indexOfSelectedCountry === -1) &&
+						
+							countries.map((counrty, index) => (<CountryCard country={counrty} openCountryEditor={() => setIndexOfSelectedCountry(index)}/>))
+							
+						}
+					</div> : <CountryEditor indexOfSelectedCountry={indexOfSelectedCountry} countries={countries}/>
+				}
+					{/* <Modal className='country-modal' open={isOpenCountry} onClose={closeCountry} >
+						<Country indexOfSelectedCountry={indexOfSelectedCountry} countries={countries} closeModal={closeCountry}/>
+					</Modal> */}
 			</main>
 			
 		</div>

@@ -97,9 +97,9 @@ function UserController({ right }) {
                     <MenuItem component={Link} to='/users' onClick={() => setAnchorEl(null)}>Пользователи</MenuItem>
                 }
 
-                {/* { (authUser.role === 2 || authUser.role === 3) && 
+                { (authUser.role === 2 || authUser.role === 3) && 
                     <MenuItem onClick={() => setAnchorEl(null)}><Link to='/geographic_objects'>Редактор гео-объектов</Link></MenuItem>
-                } */}
+                }
 
                 <MenuItem component={Link} style={{color: 'red'}}  to='/tours' onClick={() => {logout(); setAnchorEl(null)}}>Выйти</MenuItem>
             </Menu>
