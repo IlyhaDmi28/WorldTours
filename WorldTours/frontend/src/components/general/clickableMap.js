@@ -19,6 +19,7 @@ function ClickableMap({lat, lng, setLocation}) {
     	useMapEvents({
       		click(e) {
 				if(setLocation !== undefined) {
+					console.log(e.latlng.lat);
 					setLocation((prevHotel) => {return {
 						...prevHotel,
 						lat: e.latlng.lat,

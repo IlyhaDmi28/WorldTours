@@ -5,6 +5,22 @@
       "PackagePath": "staticwebassets\\asset-manifest.json"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\0.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\0.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\33.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\33.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\36.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\36.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\37.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\37.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\argentina.svg",
       "PackagePath": "staticwebassets\\img\\flags\\argentina.svg"
     },
@@ -85,6 +101,10 @@
       "PackagePath": "staticwebassets\\img\\flags\\new_zealand.svg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\north_korea.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\north_korea.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\norway.svg",
       "PackagePath": "staticwebassets\\img\\flags\\norway.svg"
     },
@@ -123,6 +143,10 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\uar.svg",
       "PackagePath": "staticwebassets\\img\\flags\\uar.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\ukraine.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\ukraine.svg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\usa.svg",

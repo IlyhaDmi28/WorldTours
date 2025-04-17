@@ -25,6 +25,8 @@ namespace backend.DB
 		public DbSet<RoomType> RoomTypes { get; set; }
 		public DbSet<RoomTypeCharacteristic> RoomTypeCharacteristics { get; set; }
 		public DbSet<BookedRoomType> BookedRoomTypes { get; set; }
+		public DbSet<Landmark> Landmarks { get; set; }
+		public DbSet<Climate> Climates { get; set; }
 
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -113,6 +115,12 @@ namespace backend.DB
 				.HasForeignKey(city => city.CountryId)
 				.OnDelete(DeleteBehavior.Cascade);
 
+			modelBuilder.Entity<Climate>()
+				.HasMany(c => c.Cities)
+				.WithOne(city => city.Climate)
+				.HasForeignKey(city => city.ClimateId)
+				.OnDelete(DeleteBehavior.SetNull);
+
 			// Настройка City
 			modelBuilder.Entity<City>()
 				.HasMany(city => city.DepartmentDepartures)
@@ -124,6 +132,12 @@ namespace backend.DB
 				.HasMany(city => city.Hotels)
 				.WithOne(h => h.City)
 				.HasForeignKey(h => h.CityId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<City>()
+				.HasMany(city => city.Landmarks)
+				.WithOne(l => l.City)
+				.HasForeignKey(dd => dd.CityId)
 				.OnDelete(DeleteBehavior.Cascade);
 
 			// Настройка DepartmentDeparture

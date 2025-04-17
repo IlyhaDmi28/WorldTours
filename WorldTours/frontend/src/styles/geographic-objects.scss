@@ -192,15 +192,6 @@
 		margin-top: 0px;
 	}
 
-	select {
-		font-size: 18px;
-		margin-top: 3px;
-		width: 100%;
-		height: 40px;
-		border: 1px solid $grey-color;
-		border-radius: 5px;
-	}
-
 	.parameter-name {
 		text-align: left;
 		font-size: 16px;
@@ -222,6 +213,18 @@
 			width: 40px;
 			height: 40px;
 			margin-top: 8px;
+		}
+	}
+
+	.city-editor-climate {
+		margin-top: 20px;
+		text-align: justify;
+
+		.city-editor-climate-select {
+			height: 40px;
+			width: 100%;
+			margin-top: 3px;
+			font-size: 16px;
 		}
 	}
 
@@ -298,11 +301,11 @@
 
 		.country-editor-info{
 			display: flex;
-			margin-top: 15px;
 	
 			.country-editor-flag {
 				width: 100px;
 				margin-top: 15px;
+				border: 1px solid rgb(230, 230, 230);
 			}
 		
 			.country-editor-name-input {
@@ -318,6 +321,21 @@
 				height: 40px;
 				margin-top: 40px;
 			}
+		}
+
+		.country-editor-region {
+			margin-top: 10px;
+			text-align: justify;
+	
+			.country-editor-region-select {
+				width: 100%;
+				margin-top: 3px;
+				font-size: 16px;
+			}
+		}
+
+		.country-editor-level-of-developments {
+			margin-top: 5px;
 		}
 	
 		.country-editor-desription {
@@ -337,19 +355,42 @@
 			width: 100%;
 		}
 	}
-
-	.cities-list {
+	
+	.cities{
 		width: 100%;
 
-		.city-card {
-			padding-left: 30px;
-			padding-top: 10px;
-			padding-bottom: 10px;
-			font-size: 18px;
-			width: 100%;
-			border-bottom: 1px solid black;
+		.cities-list {
+			height: 450px;
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: $light-grey-color transparent;
+	
+			.city-card {
+				padding-top: 10px;
+				padding-bottom: 10px;
+				font-size: 18px;
+				width: 100%;
+				border-bottom: 1px solid black;
+				display: flex;
+
+				>b {
+					margin-left: 20px;
+				}
+
+				.delete-city-button {
+					margin-left: auto;
+				}
+			}
+		}
+		
+		.add-city-button {
+			width: 36px;
+			height: 36px;
+			margin-left: 16px;
+			margin-top: 5px;
 		}
 	}
+	
 
 	
 }

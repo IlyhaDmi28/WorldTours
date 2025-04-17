@@ -3,6 +3,7 @@ import axios from 'axios';
 import Divider from '@mui/material/Divider';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -22,17 +23,19 @@ import close from '../../img/close.svg'
 import map from '../../img/map.png'
 const token = localStorage.getItem("token");
 
-function CityEditor({indexOfSelectedCity, cities, closeModal}) {   
+function CityEditor({indexOfSelectedCity, cities, setCityToCountry, countryId, closeModal}) {   
     const [isOpenCityMap, setIsOpenCityMap] = useState(false);
     const [isOpenLandmarkEditor, setIsOpenLandmarkEditor] = useState(false);
     const [editedLandmark, setEditedLandmark] = useState('');
-    const [city, setCity] = useState({
-        id: null,
+    const [climates, setClimates] = useState([]);
+    const [city, setCity] = useState(indexOfSelectedCity !== -1 ? cities[indexOfSelectedCity] : {
+        id: 0,
         name: '',
         mainDescription: null,
-        lat: null,
-        lng: null,
-        climateId: null,
+        lat: 50,
+        lng: 50,
+        climateId: 1,
+        countryId: countryId,
         landmarks: []
     });
     
@@ -42,18 +45,18 @@ function CityEditor({indexOfSelectedCity, cities, closeModal}) {
             try {
                 let response;
 
-                response = await axios.get(`https://localhost:7276/direction/city_for_editor?cityId=${cities[indexOfSelectedCity].id}`, {
+                response = await axios.get(`https://localhost:7276/direction/climates`, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
-
-                const cityData = response.data;
-                setCity(cityData);
-                setCity((prevCity) => ({
-                    ...prevCity,
-                    landmarks: [],
-                }));
+                const climatesData = response.data;
+                setClimates(climatesData);
+                
+                // setCity()
+                // if(indexOfSelectedCity !== -1) {
+                    
+                // }
             } catch (error) {
                 console.error('Ошибка загрузки данных:', error);
             } 
@@ -76,6 +79,36 @@ function CityEditor({indexOfSelectedCity, cities, closeModal}) {
             landmarks: prevCity.landmarks.filter((_, i) => index !== i),
         }));
     };
+
+    const saveCity = async () => {
+        const cityData = city;
+
+        if(countryId !== 0 && countryId !== null) {
+            if(city.id === 0) {
+                await axios.post('https://localhost:7276/direction/add_city', cityData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+            }
+            else {
+                cityData.lat = cityData.lat.toString().replace(".", ",");
+                cityData.lng = cityData.lng.toString().replace(".", ",");
+                await axios.put('https://localhost:7276/direction/edit_city', cityData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                cityData.lat = +cityData.lat.toString().replace(",", ".");
+                cityData.lng = +cityData.lng.toString().replace(",", ".");
+            }
+        }
+
+        setCityToCountry(city);
+        closeModal();
+    }
 
     return (
         <div className="city-editor">
@@ -106,6 +139,17 @@ function CityEditor({indexOfSelectedCity, cities, closeModal}) {
                         setLocation={setCity}
                     />
                 </Modal>
+            </div>
+
+            <div className='city-editor-climate'>
+                <div><b>Климат</b></div>
+                <Select className='city-editor-climate-select' name="climateId" value={city.climateId} onChange={changeCity}>
+                    {climates.map((climate) => (
+                        <MenuItem value={climate.id}>
+                            {climate.name}
+                        </MenuItem>
+                    ))}
+                </Select>
             </div>
 
             <div className="city-editor-desription">
@@ -184,7 +228,7 @@ function CityEditor({indexOfSelectedCity, cities, closeModal}) {
 
             <div className='modal-editor-controller'>
                 <button>Очистить</button>
-                <button>
+                <button onClick={saveCity}>
                     Сохранить
                 </button>
             </div>

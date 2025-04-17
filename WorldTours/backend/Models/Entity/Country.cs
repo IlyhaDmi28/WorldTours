@@ -11,7 +11,14 @@ namespace backend.Models.Entity
         [MaxLength(255)]
         public string Name { get; set; }
 		public string PathToFlag { get; set; }
-        public int RegionId { get; set; }
+		public double Lat { get; set; }
+		public double Lng { get; set; }
+
+		public int LevelOfDevelopment { get; set; }
+
+		[MaxLength(255)]
+		public string? MainDescription { get; set; }
+		public int RegionId { get; set; }
 
         [ForeignKey(nameof(RegionId))]
         public Region Region { get; set; }

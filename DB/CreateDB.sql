@@ -30,16 +30,30 @@ CREATE TABLE `Regions` (
 CREATE TABLE `Countries` (
   `ID` INT PRIMARY KEY AUTO_INCREMENT,
   `Name` VARCHAR(255) UNIQUE NOT NULL,
+  `LevelOfDevelopment` INT NOT NULL DEFAULT 1,
   `PathToFlag` VARCHAR(255),
   `RegionId` INT,
+  `Lat` DOUBLE,
+  `Lng` DOUBLE,
+   `MainDescription` VARCHAR(255),
   FOREIGN KEY (`RegionId`) REFERENCES `Regions`(`ID`) ON DELETE CASCADE
 );
 
-CREATE TABLE `Cities` (
+CREATE TABLE `Climates` (
   `ID` INT PRIMARY KEY AUTO_INCREMENT,
-  `Name` VARCHAR(255) UNIQUE NOT NULL,
-  `CountryId` INT,
-  FOREIGN KEY (`CountryId`) REFERENCES `Countries`(`ID`) ON DELETE CASCADE
+  `Name` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `Cities` (
+  	`ID` INT PRIMARY KEY AUTO_INCREMENT,
+  	`Name` VARCHAR(255) UNIQUE NOT NULL,
+  	`Lat` DOUBLE,
+   `Lng` DOUBLE,
+	`MainDescription` VARCHAR(255),
+	`CountryId` INT,
+  	`ClimateId` INT,
+  	FOREIGN KEY (`CountryId`) REFERENCES `Countries`(`ID`) ON DELETE CASCADE,
+	FOREIGN KEY (`ClimateId`) REFERENCES `Climates`(`ID`) ON DELETE SET NULL
 );
 
 CREATE TABLE `TransportTypes` (
@@ -181,4 +195,11 @@ CREATE TABLE `BookedRoomTypes` (
   `OrderRoomsNumber` INT,
   FOREIGN KEY (`RoomTypeID`) REFERENCES `RoomTypes`(`ID`) ON DELETE CASCADE,
   FOREIGN KEY (`BookingID`) REFERENCES `Bookings`(`ID`) ON DELETE CASCADE
+);
+
+CREATE TABLE `Landmarks` (
+  `ID` INT PRIMARY KEY AUTO_INCREMENT,
+  `Name` VARCHAR(255) NOT NULL,
+  `CityId` INT,
+  FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`) ON DELETE CASCADE
 );

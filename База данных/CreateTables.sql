@@ -111,3 +111,5 @@
 	  	FOREIGN KEY (`TransportTypeId`) REFERENCES `TransportTypes`(`ID`),
 	  	FOREIGN KEY (`TourId`) REFERENCES `Tours`(`ID`)
 	);
+	
+	SELECT * FROM Countries;

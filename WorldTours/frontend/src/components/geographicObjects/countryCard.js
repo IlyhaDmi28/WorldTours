@@ -14,7 +14,7 @@ function CountryCard({ country, deleteCountry, openCountryEditor}) {
             </div>
            
             {isHovered && 
-                <button className='country-card-delete-button' onClick={(e)=>{e.preventDefault(); deleteCountry(country.id)}}>
+                <button className='country-card-delete-button' onClick={(e)=>{e.stopPropagation(); deleteCountry(country.id)}}>
                     <img src={deleteButon}/>
                 </button>
             }

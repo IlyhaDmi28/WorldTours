@@ -11,11 +11,22 @@ namespace backend.Models.Entity
         [MaxLength(255)]
         public string Name { get; set; }
         public int CountryId { get; set; }
+        public int ClimateId { get; set; }
+
+		public double Lat { get; set; }
+		public double Lng { get; set; }
+
+		[MaxLength(255)]
+		public string? MainDescription { get; set; }
 
         [ForeignKey(nameof(CountryId))]
         public Country Country { get; set; }
-        public ICollection<DepartmentDeparture> DepartmentDepartures { get; set; }
-        public ICollection<Hotel> Hotels { get; set; }
 
-    }
+		[ForeignKey(nameof(ClimateId))]
+		public Climate Climate { get; set; }
+		public ICollection<DepartmentDeparture> DepartmentDepartures { get; set; }
+        public ICollection<Hotel> Hotels { get; set; }
+        public ICollection<Landmark> Landmarks { get; set; }
+
+	}
 }
