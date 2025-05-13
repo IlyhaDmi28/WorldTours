@@ -43,7 +43,7 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
             let sumAllPrices = selectedRoute.price * requestForBooking.orderSeatsNumber;
 
             requestForBooking.bookedRoomTypes.forEach((bookedRoomType) => { 
-                sumAllPrices += bookedRoomType.orderRoomsNumber * bookedRoomType.price;
+                sumAllPrices += bookedRoomType.orderRoomsNumber * (bookedRoomType.price  * Math.floor((new Date(selectedRoute.landingDateAndTimeOfReturn) - new Date(selectedRoute.arrivalDateAndTimeOfDeparture)) / (1000 * 60 * 60 * 24)));
             });
 
             setFinalPrice(sumAllPrices);
@@ -239,7 +239,9 @@ function SentBookingForm({roomTypes, selectedRoute, closeModal}) {
                                                 }}
                                             />
                                         </td>
-                                        <td className="room-type-price">+{roomType.price}</td>
+                                        <td className="room-type-price"> +{
+                                            roomType.price * Math.floor((new Date(selectedRoute.landingDateAndTimeOfReturn) - new Date(selectedRoute.arrivalDateAndTimeOfDeparture)) / (1000 * 60 * 60 * 24))
+                                        }</td>
                                     </tr>
                                 ))}
                             </tbody>

@@ -4,8 +4,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css"; // Обязательно подключи стили
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useLocation, useSearchParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Rating  } from "@mui/material";
 import Header from '../components/general/header';
@@ -43,6 +42,7 @@ function Tour() {
 		hotel: {
 			name: null,
 			country: null,
+			countryId: null,
 			city: null,
 			starsNumber: null,
 			nutritionType: null,
@@ -104,11 +104,6 @@ function Tour() {
 					console.log(roomType.characteristics);
 					allRoomTypesCharacteristics = [...allRoomTypesCharacteristics, ...roomType.characteristics]
 				});
-				console.log(allRoomTypesCharacteristics);
-				console.log('new Map(allRoomTypesCharacteristics.map(сharacteristic=> [сharacteristic.id, сharacteristic])).values()');
-				console.log(allRoomTypesCharacteristics.filter((characteristic, index, self) => 
-					index === self.findIndex(obj => obj.id === characteristic.id)
-				));
 
 				setRoomTypesCharacteristics(allRoomTypesCharacteristics.filter((characteristic, index, self) => 
 					index === self.findIndex(obj => obj.id === characteristic.id)
@@ -351,14 +346,16 @@ function Tour() {
 				<div className="tour-info">
 					<div className="main-tour-info">
 						<div>
-							<b>Отель: </b><Link to='/tours'>{tour.hotel.name}</Link>
+							<b>Отель: </b><Link to={`/hotel/${tour.hotel.id}`}>{tour.hotel.name}</Link>
 						</div>
 						<div className='tour-direction'>
 							<div>
-								<div><b>Направление: </b>{tour.hotel.country}, {tour.hotel.city}</div>
+								<div><b>Направление: </b><Link to={`/country/${tour.hotel.countryId}`}>{tour.hotel.country}</Link>, {tour.hotel.city}</div>
 								<div><b>Адресс: </b>{tour.hotel.address}</div>
 							</div>
-							<img src={tour.hotel.countryFlagUrl}/>
+							<Link to={`/country/${tour.hotel.countryId}`}>
+								<img src={tour.hotel.countryFlagUrl}/>
+							</Link>
 						</div>
 					</div>
 

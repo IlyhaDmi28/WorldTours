@@ -129,6 +129,15 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
         getData();
     }, []);
 
+    const parseCustomDate = (str) => {
+        if(str === "") return null;
+
+        const [datePart, timePart] = str.split(', ');
+        const [day, month, year] = datePart.split('.').map(Number);
+        const [hours, minutes] = timePart.split(':').map(Number);
+      
+        return new Date(year, month - 1, day, hours, minutes);
+    }
 
     return (
         <div className="booking">
@@ -174,8 +183,8 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
             </div>
 
             <div className='dates-and-times-on-booking'>
-                <div><b>Путь до отеля: </b> {booking.route.landingDateAndTimeOfDeparture} --) {booking.route.arrivalDateAndTimeOfDeparture}</div>
-                <div><b>Путь обратно: </b> {booking.route.landingDateAndTimeOfReturn} --) {booking.route.arrivalDateAndTimeOfReturn}</div>
+                <div><b>Путь до отеля: </b> {booking.route.landingDateAndTimeOfDeparture} &#8594; {booking.route.arrivalDateAndTimeOfDeparture}</div>
+                <div><b>Путь обратно: </b> {booking.route.landingDateAndTimeOfReturn} &#8592; {booking.route.arrivalDateAndTimeOfReturn}</div>
             </div>
 
             <div className='room-types-on-booking'>
@@ -198,7 +207,9 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
                                     <td className="room-types-number-on-booking">
                                         {roomType.orderRoomsNumber}
                                     </td>
-                                    <td className="room-type-price">{roomType.price}</td>
+                                    <td className="room-type-price">{
+                                        roomType.price * Math.floor((new Date(parseCustomDate(booking.route.landingDateAndTimeOfReturn)) - new Date(parseCustomDate(booking.route.arrivalDateAndTimeOfDeparture))) / (1000 * 60 * 60 * 24))
+                                    }</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -313,7 +324,7 @@ function BookingForManager({indexOfSelectedBooking, deleteBooking, confirmBookin
                     src={userHasAva ? booking.user.photoUrl : account}
                 />
                 <div>
-                    {booking.user.name} {booking.user.surname}, {booking.user.email}, {booking.user.phoneNumber},
+                    {booking.user.name} {booking.user.surname}, {booking.user.email}, +375{booking.user.phoneNumber},
                 </div>
             </div>
 

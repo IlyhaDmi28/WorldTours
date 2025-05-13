@@ -13,6 +13,7 @@ import map from '../img/map.png';
 import RegionCard from '../components/geographicObjects/regionCard';
 import CountryCard from '../components/geographicObjects/countryCard';
 import CountryEditor from '../components/geographicObjects/countryEditor';
+import world from '../img/world.jpg';
 const token = localStorage.getItem("token");
 
 function GeographicObjects() {
@@ -111,7 +112,7 @@ function GeographicObjects() {
 			<div className="line-under-header"></div>
 			<main className='vertical-list-page'>
 				<div className='geographic-object-editor-parametrs'>
-					{(selectedRegion.id !== null && selectedRegion.id !== 0 && selectedRegion.id !== undefined && indexOfSelectedCountry === -1) && 
+					{(selectedRegion.id !== null && selectedRegion.id !== undefined && indexOfSelectedCountry === -1) && 
 						<>
 							<ArrowBackIcon className='back-to-regions-arrow' onClick={() => setSelectedRegion({id: null, imageUrl: null, name: null})}/>
 							<img src={selectedRegion.imageUrl}  className='geographic-object-editor-image'/>
@@ -127,11 +128,14 @@ function GeographicObjects() {
 					isOpenCountryEditor ?  
 					<CountryEditor indexOfSelectedCountry={indexOfSelectedCountry} countries={countries}/> :
 					<div className="geographic-objects-list">
-						{((selectedRegion.id === null || selectedRegion.id === 0 || selectedRegion.id === undefined) && indexOfSelectedCountry === -1) &&
-							regions.map((region) => (<RegionCard region={region} selectRegion={() => selectRegion(region)}/>))
+						{((selectedRegion.id === null || selectedRegion.id === undefined) && indexOfSelectedCountry === -1) &&
+							<>
+								<RegionCard region={{id: 0, name: 'Все страны', imageUrl: world}} selectRegion={() => selectRegion({id: 0, name: 'Все страны', imageUrl: world})}/>
+								{regions.map((region) => (<RegionCard region={region} selectRegion={() => selectRegion(region)}/>))}
+							</>
 						}
 
-						{(selectedRegion.id !== null && selectedRegion.id !== 0 && selectedRegion.id !== undefined && indexOfSelectedCountry === -1) &&
+						{(selectedRegion.id !== null && selectedRegion.id !== undefined && indexOfSelectedCountry === -1) &&
 							countries.map((counrty, index) => (<CountryCard country={counrty} openCountryEditor={() => openCountryEditor(index)} deleteCountry={deleteCountry}/>))
 						}
 					</div>

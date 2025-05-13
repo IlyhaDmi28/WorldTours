@@ -22,7 +22,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     )
 );
 
+builder.Services.AddHttpClient<IAiService, AiService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IWeatherService, WeatherService>();
+builder.Services.AddScoped<IAiService, AiService>();
 
 // Add services to the container.
 builder.Services.AddCors(options =>

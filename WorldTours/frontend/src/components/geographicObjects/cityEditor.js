@@ -84,6 +84,8 @@ function CityEditor({indexOfSelectedCity, cities, setCityToCountry, countryId, c
         const cityData = city;
 
         if(countryId !== 0 && countryId !== null) {
+            cityData.lat = cityData.lat.toString().replace(".", ",");
+            cityData.lng = cityData.lng.toString().replace(".", ",");
             if(city.id === 0) {
                 await axios.post('https://localhost:7276/direction/add_city', cityData, {
                     headers: {
@@ -93,17 +95,15 @@ function CityEditor({indexOfSelectedCity, cities, setCityToCountry, countryId, c
                 });
             }
             else {
-                cityData.lat = cityData.lat.toString().replace(".", ",");
-                cityData.lng = cityData.lng.toString().replace(".", ",");
                 await axios.put('https://localhost:7276/direction/edit_city', cityData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`,
                     }
                 });
-                cityData.lat = +cityData.lat.toString().replace(",", ".");
-                cityData.lng = +cityData.lng.toString().replace(",", ".");
             }
+            cityData.lat = +cityData.lat.toString().replace(",", ".");
+            cityData.lng = +cityData.lng.toString().replace(",", ".");
         }
 
         setCityToCountry(city);

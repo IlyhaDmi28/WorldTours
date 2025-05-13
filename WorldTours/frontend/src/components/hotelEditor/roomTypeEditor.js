@@ -185,7 +185,7 @@ function RoomTypeEditor({indexOfSelectedRoomType, roomTypes, setRoomTypes, close
                             <input name='roomsNumber' type='number' min={0} value={roomType.roomsNumber} onChange={changeRoomType}/>
                         </div>
                         <div>
-                            <div className='parameter-name'>Цена</div>
+                            <div className='parameter-name'>Цена за ночь</div>
                             <input name='price' type='number' min={0} value={roomType.price} onChange={changeRoomType}/>
                         </div>
                     </div>

@@ -10,15 +10,21 @@ import HotelEditor from './hotelEditor';
 import Users from './users';
 import Auth from './auth';
 import TravelInfo from './travelInfo';
+import Survey from './survey';
+import ChatAI from './chatAI';
 import User from './user';
 import Bookings from './bookings';
 import BookingsForManager from './bookingsForManager';
 import HotelsForEditor from './hotelsForEditor';
+import Hotels from './hotels';
+import Hotel from './hotel';
 import DepartmentDepartures from './departmentDepartures';
 import GeographicObjects from './geographicObjects';
 import Payment from './payment';
 import PaymentBooking from './paymentBooking';
 import Campany from './campany';
+import Countries from './countries';
+import Country from './country';
 import Error from './error';
 import GlobalAlert from '../components/general/globalAlert ';
 import { useSelector, useDispatch } from 'react-redux';
@@ -65,13 +71,19 @@ function App() {
 		<Router>
 			<Routes>
 				<Route path="/tours" element={<Tours/>} />
+				<Route path="/tours/:hotelId" element={<Tours/>} />
+				<Route path="/hotels" element={<Hotels/>} />
 				<Route path="/payment_booking/:id" element={<PaymentBooking/>} />
 				<Route path="/auth" element={<Auth />} />
 				<Route path="/tour/:id" element={<Tour />} />
-				<Route path="/travel_info" element={<TravelInfo />} />
+				<Route path="/hotel/:id" element={<Hotel />} />
+				<Route path="/travel_info" element={<Survey />} />
+				<Route path="/chat_ai" element={<ChatAI />} />
 				<Route path="/user" element={<User/>} />
 				<Route path="/payment" element={<Payment/>} />
 				<Route path="/campany" element={<Campany/>} />
+				<Route path="/countries" element={<Countries/>} />
+				<Route path="/country/:id" element={<Country />} />
 				<Route path="/error/:id" element={<Error/>} />
 
 				{(authUser.role === 2 || authUser.role === 3) && (

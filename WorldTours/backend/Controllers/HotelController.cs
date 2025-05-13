@@ -170,7 +170,6 @@ namespace backend.Controllers
 			}
 		}
 
-		[Authorize(Roles = "Manager, Admin")]
 		[HttpGet("hotels_for_editor")]
 		public async Task<IActionResult> GetHotelsForEditor()
 		{
@@ -199,7 +198,6 @@ namespace backend.Controllers
 		}
 
 
-		[Authorize(Roles = "Manager, Admin")]
 		[HttpGet("hotel_for_editor")]
 		public async Task<IActionResult> GetHotelForEditor([FromQuery] int? hotelId = null)
 		{

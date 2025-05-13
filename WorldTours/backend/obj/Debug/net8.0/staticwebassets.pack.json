@@ -621,12 +621,36 @@
       "PackagePath": "staticwebassets\\uploads\\hotels\\Hotel Grand\\1.jpg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Jungle House\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Jungle House\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Jungle House\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Jungle House\\1.jpg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Mountain Lodge\\0.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\Mountain Lodge\\0.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Mountain Lodge\\1.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\Mountain Lodge\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Old Caste\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Old Caste\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Old Caste\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Old Caste\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Sunny Mountain\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Sunny Mountain\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Sunny Mountain\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Sunny Mountain\\1.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Sunset Resort\\0.jpg",
@@ -671,6 +695,14 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\dfgfdgdfgfd\\3.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\dfgfdgdfgfd\\3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\fdgfd\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\fdgfd\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\fgfdgddddd\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\fgfdgddddd\\0.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\null\\0",
@@ -779,6 +811,10 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\zzzzzzz\\3.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\zzzzzzz\\3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Дубайск\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Дубайск\\0.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Моя хата\\0.jpg",
@@ -901,14 +937,6 @@
       "PackagePath": "staticwebassets\\uploads\\tours\\3\\3.jpg"
     },
     {
-      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\3\\4.jpg",
-      "PackagePath": "staticwebassets\\uploads\\tours\\3\\4.jpg"
-    },
-    {
-      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\3\\5.jpg",
-      "PackagePath": "staticwebassets\\uploads\\tours\\3\\5.jpg"
-    },
-    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\4\\0.jpg",
       "PackagePath": "staticwebassets\\uploads\\tours\\4\\0.jpg"
     },
@@ -975,6 +1003,10 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\5\\9.jpg",
       "PackagePath": "staticwebassets\\uploads\\tours\\5\\9.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\6\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\6\\0.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\7\\0.jpg",

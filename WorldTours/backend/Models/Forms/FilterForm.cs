@@ -7,6 +7,7 @@ namespace backend.Models.Forms
 		public int? RegionId { get; set; }
 		public int? CountryId { get; set; }
 		public int? CityId { get; set; }
+		public int? HotelId { get; set; }
 		public int? DepartureCityId { get; set; }
 		public string? MinDateOfDeparture { get; set; }
 		public string? MaxDateOfDeparture { get; set; }

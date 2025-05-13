@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { Rating  } from "@mui/material";
 import deleteButon from '../../img/delete.svg'
 
-function HotelCardForEditor({ hotel, deleteHotel }) {
+function HotelCardForEditor({ hotel, href, deleteHotel }) {
     const [isHovered, setIsHovered] = useState(false);
 
 	return (
-	    <Link className="hotel-for-editor-card" to={`/hotel_editor/${hotel.id}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+	    <Link className="hotel-for-editor-card" to={`${href}/${hotel.id}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <img className="hotel-for-editor-card-img" src={hotel.photoUrl}/>
             <div className='hotel-for-editor-card-name'>
                 <b>{hotel.name}</b>
@@ -29,7 +29,7 @@ function HotelCardForEditor({ hotel, deleteHotel }) {
                 readOnly 
 			/>
         
-            {isHovered && 
+            {isHovered && deleteHotel !== undefined &&
                 <button className='hotel-for-editor-card-delete-button' onClick={(e)=>{e.preventDefault(); deleteHotel(hotel.id)}}>
                     <img src={deleteButon}/>
                 </button>

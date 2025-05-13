@@ -1,0 +1,482 @@
+@import './variabels/colors.scss';
+
+.hotel-images-and-name {
+	height: 450px;
+	display: flex;
+	width: 100%;
+	column-gap: 2%;
+
+	.hotel-name-and-main-photo {
+		width: 47.5%;
+
+		.hotel-name {
+			display: flex;
+			height: 70px;
+		
+			p {
+				font-size: 22px;
+			}
+		
+			div {
+				font-size: 16px;
+				margin-left: auto;
+				margin-top: 1%;
+				padding: 10px 16px 8px 16px;
+				height: 30%;
+				color: white;
+				border-radius: 8px;
+			}
+		}
+	
+		.main-hotel-photo {
+			width: 100%;
+			height: 84%;
+			border-radius: 12px;
+	
+			img {
+				width: 100%;
+				height: 100%;
+				border-radius: 12px;
+			}
+		}
+	}
+
+	.other-hotel-photos-and-controller {
+		width: 50%;
+		margin-top: 33px;
+
+		.hotel-photos-controller {
+			width: 100%;
+			display: flex;
+			column-gap: 1.5%;
+
+			>button:nth-child(1) {
+				height: 32px;
+				width: 32%;
+				border-radius: 8px;
+				border: none;
+				background-color: $blue-color;
+				margin-top: 2px;
+
+				b {
+					font-size: 13px;
+					color: white;
+				}
+			}
+
+			>button:nth-child(2) {
+				height: 32px;
+				width: 33%;
+				border-radius: 8px;
+				border: none;
+				background-color: $green-color;
+				margin-top: 2px;
+
+				b {
+					font-size: 13px;
+					color: white;
+				}
+			}
+		}
+		
+		.other-hotel-photos {
+			width: 100%;
+			height: 75%;
+			margin-top: 15px;
+
+			div {
+				display: flex;
+				flex-wrap: wrap;
+				column-gap: 1%;
+				row-gap: 3%;
+				height: 88%;
+				align-items: stretch;
+
+				img {
+					width: 32.66%;
+					height: 150px;
+					border-radius: 8px;
+				}
+			}
+
+			.more-hotel-photos-button {
+				height: 27px;
+				width: 260px;
+				margin-top: 52px;
+				border-radius: 10px;
+				margin-left: 27.5%;
+				border: 1px solid black;
+			}
+		}
+
+		.hotel-map {
+			width: 100%;
+			height: 87%;
+			margin-top: 15px;
+			border-radius: 12px;
+		}
+	}
+}
+
+.hotel-info {
+	width: 57%;
+	margin-top: 20px;
+	
+	.hotel-location {
+		display: flex;
+
+		.select-city-and-address-of-hotel {
+			>div {
+				height: 30px;
+				font-size: 19px;
+			}
+		}
+
+		.hotel-editor-map {
+			width: 60px;
+			height: 60px;
+			margin-left: auto;
+			margin-top: 8px;
+		}
+	}
+
+	.select-city-or-address-of-hotel {
+		display: flex;
+		height: 40px;
+		
+		>div:nth-child(1) {
+			font-size: 19px;
+			margin-top: 6px;
+		}
+
+		.hotel-editor-loaction-info {
+			font-size: 20px;
+			margin-top: 6px;
+			margin-left: 12px;
+		}
+
+		svg {
+			margin-top: 5px;
+			margin-left: 5px;
+			color: red;
+		}
+
+		>button {
+			height: 30px;
+			width: 280px;
+			border: none;
+			background-color: rgb(55, 187, 55);
+			margin-left: 12px;
+			margin-top: 4px;
+			border-radius: 8px;
+			
+			b {
+				font-size: 14px;
+				color: white;
+			}
+		}
+
+		.hotel-editor-input-address {
+			height: 28px;
+			width: 440px;
+			font-size: 18px;
+			margin-left: 15px;
+		}
+	}
+
+	.hotel-stars {
+		font-size: 28px;
+	}
+
+	.hotel-desription {
+		border-top: 1px solid $light-grey-color;
+		border-bottom: 1px solid $light-grey-color;
+		margin-top: 30px;
+		text-align: justify;
+		padding-bottom: 25px;
+		padding-top: 25px;
+		line-height: 25px;
+	}
+
+	.hotel-editor-nutrition-type {
+		padding-bottom: 30px;
+		margin-top: 20px;
+
+		.hotel-editor-nutrition-type-select {
+			height: 40px;
+			width: 100%;
+			margin-top: 3px;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+	}
+	
+	.hotel-characteristic-group {
+		border-top: 1px solid $light-grey-color;
+		padding-top: 25px;
+		padding-bottom: 25px;
+		display: flex;
+	
+		> div:nth-child(1) {
+			width: 30%;
+		}
+	
+		> div:nth-child(2) ul {
+			margin-top: 0;
+			list-style: none;
+
+			>li {
+				margin-top: 5px;
+			}
+
+			>li:first-child {
+				margin-top: 0px;
+			}
+		}
+	}
+}
+
+.tour-editor-info-and-reservation {
+	display: flex;
+	margin-top: 20px;
+
+	.select-tour-direction {
+		width: 30%;
+		font-size: 14px;
+		border: 1px solid black;
+		border-radius: 10px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+}
+
+.room-types-menu {
+	//Вынести
+	width: 26%;
+	height: 500px;
+	border: 1px solid black;
+	position: absolute;
+	margin-left: 47%;
+	margin-top: 480px;
+	border-radius: 10px;
+	padding-left: 26px;
+	padding-right: 20px;
+
+	.room-types-menu-name-and-add-button {
+		//Вынести
+		margin-top: 22px;
+		display: flex;
+		justify-content: space-between;
+
+		b {
+			font-size: 22px;
+		}
+
+		button {
+			border-radius: 100%;
+
+			padding: 0;
+			width: 35px;
+			height: 35px;
+			background-color: white;
+			border: none;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+
+	.room-types-list {
+		//Вынести
+		width: 100%;
+		height: 72%;
+		margin-top: 16px;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: $light-grey-color transparent;
+
+		.room-type-card {
+			//
+			border-bottom: 1px solid gray;
+			padding: 3% 3% 2% 3%;
+			position: relative;
+
+			&:nth-child(1){
+				margin-top: 10px;
+				border-top: 1px solid gray;
+			}
+			
+			.room-type-card-name {
+				font-size: 18px;
+			}
+
+			.room-type-card-info {
+				display: flex;
+				justify-content: space-between;
+				margin-top: 10px;
+				font-size: 15px;
+
+				div {
+					color: $dark-grey-color;
+				}
+			}
+		}
+		
+		.delete-room-type-card-button {
+			//Вынести
+			position: absolute;
+			top: 4px;
+			right: 6px;
+			width: 11px;
+			height: 11px;
+			border: none;
+			z-index: 1001;
+			border-radius: 100%;
+			padding: 0px;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+
+	.route-card:hover {
+		background-color: rgb(235, 235, 235);
+	}
+
+	.buttons-under-room-types {
+		.save-room-types-button {
+			width: 80%;
+			height: 45px;
+			margin-left: 40px;
+			margin-top: 15px;
+			border-radius: 10px;
+			font-size: 16px;
+			color: white;
+			border: none;
+			background-color: rgb(231, 51, 81);
+		}
+	}
+}
+
+.room-type-editor-modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.room-type {
+	//Вынести
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1002; // На всякий случай
+	width: 600px;
+	text-align: center;
+
+	.close-room-type-button {
+		margin-left: 97%;
+		width: 20px;
+		height: 20px;
+		border: none;
+		background-color: white;
+		padding: 0px;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	h2 {
+		margin: 0px;
+	}
+
+	h3 {
+		margin: 5px 0px 0px 10px;
+		text-align: left;
+		margin-bottom: 5px;
+	}
+
+	hr {
+		width: 100%;
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+
+	input {
+		font-size: 16px;
+		margin-top: 3px;
+		width: 100%;
+		height: 35px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+	
+	select {
+		font-size: 18px;
+		margin-top: 3px;
+		width: 100%;
+		height: 40px;
+		border: 1px solid $grey-color;
+		border-radius: 5px;
+	}
+
+	.parameter-name {
+		text-align: left;
+		font-size: 16px;
+		margin-left: 10px;
+	}
+
+	.room-type-info {
+		>div {
+			>div {
+				display: flex;
+				margin-top: 10px;
+			}
+		}
+	}
+
+	.room-type-characteristics {
+		margin-top: 15px;
+
+		>div {
+			padding: 5px;
+			display: flex;
+			column-gap: 10px;
+			row-gap: 5px;
+			flex-wrap: wrap;
+
+			.room-type-characteristic {
+				background-color: $green-color;
+				padding: 5px 8px 5px 12px;
+				border-radius: 16px;
+				color: white;
+				display: flex;
+
+				.remove-room-type-characteristic-button {
+					font-size: 19px;
+					margin-left: 6px;
+				}
+			}
+		}
+	}
+
+	.room-type-controller{
+		//Вынести
+		display: flex;
+		justify-content: center;
+		margin-top: 7px;
+
+		>button {
+			height: 45px;
+			font-size: 17px;
+			background-color: white;
+			border: none;
+		}
+
+		
+	}
+}

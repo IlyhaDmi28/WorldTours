@@ -24,9 +24,13 @@ namespace backend.Controllers
 	public  class TourController : Controller
 	{
 		private AppDbContext db;
-		public TourController(AppDbContext context)
+		private IWeatherService _weatherService;
+		private IAiService _aiService;
+		public TourController(AppDbContext context, IWeatherService weatherService, IAiService aiService)
 		{
 			db = context;
+			_weatherService = weatherService;
+			_aiService = aiService;
 		}
 
 		[HttpGet("tour_types")]
@@ -262,10 +266,13 @@ namespace backend.Controllers
 					}).ToList(),
 					Hotel = new HotelForTourDto
 					{
+						Id = tour.Hotel.Id,
 						Name = tour.Hotel?.Name,
 						Country = tour.Hotel.City.Country?.Name,
+						CountryId = tour.Hotel.City.Country.Id,
 						CountryFlagUrl = $"https://localhost:7276/{tour.Hotel.City.Country?.PathToFlag}",
 						City = tour.Hotel.City?.Name,
+						CityId = tour.Hotel.City.Id,
 						Address = tour.Hotel.Address,
 						Lat = tour.Hotel.Lat,
 						Lng = tour.Hotel.Lng,
@@ -323,7 +330,7 @@ namespace backend.Controllers
 
 
 		[HttpGet("tours")]
-		public async Task<IActionResult> GetTours()
+		public async Task<IActionResult> GetTours([FromQuery] int? hotelId)
 		{
 			try
 			{
@@ -336,6 +343,8 @@ namespace backend.Controllers
 					.ThenInclude(t => t.TourType)
 					.OrderBy(r => r.SeatsNumber)
 					.ToListAsync();
+
+				if(hotelId != 0 && hotelId != null) routes = routes.Where(r => r.Tour.HotelId == hotelId).ToList();
 
 				return Ok(routes.Select(t => new TourCardDto
 				{
@@ -387,6 +396,7 @@ namespace backend.Controllers
 
 				if (filter != null)
 				{
+					if (filter.HotelId != 0 && filter.HotelId != null) routes = routes.Where(t => t.Tour.HotelId == filter.HotelId).ToList();
 					if (filter.CityId != 0 && filter.CityId != null) routes = routes.Where(t => t.Tour.Hotel.CityId == filter.CityId).ToList();
 					if (filter.CountryId != 0 && filter.CountryId != null) routes = routes.Where(t => t.Tour.Hotel.City.CountryId == filter.CountryId).ToList();
 					if (filter.DepartureCityId != 0 && filter.DepartureCityId != null) routes = routes.Where(t => t.DepartmentDeparture.CityId == filter.DepartureCityId).ToList();
@@ -766,6 +776,147 @@ namespace backend.Controllers
 						return BadRequest();
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPost("tours_by_survey")]
+		public async Task<IActionResult> GetToursBySurvey([FromBody]AnswersForSurveyForm answersForSurvey)
+		{
+			try
+			{
+				//var query = await _aiService.ConvertPromptToQuery("Я хочу отправиться туда, где тепло, есть море и горы");
+
+				List<Route> routes = await db.Routes
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.Hotel)
+					.ThenInclude(h => h.City)
+					.ThenInclude(c => c.Country)
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.TourType)
+					.OrderBy(r => r.SeatsNumber)
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.Characteristics)
+					.ToListAsync();
+
+				if (answersForSurvey.Season != 0)
+				{
+					int[,] monthOfSeason = { { 6, 8 }, { 9, 11 }, { 12, 2 }, { 3, 5 } };
+					if(answersForSurvey.Season == 3) 
+						routes = routes.Where(t => t.LandingDateAndTimeOfDeparture?.Month >= monthOfSeason[answersForSurvey.Season - 1, 0] || t.LandingDateAndTimeOfDeparture?.Month <= monthOfSeason[answersForSurvey.Season - 1, 1]).ToList();
+					else
+						routes = routes.Where(t => t.LandingDateAndTimeOfDeparture?.Month >= monthOfSeason[answersForSurvey.Season - 1, 0] && t.LandingDateAndTimeOfDeparture?.Month <= monthOfSeason[answersForSurvey.Season - 1, 1]).ToList();
+				}
+
+				if (answersForSurvey.TourType != 0)
+				{
+					routes = routes.Where(t => t.Tour.TourTypeId == answersForSurvey.TourType).ToList();
+				}
+
+				if(answersForSurvey.Weather != 0)
+				{
+					routes = routes.Where(t => _weatherService.IsWeatherAppropriate(t.Tour.Hotel.City, answersForSurvey.Season, answersForSurvey.Weather)).ToList();
+				}
+
+				if (answersForSurvey.Biom != "")
+				{
+					routes = routes.Where(t => t.Tour.Characteristics.Any(c => c.Name == answersForSurvey.Biom)).ToList();
+				}
+
+				if (answersForSurvey.Elevation != "")
+				{
+					if(answersForSurvey.Elevation == "Равнинная местность") 
+						routes = routes.Where(t => t.Tour.Characteristics.Any(c => c.Name != "Холмистая местность" && c.Name != "Горы рядом")).ToList();
+					else routes = routes.Where(t => t.Tour.Characteristics.Any(c => c.Name == answersForSurvey.Elevation)).ToList();
+				}
+
+				if (answersForSurvey.Water != "")
+				{
+					routes = routes.Where(t => t.Tour.Characteristics.Any(c => c.Name == answersForSurvey.Water)).ToList();
+				}
+
+				if (answersForSurvey.Water != "")
+				{
+					routes = routes.Where(t => t.Tour.Characteristics.Any(c => c.Name == answersForSurvey.Water)).ToList();
+				}
+
+				if (answersForSurvey.Buildings != "")
+				{
+					routes = routes.Where(t => t.Tour.Characteristics.Any(c => c.Name == answersForSurvey.Buildings)).ToList();
+				}
+
+				if (answersForSurvey.Buildings != "")
+				{
+					routes = routes.Where(t => t.Tour.Characteristics.Any(c => c.Name == answersForSurvey.Buildings)).ToList();
+				}
+
+				switch (answersForSurvey.LevelOfDevelopment)
+				{
+					
+					case 1: routes = routes.Where(t => t.Tour.Hotel.City.Country.LevelOfDevelopment == 2 || t.Tour.Hotel.City.Country.LevelOfDevelopment == 3).ToList(); break;
+					case 2: routes = routes.Where(t => t.Tour.Hotel.City.Country.LevelOfDevelopment == 1 || t.Tour.Hotel.City.Country.LevelOfDevelopment == 2).ToList(); break;
+					default: break;
+				}
+
+				return Ok(routes.Select(t => new TourCardDto
+				{
+					Id = t.Tour.Id,
+					RouteId = t.Id,
+					Name = t.Tour.Name,
+					Country = t.Tour.Hotel.City.Country.Name,
+					City = t.Tour.Hotel.City.Name,
+					PhotoUrl = $"https://localhost:7276/uploads/tours/{t.Tour.Id}/0.jpg",
+					TourTypeImageUrl = $"https://localhost:7276/{t.Tour.TourType.PathToImage}",
+					DateOfDeparture = ((DateTime)t.LandingDateAndTimeOfDeparture).ToString("dd.MM.yyyy"),
+					DateOfReturn = ((DateTime)t.ArrivalDateAndTimeOfReturn).ToString("dd.MM.yyyy"),
+					StarsNumber = t.Tour.Hotel.StarsNumber,
+					Price = t.Price,
+				}));
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPost("tours_by_prompt_to_ai")]
+		public async Task<IActionResult> GetToursByPromptToAi([FromBody] PromptForm prompt)
+		{
+			try
+			{
+				var resultFromAi = await _aiService.ConvertPromptToQuery(prompt.text);
+				string[] cities = resultFromAi.Split(", ");
+
+				List<Route> routes = await db.Routes
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.Hotel)
+					.ThenInclude(h => h.City)
+					.ThenInclude(c => c.Country)
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.TourType)
+					.OrderBy(r => r.SeatsNumber)
+					.Include(r => r.Tour)
+					.ThenInclude(t => t.Characteristics)
+					.Where(t => cities.Contains(t.Tour.Hotel.City.Name))
+					.ToListAsync();
+
+				return Ok(routes.Select(t => new TourCardDto
+				{
+					Id = t.Tour.Id,
+					RouteId = t.Id,
+					Name = t.Tour.Name,
+					Country = t.Tour.Hotel.City.Country.Name,
+					City = t.Tour.Hotel.City.Name,
+					PhotoUrl = $"https://localhost:7276/uploads/tours/{t.Tour.Id}/0.jpg",
+					TourTypeImageUrl = $"https://localhost:7276/{t.Tour.TourType.PathToImage}",
+					DateOfDeparture = ((DateTime)t.LandingDateAndTimeOfDeparture).ToString("dd.MM.yyyy"),
+					DateOfReturn = ((DateTime)t.ArrivalDateAndTimeOfReturn).ToString("dd.MM.yyyy"),
+					StarsNumber = t.Tour.Hotel.StarsNumber,
+					Price = t.Price,
+				}));
 			}
 			catch (Exception ex)
 			{

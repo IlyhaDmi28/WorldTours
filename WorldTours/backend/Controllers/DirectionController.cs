@@ -118,6 +118,47 @@ namespace backend.Controllers
 			}
 		}
 
+		[HttpGet("country")]
+		public async Task<IActionResult> GetCountry([FromQuery] int? countryId)
+		{
+			try
+			{
+				Country country = await db.Countries
+						.Include(c => c.Region)
+						.Include(c => c.Cities)
+						.ThenInclude(c => c.Landmarks)
+						.FirstOrDefaultAsync(c => c.Id == countryId);
+
+				if (country == null) return NotFound();
+
+				return Ok(new CountryDto()
+				{
+					Id = country.Id,
+					Name = country.Name,
+					FlagUrl = $"https://localhost:7276/{country.PathToFlag}",
+					Lat = country.Lat,
+					Lng = country.Lng,
+					MainDescription = country.MainDescription,
+					LevelOfDevelopment = country.LevelOfDevelopment,
+					Region = country.Region.Name,
+					Cities = country.Cities.Select(c => new CityForEditorDto
+					{
+						Id = c.Id,
+						Name = c.Name,
+						Lat = c.Lat,
+						Lng = c.Lng,
+						ClimateId = c.ClimateId,
+						MainDescription = c.MainDescription,
+						Landmarks = c.Landmarks.Select(l => new LandmarkDto { Id = l.Id, Name = l.Name }).ToList()
+					}).ToList()
+				});
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[HttpGet("city_for_editor")]
 		public async Task<IActionResult> GetCityForEditor([FromQuery] int? cityId)
 		{
@@ -217,7 +258,7 @@ namespace backend.Controllers
 								var newLandmarks = city.Landmarks.Select(l => new Landmark()
 								{
 									Name = l.Name,
-									CityId = city.Id,
+									CityId = newCity.Id,
 								});
 								await db.Landmarks.AddRangeAsync(newLandmarks);
 								await db.SaveChangesAsync();

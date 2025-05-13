@@ -13,7 +13,7 @@ function RegionCard({ region, selectRegion, deleteRegion }) {
                 <b>{region.name}</b>
             </div>
            
-            {isHovered && 
+            {isHovered && deleteRegion !== undefined &&
                 <button className='geographic-object-card-delete-button' onClick={(e)=>{e.preventDefault(); deleteRegion(region.id)}}>
                     <img src={deleteButon}/>
                 </button>

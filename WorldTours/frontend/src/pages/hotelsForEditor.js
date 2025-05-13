@@ -282,7 +282,7 @@ function HotelsForEditor() {
 					</div> */}
 				</div>
 				<div className="hotels-for-editor-list">
-					{hotels.map((hotel) => (<HotelCardForEditor hotel={hotel} deleteHotel={deleteHotel}/>))}
+					{hotels.map((hotel) => (<HotelCardForEditor hotel={hotel} href={'/hotel_editor'} deleteHotel={deleteHotel}/>))}
 				</div>
 			</main>
 			

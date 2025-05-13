@@ -113,3 +113,4 @@
 	);
 	
 	SELECT * FROM Countries;
+	SELECT * FROM Cities;

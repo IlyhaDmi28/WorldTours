@@ -4,6 +4,7 @@ SET character_set_connection = 'utf8mb4';
 SET character_set_results = 'utf8mb4';
 SET character_set_server = 'utf8mb4';
 
+SELECT * FROM countries;
 INSERT INTO Roles (`Name`) VALUES ('Пользователь');
 INSERT INTO Roles (`Name`) VALUES ('Менеджер');
 INSERT INTO Roles (`Name`) VALUES ('Администратор');
@@ -22,6 +23,13 @@ INSERT INTO TourCharacteristics (NAME) VALUES ('Лес рядом');
 INSERT INTO TourCharacteristics (NAME) VALUES ('Горы рядом');
 INSERT INTO TourCharacteristics (NAME) VALUES ('Зимняя природа');
 INSERT INTO TourCharacteristics (NAME) VALUES ('Исторический центр рядом');
+INSERT INTO TourCharacteristics (NAME) VALUES ('Пустынная местность');
+INSERT INTO TourCharacteristics (NAME) VALUES ('Степная местность');
+INSERT INTO TourCharacteristics (NAME) VALUES ('Холмистая местность');
+INSERT INTO TourCharacteristics (NAME) VALUES ('Озеро рядом');
+INSERT INTO TourCharacteristics (NAME) VALUES ('Море рядом');
+INSERT INTO TourCharacteristics (NAME) VALUES ('Река рядом');
+INSERT INTO TourCharacteristics (NAME) VALUES ('Современный город');
 
 INSERT INTO NutritionTypes (NAME) VALUES ('RO (Room only) — без питания');
 INSERT INTO NutritionTypes (NAME) VALUES ('BB (Bed & breakfast) — завтрак');
@@ -88,6 +96,7 @@ INSERT INTO Climates (NAME) VALUES ('Субтропический');
 INSERT INTO Climates (NAME) VALUES ('Умеренный'); 
 INSERT INTO Climates (NAME) VALUES ('Субарктический'); 
 INSERT INTO Climates (NAME) VALUES ('Горный'); 
+SELECT * from climates;
 
 
 -- Беларусь (Умеренный)
