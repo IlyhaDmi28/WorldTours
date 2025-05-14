@@ -1,19 +1,11 @@
+
+import '../styles/country.scss';
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import Header from '../components/general/header';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import ClickableMap from '../components/general/clickableMap'
-import map from '../img/map.png'
 const token = localStorage.getItem("token");
 
 function Country() {   
@@ -118,9 +110,11 @@ function Country() {
                     <div className='cities-list'>
                         {country.cities.map((city) => (
                             <div className='city-card'>
-                                <b>
-                                    {city.name}
-                                </b>
+                                <Link to={`/city/${city.id}`}>
+                                    <b>
+                                        {city.name}
+                                    </b>
+                                </Link>
                             </div>
                         ))}
                     </div>

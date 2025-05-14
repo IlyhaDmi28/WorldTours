@@ -25,6 +25,7 @@ import PaymentBooking from './paymentBooking';
 import Campany from './campany';
 import Countries from './countries';
 import Country from './country';
+import City from './city';
 import Error from './error';
 import GlobalAlert from '../components/general/globalAlert ';
 import { useSelector, useDispatch } from 'react-redux';
@@ -84,6 +85,7 @@ function App() {
 				<Route path="/campany" element={<Campany/>} />
 				<Route path="/countries" element={<Countries/>} />
 				<Route path="/country/:id" element={<Country />} />
+				<Route path="/city/:id" element={<City />} />
 				<Route path="/error/:id" element={<Error/>} />
 
 				{(authUser.role === 2 || authUser.role === 3) && (

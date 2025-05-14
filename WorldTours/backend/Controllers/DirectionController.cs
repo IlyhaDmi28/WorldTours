@@ -187,6 +187,37 @@ namespace backend.Controllers
 			}
 		}
 
+		[HttpGet("city")]
+		public async Task<IActionResult> GetCity([FromQuery] int? cityId)
+		{
+			try
+			{
+				City city = await db.Cities
+					.Include(c => c.Landmarks)
+					.Include(c => c.Climate)
+					.Include(c => c.Country)
+					.FirstOrDefaultAsync(c => c.Id == cityId);
+
+				if (city == null) return NotFound();
+
+				return Ok(new CityForCountryDto()
+				{
+					Id = city.Id,
+					Name = city.Name,
+					Lat = city.Lat,
+					Lng = city.Lng,
+					Climate = city.Climate.Name,
+					Country = city.Country.Name,
+					MainDescription = city.MainDescription,
+					Landmarks = city.Landmarks.Select(l => l.Name).ToList()
+				});
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[HttpGet("climates")]
 		public async Task<IActionResult> GetClimates()
 		{

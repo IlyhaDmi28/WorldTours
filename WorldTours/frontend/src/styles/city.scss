@@ -1,0 +1,47 @@
+@import './variabels/colors.scss';
+
+.vertical-list-page {
+    padding-right: 8%;
+    padding-left: 8%;
+}
+
+.city {
+	padding-right: 8%;
+    padding-left: 8%;
+
+	.city-name {
+		margin-top: 20px;
+		font-size: 24px;
+	}
+
+	.city-info {
+		margin-top: 15px;
+
+		>div:nth-child(2) {
+			margin-top: 5px;
+		}
+			
+	}
+
+	.city-desription {
+		margin-top: 10px;
+		text-align: justify;
+		font-size: 16px;
+		line-height: 25px;
+	}
+	
+	.city-map {
+		height: 365px;
+		width: 100%;
+		margin-top: 20px;
+		border-radius: 10px;
+	}
+	
+	.landmarks{
+		width: 100%;
+		margin-top: 16px;
+	}
+	
+
+	
+}

@@ -44,6 +44,7 @@ function Tour() {
 			country: null,
 			countryId: null,
 			city: null,
+			cityId: null,
 			starsNumber: null,
 			nutritionType: null,
 			lat: 53.89196,
@@ -350,7 +351,10 @@ function Tour() {
 						</div>
 						<div className='tour-direction'>
 							<div>
-								<div><b>Направление: </b><Link to={`/country/${tour.hotel.countryId}`}>{tour.hotel.country}</Link>, {tour.hotel.city}</div>
+								<div>
+									<b>Направление: </b>
+									<Link to={`/country/${tour.hotel.countryId}`}>{tour.hotel.country}</Link>, <Link to={`/city/${tour.hotel.cityId}`}>{tour.hotel.city}</Link>
+								</div>
 								<div><b>Адресс: </b>{tour.hotel.address}</div>
 							</div>
 							<Link to={`/country/${tour.hotel.countryId}`}>
