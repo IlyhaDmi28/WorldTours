@@ -115,11 +115,17 @@ namespace backend.Controllers
 
 		[Authorize(Roles = "Admin")]
 		[HttpGet("users")]
-		public async Task<IActionResult> GetUsers()
+		public async Task<IActionResult> GetUsers([FromQuery] int status)
 		{
 			try
 			{
-				return Ok(await db.Users.Select(u => new UserDto()
+				List<User> users = await db.Users
+					.Include(u => u.Bookings)
+					.ThenInclude(u => u.Route)
+					.ToListAsync();
+
+
+				return Ok(users.Select(u => new UserDto()
 				{
 					Id = u.Id,
 					Name = u.Name,
@@ -129,7 +135,10 @@ namespace backend.Controllers
 					PhoneNumber = u.PhoneNumber,
 					Role = u.Role,
 					BlockedStatus = u.BlockedStatus,
-				}).ToListAsync());
+					NumberOfUnpaidBooking = u.Bookings.Count(b => b.Status != 2 &&  b.Route.LandingDateAndTimeOfDeparture < DateTime.Now),
+				})
+				.Where(u => u.Id == s)
+				.ToList());
 			}
 			catch (Exception ex)
 			{

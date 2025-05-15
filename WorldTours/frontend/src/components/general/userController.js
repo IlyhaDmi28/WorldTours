@@ -77,6 +77,10 @@ function UserController({ right }) {
                     <MenuItem component={Link} to='/bookings' onClick={() => setAnchorEl(null)}>Мои брони</MenuItem>
                 }
 
+                { authUser.role === 1 && 
+                    <MenuItem component={Link} to='/history' onClick={() => setAnchorEl(null)}>История бронирований</MenuItem>
+                }
+
                 { (authUser.role === 2 || authUser.role === 3) && 
                     <MenuItem component={Link} to='/bookings' onClick={() => setAnchorEl(null)}>Заявки на брони</MenuItem>
                 }

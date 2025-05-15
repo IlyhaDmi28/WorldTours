@@ -14,6 +14,7 @@ import Survey from './survey';
 import ChatAI from './chatAI';
 import User from './user';
 import Bookings from './bookings';
+import History from './history';
 import BookingsForManager from './bookingsForManager';
 import HotelsForEditor from './hotelsForEditor';
 import Hotels from './hotels';
@@ -88,29 +89,40 @@ function App() {
 				<Route path="/city/:id" element={<City />} />
 				<Route path="/error/:id" element={<Error/>} />
 
+
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 							<Route path="/bookings" element={authUser ? <BookingsForManager /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
+
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 							<Route path="/tours_for_editor" element={authUser ? <ToursForEditor /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
+
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 							<Route path="/hotels_for_editor" element={authUser ? <HotelsForEditor /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
+
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 							<Route path="/department_departures" element={authUser ? <DepartmentDepartures /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
+
 				{(authUser.role === 1) && (
 					<>
 						<Route path="/bookings" element={authUser ? <Bookings /> : <Navigate to="/auth" replace />} />
+					</>
+				)}
+
+				{(authUser.role === 1) && (
+					<>
+						<Route path="/history" element={authUser ? <History /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
 
@@ -120,17 +132,18 @@ function App() {
 					</>
 				)}
 
-				<Route path="/bookings" element={authUser && authUser.role === 1 ? <Bookings/> : <Navigate to="/auth" replace />} />
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 						<Route path="/tour_editor/:id" element={authUser ? <TourEditor /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
+
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 						<Route path="/hotel_editor/:id" element={authUser ? <HotelEditor /> : <Navigate to="/auth" replace />} />
 					</>
 				)}
+
 				{(authUser.role === 2 || authUser.role === 3) && (
 					<>
 						<Route path="/geographic_objects" element={authUser ? <GeographicObjects /> : <Navigate to="/auth" replace />} />

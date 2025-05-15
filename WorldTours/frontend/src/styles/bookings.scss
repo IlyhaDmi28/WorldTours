@@ -68,6 +68,23 @@ $indent-from-left-on-card: 200px;
 		}
 	}
 
+	.statistic-bookings-list {
+		display: flex;
+		justify-content: center;
+		column-gap: 100px;
+		height: 80px;
+		justify-self: center;
+		margin-top: 10px;
+		margin-left: auto;
+
+	
+		div {
+			height: 30px;
+			font-size: 16px;
+			margin-top: 22px;
+		}
+	}
+
     
     .filter-and-sort-buttons{
         display: flex;

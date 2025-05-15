@@ -42,12 +42,18 @@ function UserCard({ user, deleteUser, blockUser, changeRole }) {
                     <b>Email: </b> {user.email}
                 </div>
                 <div>
-                    <b>Номер телефона: </b> {user.phoneNumber}
+                    <b>Номер телефона: </b> +375{user.phoneNumber}
                 </div>
                 <div>
                     <b>Роль: </b> {getRoleName(user.role)}
                 </div>
             </div>
+
+            { user.numberOfUnpaidBooking > 0 &&
+                <div className='warnings'>
+                    Неоплаченные брони: <b>{user.numberOfUnpaidBooking}</b>
+                </div>
+            }
 
             { !isChangeRoleMode ? (
                 <>{/*комп*/}

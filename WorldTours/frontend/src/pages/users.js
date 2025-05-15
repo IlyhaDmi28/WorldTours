@@ -4,10 +4,12 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Header from '../components/general/header';
 import UserCard from '../components/users/userCard';
+import { FormControlLabel, Checkbox } from '@mui/material';
 const token = localStorage.getItem("token");
 
 function Users() {
 	const [isChangeUserListButtonsActive, setIsAllButtonActive] = useState([true, false, false]);
+	const [isOnlyViolators, setIsOnlyViolators] = useState(false);
 	const authUser = useSelector((state) => state.authUser.value);
 	const [users, setUsers] = useState([]);
 	const [allUsers, setAllUsers] = useState([]);
@@ -52,6 +54,24 @@ function Users() {
 
 		setIsAllButtonActive(arr);
     };
+
+	const changeIsOnlyViolators = () => {
+		if(isOnlyViolators) {
+			for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
+				if(isChangeUserListButtonsActive[i]) {
+					switch(i) {
+						case 0: setUsers(allUsers); return;
+						case 1: setUsers(notBlockedUsers); return;
+						case 2: setUsers(blockedUsers); return;
+						default: setUsers(allUsers); return;
+					}
+				}
+			}
+		}
+		else setUsers(users.filter((user) => user.numberOfUnpaidBooking > 0));
+
+		setIsOnlyViolators(!isOnlyViolators);
+	}
 
 	const blockUser = async (id) => {
 		if(authUser.blockedStatus) {
@@ -196,7 +216,11 @@ function Users() {
 				>
 					Заблокированные
 				</button>
+				
 
+			</div>
+			<div className='only-violators'>
+				<FormControlLabel control={<Checkbox size='14px' value={isOnlyViolators} onChange={changeIsOnlyViolators} />} label="Только нарушители"  sx={{ '& .MuiFormControlLabel-label': { fontSize: '14px' } }}/>
 			</div>
 			<div className="users-list">
 				{users.map((user) => (<UserCard user={user} deleteUser={deleteUser} blockUser={blockUser} changeRole={changeRole}/>))}

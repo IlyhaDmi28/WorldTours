@@ -17,5 +17,7 @@ namespace backend.Models.DTOs
 		public string? PhoneNumber { get; set; }
 
 		public string? PhotoUrl { get; set; }
+
+		public int NumberOfUnpaidBooking { get; set; } = 0;
 	}
 }

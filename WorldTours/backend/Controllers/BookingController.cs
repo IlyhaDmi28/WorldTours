@@ -108,7 +108,7 @@ namespace backend.Controllers
 
 		[Authorize(Roles = "User")]
 		[HttpGet("bookings")]
-		public async Task<IActionResult> GetBookings([FromQuery] int? userId)
+		public async Task<IActionResult> GetBookings([FromQuery] int? userId, [FromQuery] bool isHistory = false)
 		{
 			try
 			{
@@ -119,6 +119,7 @@ namespace backend.Controllers
 					.ThenInclude(t => t.Hotel)
 					.ThenInclude(h => h.City)
 					.ThenInclude(c => c.Country)
+					.Where(b => isHistory ? b.Route.LandingDateAndTimeOfDeparture < DateTime.Now && b.Status == 2 : b.Route.LandingDateAndTimeOfDeparture >= DateTime.Now)
 					.ToListAsync();
 
 				foreach (Booking booking in bookings)
@@ -291,6 +292,7 @@ namespace backend.Controllers
 					.ThenInclude(t => t.Hotel)
 					.ThenInclude(h => h.City)
 					.ThenInclude(c => c.Country)
+					.Where(b => b.Route.LandingDateAndTimeOfDeparture >= DateTime.Now)
 					.ToListAsync();
 
 				foreach (Booking booking in bookings)
@@ -460,7 +462,7 @@ namespace backend.Controllers
 		}
 
 		[HttpPost("filtred_bookings")]
-		public async Task<IActionResult> GetFiltredBookings([FromBody] BookingFilterForm filter, [FromQuery] int userId)
+		public async Task<IActionResult> GetFiltredBookings([FromBody] BookingFilterForm filter, [FromQuery] int userId, [FromQuery] bool isHistory = false)
 		{
 			try
 			{
@@ -477,6 +479,7 @@ namespace backend.Controllers
 					.ThenInclude(r => r.City)
 					.ThenInclude(r => r.Country)
 					.Include(b => b.User)
+					.Where(b => isHistory ? b.Route.LandingDateAndTimeOfDeparture < DateTime.Now && b.Status == 2 : b.Route.LandingDateAndTimeOfDeparture >= DateTime.Now)
 					.ToListAsync();
 
 				if(userId != 0) bookings = bookings.Where(b => b.UserId == userId).ToList();
