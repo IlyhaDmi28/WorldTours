@@ -10,11 +10,13 @@ const token = localStorage.getItem("token");
 function Users() {
 	const [isChangeUserListButtonsActive, setIsAllButtonActive] = useState([true, false, false]);
 	const [isOnlyViolators, setIsOnlyViolators] = useState(false);
+	const [selectBlockedStatus, setSelectBlockedStatus] = useState(false);
 	const authUser = useSelector((state) => state.authUser.value);
 	const [users, setUsers] = useState([]);
 	const [allUsers, setAllUsers] = useState([]);
 	const [notBlockedUsers, setNotBlockedUsers] = useState([]);
 	const [blockedUsers, setBlockedUsers] = useState([]);
+
 
 	useEffect(() => {
 		const getData = async () => {
@@ -28,9 +30,6 @@ function Users() {
 
 				const usersData = response.data;
 				setUsers(usersData);
-				setAllUsers(usersData);
-				setNotBlockedUsers(usersData.filter(user => !user.blockedStatus));
-				setBlockedUsers(usersData.filter(user => user.blockedStatus));
             } catch (error) {
 				console.error('Ошибка загрузки данных:', error);
             } 
@@ -39,36 +38,43 @@ function Users() {
         getData();
 	}, []);
 	
-    const handlClickChangeUserListButton = (buttonId) => {
+    const handlClickChangeUserListButton = async (buttonId) => {
+		let blockedStatus = selectBlockedStatus;
+
+		switch(buttonId) {
+			case 0: blockedStatus = null; break;
+			case 1: blockedStatus = false; break;
+			case 2: blockedStatus = true; break;
+			default: blockedStatus = null; break;
+		}
+
+		setSelectBlockedStatus(blockedStatus);
+
+		const response = await axios.get(`https://localhost:7276/user/users?blockedStatus=${blockedStatus}&isOnlyViolators=${isOnlyViolators}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+
+		const usersData = response.data;
+		setUsers(usersData);
+
 		let arr = [];
 		for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
 			arr[i] = i === buttonId;
 		}
-
-		switch(buttonId) {
-			case 0: setUsers(allUsers); break;
-			case 1: setUsers(notBlockedUsers); break;
-			case 2: setUsers(blockedUsers); break;
-			default: setUsers(allUsers); break;
-		}
-
 		setIsAllButtonActive(arr);
     };
 
-	const changeIsOnlyViolators = () => {
-		if(isOnlyViolators) {
-			for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
-				if(isChangeUserListButtonsActive[i]) {
-					switch(i) {
-						case 0: setUsers(allUsers); return;
-						case 1: setUsers(notBlockedUsers); return;
-						case 2: setUsers(blockedUsers); return;
-						default: setUsers(allUsers); return;
-					}
-				}
+	const changeIsOnlyViolators = async () => {
+		const response = await axios.get(`https://localhost:7276/user/users?blockedStatus=${selectBlockedStatus}&isOnlyViolators=${!isOnlyViolators}`, {
+			headers: {
+				'Authorization': 'Bearer ' + token,
 			}
-		}
-		else setUsers(users.filter((user) => user.numberOfUnpaidBooking > 0));
+		});
+
+		const usersData = response.data;
+		setUsers(usersData);
 
 		setIsOnlyViolators(!isOnlyViolators);
 	}
@@ -85,32 +91,12 @@ function Users() {
             }
         });
 
-
-		let response;
-		response = await axios.get(`https://localhost:7276/user/users`, {
-			headers: {
-				'Authorization': 'Bearer ' + token,
-			}
-		});
-
-		const usersData = response.data;
-		const notBlockedUsersData = usersData.filter(user => !user.blockedStatus);
-		const blockedUsersData = usersData.filter(user => user.blockedStatus);
-		setAllUsers(usersData);
-		setNotBlockedUsers(notBlockedUsersData);
-		setBlockedUsers(blockedUsersData);
-		setUsers(usersData);
+		let usersData = users.map((user) => user.id === id ? {...user, blockedStatus: !user.blockedStatus} : user);
 		
-		for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
-			if(isChangeUserListButtonsActive[i]) {
-				switch(i) {
-					case 0: setUsers(usersData); return;
-					case 1: setUsers(notBlockedUsersData); return;
-					case 2: setUsers(blockedUsersData); return;
-					default: setUsers(usersData); return;
-				}
-			}
-		}
+		if(isChangeUserListButtonsActive[1]) usersData = usersData.filter((user) => !user.blockedStatus);
+		if(isChangeUserListButtonsActive[2]) usersData = usersData.filter((user) => user.blockedStatus);
+
+		setUsers(usersData);
 	}
 
 	const deleteUser = async (id) => {
@@ -125,31 +111,7 @@ function Users() {
             }
         });
 
-		let response;
-		response = await axios.get(`https://localhost:7276/user/users`, {
-			headers: {
-				'Authorization': 'Bearer ' + token,
-			}
-		});
-
-		const usersData = response.data;
-		const notBlockedUsersData = usersData.filter(user => !user.blockedStatus);
-		const blockedUsersData = usersData.filter(user => user.blockedStatus);
-		setAllUsers(usersData);
-		setNotBlockedUsers(notBlockedUsersData);
-		setBlockedUsers(blockedUsersData);
-		setUsers(usersData);
-		
-		for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
-			if(isChangeUserListButtonsActive[i]) {
-				switch(i) {
-					case 0: setUsers(usersData); return;
-					case 1: setUsers(notBlockedUsersData); return;
-					case 2: setUsers(blockedUsersData); return;
-					default: setUsers(usersData); return;
-				}
-			}
-		}
+		setUsers(users.filter(user => user.id !== id));
 	}
 
 	const changeRole = async (userId, roleId) => {
@@ -171,24 +133,7 @@ function Users() {
 			}
 		});
 
-		const usersData = response.data;
-		const notBlockedUsersData = usersData.filter(user => !user.blockedStatus);
-		const blockedUsersData = usersData.filter(user => user.blockedStatus);
-		setAllUsers(usersData);
-		setNotBlockedUsers(notBlockedUsersData);
-		setBlockedUsers(blockedUsersData);
-		setUsers(usersData);
-		
-		for(let i = 0; i < isChangeUserListButtonsActive.length; i++) {
-			if(isChangeUserListButtonsActive[i]) {
-				switch(i) {
-					case 0: setUsers(usersData); return;
-					case 1: setUsers(notBlockedUsersData); return;
-					case 2: setUsers(blockedUsersData); return;
-					default: setUsers(usersData); return;
-				}
-			}
-		}
+		setUsers(users.map((user) => user.id === userId ? {...user, role: roleId} : user))
 	}
 
 	return (

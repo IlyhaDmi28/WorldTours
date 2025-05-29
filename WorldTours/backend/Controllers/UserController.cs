@@ -115,7 +115,7 @@ namespace backend.Controllers
 
 		[Authorize(Roles = "Admin")]
 		[HttpGet("users")]
-		public async Task<IActionResult> GetUsers([FromQuery] int status)
+		public async Task<IActionResult> GetUsers([FromQuery] bool? blockedStatus, [FromQuery] bool isOnlyViolators = false)
 		{
 			try
 			{
@@ -124,6 +124,8 @@ namespace backend.Controllers
 					.ThenInclude(u => u.Route)
 					.ToListAsync();
 
+				if(blockedStatus != null) users = users.Where(u => u.BlockedStatus == blockedStatus).ToList();
+				if(isOnlyViolators) users = users.Where(u => u.Bookings.Count(b => b.Status != 2 && b.Route.LandingDateAndTimeOfDeparture < DateTime.Now) > 0).ToList();
 
 				return Ok(users.Select(u => new UserDto()
 				{
@@ -137,7 +139,6 @@ namespace backend.Controllers
 					BlockedStatus = u.BlockedStatus,
 					NumberOfUnpaidBooking = u.Bookings.Count(b => b.Status != 2 &&  b.Route.LandingDateAndTimeOfDeparture < DateTime.Now),
 				})
-				.Where(u => u.Id == s)
 				.ToList());
 			}
 			catch (Exception ex)

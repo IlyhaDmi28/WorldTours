@@ -39,7 +39,7 @@ function BookingMenu({selectedRoute, hotel, sendApplicationForBooking}) {
                     <tr>
                         <td style={{borderRadius: '10px 0px 0px 0px', borderRight: '1px solid black', borderBottom: '1px solid black'}}>
                             Дата отправления<br/>
-                            <input disabled  type="date" value={dayjs(selectedRoute.landingDateAndTimeOfDeparture).format("YYYY-MM-DD")}/>
+                            <input  type="date" value={dayjs(selectedRoute.landingDateAndTimeOfDeparture).format("YYYY-MM-DD")}/>
                         </td>
                         <td style={{borderRadius: '0px 10px 0px 0px'}}>
                             Дата возвращение<br/>
@@ -88,7 +88,6 @@ function BookingMenu({selectedRoute, hotel, sendApplicationForBooking}) {
                     </div>
                 </div>
             </div>
-
             <Modal className='sent-booking-form-modal' open={isOpenSentBookingForm} onClose={() => setIsOpenSentBookingForm(false)} >
 				<SentBookingForm roomTypes={hotel.roomTypes} selectedRoute={selectedRoute} closeModal={() => setIsOpenSentBookingForm(false)}/>
 			</Modal>
