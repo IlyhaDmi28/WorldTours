@@ -171,7 +171,7 @@ namespace backend.Controllers
 		}
 
 		[HttpGet("hotels_for_editor")]
-		public async Task<IActionResult> GetHotelsForEditor()
+		public async Task<IActionResult> GetHotels()
 		{
 			try
 			{
@@ -199,7 +199,7 @@ namespace backend.Controllers
 
 
 		[HttpGet("hotel_for_editor")]
-		public async Task<IActionResult> GetHotelForEditor([FromQuery] int? hotelId = null)
+		public async Task<IActionResult> GetHotel([FromQuery] int? hotelId = null)
 		{
 			try
 			{

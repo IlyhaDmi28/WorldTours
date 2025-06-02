@@ -119,7 +119,7 @@ namespace backend.Controllers
 					.ThenInclude(t => t.Hotel)
 					.ThenInclude(h => h.City)
 					.ThenInclude(c => c.Country)
-					.Where(b => isHistory ? b.Route.LandingDateAndTimeOfDeparture < DateTime.Now && b.Status == 2 : b.Route.LandingDateAndTimeOfDeparture >= DateTime.Now)
+					//.Where(b => isHistory ? b.Route.LandingDateAndTimeOfDeparture < DateTime.Now && b.Status == 2 : b.Route.LandingDateAndTimeOfDeparture >= DateTime.Now)
 					.ToListAsync();
 
 				foreach (Booking booking in bookings)
@@ -292,7 +292,7 @@ namespace backend.Controllers
 					.ThenInclude(t => t.Hotel)
 					.ThenInclude(h => h.City)
 					.ThenInclude(c => c.Country)
-					.Where(b => b.Route.LandingDateAndTimeOfDeparture >= DateTime.Now)
+					//.Where(b => b.Route.LandingDateAndTimeOfDeparture >= DateTime.Now)
 					.ToListAsync();
 
 				foreach (Booking booking in bookings)
@@ -444,7 +444,7 @@ namespace backend.Controllers
 		}
 
 		[HttpPatch("confirm_payment")]
-		public async Task<IActionResult> ConfirmPaymant([FromQuery] int? bookingId)
+		public async Task<IActionResult> ConfirmPayment([FromQuery] int? bookingId)
 		{
 			try
 			{

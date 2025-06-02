@@ -98,8 +98,7 @@ function Countries() {
 						</>
 					}
 					
-					<SortButton/>
-				</div>
+					</div>
 				<div className="geographic-objects-list">
 					{(selectedRegion.id === null || selectedRegion.id === undefined) &&
 						<>

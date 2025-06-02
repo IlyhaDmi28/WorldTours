@@ -1,16 +1,10 @@
-using backend;
 using backend.Configurations;
-using backend.Controllers;
 using backend.DB;
-using backend.Models.Entity;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 

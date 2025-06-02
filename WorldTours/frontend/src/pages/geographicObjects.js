@@ -122,7 +122,6 @@ function GeographicObjects() {
 					{isOpenCountryEditor &&
 						<ArrowBackIcon className='back-to-regions-arrow' onClick={closeCountryEditor}/>
 					}
-					<SortButton/>
 				</div>
 				{
 					isOpenCountryEditor ?  

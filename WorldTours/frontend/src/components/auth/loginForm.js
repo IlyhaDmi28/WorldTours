@@ -64,10 +64,8 @@ function LoginForm() {
 
             />
             {/* <p id="errorMessage" style={{marginTop: '15px'}}>{errorText} </p> */}
-            <div className='forget-password'>
-                <Link to='/auth'>Забыли пароль?</Link>
-            </div>
-            <Button type='submit' size='small'>
+            
+            <Button type='submit' size='small' style={{marginTop: '32px'}}>
                 Войти
 			</Button>
 
