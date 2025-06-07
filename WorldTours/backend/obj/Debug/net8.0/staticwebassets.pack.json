@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\img\\flags\\37.svg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\38.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\38.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\argentina.svg",
       "PackagePath": "staticwebassets\\img\\flags\\argentina.svg"
     },
@@ -115,6 +119,10 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\russia.svg",
       "PackagePath": "staticwebassets\\img\\flags\\russia.svg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\singapore.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\singapore.svg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\south_korea.svg",
@@ -815,6 +823,18 @@
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Дубайск\\0.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\Дубайск\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Марина Бэй Сэндс\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Марина Бэй Сэндс\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Марина Бэй Сэндс\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Марина Бэй Сэндс\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Марина Бэй Сэндс\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Марина Бэй Сэндс\\2.jpg"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Моя хата\\0.jpg",

@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.1.0" pages="3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.1.1" pages="3">
   <diagram name="Страница — 1" id="7Ewa4IFWNmqem0BuR_Iw">
-    <mxGraphModel dx="1626" dy="1122" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+    <mxGraphModel dx="1442" dy="1014" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -110,11 +110,11 @@
         <mxCell id="dt65-zlRy-HL4W2B3Uhm-5" value="" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="-151" y="352" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="9QePLY3DqWJmY-6ut2fM-1" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;БД" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" vertex="1" parent="1">
+        <mxCell id="9QePLY3DqWJmY-6ut2fM-1" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;БД" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="412" y="334" width="86" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="9QePLY3DqWJmY-6ut2fM-5" value="Пользователь" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="-166" y="329" width="60" height="30" as="geometry" />
+        <mxCell id="9QePLY3DqWJmY-6ut2fM-5" value="Пользователь" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-197" y="329" width="118" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -3,6 +3,14 @@ using System.Text;
 
 namespace backend.Services
 {
+	interface IHashService
+	{
+		public string ComputeHash(string input);
+		public bool VerifyHash(string input, string hash);
+	}
+
+
+
 	public class HashService
 	{
 		// Метод для хеширования текста

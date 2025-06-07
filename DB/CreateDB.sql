@@ -200,6 +200,7 @@ CREATE TABLE `BookedRoomTypes` (
 CREATE TABLE `Landmarks` (
   `ID` INT PRIMARY KEY AUTO_INCREMENT,
   `Name` VARCHAR(255) NOT NULL,
+  `routes` INT,
   `CityId` INT,
   FOREIGN KEY (`CityId`) REFERENCES `Cities`(`ID`) ON DELETE CASCADE
 );

@@ -39,18 +39,6 @@ namespace backend.Controllers
 				User user = await db.Users.FirstOrDefaultAsync(r => r.Id == requestForBooking.UserId);
 				if (user == null) return Unauthorized();
 
-				//List<BookedRoomType> bookedRoomTypes = new List<BookedRoomType>();
-				//foreach (BookedRoomTypeForm bookedRoomType in requestForBooking.BookedRoomTypes)
-				//{
-				//	RoomType roomType = await db.RoomTypes.FirstOrDefaultAsync(rt => rt.Id == bookedRoomType.Id);f
-				//	if (roomType == null) return BadRequest();
-
-				//	if()
-
-				//}
-
-				
-
 				int remainingSeatsNumber = (int)route.SeatsNumber - (int)requestForBooking.OrderSeatsNumber;
 
 				if (remainingSeatsNumber >= 0)
@@ -399,14 +387,10 @@ namespace backend.Controllers
 
 
 						
-						db.BookedRoomTypes.RemoveRange(removedBooking.BookedRoomTypes); // Сначала удаляем связанные записи
-						db.Bookings.Remove(removedBooking); // Потом удаляем саму бронь
+						db.BookedRoomTypes.RemoveRange(removedBooking.BookedRoomTypes);
+						db.Bookings.Remove(removedBooking); 
 						await db.SaveChangesAsync();
-						//Route route = await db.Routes.FirstOrDefaultAsync(r => r.Id == removedBooking.RouteId);
-						//if (route != null)
-						//{
-						//	route.SeatsNumber += removedBooking.OrderSeatsNumber;
-						//}
+						
 
 						await transaction.CommitAsync();
 						return Ok();

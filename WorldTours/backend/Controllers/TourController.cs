@@ -757,10 +757,6 @@ namespace backend.Controllers
 						db.Routes.RemoveRange(removedRoutes);
 						await db.SaveChangesAsync();
 
-						//List<TourDescription> removedDescriptions = await db.Descriptions.Where(d => d.TourId == tourId).ToListAsync();
-						//db.Descriptions.RemoveRange(removedDescriptions);
-						//await db.SaveChangesAsync();
-
 						Tour removedTour = await db.Tours.FirstOrDefaultAsync(t => t.Id == tourId);
 						if (removedTour == null) return NotFound();
 
