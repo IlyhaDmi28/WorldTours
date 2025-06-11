@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.1.1" pages="3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.4" pages="3">
   <diagram name="Страница — 1" id="7Ewa4IFWNmqem0BuR_Iw">
-    <mxGraphModel dx="1442" dy="1014" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+    <mxGraphModel dx="1268" dy="912" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -27,7 +27,7 @@
         <mxCell id="xPSvXUH1nW1HTZfjq_OB-5" value="Сервер" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeWidth=1;" parent="1" vertex="1">
           <mxGeometry x="109" y="-64" width="100" height="404" as="geometry" />
         </mxCell>
-        <mxCell id="xPSvXUH1nW1HTZfjq_OB-6" value="ИИ" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeWidth=1;" parent="1" vertex="1">
+        <mxCell id="xPSvXUH1nW1HTZfjq_OB-6" value="Искусственный&amp;nbsp;&lt;div&gt;интеллект&lt;/div&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeWidth=1;" parent="1" vertex="1">
           <mxGeometry x="258" y="-64" width="100" height="404" as="geometry" />
         </mxCell>
         <mxCell id="xPSvXUH1nW1HTZfjq_OB-8" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" parent="1" vertex="1">
@@ -65,7 +65,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="xPSvXUH1nW1HTZfjq_OB-47" value="Отправка запроса к&lt;div&gt;&amp;nbsp;ИИ с описанием&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;fontSize=12;startSize=8;endSize=8;exitX=1.089;exitY=0.207;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.119;entryY=0.275;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="xPSvXUH1nW1HTZfjq_OB-11" edge="1">
+        <mxCell id="xPSvXUH1nW1HTZfjq_OB-47" value="Отправка запроса&lt;div&gt;с описанием&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;fontSize=12;startSize=8;endSize=8;exitX=1.089;exitY=0.207;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.119;entryY=0.275;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="xPSvXUH1nW1HTZfjq_OB-11" edge="1">
           <mxGeometry x="0.0063" width="80" relative="1" as="geometry">
             <mxPoint x="164.6300000000001" y="65.495" as="sourcePoint" />
             <mxPoint x="300" y="70" as="targetPoint" />
@@ -95,8 +95,8 @@
         <mxCell id="alOH-DJ_8iJll7Cbu6zV-1" value="Пользователь" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="-151" y="-101" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="alOH-DJ_8iJll7Cbu6zV-11" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;БД" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="412" y="-69" width="86" height="52" as="geometry" />
+        <mxCell id="alOH-DJ_8iJll7Cbu6zV-11" value="&lt;div&gt;&lt;br&gt;База &lt;br&gt;данных&lt;/div&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="412" y="-88" width="86" height="67" as="geometry" />
         </mxCell>
         <mxCell id="dt65-zlRy-HL4W2B3Uhm-1" value="Браузер" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-38" y="340" width="99" height="40" as="geometry" />
@@ -104,17 +104,14 @@
         <mxCell id="dt65-zlRy-HL4W2B3Uhm-2" value="Сервер" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="109" y="340" width="99" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="dt65-zlRy-HL4W2B3Uhm-3" value="ИИ" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="dt65-zlRy-HL4W2B3Uhm-3" value="Искусственный&amp;nbsp;&lt;div&gt;интеллект&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="258" y="340" width="99" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="dt65-zlRy-HL4W2B3Uhm-5" value="" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
-          <mxGeometry x="-151" y="352" width="30" height="60" as="geometry" />
+        <mxCell id="dt65-zlRy-HL4W2B3Uhm-5" value="Пользователь" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="-151" y="338" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="9QePLY3DqWJmY-6ut2fM-1" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;БД" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="412" y="334" width="86" height="52" as="geometry" />
-        </mxCell>
-        <mxCell id="9QePLY3DqWJmY-6ut2fM-5" value="Пользователь" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-197" y="329" width="118" height="30" as="geometry" />
+        <mxCell id="Ch8H6bzRFPy5p1YqcNOs-2" value="&lt;div&gt;&lt;br&gt;База &lt;br&gt;данных&lt;/div&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="412" y="338" width="86" height="67" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
