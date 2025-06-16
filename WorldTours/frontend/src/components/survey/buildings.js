@@ -26,7 +26,7 @@ function Buildings({buildings, setAnswer}) {
 					>
 					<Box >
 						<FormControlLabel
-							value={'Современный город'}
+							value={'Большой город'}
 							control={<Radio size='small'/>}
 							label={
 								<Card className='answer-card'>

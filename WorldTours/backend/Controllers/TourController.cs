@@ -216,6 +216,9 @@ namespace backend.Controllers
 					.Include(t => t.Hotel)
 					.ThenInclude(h => h.RoomTypes)
 					.ThenInclude(rt => rt.Characteristics)
+					.Include(t => t.Hotel)
+					.ThenInclude(h => h.City)
+					.ThenInclude(c => c.Landmarks)
 					.FirstOrDefaultAsync(t => t.Id == tourId);
 
 				if (tour == null) return NotFound();
@@ -259,6 +262,7 @@ namespace backend.Controllers
 					Name = tour.Name,
 					PhotosUrls = fileUrls,
 					MainDescription = tour.MainDescription,
+					Landmarks = tour.Hotel.City.Landmarks.Select(l => l.Name).ToList(),
 					Characteristics = tour.Characteristics.Select(c => new CharacteristicDto
 					{
 						Id = c.Id,
@@ -857,6 +861,7 @@ namespace backend.Controllers
 					default: break;
 				}
 
+				routes = routes.Take(3).ToList();
 				return Ok(routes.Select(t => new TourCardDto
 				{
 					Id = t.Tour.Id,

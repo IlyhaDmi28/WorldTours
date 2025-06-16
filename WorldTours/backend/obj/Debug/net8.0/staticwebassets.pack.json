@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\img\\flags\\38.svg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\39.svg",
+      "PackagePath": "staticwebassets\\img\\flags\\39.svg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\img\\flags\\argentina.svg",
       "PackagePath": "staticwebassets\\img\\flags\\argentina.svg"
     },
@@ -669,6 +673,18 @@
       "PackagePath": "staticwebassets\\uploads\\hotels\\Sunset Resort\\1.jpg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Test Hotel\\0.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Test Hotel\\0.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Test Hotel\\1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Test Hotel\\1.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\Test Hotel\\2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hotels\\Test Hotel\\2.jpg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\hotels\\dfgfd\\0.jpg",
       "PackagePath": "staticwebassets\\uploads\\hotels\\dfgfd\\0.jpg"
     },
@@ -1065,12 +1081,24 @@
       "PackagePath": "staticwebassets\\uploads\\tours\\8\\2.jpg"
     },
     {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\8\\3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\8\\3.jpg"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\tours\\8\\4.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tours\\8\\4.jpg"
+    },
+    {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\users\\1.png",
       "PackagePath": "staticwebassets\\uploads\\users\\1.png"
     },
     {
       "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\users\\2.png",
       "PackagePath": "staticwebassets\\uploads\\users\\2.png"
+    },
+    {
+      "Id": "D:\\Univer\\Курсач\\WorldTours\\backend\\wwwroot\\uploads\\users\\3.png",
+      "PackagePath": "staticwebassets\\uploads\\users\\3.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.backend.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -109,7 +109,7 @@ function RegisterForm() {
             <TextField 
                 className='auth-form-input'
                 name="password"
-                type='text'
+                type='password'
                 placeholder='Пароль'
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)}

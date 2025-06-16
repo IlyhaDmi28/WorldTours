@@ -105,12 +105,26 @@ function Filters({filter, setFilter, setTours}) {
                     <div className="hotel-stars-filter">
                         <div>
                             <label>Мин. звёзд:</label>
-							<Rating name="min-hotel-stars" defaultValue={1} precision={1} sx={{fontSize: '28px', marginTop: '2px'}} />
+							<Rating 
+                                name="minHotelStars"
+                                defaultValue={1} 
+                                value={filter.minHotelStars}
+                                onChange={changeFilters}
+                                precision={1} 
+                                sx={{fontSize: '28px', marginTop: '2px'}} />
                         </div>
 
                         <div>
                             <label>Макс. звёзд:</label>
-							<Rating name="max-hotel-stars" defaultValue={5} precision={1} sx={{fontSize: '28px', marginTop: '2px'}}/>
+							<Rating 
+                                name="maxHotelStars" 
+                                defaultValue={5} 
+                                value={filter.maxHotelStars}
+                                onChange={changeFilters}
+                                precision={1} 
+                                sx={{fontSize: '28px', 
+                                marginTop: '2px'}}
+                            />
                         </div>
                     </div>
 

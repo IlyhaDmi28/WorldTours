@@ -55,7 +55,7 @@ function BookingCardForManager({ booking, deleteBooking, openBooking, confirmBoo
             </div>
 
             <div className="booking-card-user-info">
-                <b>От пользователя:</b> {booking.user.name} {booking.user.surname}, {booking.user.email}, {booking.user.phoneNumber}
+                <b>От пользователя:</b> {booking.user.name} {booking.user.surname}, {booking.user.email}, +375{booking.user.phoneNumber}
             </div>
 
             {

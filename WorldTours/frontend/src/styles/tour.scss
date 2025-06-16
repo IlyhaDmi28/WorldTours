@@ -225,8 +225,6 @@
 	.tour-nutrition-type {
 		margin-top: 15px;
 		text-align: justify;
-		padding-bottom: 30px;
-		border-bottom: 1px solid $light-grey-color;
 		display: flex;
 
 		.tour-nutrition-type-text {
@@ -234,6 +232,13 @@
 			margin-left: 8px;
 			font-size: 18px;
 		}
+	}
+
+	.tour-landmarks {
+		border-bottom: 1px solid $light-grey-color;
+		margin-top: 20px;
+		padding-bottom: 15px;
+
 	}
 
 	.tour-desription {

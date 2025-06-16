@@ -53,6 +53,7 @@ function Tour() {
 			characteristics: [],
 		},
 		mainDescription: null,
+		landmarks: [],
 		routes: [],
 		characteristics: [],
 		reviews: []
@@ -135,6 +136,7 @@ function Tour() {
 					routes: tourData.routes,
 					routes: [],
 					characteristics: tourData.characteristics,
+					landmarks: tourData.landmarks,
 					reviews:  reviewsData
 				}));
             } catch (error) {
@@ -371,6 +373,17 @@ function Tour() {
 					/>
 
 					<div className="tour-nutrition-type"><RestaurantIcon sx={{fontSize: '36px', color: 'grey'}}/> <div className="tour-nutrition-type-text" >{tour.hotel.nutritionType}</div></div>
+
+					<div className='tour-landmarks'>
+						{
+							tour.landmarks.length > 0 &&
+							<>
+								<b>Достопримечательности: </b>
+								{tour.landmarks.join(', ')}
+							</>
+						}
+					</div>
+
 					<div className="tour-desription">{tour.mainDescription}</div>
 
 					<div className="tour-characteristics">
