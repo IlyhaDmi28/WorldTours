@@ -1,10 +1,4 @@
-SET NAMES 'utf8mb4';
-SET character_set_client = 'utf8mb4';
-SET character_set_connection = 'utf8mb4';
-SET character_set_results = 'utf8mb4';
-SET character_set_server = 'utf8mb4';
 
-SELECT * FROM countries;
 INSERT INTO Roles (`Name`) VALUES ('Пользователь');
 INSERT INTO Roles (`Name`) VALUES ('Менеджер');
 INSERT INTO Roles (`Name`) VALUES ('Администратор');
@@ -96,8 +90,6 @@ INSERT INTO Climates (NAME) VALUES ('Субтропический');
 INSERT INTO Climates (NAME) VALUES ('Умеренный'); 
 INSERT INTO Climates (NAME) VALUES ('Субарктический'); 
 INSERT INTO Climates (NAME) VALUES ('Горный'); 
-SELECT * from climates;
-
 
 -- Беларусь (Умеренный)
 INSERT INTO Cities (NAME, CountryId, ClimateId, Lat, Lng) VALUES ('Минск', 3, 5, 53.9006, 27.5590);
